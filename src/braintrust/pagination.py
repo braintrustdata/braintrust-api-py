@@ -12,7 +12,7 @@ _T = TypeVar("_T")
 
 @runtime_checkable
 class ListObjectsItem(Protocol):
-    id: Optional[str]
+    id: str
 
 
 class SyncListObjects(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
