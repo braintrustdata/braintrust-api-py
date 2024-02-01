@@ -15,20 +15,20 @@ Methods:
 - <code title="delete /v1/project/{project_id}">client.project.<a href="./src/braintrust/resources/project/project.py">delete</a>(project_id) -> <a href="./src/braintrust/types/project.py">Project</a></code>
 - <code title="put /v1/project">client.project.<a href="./src/braintrust/resources/project/project.py">replace</a>(\*\*<a href="src/braintrust/types/project_replace_params.py">params</a>) -> <a href="./src/braintrust/types/project.py">Project</a></code>
 
-# Logs
+## Logs
 
 Types:
 
 ```python
-from braintrust.types import LogFetchResponse, LogFetchPostResponse, LogInsertResponse
+from braintrust.types.project import LogFetchResponse, LogFetchPostResponse, LogInsertResponse
 ```
 
 Methods:
 
-- <code title="post /v1/project_logs/{project_id}/feedback">client.logs.<a href="./src/braintrust/resources/logs.py">feedback</a>(project_id, \*\*<a href="src/braintrust/types/log_feedback_params.py">params</a>) -> None</code>
-- <code title="get /v1/project_logs/{project_id}/fetch">client.logs.<a href="./src/braintrust/resources/logs.py">fetch</a>(project_id, \*\*<a href="src/braintrust/types/log_fetch_params.py">params</a>) -> <a href="./src/braintrust/types/log_fetch_response.py">LogFetchResponse</a></code>
-- <code title="post /v1/project_logs/{project_id}/fetch">client.logs.<a href="./src/braintrust/resources/logs.py">fetch_post</a>(project_id, \*\*<a href="src/braintrust/types/log_fetch_post_params.py">params</a>) -> <a href="./src/braintrust/types/log_fetch_post_response.py">LogFetchPostResponse</a></code>
-- <code title="post /v1/project_logs/{project_id}/insert">client.logs.<a href="./src/braintrust/resources/logs.py">insert</a>(project_id, \*\*<a href="src/braintrust/types/log_insert_params.py">params</a>) -> <a href="./src/braintrust/types/log_insert_response.py">LogInsertResponse</a></code>
+- <code title="post /v1/project_logs/{project_id}/feedback">client.project.logs.<a href="./src/braintrust/resources/project/logs.py">feedback</a>(project_id, \*\*<a href="src/braintrust/types/project/log_feedback_params.py">params</a>) -> None</code>
+- <code title="get /v1/project_logs/{project_id}/fetch">client.project.logs.<a href="./src/braintrust/resources/project/logs.py">fetch</a>(project_id, \*\*<a href="src/braintrust/types/project/log_fetch_params.py">params</a>) -> <a href="./src/braintrust/types/project/log_fetch_response.py">LogFetchResponse</a></code>
+- <code title="post /v1/project_logs/{project_id}/fetch">client.project.logs.<a href="./src/braintrust/resources/project/logs.py">fetch_post</a>(project_id, \*\*<a href="src/braintrust/types/project/log_fetch_post_params.py">params</a>) -> <a href="./src/braintrust/types/project/log_fetch_post_response.py">LogFetchPostResponse</a></code>
+- <code title="post /v1/project_logs/{project_id}/insert">client.project.logs.<a href="./src/braintrust/resources/project/logs.py">insert</a>(project_id, \*\*<a href="src/braintrust/types/project/log_insert_params.py">params</a>) -> <a href="./src/braintrust/types/project/log_insert_response.py">LogInsertResponse</a></code>
 
 # ExperimentResource
 

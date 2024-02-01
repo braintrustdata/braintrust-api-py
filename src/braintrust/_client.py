@@ -47,7 +47,6 @@ __all__ = [
 
 class Braintrust(SyncAPIClient):
     project: resources.ProjectResource
-    logs: resources.Logs
     experiment: resources.ExperimentResource
     dataset: resources.DatasetResource
     top_level: resources.TopLevel
@@ -107,7 +106,6 @@ class Braintrust(SyncAPIClient):
         )
 
         self.project = resources.ProjectResource(self)
-        self.logs = resources.Logs(self)
         self.experiment = resources.ExperimentResource(self)
         self.dataset = resources.DatasetResource(self)
         self.top_level = resources.TopLevel(self)
@@ -221,7 +219,6 @@ class Braintrust(SyncAPIClient):
 
 class AsyncBraintrust(AsyncAPIClient):
     project: resources.AsyncProjectResource
-    logs: resources.AsyncLogs
     experiment: resources.AsyncExperimentResource
     dataset: resources.AsyncDatasetResource
     top_level: resources.AsyncTopLevel
@@ -281,7 +278,6 @@ class AsyncBraintrust(AsyncAPIClient):
         )
 
         self.project = resources.AsyncProjectResource(self)
-        self.logs = resources.AsyncLogs(self)
         self.experiment = resources.AsyncExperimentResource(self)
         self.dataset = resources.AsyncDatasetResource(self)
         self.top_level = resources.AsyncTopLevel(self)
@@ -396,7 +392,6 @@ class AsyncBraintrust(AsyncAPIClient):
 class BraintrustWithRawResponse:
     def __init__(self, client: Braintrust) -> None:
         self.project = resources.ProjectResourceWithRawResponse(client.project)
-        self.logs = resources.LogsWithRawResponse(client.logs)
         self.experiment = resources.ExperimentResourceWithRawResponse(client.experiment)
         self.dataset = resources.DatasetResourceWithRawResponse(client.dataset)
         self.top_level = resources.TopLevelWithRawResponse(client.top_level)
@@ -405,7 +400,6 @@ class BraintrustWithRawResponse:
 class AsyncBraintrustWithRawResponse:
     def __init__(self, client: AsyncBraintrust) -> None:
         self.project = resources.AsyncProjectResourceWithRawResponse(client.project)
-        self.logs = resources.AsyncLogsWithRawResponse(client.logs)
         self.experiment = resources.AsyncExperimentResourceWithRawResponse(client.experiment)
         self.dataset = resources.AsyncDatasetResourceWithRawResponse(client.dataset)
         self.top_level = resources.AsyncTopLevelWithRawResponse(client.top_level)
@@ -414,7 +408,6 @@ class AsyncBraintrustWithRawResponse:
 class BraintrustWithStreamedResponse:
     def __init__(self, client: Braintrust) -> None:
         self.project = resources.ProjectResourceWithStreamingResponse(client.project)
-        self.logs = resources.LogsWithStreamingResponse(client.logs)
         self.experiment = resources.ExperimentResourceWithStreamingResponse(client.experiment)
         self.dataset = resources.DatasetResourceWithStreamingResponse(client.dataset)
         self.top_level = resources.TopLevelWithStreamingResponse(client.top_level)
@@ -423,7 +416,6 @@ class BraintrustWithStreamedResponse:
 class AsyncBraintrustWithStreamedResponse:
     def __init__(self, client: AsyncBraintrust) -> None:
         self.project = resources.AsyncProjectResourceWithStreamingResponse(client.project)
-        self.logs = resources.AsyncLogsWithStreamingResponse(client.logs)
         self.experiment = resources.AsyncExperimentResourceWithStreamingResponse(client.experiment)
         self.dataset = resources.AsyncDatasetResourceWithStreamingResponse(client.dataset)
         self.top_level = resources.AsyncTopLevelWithStreamingResponse(client.top_level)

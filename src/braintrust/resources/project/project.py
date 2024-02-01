@@ -6,6 +6,14 @@ from typing import Optional
 
 import httpx
 
+from .logs import (
+    Logs,
+    AsyncLogs,
+    LogsWithRawResponse,
+    AsyncLogsWithRawResponse,
+    LogsWithStreamingResponse,
+    AsyncLogsWithStreamingResponse,
+)
 from ...types import (
     Project,
     project_list_params,
@@ -33,6 +41,10 @@ __all__ = ["ProjectResource", "AsyncProjectResource"]
 
 
 class ProjectResource(SyncAPIResource):
+    @cached_property
+    def logs(self) -> Logs:
+        return Logs(self._client)
+
     @cached_property
     def with_raw_response(self) -> ProjectResourceWithRawResponse:
         return ProjectResourceWithRawResponse(self)
@@ -317,6 +329,10 @@ class ProjectResource(SyncAPIResource):
 
 
 class AsyncProjectResource(AsyncAPIResource):
+    @cached_property
+    def logs(self) -> AsyncLogs:
+        return AsyncLogs(self._client)
+
     @cached_property
     def with_raw_response(self) -> AsyncProjectResourceWithRawResponse:
         return AsyncProjectResourceWithRawResponse(self)
@@ -623,6 +639,10 @@ class ProjectResourceWithRawResponse:
             project.replace,
         )
 
+    @cached_property
+    def logs(self) -> LogsWithRawResponse:
+        return LogsWithRawResponse(self._project.logs)
+
 
 class AsyncProjectResourceWithRawResponse:
     def __init__(self, project: AsyncProjectResource) -> None:
@@ -646,6 +666,10 @@ class AsyncProjectResourceWithRawResponse:
         self.replace = async_to_raw_response_wrapper(
             project.replace,
         )
+
+    @cached_property
+    def logs(self) -> AsyncLogsWithRawResponse:
+        return AsyncLogsWithRawResponse(self._project.logs)
 
 
 class ProjectResourceWithStreamingResponse:
@@ -671,6 +695,10 @@ class ProjectResourceWithStreamingResponse:
             project.replace,
         )
 
+    @cached_property
+    def logs(self) -> LogsWithStreamingResponse:
+        return LogsWithStreamingResponse(self._project.logs)
+
 
 class AsyncProjectResourceWithStreamingResponse:
     def __init__(self, project: AsyncProjectResource) -> None:
@@ -694,3 +722,7 @@ class AsyncProjectResourceWithStreamingResponse:
         self.replace = async_to_streamed_response_wrapper(
             project.replace,
         )
+
+    @cached_property
+    def logs(self) -> AsyncLogsWithStreamingResponse:
+        return AsyncLogsWithStreamingResponse(self._project.logs)
