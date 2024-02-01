@@ -11,7 +11,7 @@ jobs:
   lint:
     name: lint
     runs-on: ubuntu-latest
-    if: github.repository == 'braintrust-sdk-kotlin/braintrust-sdk-kotlin-python'
+    if: github.repository == 'braintrustdata/braintrust-python'
 
     steps:
       - uses: actions/checkout@v3
@@ -38,4 +38,4 @@ jobs:
 
       - name: Ensure importable
         run: |
-          rye run python -c 'import braintrust_sdk_kotlin'
+          rye run python -c 'import braintrustdata'

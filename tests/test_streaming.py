@@ -2,7 +2,7 @@ from typing import Iterator, AsyncIterator
 
 import pytest
 
-from braintrust_sdk_kotlin._streaming import SSEDecoder
+from braintrustdata._streaming import SSEDecoder
 
 
 @pytest.mark.asyncio

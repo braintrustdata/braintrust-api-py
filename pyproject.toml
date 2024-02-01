@@ -1,11 +1,11 @@
 [project]
-name = "braintrust-sdk-kotlin"
+name = "braintrust"
 version = "0.0.1"
-description = "The official Python library for the braintrust-sdk-kotlin API"
+description = "The official Python library for the braintrustdata API"
 readme = "README.md"
 license = "Apache-2.0"
 authors = [
-{ name = "Braintrust Sdk Kotlin", email = "dev-feedback@braintrust-sdk-kotlin.com" },
+{ name = "Braintrustdata", email = "dev-feedback@braintrustdata.com" },
 ]
 dependencies = [
     "httpx>=0.23.0, <1",
@@ -39,8 +39,8 @@ classifiers = [
 
 
 [project.urls]
-Homepage = "https://github.com/braintrust-sdk-kotlin/braintrust-sdk-kotlin-python"
-Repository = "https://github.com/braintrust-sdk-kotlin/braintrust-sdk-kotlin-python"
+Homepage = "https://github.com/braintrustdata/braintrust-python"
+Repository = "https://github.com/braintrustdata/braintrust-python"
 
 
 
@@ -80,7 +80,7 @@ typecheck = { chain = [
   "typecheck:mypy"
 ]}
 "typecheck:pyright" = "pyright"
-"typecheck:verify-types" = "pyright --verifytypes braintrust_sdk_kotlin --ignoreexternal"
+"typecheck:verify-types" = "pyright --verifytypes braintrustdata --ignoreexternal"
 "typecheck:mypy" = "mypy ."
 
 [build-system]
@@ -93,7 +93,7 @@ include = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/braintrust_sdk_kotlin"]
+packages = ["src/braintrustdata"]
 
 [tool.black]
 line-length = 120
@@ -166,7 +166,7 @@ length-sort = true
 length-sort-straight = true
 combine-as-imports = true
 extra-standard-library = ["typing_extensions"]
-known-first-party = ["braintrust_sdk_kotlin", "tests"]
+known-first-party = ["braintrustdata", "tests"]
 
 [tool.ruff.per-file-ignores]
 "bin/**.py" = ["T201", "T203"]

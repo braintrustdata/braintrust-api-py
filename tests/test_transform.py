@@ -6,9 +6,9 @@ from typing_extensions import Required, Annotated, TypedDict
 
 import pytest
 
-from braintrust_sdk_kotlin._utils import PropertyInfo, transform, parse_datetime
-from braintrust_sdk_kotlin._compat import PYDANTIC_V2
-from braintrust_sdk_kotlin._models import BaseModel
+from braintrustdata._utils import PropertyInfo, transform, parse_datetime
+from braintrustdata._compat import PYDANTIC_V2
+from braintrustdata._models import BaseModel
 
 
 class Foo1(TypedDict):

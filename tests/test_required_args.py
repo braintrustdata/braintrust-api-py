@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from braintrust_sdk_kotlin._utils import required_args
+from braintrustdata._utils import required_args
 
 
 def test_too_many_positional_params() -> None:

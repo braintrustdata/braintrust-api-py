@@ -10,352 +10,324 @@ import pytest
 from tests.utils import assert_matches_type
 from braintrustdata import Braintrustdata, AsyncBraintrustdata
 from braintrustdata.types import (
-    Experiment,
-    ExperimentListResponse,
-    ExperimentFetchResponse,
-    ExperimentInsertResponse,
-    ExperimentFetchPostResponse,
+    Dataset,
+    DatasetListResponse,
+    DatasetFetchResponse,
+    DatasetInsertResponse,
+    DatasetFetchPostResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 
-class TestExperiment:
+class TestDataset:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
     def test_method_create(self, client: Braintrustdata) -> None:
-        experiment = client.experiment.create(
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        dataset = client.dataset.create(
+            name="string",
         )
-        assert_matches_type(Experiment, experiment, path=["response"])
+        assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     def test_method_create_with_all_params(self, client: Braintrustdata) -> None:
-        experiment = client.experiment.create(
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            base_exp_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            dataset_version="string",
-            description="string",
-            metadata={"foo": {}},
+        dataset = client.dataset.create(
             name="string",
-            public=True,
-            repo_info={
-                "commit": "string",
-                "branch": "string",
-                "tag": "string",
-                "dirty": True,
-                "author_name": "string",
-                "author_email": "string",
-                "commit_message": "string",
-                "commit_time": "string",
-                "git_diff": "string",
-            },
+            description="string",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(Experiment, experiment, path=["response"])
+        assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     def test_raw_response_create(self, client: Braintrustdata) -> None:
-        response = client.experiment.with_raw_response.create(
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        response = client.dataset.with_raw_response.create(
+            name="string",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        experiment = response.parse()
-        assert_matches_type(Experiment, experiment, path=["response"])
+        dataset = response.parse()
+        assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     def test_streaming_response_create(self, client: Braintrustdata) -> None:
-        with client.experiment.with_streaming_response.create(
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        with client.dataset.with_streaming_response.create(
+            name="string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            experiment = response.parse()
-            assert_matches_type(Experiment, experiment, path=["response"])
+            dataset = response.parse()
+            assert_matches_type(Dataset, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_method_retrieve(self, client: Braintrustdata) -> None:
-        experiment = client.experiment.retrieve(
+        dataset = client.dataset.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(Experiment, experiment, path=["response"])
+        assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     def test_raw_response_retrieve(self, client: Braintrustdata) -> None:
-        response = client.experiment.with_raw_response.retrieve(
+        response = client.dataset.with_raw_response.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        experiment = response.parse()
-        assert_matches_type(Experiment, experiment, path=["response"])
+        dataset = response.parse()
+        assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     def test_streaming_response_retrieve(self, client: Braintrustdata) -> None:
-        with client.experiment.with_streaming_response.retrieve(
+        with client.dataset.with_streaming_response.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            experiment = response.parse()
-            assert_matches_type(Experiment, experiment, path=["response"])
+            dataset = response.parse()
+            assert_matches_type(Dataset, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_path_params_retrieve(self, client: Braintrustdata) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
-            client.experiment.with_raw_response.retrieve(
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `dataset_id` but received ''"):
+            client.dataset.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
     def test_method_update(self, client: Braintrustdata) -> None:
-        experiment = client.experiment.update(
+        dataset = client.dataset.update(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            name="string",
         )
-        assert_matches_type(Experiment, experiment, path=["response"])
+        assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     def test_method_update_with_all_params(self, client: Braintrustdata) -> None:
-        experiment = client.experiment.update(
+        dataset = client.dataset.update(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            base_exp_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            dataset_version="string",
-            description="string",
-            metadata={"foo": {}},
             name="string",
-            public=True,
-            repo_info={
-                "commit": "string",
-                "branch": "string",
-                "tag": "string",
-                "dirty": True,
-                "author_name": "string",
-                "author_email": "string",
-                "commit_message": "string",
-                "commit_time": "string",
-                "git_diff": "string",
-            },
+            description="string",
         )
-        assert_matches_type(Experiment, experiment, path=["response"])
+        assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     def test_raw_response_update(self, client: Braintrustdata) -> None:
-        response = client.experiment.with_raw_response.update(
+        response = client.dataset.with_raw_response.update(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            name="string",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        experiment = response.parse()
-        assert_matches_type(Experiment, experiment, path=["response"])
+        dataset = response.parse()
+        assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     def test_streaming_response_update(self, client: Braintrustdata) -> None:
-        with client.experiment.with_streaming_response.update(
+        with client.dataset.with_streaming_response.update(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            name="string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            experiment = response.parse()
-            assert_matches_type(Experiment, experiment, path=["response"])
+            dataset = response.parse()
+            assert_matches_type(Dataset, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_path_params_update(self, client: Braintrustdata) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
-            client.experiment.with_raw_response.update(
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `dataset_id` but received ''"):
+            client.dataset.with_raw_response.update(
                 "",
+                name="string",
             )
 
     @parametrize
     def test_method_list(self, client: Braintrustdata) -> None:
-        experiment = client.experiment.list()
-        assert_matches_type(ExperimentListResponse, experiment, path=["response"])
+        dataset = client.dataset.list()
+        assert_matches_type(DatasetListResponse, dataset, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Braintrustdata) -> None:
-        experiment = client.experiment.list(
+        dataset = client.dataset.list(
+            dataset_name="string",
             ending_before="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            experiment_name="string",
             limit=0,
             org_name="string",
             project_name="string",
             starting_after="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(ExperimentListResponse, experiment, path=["response"])
+        assert_matches_type(DatasetListResponse, dataset, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: Braintrustdata) -> None:
-        response = client.experiment.with_raw_response.list()
+        response = client.dataset.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        experiment = response.parse()
-        assert_matches_type(ExperimentListResponse, experiment, path=["response"])
+        dataset = response.parse()
+        assert_matches_type(DatasetListResponse, dataset, path=["response"])
 
     @parametrize
     def test_streaming_response_list(self, client: Braintrustdata) -> None:
-        with client.experiment.with_streaming_response.list() as response:
+        with client.dataset.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            experiment = response.parse()
-            assert_matches_type(ExperimentListResponse, experiment, path=["response"])
+            dataset = response.parse()
+            assert_matches_type(DatasetListResponse, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_method_delete(self, client: Braintrustdata) -> None:
-        experiment = client.experiment.delete(
+        dataset = client.dataset.delete(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(Experiment, experiment, path=["response"])
+        assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     def test_raw_response_delete(self, client: Braintrustdata) -> None:
-        response = client.experiment.with_raw_response.delete(
+        response = client.dataset.with_raw_response.delete(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        experiment = response.parse()
-        assert_matches_type(Experiment, experiment, path=["response"])
+        dataset = response.parse()
+        assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     def test_streaming_response_delete(self, client: Braintrustdata) -> None:
-        with client.experiment.with_streaming_response.delete(
+        with client.dataset.with_streaming_response.delete(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            experiment = response.parse()
-            assert_matches_type(Experiment, experiment, path=["response"])
+            dataset = response.parse()
+            assert_matches_type(Dataset, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_path_params_delete(self, client: Braintrustdata) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
-            client.experiment.with_raw_response.delete(
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `dataset_id` but received ''"):
+            client.dataset.with_raw_response.delete(
                 "",
             )
 
     @parametrize
     def test_method_feedback(self, client: Braintrustdata) -> None:
-        experiment = client.experiment.feedback(
+        dataset = client.dataset.feedback(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             feedback=[{"id": "string"}, {"id": "string"}, {"id": "string"}],
         )
-        assert experiment is None
+        assert dataset is None
 
     @parametrize
     def test_raw_response_feedback(self, client: Braintrustdata) -> None:
-        response = client.experiment.with_raw_response.feedback(
+        response = client.dataset.with_raw_response.feedback(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             feedback=[{"id": "string"}, {"id": "string"}, {"id": "string"}],
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        experiment = response.parse()
-        assert experiment is None
+        dataset = response.parse()
+        assert dataset is None
 
     @parametrize
     def test_streaming_response_feedback(self, client: Braintrustdata) -> None:
-        with client.experiment.with_streaming_response.feedback(
+        with client.dataset.with_streaming_response.feedback(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             feedback=[{"id": "string"}, {"id": "string"}, {"id": "string"}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            experiment = response.parse()
-            assert experiment is None
+            dataset = response.parse()
+            assert dataset is None
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_path_params_feedback(self, client: Braintrustdata) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
-            client.experiment.with_raw_response.feedback(
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `dataset_id` but received ''"):
+            client.dataset.with_raw_response.feedback(
                 "",
                 feedback=[{"id": "string"}, {"id": "string"}, {"id": "string"}],
             )
 
     @parametrize
     def test_method_fetch(self, client: Braintrustdata) -> None:
-        experiment = client.experiment.fetch(
+        dataset = client.dataset.fetch(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(ExperimentFetchResponse, experiment, path=["response"])
+        assert_matches_type(DatasetFetchResponse, dataset, path=["response"])
 
     @parametrize
     def test_method_fetch_with_all_params(self, client: Braintrustdata) -> None:
-        experiment = client.experiment.fetch(
+        dataset = client.dataset.fetch(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             max_root_span_id="string",
             max_xact_id=0,
             version=0,
         )
-        assert_matches_type(ExperimentFetchResponse, experiment, path=["response"])
+        assert_matches_type(DatasetFetchResponse, dataset, path=["response"])
 
     @parametrize
     def test_raw_response_fetch(self, client: Braintrustdata) -> None:
-        response = client.experiment.with_raw_response.fetch(
+        response = client.dataset.with_raw_response.fetch(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        experiment = response.parse()
-        assert_matches_type(ExperimentFetchResponse, experiment, path=["response"])
+        dataset = response.parse()
+        assert_matches_type(DatasetFetchResponse, dataset, path=["response"])
 
     @parametrize
     def test_streaming_response_fetch(self, client: Braintrustdata) -> None:
-        with client.experiment.with_streaming_response.fetch(
+        with client.dataset.with_streaming_response.fetch(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            experiment = response.parse()
-            assert_matches_type(ExperimentFetchResponse, experiment, path=["response"])
+            dataset = response.parse()
+            assert_matches_type(DatasetFetchResponse, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_path_params_fetch(self, client: Braintrustdata) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
-            client.experiment.with_raw_response.fetch(
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `dataset_id` but received ''"):
+            client.dataset.with_raw_response.fetch(
                 "",
             )
 
     @parametrize
     def test_method_fetch_post(self, client: Braintrustdata) -> None:
-        experiment = client.experiment.fetch_post(
+        dataset = client.dataset.fetch_post(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(ExperimentFetchPostResponse, experiment, path=["response"])
+        assert_matches_type(DatasetFetchPostResponse, dataset, path=["response"])
 
     @parametrize
     def test_method_fetch_post_with_all_params(self, client: Braintrustdata) -> None:
-        experiment = client.experiment.fetch_post(
+        dataset = client.dataset.fetch_post(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             filters=[
                 {
@@ -379,474 +351,430 @@ class TestExperiment:
             max_xact_id=0,
             version=0,
         )
-        assert_matches_type(ExperimentFetchPostResponse, experiment, path=["response"])
+        assert_matches_type(DatasetFetchPostResponse, dataset, path=["response"])
 
     @parametrize
     def test_raw_response_fetch_post(self, client: Braintrustdata) -> None:
-        response = client.experiment.with_raw_response.fetch_post(
+        response = client.dataset.with_raw_response.fetch_post(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        experiment = response.parse()
-        assert_matches_type(ExperimentFetchPostResponse, experiment, path=["response"])
+        dataset = response.parse()
+        assert_matches_type(DatasetFetchPostResponse, dataset, path=["response"])
 
     @parametrize
     def test_streaming_response_fetch_post(self, client: Braintrustdata) -> None:
-        with client.experiment.with_streaming_response.fetch_post(
+        with client.dataset.with_streaming_response.fetch_post(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            experiment = response.parse()
-            assert_matches_type(ExperimentFetchPostResponse, experiment, path=["response"])
+            dataset = response.parse()
+            assert_matches_type(DatasetFetchPostResponse, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_path_params_fetch_post(self, client: Braintrustdata) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
-            client.experiment.with_raw_response.fetch_post(
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `dataset_id` but received ''"):
+            client.dataset.with_raw_response.fetch_post(
                 "",
             )
 
     @parametrize
     def test_method_insert(self, client: Braintrustdata) -> None:
-        experiment = client.experiment.insert(
+        dataset = client.dataset.insert(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             events=[{}, {}, {}],
         )
-        assert_matches_type(ExperimentInsertResponse, experiment, path=["response"])
+        assert_matches_type(DatasetInsertResponse, dataset, path=["response"])
 
     @parametrize
     def test_raw_response_insert(self, client: Braintrustdata) -> None:
-        response = client.experiment.with_raw_response.insert(
+        response = client.dataset.with_raw_response.insert(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             events=[{}, {}, {}],
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        experiment = response.parse()
-        assert_matches_type(ExperimentInsertResponse, experiment, path=["response"])
+        dataset = response.parse()
+        assert_matches_type(DatasetInsertResponse, dataset, path=["response"])
 
     @parametrize
     def test_streaming_response_insert(self, client: Braintrustdata) -> None:
-        with client.experiment.with_streaming_response.insert(
+        with client.dataset.with_streaming_response.insert(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             events=[{}, {}, {}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            experiment = response.parse()
-            assert_matches_type(ExperimentInsertResponse, experiment, path=["response"])
+            dataset = response.parse()
+            assert_matches_type(DatasetInsertResponse, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     def test_path_params_insert(self, client: Braintrustdata) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
-            client.experiment.with_raw_response.insert(
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `dataset_id` but received ''"):
+            client.dataset.with_raw_response.insert(
                 "",
                 events=[{}, {}, {}],
             )
 
     @parametrize
     def test_method_replace(self, client: Braintrustdata) -> None:
-        experiment = client.experiment.replace(
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        dataset = client.dataset.replace(
+            name="string",
         )
-        assert_matches_type(Experiment, experiment, path=["response"])
+        assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     def test_method_replace_with_all_params(self, client: Braintrustdata) -> None:
-        experiment = client.experiment.replace(
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            base_exp_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            dataset_version="string",
-            description="string",
-            metadata={"foo": {}},
+        dataset = client.dataset.replace(
             name="string",
-            public=True,
-            repo_info={
-                "commit": "string",
-                "branch": "string",
-                "tag": "string",
-                "dirty": True,
-                "author_name": "string",
-                "author_email": "string",
-                "commit_message": "string",
-                "commit_time": "string",
-                "git_diff": "string",
-            },
+            description="string",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(Experiment, experiment, path=["response"])
+        assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     def test_raw_response_replace(self, client: Braintrustdata) -> None:
-        response = client.experiment.with_raw_response.replace(
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        response = client.dataset.with_raw_response.replace(
+            name="string",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        experiment = response.parse()
-        assert_matches_type(Experiment, experiment, path=["response"])
+        dataset = response.parse()
+        assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     def test_streaming_response_replace(self, client: Braintrustdata) -> None:
-        with client.experiment.with_streaming_response.replace(
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        with client.dataset.with_streaming_response.replace(
+            name="string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            experiment = response.parse()
-            assert_matches_type(Experiment, experiment, path=["response"])
+            dataset = response.parse()
+            assert_matches_type(Dataset, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
 
-class TestAsyncExperiment:
+class TestAsyncDataset:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @parametrize
     async def test_method_create(self, async_client: AsyncBraintrustdata) -> None:
-        experiment = await async_client.experiment.create(
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        dataset = await async_client.dataset.create(
+            name="string",
         )
-        assert_matches_type(Experiment, experiment, path=["response"])
+        assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncBraintrustdata) -> None:
-        experiment = await async_client.experiment.create(
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            base_exp_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            dataset_version="string",
-            description="string",
-            metadata={"foo": {}},
+        dataset = await async_client.dataset.create(
             name="string",
-            public=True,
-            repo_info={
-                "commit": "string",
-                "branch": "string",
-                "tag": "string",
-                "dirty": True,
-                "author_name": "string",
-                "author_email": "string",
-                "commit_message": "string",
-                "commit_time": "string",
-                "git_diff": "string",
-            },
+            description="string",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(Experiment, experiment, path=["response"])
+        assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncBraintrustdata) -> None:
-        response = await async_client.experiment.with_raw_response.create(
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        response = await async_client.dataset.with_raw_response.create(
+            name="string",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        experiment = await response.parse()
-        assert_matches_type(Experiment, experiment, path=["response"])
+        dataset = await response.parse()
+        assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncBraintrustdata) -> None:
-        async with async_client.experiment.with_streaming_response.create(
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        async with async_client.dataset.with_streaming_response.create(
+            name="string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            experiment = await response.parse()
-            assert_matches_type(Experiment, experiment, path=["response"])
+            dataset = await response.parse()
+            assert_matches_type(Dataset, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncBraintrustdata) -> None:
-        experiment = await async_client.experiment.retrieve(
+        dataset = await async_client.dataset.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(Experiment, experiment, path=["response"])
+        assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncBraintrustdata) -> None:
-        response = await async_client.experiment.with_raw_response.retrieve(
+        response = await async_client.dataset.with_raw_response.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        experiment = await response.parse()
-        assert_matches_type(Experiment, experiment, path=["response"])
+        dataset = await response.parse()
+        assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncBraintrustdata) -> None:
-        async with async_client.experiment.with_streaming_response.retrieve(
+        async with async_client.dataset.with_streaming_response.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            experiment = await response.parse()
-            assert_matches_type(Experiment, experiment, path=["response"])
+            dataset = await response.parse()
+            assert_matches_type(Dataset, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncBraintrustdata) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
-            await async_client.experiment.with_raw_response.retrieve(
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `dataset_id` but received ''"):
+            await async_client.dataset.with_raw_response.retrieve(
                 "",
             )
 
     @parametrize
     async def test_method_update(self, async_client: AsyncBraintrustdata) -> None:
-        experiment = await async_client.experiment.update(
+        dataset = await async_client.dataset.update(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            name="string",
         )
-        assert_matches_type(Experiment, experiment, path=["response"])
+        assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncBraintrustdata) -> None:
-        experiment = await async_client.experiment.update(
+        dataset = await async_client.dataset.update(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            base_exp_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            dataset_version="string",
-            description="string",
-            metadata={"foo": {}},
             name="string",
-            public=True,
-            repo_info={
-                "commit": "string",
-                "branch": "string",
-                "tag": "string",
-                "dirty": True,
-                "author_name": "string",
-                "author_email": "string",
-                "commit_message": "string",
-                "commit_time": "string",
-                "git_diff": "string",
-            },
+            description="string",
         )
-        assert_matches_type(Experiment, experiment, path=["response"])
+        assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncBraintrustdata) -> None:
-        response = await async_client.experiment.with_raw_response.update(
+        response = await async_client.dataset.with_raw_response.update(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            name="string",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        experiment = await response.parse()
-        assert_matches_type(Experiment, experiment, path=["response"])
+        dataset = await response.parse()
+        assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncBraintrustdata) -> None:
-        async with async_client.experiment.with_streaming_response.update(
+        async with async_client.dataset.with_streaming_response.update(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            name="string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            experiment = await response.parse()
-            assert_matches_type(Experiment, experiment, path=["response"])
+            dataset = await response.parse()
+            assert_matches_type(Dataset, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_path_params_update(self, async_client: AsyncBraintrustdata) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
-            await async_client.experiment.with_raw_response.update(
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `dataset_id` but received ''"):
+            await async_client.dataset.with_raw_response.update(
                 "",
+                name="string",
             )
 
     @parametrize
     async def test_method_list(self, async_client: AsyncBraintrustdata) -> None:
-        experiment = await async_client.experiment.list()
-        assert_matches_type(ExperimentListResponse, experiment, path=["response"])
+        dataset = await async_client.dataset.list()
+        assert_matches_type(DatasetListResponse, dataset, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncBraintrustdata) -> None:
-        experiment = await async_client.experiment.list(
+        dataset = await async_client.dataset.list(
+            dataset_name="string",
             ending_before="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            experiment_name="string",
             limit=0,
             org_name="string",
             project_name="string",
             starting_after="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(ExperimentListResponse, experiment, path=["response"])
+        assert_matches_type(DatasetListResponse, dataset, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncBraintrustdata) -> None:
-        response = await async_client.experiment.with_raw_response.list()
+        response = await async_client.dataset.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        experiment = await response.parse()
-        assert_matches_type(ExperimentListResponse, experiment, path=["response"])
+        dataset = await response.parse()
+        assert_matches_type(DatasetListResponse, dataset, path=["response"])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncBraintrustdata) -> None:
-        async with async_client.experiment.with_streaming_response.list() as response:
+        async with async_client.dataset.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            experiment = await response.parse()
-            assert_matches_type(ExperimentListResponse, experiment, path=["response"])
+            dataset = await response.parse()
+            assert_matches_type(DatasetListResponse, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_method_delete(self, async_client: AsyncBraintrustdata) -> None:
-        experiment = await async_client.experiment.delete(
+        dataset = await async_client.dataset.delete(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(Experiment, experiment, path=["response"])
+        assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncBraintrustdata) -> None:
-        response = await async_client.experiment.with_raw_response.delete(
+        response = await async_client.dataset.with_raw_response.delete(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        experiment = await response.parse()
-        assert_matches_type(Experiment, experiment, path=["response"])
+        dataset = await response.parse()
+        assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncBraintrustdata) -> None:
-        async with async_client.experiment.with_streaming_response.delete(
+        async with async_client.dataset.with_streaming_response.delete(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            experiment = await response.parse()
-            assert_matches_type(Experiment, experiment, path=["response"])
+            dataset = await response.parse()
+            assert_matches_type(Dataset, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncBraintrustdata) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
-            await async_client.experiment.with_raw_response.delete(
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `dataset_id` but received ''"):
+            await async_client.dataset.with_raw_response.delete(
                 "",
             )
 
     @parametrize
     async def test_method_feedback(self, async_client: AsyncBraintrustdata) -> None:
-        experiment = await async_client.experiment.feedback(
+        dataset = await async_client.dataset.feedback(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             feedback=[{"id": "string"}, {"id": "string"}, {"id": "string"}],
         )
-        assert experiment is None
+        assert dataset is None
 
     @parametrize
     async def test_raw_response_feedback(self, async_client: AsyncBraintrustdata) -> None:
-        response = await async_client.experiment.with_raw_response.feedback(
+        response = await async_client.dataset.with_raw_response.feedback(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             feedback=[{"id": "string"}, {"id": "string"}, {"id": "string"}],
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        experiment = await response.parse()
-        assert experiment is None
+        dataset = await response.parse()
+        assert dataset is None
 
     @parametrize
     async def test_streaming_response_feedback(self, async_client: AsyncBraintrustdata) -> None:
-        async with async_client.experiment.with_streaming_response.feedback(
+        async with async_client.dataset.with_streaming_response.feedback(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             feedback=[{"id": "string"}, {"id": "string"}, {"id": "string"}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            experiment = await response.parse()
-            assert experiment is None
+            dataset = await response.parse()
+            assert dataset is None
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_path_params_feedback(self, async_client: AsyncBraintrustdata) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
-            await async_client.experiment.with_raw_response.feedback(
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `dataset_id` but received ''"):
+            await async_client.dataset.with_raw_response.feedback(
                 "",
                 feedback=[{"id": "string"}, {"id": "string"}, {"id": "string"}],
             )
 
     @parametrize
     async def test_method_fetch(self, async_client: AsyncBraintrustdata) -> None:
-        experiment = await async_client.experiment.fetch(
+        dataset = await async_client.dataset.fetch(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(ExperimentFetchResponse, experiment, path=["response"])
+        assert_matches_type(DatasetFetchResponse, dataset, path=["response"])
 
     @parametrize
     async def test_method_fetch_with_all_params(self, async_client: AsyncBraintrustdata) -> None:
-        experiment = await async_client.experiment.fetch(
+        dataset = await async_client.dataset.fetch(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             max_root_span_id="string",
             max_xact_id=0,
             version=0,
         )
-        assert_matches_type(ExperimentFetchResponse, experiment, path=["response"])
+        assert_matches_type(DatasetFetchResponse, dataset, path=["response"])
 
     @parametrize
     async def test_raw_response_fetch(self, async_client: AsyncBraintrustdata) -> None:
-        response = await async_client.experiment.with_raw_response.fetch(
+        response = await async_client.dataset.with_raw_response.fetch(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        experiment = await response.parse()
-        assert_matches_type(ExperimentFetchResponse, experiment, path=["response"])
+        dataset = await response.parse()
+        assert_matches_type(DatasetFetchResponse, dataset, path=["response"])
 
     @parametrize
     async def test_streaming_response_fetch(self, async_client: AsyncBraintrustdata) -> None:
-        async with async_client.experiment.with_streaming_response.fetch(
+        async with async_client.dataset.with_streaming_response.fetch(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            experiment = await response.parse()
-            assert_matches_type(ExperimentFetchResponse, experiment, path=["response"])
+            dataset = await response.parse()
+            assert_matches_type(DatasetFetchResponse, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_path_params_fetch(self, async_client: AsyncBraintrustdata) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
-            await async_client.experiment.with_raw_response.fetch(
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `dataset_id` but received ''"):
+            await async_client.dataset.with_raw_response.fetch(
                 "",
             )
 
     @parametrize
     async def test_method_fetch_post(self, async_client: AsyncBraintrustdata) -> None:
-        experiment = await async_client.experiment.fetch_post(
+        dataset = await async_client.dataset.fetch_post(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(ExperimentFetchPostResponse, experiment, path=["response"])
+        assert_matches_type(DatasetFetchPostResponse, dataset, path=["response"])
 
     @parametrize
     async def test_method_fetch_post_with_all_params(self, async_client: AsyncBraintrustdata) -> None:
-        experiment = await async_client.experiment.fetch_post(
+        dataset = await async_client.dataset.fetch_post(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             filters=[
                 {
@@ -870,133 +798,117 @@ class TestAsyncExperiment:
             max_xact_id=0,
             version=0,
         )
-        assert_matches_type(ExperimentFetchPostResponse, experiment, path=["response"])
+        assert_matches_type(DatasetFetchPostResponse, dataset, path=["response"])
 
     @parametrize
     async def test_raw_response_fetch_post(self, async_client: AsyncBraintrustdata) -> None:
-        response = await async_client.experiment.with_raw_response.fetch_post(
+        response = await async_client.dataset.with_raw_response.fetch_post(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        experiment = await response.parse()
-        assert_matches_type(ExperimentFetchPostResponse, experiment, path=["response"])
+        dataset = await response.parse()
+        assert_matches_type(DatasetFetchPostResponse, dataset, path=["response"])
 
     @parametrize
     async def test_streaming_response_fetch_post(self, async_client: AsyncBraintrustdata) -> None:
-        async with async_client.experiment.with_streaming_response.fetch_post(
+        async with async_client.dataset.with_streaming_response.fetch_post(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            experiment = await response.parse()
-            assert_matches_type(ExperimentFetchPostResponse, experiment, path=["response"])
+            dataset = await response.parse()
+            assert_matches_type(DatasetFetchPostResponse, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_path_params_fetch_post(self, async_client: AsyncBraintrustdata) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
-            await async_client.experiment.with_raw_response.fetch_post(
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `dataset_id` but received ''"):
+            await async_client.dataset.with_raw_response.fetch_post(
                 "",
             )
 
     @parametrize
     async def test_method_insert(self, async_client: AsyncBraintrustdata) -> None:
-        experiment = await async_client.experiment.insert(
+        dataset = await async_client.dataset.insert(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             events=[{}, {}, {}],
         )
-        assert_matches_type(ExperimentInsertResponse, experiment, path=["response"])
+        assert_matches_type(DatasetInsertResponse, dataset, path=["response"])
 
     @parametrize
     async def test_raw_response_insert(self, async_client: AsyncBraintrustdata) -> None:
-        response = await async_client.experiment.with_raw_response.insert(
+        response = await async_client.dataset.with_raw_response.insert(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             events=[{}, {}, {}],
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        experiment = await response.parse()
-        assert_matches_type(ExperimentInsertResponse, experiment, path=["response"])
+        dataset = await response.parse()
+        assert_matches_type(DatasetInsertResponse, dataset, path=["response"])
 
     @parametrize
     async def test_streaming_response_insert(self, async_client: AsyncBraintrustdata) -> None:
-        async with async_client.experiment.with_streaming_response.insert(
+        async with async_client.dataset.with_streaming_response.insert(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             events=[{}, {}, {}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            experiment = await response.parse()
-            assert_matches_type(ExperimentInsertResponse, experiment, path=["response"])
+            dataset = await response.parse()
+            assert_matches_type(DatasetInsertResponse, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_path_params_insert(self, async_client: AsyncBraintrustdata) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
-            await async_client.experiment.with_raw_response.insert(
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `dataset_id` but received ''"):
+            await async_client.dataset.with_raw_response.insert(
                 "",
                 events=[{}, {}, {}],
             )
 
     @parametrize
     async def test_method_replace(self, async_client: AsyncBraintrustdata) -> None:
-        experiment = await async_client.experiment.replace(
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        dataset = await async_client.dataset.replace(
+            name="string",
         )
-        assert_matches_type(Experiment, experiment, path=["response"])
+        assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     async def test_method_replace_with_all_params(self, async_client: AsyncBraintrustdata) -> None:
-        experiment = await async_client.experiment.replace(
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            base_exp_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            dataset_version="string",
-            description="string",
-            metadata={"foo": {}},
+        dataset = await async_client.dataset.replace(
             name="string",
-            public=True,
-            repo_info={
-                "commit": "string",
-                "branch": "string",
-                "tag": "string",
-                "dirty": True,
-                "author_name": "string",
-                "author_email": "string",
-                "commit_message": "string",
-                "commit_time": "string",
-                "git_diff": "string",
-            },
+            description="string",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(Experiment, experiment, path=["response"])
+        assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     async def test_raw_response_replace(self, async_client: AsyncBraintrustdata) -> None:
-        response = await async_client.experiment.with_raw_response.replace(
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        response = await async_client.dataset.with_raw_response.replace(
+            name="string",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        experiment = await response.parse()
-        assert_matches_type(Experiment, experiment, path=["response"])
+        dataset = await response.parse()
+        assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     async def test_streaming_response_replace(self, async_client: AsyncBraintrustdata) -> None:
-        async with async_client.experiment.with_streaming_response.replace(
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        async with async_client.dataset.with_streaming_response.replace(
+            name="string",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            experiment = await response.parse()
-            assert_matches_type(Experiment, experiment, path=["response"])
+            dataset = await response.parse()
+            assert_matches_type(Dataset, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True

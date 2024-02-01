@@ -2,7 +2,7 @@ import operator
 from typing import Any
 from typing_extensions import override
 
-from braintrust_sdk_kotlin._utils import LazyProxy
+from braintrustdata._utils import LazyProxy
 
 
 class RecursiveLazyProxy(LazyProxy[Any]):

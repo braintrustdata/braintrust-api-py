@@ -4,7 +4,7 @@ from urllib.parse import unquote
 
 import pytest
 
-from braintrust_sdk_kotlin._qs import Querystring, stringify
+from braintrustdata._qs import Querystring, stringify
 
 
 def test_empty() -> None:

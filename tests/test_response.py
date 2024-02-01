@@ -5,8 +5,8 @@ import httpx
 import pytest
 import pydantic
 
-from braintrust_sdk_kotlin import BaseModel, BraintrustSdkKotlin, AsyncBraintrustSdkKotlin
-from braintrust_sdk_kotlin._response import (
+from braintrustdata import BaseModel, Braintrustdata, AsyncBraintrustdata
+from braintrustdata._response import (
     APIResponse,
     BaseAPIResponse,
     AsyncAPIResponse,
@@ -14,8 +14,8 @@ from braintrust_sdk_kotlin._response import (
     AsyncBinaryAPIResponse,
     extract_response_type,
 )
-from braintrust_sdk_kotlin._streaming import Stream
-from braintrust_sdk_kotlin._base_client import FinalRequestOptions
+from braintrustdata._streaming import Stream
+from braintrustdata._base_client import FinalRequestOptions
 
 
 class ConcreteBaseAPIResponse(APIResponse[bytes]):
@@ -39,7 +39,7 @@ def test_extract_response_type_direct_classes() -> None:
 def test_extract_response_type_direct_class_missing_type_arg() -> None:
     with pytest.raises(
         RuntimeError,
-        match="Expected type <class 'braintrust_sdk_kotlin._response.AsyncAPIResponse'> to have a type argument at index 0 but it did not",
+        match="Expected type <class 'braintrustdata._response.AsyncAPIResponse'> to have a type argument at index 0 but it did not",
     ):
         extract_response_type(AsyncAPIResponse)
 
@@ -59,7 +59,7 @@ class PydanticModel(pydantic.BaseModel):
     ...
 
 
-def test_response_parse_mismatched_basemodel(client: BraintrustSdkKotlin) -> None:
+def test_response_parse_mismatched_basemodel(client: Braintrustdata) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=client,
@@ -71,13 +71,13 @@ def test_response_parse_mismatched_basemodel(client: BraintrustSdkKotlin) -> Non
 
     with pytest.raises(
         TypeError,
-        match="Pydantic models must subclass our base model type, e.g. `from braintrust_sdk_kotlin import BaseModel`",
+        match="Pydantic models must subclass our base model type, e.g. `from braintrustdata import BaseModel`",
     ):
         response.parse(to=PydanticModel)
 
 
 @pytest.mark.asyncio
-async def test_async_response_parse_mismatched_basemodel(async_client: AsyncBraintrustSdkKotlin) -> None:
+async def test_async_response_parse_mismatched_basemodel(async_client: AsyncBraintrustdata) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=async_client,
@@ -89,12 +89,12 @@ async def test_async_response_parse_mismatched_basemodel(async_client: AsyncBrai
 
     with pytest.raises(
         TypeError,
-        match="Pydantic models must subclass our base model type, e.g. `from braintrust_sdk_kotlin import BaseModel`",
+        match="Pydantic models must subclass our base model type, e.g. `from braintrustdata import BaseModel`",
     ):
         await response.parse(to=PydanticModel)
 
 
-def test_response_parse_custom_stream(client: BraintrustSdkKotlin) -> None:
+def test_response_parse_custom_stream(client: Braintrustdata) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=client,
@@ -109,7 +109,7 @@ def test_response_parse_custom_stream(client: BraintrustSdkKotlin) -> None:
 
 
 @pytest.mark.asyncio
-async def test_async_response_parse_custom_stream(async_client: AsyncBraintrustSdkKotlin) -> None:
+async def test_async_response_parse_custom_stream(async_client: AsyncBraintrustdata) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=async_client,
@@ -128,7 +128,7 @@ class CustomModel(BaseModel):
     bar: int
 
 
-def test_response_parse_custom_model(client: BraintrustSdkKotlin) -> None:
+def test_response_parse_custom_model(client: Braintrustdata) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=client,
@@ -144,7 +144,7 @@ def test_response_parse_custom_model(client: BraintrustSdkKotlin) -> None:
 
 
 @pytest.mark.asyncio
-async def test_async_response_parse_custom_model(async_client: AsyncBraintrustSdkKotlin) -> None:
+async def test_async_response_parse_custom_model(async_client: AsyncBraintrustdata) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=async_client,

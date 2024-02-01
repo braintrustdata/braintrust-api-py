@@ -7,8 +7,8 @@ import pytest
 import pydantic
 from pydantic import Field
 
-from braintrust_sdk_kotlin._compat import PYDANTIC_V2, parse_obj, model_dump, model_json
-from braintrust_sdk_kotlin._models import BaseModel
+from braintrustdata._compat import PYDANTIC_V2, parse_obj, model_dump, model_json
+from braintrustdata._models import BaseModel
 
 
 class BasicModel(BaseModel):

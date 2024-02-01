@@ -8,15 +8,15 @@ from typing import Any, TypeVar, Iterator, cast
 from datetime import date, datetime
 from typing_extensions import Literal, get_args, get_origin, assert_type
 
-from braintrust_sdk_kotlin._types import NoneType
-from braintrust_sdk_kotlin._utils import (
+from braintrustdata._types import NoneType
+from braintrustdata._utils import (
     is_dict,
     is_list,
     is_list_type,
     is_union_type,
 )
-from braintrust_sdk_kotlin._compat import PYDANTIC_V2, field_outer_type, get_model_fields
-from braintrust_sdk_kotlin._models import BaseModel
+from braintrustdata._compat import PYDANTIC_V2, field_outer_type, get_model_fields
+from braintrustdata._models import BaseModel
 
 BaseModelT = TypeVar("BaseModelT", bound=BaseModel)
 

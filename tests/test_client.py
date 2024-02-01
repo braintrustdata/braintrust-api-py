@@ -16,12 +16,12 @@ import pytest
 from respx import MockRouter
 from pydantic import ValidationError
 
-from braintrust_sdk_kotlin import BraintrustSdkKotlin, AsyncBraintrustSdkKotlin, APIResponseValidationError
-from braintrust_sdk_kotlin._client import BraintrustSdkKotlin, AsyncBraintrustSdkKotlin
-from braintrust_sdk_kotlin._models import BaseModel, FinalRequestOptions
-from braintrust_sdk_kotlin._constants import RAW_RESPONSE_HEADER
-from braintrust_sdk_kotlin._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
-from braintrust_sdk_kotlin._base_client import (
+from braintrustdata import Braintrustdata, AsyncBraintrustdata, APIResponseValidationError
+from braintrustdata._client import Braintrustdata, AsyncBraintrustdata
+from braintrustdata._models import BaseModel, FinalRequestOptions
+from braintrustdata._constants import RAW_RESPONSE_HEADER
+from braintrustdata._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
+from braintrustdata._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
     BaseClient,
@@ -44,7 +44,7 @@ def _low_retry_timeout(*_args: Any, **_kwargs: Any) -> float:
     return 0.1
 
 
-def _get_open_connections(client: BraintrustSdkKotlin | AsyncBraintrustSdkKotlin) -> int:
+def _get_open_connections(client: Braintrustdata | AsyncBraintrustdata) -> int:
     transport = client._client._transport
     assert isinstance(transport, httpx.HTTPTransport) or isinstance(transport, httpx.AsyncHTTPTransport)
 
@@ -52,8 +52,8 @@ def _get_open_connections(client: BraintrustSdkKotlin | AsyncBraintrustSdkKotlin
     return len(pool._requests)
 
 
-class TestBraintrustSdkKotlin:
-    client = BraintrustSdkKotlin(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+class TestBraintrustdata:
+    client = Braintrustdata(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
     @pytest.mark.respx(base_url=base_url)
     def test_raw_response(self, respx_mock: MockRouter) -> None:
@@ -100,7 +100,7 @@ class TestBraintrustSdkKotlin:
         assert isinstance(self.client.timeout, httpx.Timeout)
 
     def test_copy_default_headers(self) -> None:
-        client = BraintrustSdkKotlin(
+        client = Braintrustdata(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         assert client.default_headers["X-Foo"] == "bar"
@@ -134,7 +134,7 @@ class TestBraintrustSdkKotlin:
             client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
 
     def test_copy_default_query(self) -> None:
-        client = BraintrustSdkKotlin(
+        client = Braintrustdata(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
@@ -225,10 +225,10 @@ class TestBraintrustSdkKotlin:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "braintrust_sdk_kotlin/_legacy_response.py",
-                        "braintrust_sdk_kotlin/_response.py",
+                        "braintrustdata/_legacy_response.py",
+                        "braintrustdata/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "braintrust_sdk_kotlin/_compat.py",
+                        "braintrustdata/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -259,7 +259,7 @@ class TestBraintrustSdkKotlin:
         assert timeout == httpx.Timeout(100.0)
 
     def test_client_timeout_option(self) -> None:
-        client = BraintrustSdkKotlin(
+        client = Braintrustdata(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0)
         )
 
@@ -270,7 +270,7 @@ class TestBraintrustSdkKotlin:
     def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         with httpx.Client(timeout=None) as http_client:
-            client = BraintrustSdkKotlin(
+            client = Braintrustdata(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -280,7 +280,7 @@ class TestBraintrustSdkKotlin:
 
         # no timeout given to the httpx client should not use the httpx default
         with httpx.Client() as http_client:
-            client = BraintrustSdkKotlin(
+            client = Braintrustdata(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -290,7 +290,7 @@ class TestBraintrustSdkKotlin:
 
         # explicitly passing the default timeout currently results in it being ignored
         with httpx.Client(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = BraintrustSdkKotlin(
+            client = Braintrustdata(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -299,14 +299,14 @@ class TestBraintrustSdkKotlin:
             assert timeout == DEFAULT_TIMEOUT  # our default
 
     def test_default_headers_option(self) -> None:
-        client = BraintrustSdkKotlin(
+        client = Braintrustdata(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
         assert request.headers.get("x-stainless-lang") == "python"
 
-        client2 = BraintrustSdkKotlin(
+        client2 = Braintrustdata(
             base_url=base_url,
             api_key=api_key,
             _strict_response_validation=True,
@@ -320,7 +320,7 @@ class TestBraintrustSdkKotlin:
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
 
     def test_default_query_option(self) -> None:
-        client = BraintrustSdkKotlin(
+        client = Braintrustdata(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -434,7 +434,7 @@ class TestBraintrustSdkKotlin:
         params = dict(request.url.params)
         assert params == {"foo": "2"}
 
-    def test_multipart_repeating_array(self, client: BraintrustSdkKotlin) -> None:
+    def test_multipart_repeating_array(self, client: Braintrustdata) -> None:
         request = client._build_request(
             FinalRequestOptions.construct(
                 method="get",
@@ -521,7 +521,7 @@ class TestBraintrustSdkKotlin:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = BraintrustSdkKotlin(
+        client = Braintrustdata(
             base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True
         )
         assert client.base_url == "https://example.com/from_init/"
@@ -531,17 +531,17 @@ class TestBraintrustSdkKotlin:
         assert client.base_url == "https://example.com/from_setter/"
 
     def test_base_url_env(self) -> None:
-        with update_env(BRAINTRUST_SDK_KOTLIN_BASE_URL="http://localhost:5000/from/env"):
-            client = BraintrustSdkKotlin(api_key=api_key, _strict_response_validation=True)
+        with update_env(BRAINTRUSTDATA_BASE_URL="http://localhost:5000/from/env"):
+            client = Braintrustdata(api_key=api_key, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
     @pytest.mark.parametrize(
         "client",
         [
-            BraintrustSdkKotlin(
+            Braintrustdata(
                 base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
             ),
-            BraintrustSdkKotlin(
+            Braintrustdata(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -550,7 +550,7 @@ class TestBraintrustSdkKotlin:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_trailing_slash(self, client: BraintrustSdkKotlin) -> None:
+    def test_base_url_trailing_slash(self, client: Braintrustdata) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -563,10 +563,10 @@ class TestBraintrustSdkKotlin:
     @pytest.mark.parametrize(
         "client",
         [
-            BraintrustSdkKotlin(
+            Braintrustdata(
                 base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
             ),
-            BraintrustSdkKotlin(
+            Braintrustdata(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -575,7 +575,7 @@ class TestBraintrustSdkKotlin:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_no_trailing_slash(self, client: BraintrustSdkKotlin) -> None:
+    def test_base_url_no_trailing_slash(self, client: Braintrustdata) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -588,10 +588,10 @@ class TestBraintrustSdkKotlin:
     @pytest.mark.parametrize(
         "client",
         [
-            BraintrustSdkKotlin(
+            Braintrustdata(
                 base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
             ),
-            BraintrustSdkKotlin(
+            Braintrustdata(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -600,7 +600,7 @@ class TestBraintrustSdkKotlin:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_absolute_request_url(self, client: BraintrustSdkKotlin) -> None:
+    def test_absolute_request_url(self, client: Braintrustdata) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -611,7 +611,7 @@ class TestBraintrustSdkKotlin:
         assert request.url == "https://myapi.com/foo"
 
     def test_copied_client_does_not_close_http(self) -> None:
-        client = BraintrustSdkKotlin(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = Braintrustdata(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         assert not client.is_closed()
 
         copied = client.copy()
@@ -622,7 +622,7 @@ class TestBraintrustSdkKotlin:
         assert not client.is_closed()
 
     def test_client_context_manager(self) -> None:
-        client = BraintrustSdkKotlin(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = Braintrustdata(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -648,12 +648,12 @@ class TestBraintrustSdkKotlin:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = BraintrustSdkKotlin(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        strict_client = Braintrustdata(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             strict_client.get("/foo", cast_to=Model)
 
-        client = BraintrustSdkKotlin(base_url=base_url, api_key=api_key, _strict_response_validation=False)
+        client = Braintrustdata(base_url=base_url, api_key=api_key, _strict_response_validation=False)
 
         response = client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -680,14 +680,14 @@ class TestBraintrustSdkKotlin:
     )
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float) -> None:
-        client = BraintrustSdkKotlin(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = Braintrustdata(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("braintrust_sdk_kotlin._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("braintrustdata._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/project").mock(side_effect=httpx.TimeoutException("Test timeout error"))
@@ -702,7 +702,7 @@ class TestBraintrustSdkKotlin:
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("braintrust_sdk_kotlin._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("braintrustdata._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/project").mock(return_value=httpx.Response(500))
@@ -718,8 +718,8 @@ class TestBraintrustSdkKotlin:
         assert _get_open_connections(self.client) == 0
 
 
-class TestAsyncBraintrustSdkKotlin:
-    client = AsyncBraintrustSdkKotlin(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+class TestAsyncBraintrustdata:
+    client = AsyncBraintrustdata(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
@@ -768,7 +768,7 @@ class TestAsyncBraintrustSdkKotlin:
         assert isinstance(self.client.timeout, httpx.Timeout)
 
     def test_copy_default_headers(self) -> None:
-        client = AsyncBraintrustSdkKotlin(
+        client = AsyncBraintrustdata(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         assert client.default_headers["X-Foo"] == "bar"
@@ -802,7 +802,7 @@ class TestAsyncBraintrustSdkKotlin:
             client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
 
     def test_copy_default_query(self) -> None:
-        client = AsyncBraintrustSdkKotlin(
+        client = AsyncBraintrustdata(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
@@ -893,10 +893,10 @@ class TestAsyncBraintrustSdkKotlin:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "braintrust_sdk_kotlin/_legacy_response.py",
-                        "braintrust_sdk_kotlin/_response.py",
+                        "braintrustdata/_legacy_response.py",
+                        "braintrustdata/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "braintrust_sdk_kotlin/_compat.py",
+                        "braintrustdata/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -927,7 +927,7 @@ class TestAsyncBraintrustSdkKotlin:
         assert timeout == httpx.Timeout(100.0)
 
     async def test_client_timeout_option(self) -> None:
-        client = AsyncBraintrustSdkKotlin(
+        client = AsyncBraintrustdata(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0)
         )
 
@@ -938,7 +938,7 @@ class TestAsyncBraintrustSdkKotlin:
     async def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         async with httpx.AsyncClient(timeout=None) as http_client:
-            client = AsyncBraintrustSdkKotlin(
+            client = AsyncBraintrustdata(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -948,7 +948,7 @@ class TestAsyncBraintrustSdkKotlin:
 
         # no timeout given to the httpx client should not use the httpx default
         async with httpx.AsyncClient() as http_client:
-            client = AsyncBraintrustSdkKotlin(
+            client = AsyncBraintrustdata(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -958,7 +958,7 @@ class TestAsyncBraintrustSdkKotlin:
 
         # explicitly passing the default timeout currently results in it being ignored
         async with httpx.AsyncClient(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = AsyncBraintrustSdkKotlin(
+            client = AsyncBraintrustdata(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -967,14 +967,14 @@ class TestAsyncBraintrustSdkKotlin:
             assert timeout == DEFAULT_TIMEOUT  # our default
 
     def test_default_headers_option(self) -> None:
-        client = AsyncBraintrustSdkKotlin(
+        client = AsyncBraintrustdata(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
         assert request.headers.get("x-stainless-lang") == "python"
 
-        client2 = AsyncBraintrustSdkKotlin(
+        client2 = AsyncBraintrustdata(
             base_url=base_url,
             api_key=api_key,
             _strict_response_validation=True,
@@ -988,7 +988,7 @@ class TestAsyncBraintrustSdkKotlin:
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
 
     def test_default_query_option(self) -> None:
-        client = AsyncBraintrustSdkKotlin(
+        client = AsyncBraintrustdata(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1102,7 +1102,7 @@ class TestAsyncBraintrustSdkKotlin:
         params = dict(request.url.params)
         assert params == {"foo": "2"}
 
-    def test_multipart_repeating_array(self, async_client: AsyncBraintrustSdkKotlin) -> None:
+    def test_multipart_repeating_array(self, async_client: AsyncBraintrustdata) -> None:
         request = async_client._build_request(
             FinalRequestOptions.construct(
                 method="get",
@@ -1189,7 +1189,7 @@ class TestAsyncBraintrustSdkKotlin:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = AsyncBraintrustSdkKotlin(
+        client = AsyncBraintrustdata(
             base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True
         )
         assert client.base_url == "https://example.com/from_init/"
@@ -1199,17 +1199,17 @@ class TestAsyncBraintrustSdkKotlin:
         assert client.base_url == "https://example.com/from_setter/"
 
     def test_base_url_env(self) -> None:
-        with update_env(BRAINTRUST_SDK_KOTLIN_BASE_URL="http://localhost:5000/from/env"):
-            client = AsyncBraintrustSdkKotlin(api_key=api_key, _strict_response_validation=True)
+        with update_env(BRAINTRUSTDATA_BASE_URL="http://localhost:5000/from/env"):
+            client = AsyncBraintrustdata(api_key=api_key, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncBraintrustSdkKotlin(
+            AsyncBraintrustdata(
                 base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
             ),
-            AsyncBraintrustSdkKotlin(
+            AsyncBraintrustdata(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -1218,7 +1218,7 @@ class TestAsyncBraintrustSdkKotlin:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_trailing_slash(self, client: AsyncBraintrustSdkKotlin) -> None:
+    def test_base_url_trailing_slash(self, client: AsyncBraintrustdata) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1231,10 +1231,10 @@ class TestAsyncBraintrustSdkKotlin:
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncBraintrustSdkKotlin(
+            AsyncBraintrustdata(
                 base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
             ),
-            AsyncBraintrustSdkKotlin(
+            AsyncBraintrustdata(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -1243,7 +1243,7 @@ class TestAsyncBraintrustSdkKotlin:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_no_trailing_slash(self, client: AsyncBraintrustSdkKotlin) -> None:
+    def test_base_url_no_trailing_slash(self, client: AsyncBraintrustdata) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1256,10 +1256,10 @@ class TestAsyncBraintrustSdkKotlin:
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncBraintrustSdkKotlin(
+            AsyncBraintrustdata(
                 base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
             ),
-            AsyncBraintrustSdkKotlin(
+            AsyncBraintrustdata(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -1268,7 +1268,7 @@ class TestAsyncBraintrustSdkKotlin:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_absolute_request_url(self, client: AsyncBraintrustSdkKotlin) -> None:
+    def test_absolute_request_url(self, client: AsyncBraintrustdata) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1279,7 +1279,7 @@ class TestAsyncBraintrustSdkKotlin:
         assert request.url == "https://myapi.com/foo"
 
     async def test_copied_client_does_not_close_http(self) -> None:
-        client = AsyncBraintrustSdkKotlin(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncBraintrustdata(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         assert not client.is_closed()
 
         copied = client.copy()
@@ -1291,7 +1291,7 @@ class TestAsyncBraintrustSdkKotlin:
         assert not client.is_closed()
 
     async def test_client_context_manager(self) -> None:
-        client = AsyncBraintrustSdkKotlin(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncBraintrustdata(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         async with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -1319,12 +1319,12 @@ class TestAsyncBraintrustSdkKotlin:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = AsyncBraintrustSdkKotlin(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        strict_client = AsyncBraintrustdata(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             await strict_client.get("/foo", cast_to=Model)
 
-        client = AsyncBraintrustSdkKotlin(base_url=base_url, api_key=api_key, _strict_response_validation=False)
+        client = AsyncBraintrustdata(base_url=base_url, api_key=api_key, _strict_response_validation=False)
 
         response = await client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -1352,14 +1352,14 @@ class TestAsyncBraintrustSdkKotlin:
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     @pytest.mark.asyncio
     async def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float) -> None:
-        client = AsyncBraintrustSdkKotlin(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncBraintrustdata(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("braintrust_sdk_kotlin._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("braintrustdata._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/project").mock(side_effect=httpx.TimeoutException("Test timeout error"))
@@ -1374,7 +1374,7 @@ class TestAsyncBraintrustSdkKotlin:
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("braintrust_sdk_kotlin._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("braintrustdata._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/project").mock(return_value=httpx.Response(500))
