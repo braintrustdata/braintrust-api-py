@@ -12,7 +12,7 @@ from ...types import (
     project_list_params,
     project_create_params,
     project_update_params,
-    project_create_or_replace_params,
+    project_replace_params,
 )
 from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from ..._utils import maybe_transform
@@ -265,7 +265,7 @@ class ProjectResource(SyncAPIResource):
             cast_to=Project,
         )
 
-    def create_or_replace(
+    def replace(
         self,
         *,
         name: str,
@@ -305,7 +305,7 @@ class ProjectResource(SyncAPIResource):
                     "name": name,
                     "org_name": org_name,
                 },
-                project_create_or_replace_params.ProjectCreateOrReplaceParams,
+                project_replace_params.ProjectReplaceParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -548,7 +548,7 @@ class AsyncProjectResource(AsyncAPIResource):
             cast_to=Project,
         )
 
-    async def create_or_replace(
+    async def replace(
         self,
         *,
         name: str,
@@ -588,7 +588,7 @@ class AsyncProjectResource(AsyncAPIResource):
                     "name": name,
                     "org_name": org_name,
                 },
-                project_create_or_replace_params.ProjectCreateOrReplaceParams,
+                project_replace_params.ProjectReplaceParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
@@ -616,8 +616,8 @@ class ProjectResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             project.delete,
         )
-        self.create_or_replace = to_raw_response_wrapper(
-            project.create_or_replace,
+        self.replace = to_raw_response_wrapper(
+            project.replace,
         )
 
 
@@ -640,8 +640,8 @@ class AsyncProjectResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             project.delete,
         )
-        self.create_or_replace = async_to_raw_response_wrapper(
-            project.create_or_replace,
+        self.replace = async_to_raw_response_wrapper(
+            project.replace,
         )
 
 
@@ -664,8 +664,8 @@ class ProjectResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             project.delete,
         )
-        self.create_or_replace = to_streamed_response_wrapper(
-            project.create_or_replace,
+        self.replace = to_streamed_response_wrapper(
+            project.replace,
         )
 
 
@@ -688,6 +688,6 @@ class AsyncProjectResourceWithStreamingResponse:
         self.delete = async_to_streamed_response_wrapper(
             project.delete,
         )
-        self.create_or_replace = async_to_streamed_response_wrapper(
-            project.create_or_replace,
+        self.replace = async_to_streamed_response_wrapper(
+            project.replace,
         )

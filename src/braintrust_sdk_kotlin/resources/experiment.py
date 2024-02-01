@@ -8,13 +8,15 @@ import httpx
 
 from ..types import (
     Experiment,
+    ExperimentFetchResponse,
     ExperimentInsertResponse,
-    ExperimentFetchEventsResponse,
+    ExperimentFetchPostResponse,
+    experiment_fetch_params,
     experiment_create_params,
     experiment_insert_params,
     experiment_update_params,
     experiment_feedback_params,
-    experiment_fetch_events_params,
+    experiment_fetch_post_params,
     experiment_update_partial_params,
 )
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
@@ -307,7 +309,7 @@ class ExperimentResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
-    def fetch_events(
+    def fetch(
         self,
         experiment_id: str,
         *,
@@ -321,7 +323,7 @@ class ExperimentResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ExperimentFetchEventsResponse:
+    ) -> ExperimentFetchResponse:
         """Fetch the events in an experiment.
 
         Equivalent to the POST form of the same path,
@@ -382,10 +384,93 @@ class ExperimentResource(SyncAPIResource):
                         "max_xact_id": max_xact_id,
                         "version": version,
                     },
-                    experiment_fetch_events_params.ExperimentFetchEventsParams,
+                    experiment_fetch_params.ExperimentFetchParams,
                 ),
             ),
-            cast_to=ExperimentFetchEventsResponse,
+            cast_to=ExperimentFetchResponse,
+        )
+
+    def fetch_post(
+        self,
+        experiment_id: str,
+        *,
+        filters: Optional[List[experiment_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
+        limit: Optional[int] | NotGiven = NOT_GIVEN,
+        max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
+        max_xact_id: Optional[int] | NotGiven = NOT_GIVEN,
+        version: Optional[int] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ExperimentFetchPostResponse:
+        """Fetch the events in an experiment.
+
+        Equivalent to the GET form of the same path,
+        but with the parameters in the request body rather than in the URL query
+
+        Args:
+          experiment_id: Experiment id
+
+          filters: A list of filters on the events to fetch. Currently, only path-lookup type
+              filters are supported, but we may add more in the future
+
+          limit: Fetch queries may be paginated if the total result size is expected to be large
+              (e.g. project_logs which accumulate over a long time). Note that fetch queries
+              only support pagination in descending time order (from latest to earliest
+              `_xact_id`. Furthermore, later pages may return rows which showed up in earlier
+              pages, except with an earlier `_xact_id`. This happens because pagination occurs
+              over the whole version history of the event log. You will most likely want to
+              exclude any such duplicate, outdated rows (by `id`) from your combined result
+              set.
+
+              The `limit` parameter controls the number of full traces to return. So you may
+              end up with more individual rows than the specified limit if you are fetching
+              events containing traces.
+
+          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
+              event fetches. Given a previous fetch with a list of rows, you can determine
+              `max_root_span_id` as the maximum of the `root_span_id` field over all rows. See
+              the documentation for `limit` for an overview of paginating fetch queries.
+
+          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
+              event fetches. Given a previous fetch with a list of rows, you can determine
+              `max_xact_id` as the maximum of the `_xact_id` field over all rows. See the
+              documentation for `limit` for an overview of paginating fetch queries.
+
+          version: You may specify a version id to retrieve a snapshot of the events from a past
+              time. The version id is essentially a filter on the latest event transaction id.
+              You can use the `max_xact_id` returned by a past fetch as the version to
+              reproduce that exact fetch.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not experiment_id:
+            raise ValueError(f"Expected a non-empty value for `experiment_id` but received {experiment_id!r}")
+        return self._post(
+            f"/v1/experiment/{experiment_id}/fetch",
+            body=maybe_transform(
+                {
+                    "filters": filters,
+                    "limit": limit,
+                    "max_root_span_id": max_root_span_id,
+                    "max_xact_id": max_xact_id,
+                    "version": version,
+                },
+                experiment_fetch_post_params.ExperimentFetchPostParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ExperimentFetchPostResponse,
         )
 
     def insert(
@@ -781,7 +866,7 @@ class AsyncExperimentResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
-    async def fetch_events(
+    async def fetch(
         self,
         experiment_id: str,
         *,
@@ -795,7 +880,7 @@ class AsyncExperimentResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ExperimentFetchEventsResponse:
+    ) -> ExperimentFetchResponse:
         """Fetch the events in an experiment.
 
         Equivalent to the POST form of the same path,
@@ -856,10 +941,93 @@ class AsyncExperimentResource(AsyncAPIResource):
                         "max_xact_id": max_xact_id,
                         "version": version,
                     },
-                    experiment_fetch_events_params.ExperimentFetchEventsParams,
+                    experiment_fetch_params.ExperimentFetchParams,
                 ),
             ),
-            cast_to=ExperimentFetchEventsResponse,
+            cast_to=ExperimentFetchResponse,
+        )
+
+    async def fetch_post(
+        self,
+        experiment_id: str,
+        *,
+        filters: Optional[List[experiment_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
+        limit: Optional[int] | NotGiven = NOT_GIVEN,
+        max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
+        max_xact_id: Optional[int] | NotGiven = NOT_GIVEN,
+        version: Optional[int] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ExperimentFetchPostResponse:
+        """Fetch the events in an experiment.
+
+        Equivalent to the GET form of the same path,
+        but with the parameters in the request body rather than in the URL query
+
+        Args:
+          experiment_id: Experiment id
+
+          filters: A list of filters on the events to fetch. Currently, only path-lookup type
+              filters are supported, but we may add more in the future
+
+          limit: Fetch queries may be paginated if the total result size is expected to be large
+              (e.g. project_logs which accumulate over a long time). Note that fetch queries
+              only support pagination in descending time order (from latest to earliest
+              `_xact_id`. Furthermore, later pages may return rows which showed up in earlier
+              pages, except with an earlier `_xact_id`. This happens because pagination occurs
+              over the whole version history of the event log. You will most likely want to
+              exclude any such duplicate, outdated rows (by `id`) from your combined result
+              set.
+
+              The `limit` parameter controls the number of full traces to return. So you may
+              end up with more individual rows than the specified limit if you are fetching
+              events containing traces.
+
+          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
+              event fetches. Given a previous fetch with a list of rows, you can determine
+              `max_root_span_id` as the maximum of the `root_span_id` field over all rows. See
+              the documentation for `limit` for an overview of paginating fetch queries.
+
+          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
+              event fetches. Given a previous fetch with a list of rows, you can determine
+              `max_xact_id` as the maximum of the `_xact_id` field over all rows. See the
+              documentation for `limit` for an overview of paginating fetch queries.
+
+          version: You may specify a version id to retrieve a snapshot of the events from a past
+              time. The version id is essentially a filter on the latest event transaction id.
+              You can use the `max_xact_id` returned by a past fetch as the version to
+              reproduce that exact fetch.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not experiment_id:
+            raise ValueError(f"Expected a non-empty value for `experiment_id` but received {experiment_id!r}")
+        return await self._post(
+            f"/v1/experiment/{experiment_id}/fetch",
+            body=maybe_transform(
+                {
+                    "filters": filters,
+                    "limit": limit,
+                    "max_root_span_id": max_root_span_id,
+                    "max_xact_id": max_xact_id,
+                    "version": version,
+                },
+                experiment_fetch_post_params.ExperimentFetchPostParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ExperimentFetchPostResponse,
         )
 
     async def insert(
@@ -1001,8 +1169,11 @@ class ExperimentResourceWithRawResponse:
         self.feedback = to_raw_response_wrapper(
             experiment.feedback,
         )
-        self.fetch_events = to_raw_response_wrapper(
-            experiment.fetch_events,
+        self.fetch = to_raw_response_wrapper(
+            experiment.fetch,
+        )
+        self.fetch_post = to_raw_response_wrapper(
+            experiment.fetch_post,
         )
         self.insert = to_raw_response_wrapper(
             experiment.insert,
@@ -1031,8 +1202,11 @@ class AsyncExperimentResourceWithRawResponse:
         self.feedback = async_to_raw_response_wrapper(
             experiment.feedback,
         )
-        self.fetch_events = async_to_raw_response_wrapper(
-            experiment.fetch_events,
+        self.fetch = async_to_raw_response_wrapper(
+            experiment.fetch,
+        )
+        self.fetch_post = async_to_raw_response_wrapper(
+            experiment.fetch_post,
         )
         self.insert = async_to_raw_response_wrapper(
             experiment.insert,
@@ -1061,8 +1235,11 @@ class ExperimentResourceWithStreamingResponse:
         self.feedback = to_streamed_response_wrapper(
             experiment.feedback,
         )
-        self.fetch_events = to_streamed_response_wrapper(
-            experiment.fetch_events,
+        self.fetch = to_streamed_response_wrapper(
+            experiment.fetch,
+        )
+        self.fetch_post = to_streamed_response_wrapper(
+            experiment.fetch_post,
         )
         self.insert = to_streamed_response_wrapper(
             experiment.insert,
@@ -1091,8 +1268,11 @@ class AsyncExperimentResourceWithStreamingResponse:
         self.feedback = async_to_streamed_response_wrapper(
             experiment.feedback,
         )
-        self.fetch_events = async_to_streamed_response_wrapper(
-            experiment.fetch_events,
+        self.fetch = async_to_streamed_response_wrapper(
+            experiment.fetch,
+        )
+        self.fetch_post = async_to_streamed_response_wrapper(
+            experiment.fetch_post,
         )
         self.insert = async_to_streamed_response_wrapper(
             experiment.insert,

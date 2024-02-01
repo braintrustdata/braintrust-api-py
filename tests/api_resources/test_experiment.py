@@ -11,8 +11,9 @@ from tests.utils import assert_matches_type
 from braintrust_sdk_kotlin import BraintrustSdkKotlin, AsyncBraintrustSdkKotlin
 from braintrust_sdk_kotlin.types import (
     Experiment,
+    ExperimentFetchResponse,
     ExperimentInsertResponse,
-    ExperimentFetchEventsResponse,
+    ExperimentFetchPostResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -252,51 +253,117 @@ class TestExperiment:
             )
 
     @parametrize
-    def test_method_fetch_events(self, client: BraintrustSdkKotlin) -> None:
-        experiment = client.experiment.fetch_events(
+    def test_method_fetch(self, client: BraintrustSdkKotlin) -> None:
+        experiment = client.experiment.fetch(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(ExperimentFetchEventsResponse, experiment, path=["response"])
+        assert_matches_type(ExperimentFetchResponse, experiment, path=["response"])
 
     @parametrize
-    def test_method_fetch_events_with_all_params(self, client: BraintrustSdkKotlin) -> None:
-        experiment = client.experiment.fetch_events(
+    def test_method_fetch_with_all_params(self, client: BraintrustSdkKotlin) -> None:
+        experiment = client.experiment.fetch(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             max_root_span_id="string",
             max_xact_id=0,
             version=0,
         )
-        assert_matches_type(ExperimentFetchEventsResponse, experiment, path=["response"])
+        assert_matches_type(ExperimentFetchResponse, experiment, path=["response"])
 
     @parametrize
-    def test_raw_response_fetch_events(self, client: BraintrustSdkKotlin) -> None:
-        response = client.experiment.with_raw_response.fetch_events(
+    def test_raw_response_fetch(self, client: BraintrustSdkKotlin) -> None:
+        response = client.experiment.with_raw_response.fetch(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         experiment = response.parse()
-        assert_matches_type(ExperimentFetchEventsResponse, experiment, path=["response"])
+        assert_matches_type(ExperimentFetchResponse, experiment, path=["response"])
 
     @parametrize
-    def test_streaming_response_fetch_events(self, client: BraintrustSdkKotlin) -> None:
-        with client.experiment.with_streaming_response.fetch_events(
+    def test_streaming_response_fetch(self, client: BraintrustSdkKotlin) -> None:
+        with client.experiment.with_streaming_response.fetch(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             experiment = response.parse()
-            assert_matches_type(ExperimentFetchEventsResponse, experiment, path=["response"])
+            assert_matches_type(ExperimentFetchResponse, experiment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    def test_path_params_fetch_events(self, client: BraintrustSdkKotlin) -> None:
+    def test_path_params_fetch(self, client: BraintrustSdkKotlin) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
-            client.experiment.with_raw_response.fetch_events(
+            client.experiment.with_raw_response.fetch(
+                "",
+            )
+
+    @parametrize
+    def test_method_fetch_post(self, client: BraintrustSdkKotlin) -> None:
+        experiment = client.experiment.fetch_post(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ExperimentFetchPostResponse, experiment, path=["response"])
+
+    @parametrize
+    def test_method_fetch_post_with_all_params(self, client: BraintrustSdkKotlin) -> None:
+        experiment = client.experiment.fetch_post(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            filters=[
+                {
+                    "type": "path_lookup",
+                    "path": ["string", "string", "string"],
+                    "value": {},
+                },
+                {
+                    "type": "path_lookup",
+                    "path": ["string", "string", "string"],
+                    "value": {},
+                },
+                {
+                    "type": "path_lookup",
+                    "path": ["string", "string", "string"],
+                    "value": {},
+                },
+            ],
+            limit=0,
+            max_root_span_id="string",
+            max_xact_id=0,
+            version=0,
+        )
+        assert_matches_type(ExperimentFetchPostResponse, experiment, path=["response"])
+
+    @parametrize
+    def test_raw_response_fetch_post(self, client: BraintrustSdkKotlin) -> None:
+        response = client.experiment.with_raw_response.fetch_post(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        experiment = response.parse()
+        assert_matches_type(ExperimentFetchPostResponse, experiment, path=["response"])
+
+    @parametrize
+    def test_streaming_response_fetch_post(self, client: BraintrustSdkKotlin) -> None:
+        with client.experiment.with_streaming_response.fetch_post(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            experiment = response.parse()
+            assert_matches_type(ExperimentFetchPostResponse, experiment, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_fetch_post(self, client: BraintrustSdkKotlin) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
+            client.experiment.with_raw_response.fetch_post(
                 "",
             )
 
@@ -640,51 +707,117 @@ class TestAsyncExperiment:
             )
 
     @parametrize
-    async def test_method_fetch_events(self, async_client: AsyncBraintrustSdkKotlin) -> None:
-        experiment = await async_client.experiment.fetch_events(
+    async def test_method_fetch(self, async_client: AsyncBraintrustSdkKotlin) -> None:
+        experiment = await async_client.experiment.fetch(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(ExperimentFetchEventsResponse, experiment, path=["response"])
+        assert_matches_type(ExperimentFetchResponse, experiment, path=["response"])
 
     @parametrize
-    async def test_method_fetch_events_with_all_params(self, async_client: AsyncBraintrustSdkKotlin) -> None:
-        experiment = await async_client.experiment.fetch_events(
+    async def test_method_fetch_with_all_params(self, async_client: AsyncBraintrustSdkKotlin) -> None:
+        experiment = await async_client.experiment.fetch(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             max_root_span_id="string",
             max_xact_id=0,
             version=0,
         )
-        assert_matches_type(ExperimentFetchEventsResponse, experiment, path=["response"])
+        assert_matches_type(ExperimentFetchResponse, experiment, path=["response"])
 
     @parametrize
-    async def test_raw_response_fetch_events(self, async_client: AsyncBraintrustSdkKotlin) -> None:
-        response = await async_client.experiment.with_raw_response.fetch_events(
+    async def test_raw_response_fetch(self, async_client: AsyncBraintrustSdkKotlin) -> None:
+        response = await async_client.experiment.with_raw_response.fetch(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         experiment = await response.parse()
-        assert_matches_type(ExperimentFetchEventsResponse, experiment, path=["response"])
+        assert_matches_type(ExperimentFetchResponse, experiment, path=["response"])
 
     @parametrize
-    async def test_streaming_response_fetch_events(self, async_client: AsyncBraintrustSdkKotlin) -> None:
-        async with async_client.experiment.with_streaming_response.fetch_events(
+    async def test_streaming_response_fetch(self, async_client: AsyncBraintrustSdkKotlin) -> None:
+        async with async_client.experiment.with_streaming_response.fetch(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             experiment = await response.parse()
-            assert_matches_type(ExperimentFetchEventsResponse, experiment, path=["response"])
+            assert_matches_type(ExperimentFetchResponse, experiment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @parametrize
-    async def test_path_params_fetch_events(self, async_client: AsyncBraintrustSdkKotlin) -> None:
+    async def test_path_params_fetch(self, async_client: AsyncBraintrustSdkKotlin) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
-            await async_client.experiment.with_raw_response.fetch_events(
+            await async_client.experiment.with_raw_response.fetch(
+                "",
+            )
+
+    @parametrize
+    async def test_method_fetch_post(self, async_client: AsyncBraintrustSdkKotlin) -> None:
+        experiment = await async_client.experiment.fetch_post(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ExperimentFetchPostResponse, experiment, path=["response"])
+
+    @parametrize
+    async def test_method_fetch_post_with_all_params(self, async_client: AsyncBraintrustSdkKotlin) -> None:
+        experiment = await async_client.experiment.fetch_post(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            filters=[
+                {
+                    "type": "path_lookup",
+                    "path": ["string", "string", "string"],
+                    "value": {},
+                },
+                {
+                    "type": "path_lookup",
+                    "path": ["string", "string", "string"],
+                    "value": {},
+                },
+                {
+                    "type": "path_lookup",
+                    "path": ["string", "string", "string"],
+                    "value": {},
+                },
+            ],
+            limit=0,
+            max_root_span_id="string",
+            max_xact_id=0,
+            version=0,
+        )
+        assert_matches_type(ExperimentFetchPostResponse, experiment, path=["response"])
+
+    @parametrize
+    async def test_raw_response_fetch_post(self, async_client: AsyncBraintrustSdkKotlin) -> None:
+        response = await async_client.experiment.with_raw_response.fetch_post(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        experiment = await response.parse()
+        assert_matches_type(ExperimentFetchPostResponse, experiment, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_fetch_post(self, async_client: AsyncBraintrustSdkKotlin) -> None:
+        async with async_client.experiment.with_streaming_response.fetch_post(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            experiment = await response.parse()
+            assert_matches_type(ExperimentFetchPostResponse, experiment, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_fetch_post(self, async_client: AsyncBraintrustSdkKotlin) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
+            await async_client.experiment.with_raw_response.fetch_post(
                 "",
             )
 

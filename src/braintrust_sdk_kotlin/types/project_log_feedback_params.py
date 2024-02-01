@@ -5,10 +5,10 @@ from __future__ import annotations
 from typing import Dict, List, Optional
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["ProjectLogLogFeedbackParams", "Feedback"]
+__all__ = ["ProjectLogFeedbackParams", "Feedback"]
 
 
-class ProjectLogLogFeedbackParams(TypedDict, total=False):
+class ProjectLogFeedbackParams(TypedDict, total=False):
     feedback: Required[List[Feedback]]
     """A list of project logs feedback items"""
 

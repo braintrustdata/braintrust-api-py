@@ -13,7 +13,7 @@ Methods:
 - <code title="patch /v1/project/{project_id}">client.project.<a href="./src/braintrust_sdk_kotlin/resources/project/project.py">update</a>(project_id, \*\*<a href="src/braintrust_sdk_kotlin/types/project_update_params.py">params</a>) -> <a href="./src/braintrust_sdk_kotlin/types/project.py">Project</a></code>
 - <code title="get /v1/project">client.project.<a href="./src/braintrust_sdk_kotlin/resources/project/project.py">list</a>(\*\*<a href="src/braintrust_sdk_kotlin/types/project_list_params.py">params</a>) -> <a href="./src/braintrust_sdk_kotlin/types/project_list_response.py">ProjectListResponse</a></code>
 - <code title="delete /v1/project/{project_id}">client.project.<a href="./src/braintrust_sdk_kotlin/resources/project/project.py">delete</a>(project_id) -> <a href="./src/braintrust_sdk_kotlin/types/project.py">Project</a></code>
-- <code title="put /v1/project">client.project.<a href="./src/braintrust_sdk_kotlin/resources/project/project.py">create_or_replace</a>(\*\*<a href="src/braintrust_sdk_kotlin/types/project_create_or_replace_params.py">params</a>) -> <a href="./src/braintrust_sdk_kotlin/types/project.py">Project</a></code>
+- <code title="put /v1/project">client.project.<a href="./src/braintrust_sdk_kotlin/resources/project/project.py">replace</a>(\*\*<a href="src/braintrust_sdk_kotlin/types/project_replace_params.py">params</a>) -> <a href="./src/braintrust_sdk_kotlin/types/project.py">Project</a></code>
 
 # ProjectLogs
 
@@ -22,17 +22,17 @@ Types:
 ```python
 from braintrust_sdk_kotlin.types import (
     ProjectLogFetchResponse,
+    ProjectLogFetchPostResponse,
     ProjectLogInsertResponse,
-    ProjectLogInsertFetchResponse,
 )
 ```
 
 Methods:
 
+- <code title="post /v1/project_logs/{project_id}/feedback">client.project_logs.<a href="./src/braintrust_sdk_kotlin/resources/project_logs.py">feedback</a>(project_id, \*\*<a href="src/braintrust_sdk_kotlin/types/project_log_feedback_params.py">params</a>) -> None</code>
 - <code title="get /v1/project_logs/{project_id}/fetch">client.project_logs.<a href="./src/braintrust_sdk_kotlin/resources/project_logs.py">fetch</a>(project_id, \*\*<a href="src/braintrust_sdk_kotlin/types/project_log_fetch_params.py">params</a>) -> <a href="./src/braintrust_sdk_kotlin/types/project_log_fetch_response.py">ProjectLogFetchResponse</a></code>
+- <code title="post /v1/project_logs/{project_id}/fetch">client.project_logs.<a href="./src/braintrust_sdk_kotlin/resources/project_logs.py">fetch_post</a>(project_id, \*\*<a href="src/braintrust_sdk_kotlin/types/project_log_fetch_post_params.py">params</a>) -> <a href="./src/braintrust_sdk_kotlin/types/project_log_fetch_post_response.py">ProjectLogFetchPostResponse</a></code>
 - <code title="post /v1/project_logs/{project_id}/insert">client.project_logs.<a href="./src/braintrust_sdk_kotlin/resources/project_logs.py">insert</a>(project_id, \*\*<a href="src/braintrust_sdk_kotlin/types/project_log_insert_params.py">params</a>) -> <a href="./src/braintrust_sdk_kotlin/types/project_log_insert_response.py">ProjectLogInsertResponse</a></code>
-- <code title="post /v1/project_logs/{project_id}/fetch">client.project_logs.<a href="./src/braintrust_sdk_kotlin/resources/project_logs.py">insert_fetch</a>(project_id, \*\*<a href="src/braintrust_sdk_kotlin/types/project_log_insert_fetch_params.py">params</a>) -> <a href="./src/braintrust_sdk_kotlin/types/project_log_insert_fetch_response.py">ProjectLogInsertFetchResponse</a></code>
-- <code title="post /v1/project_logs/{project_id}/feedback">client.project_logs.<a href="./src/braintrust_sdk_kotlin/resources/project_logs.py">log_feedback</a>(project_id, \*\*<a href="src/braintrust_sdk_kotlin/types/project_log_log_feedback_params.py">params</a>) -> None</code>
 
 # ExperimentResource
 
@@ -41,7 +41,8 @@ Types:
 ```python
 from braintrust_sdk_kotlin.types import (
     Experiment,
-    ExperimentFetchEventsResponse,
+    ExperimentFetchResponse,
+    ExperimentFetchPostResponse,
     ExperimentInsertResponse,
 )
 ```
@@ -53,7 +54,8 @@ Methods:
 - <code title="put /v1/experiment">client.experiment.<a href="./src/braintrust_sdk_kotlin/resources/experiment.py">update</a>(\*\*<a href="src/braintrust_sdk_kotlin/types/experiment_update_params.py">params</a>) -> <a href="./src/braintrust_sdk_kotlin/types/experiment.py">Experiment</a></code>
 - <code title="delete /v1/experiment/{experiment_id}">client.experiment.<a href="./src/braintrust_sdk_kotlin/resources/experiment.py">delete</a>(experiment_id) -> <a href="./src/braintrust_sdk_kotlin/types/experiment.py">Experiment</a></code>
 - <code title="post /v1/experiment/{experiment_id}/feedback">client.experiment.<a href="./src/braintrust_sdk_kotlin/resources/experiment.py">feedback</a>(experiment_id, \*\*<a href="src/braintrust_sdk_kotlin/types/experiment_feedback_params.py">params</a>) -> None</code>
-- <code title="get /v1/experiment/{experiment_id}/fetch">client.experiment.<a href="./src/braintrust_sdk_kotlin/resources/experiment.py">fetch_events</a>(experiment_id, \*\*<a href="src/braintrust_sdk_kotlin/types/experiment_fetch_events_params.py">params</a>) -> <a href="./src/braintrust_sdk_kotlin/types/experiment_fetch_events_response.py">ExperimentFetchEventsResponse</a></code>
+- <code title="get /v1/experiment/{experiment_id}/fetch">client.experiment.<a href="./src/braintrust_sdk_kotlin/resources/experiment.py">fetch</a>(experiment_id, \*\*<a href="src/braintrust_sdk_kotlin/types/experiment_fetch_params.py">params</a>) -> <a href="./src/braintrust_sdk_kotlin/types/experiment_fetch_response.py">ExperimentFetchResponse</a></code>
+- <code title="post /v1/experiment/{experiment_id}/fetch">client.experiment.<a href="./src/braintrust_sdk_kotlin/resources/experiment.py">fetch_post</a>(experiment_id, \*\*<a href="src/braintrust_sdk_kotlin/types/experiment_fetch_post_params.py">params</a>) -> <a href="./src/braintrust_sdk_kotlin/types/experiment_fetch_post_response.py">ExperimentFetchPostResponse</a></code>
 - <code title="post /v1/experiment/{experiment_id}/insert">client.experiment.<a href="./src/braintrust_sdk_kotlin/resources/experiment.py">insert</a>(experiment_id, \*\*<a href="src/braintrust_sdk_kotlin/types/experiment_insert_params.py">params</a>) -> <a href="./src/braintrust_sdk_kotlin/types/experiment_insert_response.py">ExperimentInsertResponse</a></code>
 - <code title="patch /v1/experiment/{experiment_id}">client.experiment.<a href="./src/braintrust_sdk_kotlin/resources/experiment.py">update_partial</a>(experiment_id, \*\*<a href="src/braintrust_sdk_kotlin/types/experiment_update_partial_params.py">params</a>) -> <a href="./src/braintrust_sdk_kotlin/types/experiment.py">Experiment</a></code>
 

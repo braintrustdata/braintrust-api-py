@@ -8,18 +8,18 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["ExperimentFetchEventsResponse", "Event", "EventContext", "EventMetrics", "EventSpanAttributes"]
+__all__ = ["ProjectLogFetchPostResponse", "Event", "EventContext", "EventMetrics", "EventSpanAttributes"]
 
 
 class EventContext(BaseModel):
     caller_filename: Optional[str] = None
-    """Name of the file in code where the experiment event was created"""
+    """Name of the file in code where the project logs event was created"""
 
     caller_functionname: Optional[str] = None
-    """The function in code which created the experiment event"""
+    """The function in code which created the project logs event"""
 
     caller_lineno: Optional[int] = None
-    """Line of code where the experiment event was created"""
+    """Line of code where the project logs event was created"""
 
     if TYPE_CHECKING:
         # Stub to indicate that arbitrary properties are accepted.
@@ -32,14 +32,14 @@ class EventContext(BaseModel):
 class EventMetrics(BaseModel):
     end: Optional[float] = None
     """
-    A unix timestamp recording when the section of code which produced the
-    experiment event finished
+    A unix timestamp recording when the section of code which produced the project
+    logs event finished
     """
 
     start: Optional[float] = None
     """
-    A unix timestamp recording when the section of code which produced the
-    experiment event started
+    A unix timestamp recording when the section of code which produced the project
+    logs event started
     """
 
     if TYPE_CHECKING:
@@ -67,7 +67,7 @@ class EventSpanAttributes(BaseModel):
 
 class Event(BaseModel):
     id: str
-    """A unique identifier for the experiment event.
+    """A unique identifier for the project logs event.
 
     If you don't provide one, BrainTrust will generate one for you
     """
@@ -76,43 +76,40 @@ class Event(BaseModel):
     """
     The transaction id of an event is unique to the network operation that processed
     the event insertion. Transaction ids are monotonically increasing over time and
-    can be used to retrieve a versioned snapshot of the experiment (see the
+    can be used to retrieve a versioned snapshot of the project logs (see the
     `version` parameter)
     """
 
-    experiment_id: str
-    """Unique identifier for the experiment"""
+    log_id: Literal["g"]
+    """A literal 'g' which identifies the log as a project log"""
+
+    org_id: str
+    """Unique id for the organization that the project belongs under"""
 
     project_id: str
-    """Unique identifier for the project that the experiment belongs under"""
+    """Unique identifier for the project"""
 
     root_span_id: str
-    """The `span_id` of the root of the trace this experiment event belongs to"""
+    """The `span_id` of the root of the trace this project logs event belongs to"""
 
     span_id: str
     """
-    A unique identifier used to link different experiment events together as part of
-    a full trace. See the
+    A unique identifier used to link different project logs events together as part
+    of a full trace. See the
     [tracing guide](https://www.braintrustdata.com/docs/guides/tracing) for full
     details on tracing
     """
 
     context: Optional[EventContext] = None
     """
-    Context is additional information about the code that produced the experiment
+    Context is additional information about the code that produced the project logs
     event. It is essentially the textual counterpart to `metrics`. Use the
-    `caller_*` attributes to track the location in code which produced the
-    experiment event
+    `caller_*` attributes to track the location in code which produced the project
+    logs event
     """
 
     created: Optional[datetime] = None
-    """The timestamp the experiment event was created"""
-
-    dataset_record_id: Optional[str] = None
-    """
-    If the experiment is associated to a dataset, this is the event-level dataset id
-    this experiment event is tied to
-    """
+    """The timestamp the project logs event was created"""
 
     expected: Optional[object] = None
     """
@@ -120,18 +117,14 @@ class Event(BaseModel):
     compare to `output` to determine if your `output` value is correct or not.
     Braintrust currently does not compare `output` to `expected` for you, since
     there are so many different ways to do that correctly. Instead, these values are
-    just used to help you navigate your experiments while digging into analyses.
-    However, we may later use these values to re-score outputs or fine-tune your
-    models
+    just used to help you navigate while digging into analyses. However, we may
+    later use these values to re-score outputs or fine-tune your models.
     """
 
     input: Optional[object] = None
     """
-    The arguments that uniquely define a test case (an arbitrary, JSON serializable
-    object). Later on, Braintrust will use the `input` to know whether two test
-    cases are the same between experiments, so they should not contain
-    experiment-specific state. A simple rule of thumb is that if you run the same
-    experiment twice, the `input` should be identical
+    The arguments that uniquely define a user input(an arbitrary, JSON serializable
+    object).
     """
 
     metadata: Optional[Dict[str, object]] = None
@@ -146,8 +139,8 @@ class Event(BaseModel):
     metrics: Optional[EventMetrics] = None
     """
     Metrics are numerical measurements tracking the execution of the code that
-    produced the experiment event. Use "start" and "end" to track the time span over
-    which the experiment event was produced
+    produced the project logs event. Use "start" and "end" to track the time span
+    over which the project logs event was produced
     """
 
     output: Optional[object] = None
@@ -156,7 +149,7 @@ class Event(BaseModel):
     serializable object), that allows you to determine whether the result is correct
     or not. For example, in an app that generates SQL queries, the `output` should
     be the _result_ of the SQL query generated by the model, not the query itself,
-    because there may be multiple valid queries that answer a single question
+    because there may be multiple valid queries that answer a single question.
     """
 
     scores: Optional[Dict[str, Optional[float]]] = None
@@ -168,20 +161,20 @@ class Event(BaseModel):
     the summary is, and another that measures the word similarity between the
     generated and grouth truth summary. The word similarity score could help you
     determine whether the summarization was covering similar concepts or not. You
-    can use these scores to help you sort, filter, and compare experiments
+    can use these scores to help you sort, filter, and compare logs.
     """
 
     span_attributes: Optional[EventSpanAttributes] = None
     """Human-identifying attributes of the span, such as name, type, etc."""
 
     span_parents: Optional[List[str]] = None
-    """An array of the parent `span_ids` of this experiment event.
+    """An array of the parent `span_ids` of this project logs event.
 
     This should be empty for the root span of a trace, and should most often contain
     just one parent element for subspans
     """
 
 
-class ExperimentFetchEventsResponse(BaseModel):
+class ProjectLogFetchPostResponse(BaseModel):
     events: List[Event]
     """A list of fetched events"""

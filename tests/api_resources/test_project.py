@@ -218,23 +218,23 @@ class TestProject:
             )
 
     @parametrize
-    def test_method_create_or_replace(self, client: BraintrustSdkKotlin) -> None:
-        project = client.project.create_or_replace(
+    def test_method_replace(self, client: BraintrustSdkKotlin) -> None:
+        project = client.project.replace(
             name="string",
         )
         assert_matches_type(Project, project, path=["response"])
 
     @parametrize
-    def test_method_create_or_replace_with_all_params(self, client: BraintrustSdkKotlin) -> None:
-        project = client.project.create_or_replace(
+    def test_method_replace_with_all_params(self, client: BraintrustSdkKotlin) -> None:
+        project = client.project.replace(
             name="string",
             org_name="string",
         )
         assert_matches_type(Project, project, path=["response"])
 
     @parametrize
-    def test_raw_response_create_or_replace(self, client: BraintrustSdkKotlin) -> None:
-        response = client.project.with_raw_response.create_or_replace(
+    def test_raw_response_replace(self, client: BraintrustSdkKotlin) -> None:
+        response = client.project.with_raw_response.replace(
             name="string",
         )
 
@@ -244,8 +244,8 @@ class TestProject:
         assert_matches_type(Project, project, path=["response"])
 
     @parametrize
-    def test_streaming_response_create_or_replace(self, client: BraintrustSdkKotlin) -> None:
-        with client.project.with_streaming_response.create_or_replace(
+    def test_streaming_response_replace(self, client: BraintrustSdkKotlin) -> None:
+        with client.project.with_streaming_response.replace(
             name="string",
         ) as response:
             assert not response.is_closed
@@ -458,23 +458,23 @@ class TestAsyncProject:
             )
 
     @parametrize
-    async def test_method_create_or_replace(self, async_client: AsyncBraintrustSdkKotlin) -> None:
-        project = await async_client.project.create_or_replace(
+    async def test_method_replace(self, async_client: AsyncBraintrustSdkKotlin) -> None:
+        project = await async_client.project.replace(
             name="string",
         )
         assert_matches_type(Project, project, path=["response"])
 
     @parametrize
-    async def test_method_create_or_replace_with_all_params(self, async_client: AsyncBraintrustSdkKotlin) -> None:
-        project = await async_client.project.create_or_replace(
+    async def test_method_replace_with_all_params(self, async_client: AsyncBraintrustSdkKotlin) -> None:
+        project = await async_client.project.replace(
             name="string",
             org_name="string",
         )
         assert_matches_type(Project, project, path=["response"])
 
     @parametrize
-    async def test_raw_response_create_or_replace(self, async_client: AsyncBraintrustSdkKotlin) -> None:
-        response = await async_client.project.with_raw_response.create_or_replace(
+    async def test_raw_response_replace(self, async_client: AsyncBraintrustSdkKotlin) -> None:
+        response = await async_client.project.with_raw_response.replace(
             name="string",
         )
 
@@ -484,8 +484,8 @@ class TestAsyncProject:
         assert_matches_type(Project, project, path=["response"])
 
     @parametrize
-    async def test_streaming_response_create_or_replace(self, async_client: AsyncBraintrustSdkKotlin) -> None:
-        async with async_client.project.with_streaming_response.create_or_replace(
+    async def test_streaming_response_replace(self, async_client: AsyncBraintrustSdkKotlin) -> None:
+        async with async_client.project.with_streaming_response.replace(
             name="string",
         ) as response:
             assert not response.is_closed

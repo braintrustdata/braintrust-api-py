@@ -5,10 +5,10 @@ from __future__ import annotations
 from typing import List, Optional
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["ProjectLogInsertFetchParams", "Filter"]
+__all__ = ["ExperimentFetchPostParams", "Filter"]
 
 
-class ProjectLogInsertFetchParams(TypedDict, total=False):
+class ExperimentFetchPostParams(TypedDict, total=False):
     filters: Optional[List[Filter]]
     """A list of filters on the events to fetch.
 
