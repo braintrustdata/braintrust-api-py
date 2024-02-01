@@ -76,6 +76,69 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
 
+## Pagination
+
+List methods in the Braintrust API are paginated.
+
+This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
+
+```python
+import braintrust
+
+client = Braintrust()
+
+all_projects = []
+# Automatically fetches more pages as needed.
+for project in client.project.list():
+    # Do something with project here
+    all_projects.append(project)
+print(all_projects)
+```
+
+Or, asynchronously:
+
+```python
+import asyncio
+import braintrust
+
+client = AsyncBraintrust()
+
+
+async def main() -> None:
+    all_projects = []
+    # Iterate through items across all pages, issuing requests as needed.
+    async for project in client.project.list():
+        all_projects.append(project)
+    print(all_projects)
+
+
+asyncio.run(main())
+```
+
+Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get_next_page()` methods for more granular control working with pages:
+
+```python
+first_page = await client.project.list()
+if first_page.has_next_page():
+    print(f"will fetch next page using these details: {first_page.next_page_info()}")
+    next_page = await first_page.get_next_page()
+    print(f"number of items we just fetched: {len(next_page.objects)}")
+
+# Remove `await` for non-async usage.
+```
+
+Or just work directly with the returned data:
+
+```python
+first_page = await client.project.list()
+
+print(f"next page cursor: {first_page.starting_after}")  # => "next page cursor: ..."
+for project in first_page.objects:
+    print(project.id)
+
+# Remove `await` for non-async usage.
+```
+
 ## Handling errors
 
 When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `braintrust.APIConnectionError` is raised.

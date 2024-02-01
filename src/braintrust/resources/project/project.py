@@ -8,7 +8,6 @@ import httpx
 
 from ...types import (
     Project,
-    ProjectListResponse,
     project_list_params,
     project_create_params,
     project_update_params,
@@ -24,7 +23,9 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from ...pagination import SyncListObjects, AsyncListObjects
 from ..._base_client import (
+    AsyncPaginator,
     make_request_options,
 )
 
@@ -180,7 +181,7 @@ class ProjectResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ProjectListResponse:
+    ) -> SyncListObjects[Project]:
         """List out all projects.
 
         The projects are sorted by creation date, with the most
@@ -209,8 +210,9 @@ class ProjectResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
+        return self._get_api_list(
             "/v1/project",
+            page=SyncListObjects[Project],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -227,7 +229,7 @@ class ProjectResource(SyncAPIResource):
                     project_list_params.ProjectListParams,
                 ),
             ),
-            cast_to=ProjectListResponse,
+            model=Project,
         )
 
     def delete(
@@ -449,7 +451,7 @@ class AsyncProjectResource(AsyncAPIResource):
             cast_to=Project,
         )
 
-    async def list(
+    def list(
         self,
         *,
         ending_before: str | NotGiven = NOT_GIVEN,
@@ -463,7 +465,7 @@ class AsyncProjectResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ProjectListResponse:
+    ) -> AsyncPaginator[Project, AsyncListObjects[Project]]:
         """List out all projects.
 
         The projects are sorted by creation date, with the most
@@ -492,8 +494,9 @@ class AsyncProjectResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
+        return self._get_api_list(
             "/v1/project",
+            page=AsyncListObjects[Project],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -510,7 +513,7 @@ class AsyncProjectResource(AsyncAPIResource):
                     project_list_params.ProjectListParams,
                 ),
             ),
-            cast_to=ProjectListResponse,
+            model=Project,
         )
 
     async def delete(

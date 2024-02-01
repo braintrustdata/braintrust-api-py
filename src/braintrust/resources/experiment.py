@@ -8,7 +8,6 @@ import httpx
 
 from ..types import (
     Experiment,
-    ExperimentListResponse,
     ExperimentFetchResponse,
     ExperimentInsertResponse,
     ExperimentFetchPostResponse,
@@ -31,7 +30,9 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from ..pagination import SyncListObjects, AsyncListObjects
 from .._base_client import (
+    AsyncPaginator,
     make_request_options,
 )
 
@@ -254,7 +255,7 @@ class ExperimentResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ExperimentListResponse:
+    ) -> SyncListObjects[Experiment]:
         """List out all experiments.
 
         The experiments are sorted by creation date, with the
@@ -285,8 +286,9 @@ class ExperimentResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
+        return self._get_api_list(
             "/v1/experiment",
+            page=SyncListObjects[Experiment],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -304,7 +306,7 @@ class ExperimentResource(SyncAPIResource):
                     experiment_list_params.ExperimentListParams,
                 ),
             ),
-            cast_to=ExperimentListResponse,
+            model=Experiment,
         )
 
     def delete(
@@ -864,7 +866,7 @@ class AsyncExperimentResource(AsyncAPIResource):
             cast_to=Experiment,
         )
 
-    async def list(
+    def list(
         self,
         *,
         ending_before: str | NotGiven = NOT_GIVEN,
@@ -879,7 +881,7 @@ class AsyncExperimentResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ExperimentListResponse:
+    ) -> AsyncPaginator[Experiment, AsyncListObjects[Experiment]]:
         """List out all experiments.
 
         The experiments are sorted by creation date, with the
@@ -910,8 +912,9 @@ class AsyncExperimentResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
+        return self._get_api_list(
             "/v1/experiment",
+            page=AsyncListObjects[Experiment],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -929,7 +932,7 @@ class AsyncExperimentResource(AsyncAPIResource):
                     experiment_list_params.ExperimentListParams,
                 ),
             ),
-            cast_to=ExperimentListResponse,
+            model=Experiment,
         )
 
     async def delete(

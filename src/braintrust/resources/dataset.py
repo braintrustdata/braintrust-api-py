@@ -8,7 +8,6 @@ import httpx
 
 from ..types import (
     Dataset,
-    DatasetListResponse,
     DatasetFetchResponse,
     DatasetInsertResponse,
     DatasetFetchPostResponse,
@@ -31,7 +30,9 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from ..pagination import SyncListObjects, AsyncListObjects
 from .._base_client import (
+    AsyncPaginator,
     make_request_options,
 )
 
@@ -200,7 +201,7 @@ class DatasetResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> DatasetListResponse:
+    ) -> SyncListObjects[Dataset]:
         """List out all datasets.
 
         The datasets are sorted by creation date, with the most
@@ -231,8 +232,9 @@ class DatasetResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
+        return self._get_api_list(
             "/v1/dataset",
+            page=SyncListObjects[Dataset],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -250,7 +252,7 @@ class DatasetResource(SyncAPIResource):
                     dataset_list_params.DatasetListParams,
                 ),
             ),
-            cast_to=DatasetListResponse,
+            model=Dataset,
         )
 
     def delete(
@@ -729,7 +731,7 @@ class AsyncDatasetResource(AsyncAPIResource):
             cast_to=Dataset,
         )
 
-    async def list(
+    def list(
         self,
         *,
         dataset_name: str | NotGiven = NOT_GIVEN,
@@ -744,7 +746,7 @@ class AsyncDatasetResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> DatasetListResponse:
+    ) -> AsyncPaginator[Dataset, AsyncListObjects[Dataset]]:
         """List out all datasets.
 
         The datasets are sorted by creation date, with the most
@@ -775,8 +777,9 @@ class AsyncDatasetResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
+        return self._get_api_list(
             "/v1/dataset",
+            page=AsyncListObjects[Dataset],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -794,7 +797,7 @@ class AsyncDatasetResource(AsyncAPIResource):
                     dataset_list_params.DatasetListParams,
                 ),
             ),
-            cast_to=DatasetListResponse,
+            model=Dataset,
         )
 
     async def delete(

@@ -11,8 +11,8 @@ from braintrust import Braintrust, AsyncBraintrust
 from tests.utils import assert_matches_type
 from braintrust.types import (
     Project,
-    ProjectListResponse,
 )
+from braintrust.pagination import SyncListObjects, AsyncListObjects
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -146,7 +146,7 @@ class TestProject:
     @parametrize
     def test_method_list(self, client: Braintrust) -> None:
         project = client.project.list()
-        assert_matches_type(ProjectListResponse, project, path=["response"])
+        assert_matches_type(SyncListObjects[Project], project, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Braintrust) -> None:
@@ -157,7 +157,7 @@ class TestProject:
             project_name="string",
             starting_after="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(ProjectListResponse, project, path=["response"])
+        assert_matches_type(SyncListObjects[Project], project, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: Braintrust) -> None:
@@ -166,7 +166,7 @@ class TestProject:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         project = response.parse()
-        assert_matches_type(ProjectListResponse, project, path=["response"])
+        assert_matches_type(SyncListObjects[Project], project, path=["response"])
 
     @parametrize
     def test_streaming_response_list(self, client: Braintrust) -> None:
@@ -175,7 +175,7 @@ class TestProject:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             project = response.parse()
-            assert_matches_type(ProjectListResponse, project, path=["response"])
+            assert_matches_type(SyncListObjects[Project], project, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -386,7 +386,7 @@ class TestAsyncProject:
     @parametrize
     async def test_method_list(self, async_client: AsyncBraintrust) -> None:
         project = await async_client.project.list()
-        assert_matches_type(ProjectListResponse, project, path=["response"])
+        assert_matches_type(AsyncListObjects[Project], project, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncBraintrust) -> None:
@@ -397,7 +397,7 @@ class TestAsyncProject:
             project_name="string",
             starting_after="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(ProjectListResponse, project, path=["response"])
+        assert_matches_type(AsyncListObjects[Project], project, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncBraintrust) -> None:
@@ -406,7 +406,7 @@ class TestAsyncProject:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         project = await response.parse()
-        assert_matches_type(ProjectListResponse, project, path=["response"])
+        assert_matches_type(AsyncListObjects[Project], project, path=["response"])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncBraintrust) -> None:
@@ -415,7 +415,7 @@ class TestAsyncProject:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             project = await response.parse()
-            assert_matches_type(ProjectListResponse, project, path=["response"])
+            assert_matches_type(AsyncListObjects[Project], project, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
