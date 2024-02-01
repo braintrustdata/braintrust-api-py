@@ -7,13 +7,13 @@ import asyncio
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from ._client import Braintrustdata, AsyncBraintrustdata
+    from ._client import Braintrust, AsyncBraintrust
 
 
 class SyncAPIResource:
-    _client: Braintrustdata
+    _client: Braintrust
 
-    def __init__(self, client: Braintrustdata) -> None:
+    def __init__(self, client: Braintrust) -> None:
         self._client = client
         self._get = client.get
         self._post = client.post
@@ -27,9 +27,9 @@ class SyncAPIResource:
 
 
 class AsyncAPIResource:
-    _client: AsyncBraintrustdata
+    _client: AsyncBraintrust
 
-    def __init__(self, client: AsyncBraintrustdata) -> None:
+    def __init__(self, client: AsyncBraintrust) -> None:
         self._client = client
         self._get = client.get
         self._post = client.post

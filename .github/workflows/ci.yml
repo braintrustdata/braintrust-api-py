@@ -38,4 +38,4 @@ jobs:
 
       - name: Ensure importable
         run: |
-          rye run python -c 'import braintrustdata'
+          rye run python -c 'import braintrust'

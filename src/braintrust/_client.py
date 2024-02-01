@@ -25,7 +25,7 @@ from ._utils import (
 )
 from ._version import __version__
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import APIStatusError, BraintrustdataError
+from ._exceptions import APIStatusError, BraintrustError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
@@ -38,21 +38,21 @@ __all__ = [
     "ProxiesTypes",
     "RequestOptions",
     "resources",
-    "Braintrustdata",
-    "AsyncBraintrustdata",
+    "Braintrust",
+    "AsyncBraintrust",
     "Client",
     "AsyncClient",
 ]
 
 
-class Braintrustdata(SyncAPIClient):
+class Braintrust(SyncAPIClient):
     project: resources.ProjectResource
     logs: resources.Logs
     experiment: resources.ExperimentResource
     dataset: resources.DatasetResource
     top_level: resources.TopLevel
-    with_raw_response: BraintrustdataWithRawResponse
-    with_streaming_response: BraintrustdataWithStreamedResponse
+    with_raw_response: BraintrustWithRawResponse
+    with_streaming_response: BraintrustWithStreamedResponse
 
     # client options
     api_key: str
@@ -78,20 +78,20 @@ class Braintrustdata(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous braintrustdata client instance.
+        """Construct a new synchronous braintrust client instance.
 
         This automatically infers the `api_key` argument from the `BRAINTRUST_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
             api_key = os.environ.get("BRAINTRUST_API_KEY")
         if api_key is None:
-            raise BraintrustdataError(
+            raise BraintrustError(
                 "The api_key client option must be set either by passing api_key to the client or by setting the BRAINTRUST_API_KEY environment variable"
             )
         self.api_key = api_key
 
         if base_url is None:
-            base_url = os.environ.get("BRAINTRUSTDATA_BASE_URL")
+            base_url = os.environ.get("BRAINTRUST_BASE_URL")
         if base_url is None:
             base_url = f"https://api.braintrustdata.com"
 
@@ -111,8 +111,8 @@ class Braintrustdata(SyncAPIClient):
         self.experiment = resources.ExperimentResource(self)
         self.dataset = resources.DatasetResource(self)
         self.top_level = resources.TopLevel(self)
-        self.with_raw_response = BraintrustdataWithRawResponse(self)
-        self.with_streaming_response = BraintrustdataWithStreamedResponse(self)
+        self.with_raw_response = BraintrustWithRawResponse(self)
+        self.with_streaming_response = BraintrustWithStreamedResponse(self)
 
     @property
     @override
@@ -219,14 +219,14 @@ class Braintrustdata(SyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class AsyncBraintrustdata(AsyncAPIClient):
+class AsyncBraintrust(AsyncAPIClient):
     project: resources.AsyncProjectResource
     logs: resources.AsyncLogs
     experiment: resources.AsyncExperimentResource
     dataset: resources.AsyncDatasetResource
     top_level: resources.AsyncTopLevel
-    with_raw_response: AsyncBraintrustdataWithRawResponse
-    with_streaming_response: AsyncBraintrustdataWithStreamedResponse
+    with_raw_response: AsyncBraintrustWithRawResponse
+    with_streaming_response: AsyncBraintrustWithStreamedResponse
 
     # client options
     api_key: str
@@ -252,20 +252,20 @@ class AsyncBraintrustdata(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async braintrustdata client instance.
+        """Construct a new async braintrust client instance.
 
         This automatically infers the `api_key` argument from the `BRAINTRUST_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
             api_key = os.environ.get("BRAINTRUST_API_KEY")
         if api_key is None:
-            raise BraintrustdataError(
+            raise BraintrustError(
                 "The api_key client option must be set either by passing api_key to the client or by setting the BRAINTRUST_API_KEY environment variable"
             )
         self.api_key = api_key
 
         if base_url is None:
-            base_url = os.environ.get("BRAINTRUSTDATA_BASE_URL")
+            base_url = os.environ.get("BRAINTRUST_BASE_URL")
         if base_url is None:
             base_url = f"https://api.braintrustdata.com"
 
@@ -285,8 +285,8 @@ class AsyncBraintrustdata(AsyncAPIClient):
         self.experiment = resources.AsyncExperimentResource(self)
         self.dataset = resources.AsyncDatasetResource(self)
         self.top_level = resources.AsyncTopLevel(self)
-        self.with_raw_response = AsyncBraintrustdataWithRawResponse(self)
-        self.with_streaming_response = AsyncBraintrustdataWithStreamedResponse(self)
+        self.with_raw_response = AsyncBraintrustWithRawResponse(self)
+        self.with_streaming_response = AsyncBraintrustWithStreamedResponse(self)
 
     @property
     @override
@@ -393,8 +393,8 @@ class AsyncBraintrustdata(AsyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class BraintrustdataWithRawResponse:
-    def __init__(self, client: Braintrustdata) -> None:
+class BraintrustWithRawResponse:
+    def __init__(self, client: Braintrust) -> None:
         self.project = resources.ProjectResourceWithRawResponse(client.project)
         self.logs = resources.LogsWithRawResponse(client.logs)
         self.experiment = resources.ExperimentResourceWithRawResponse(client.experiment)
@@ -402,8 +402,8 @@ class BraintrustdataWithRawResponse:
         self.top_level = resources.TopLevelWithRawResponse(client.top_level)
 
 
-class AsyncBraintrustdataWithRawResponse:
-    def __init__(self, client: AsyncBraintrustdata) -> None:
+class AsyncBraintrustWithRawResponse:
+    def __init__(self, client: AsyncBraintrust) -> None:
         self.project = resources.AsyncProjectResourceWithRawResponse(client.project)
         self.logs = resources.AsyncLogsWithRawResponse(client.logs)
         self.experiment = resources.AsyncExperimentResourceWithRawResponse(client.experiment)
@@ -411,8 +411,8 @@ class AsyncBraintrustdataWithRawResponse:
         self.top_level = resources.AsyncTopLevelWithRawResponse(client.top_level)
 
 
-class BraintrustdataWithStreamedResponse:
-    def __init__(self, client: Braintrustdata) -> None:
+class BraintrustWithStreamedResponse:
+    def __init__(self, client: Braintrust) -> None:
         self.project = resources.ProjectResourceWithStreamingResponse(client.project)
         self.logs = resources.LogsWithStreamingResponse(client.logs)
         self.experiment = resources.ExperimentResourceWithStreamingResponse(client.experiment)
@@ -420,8 +420,8 @@ class BraintrustdataWithStreamedResponse:
         self.top_level = resources.TopLevelWithStreamingResponse(client.top_level)
 
 
-class AsyncBraintrustdataWithStreamedResponse:
-    def __init__(self, client: AsyncBraintrustdata) -> None:
+class AsyncBraintrustWithStreamedResponse:
+    def __init__(self, client: AsyncBraintrust) -> None:
         self.project = resources.AsyncProjectResourceWithStreamingResponse(client.project)
         self.logs = resources.AsyncLogsWithStreamingResponse(client.logs)
         self.experiment = resources.AsyncExperimentResourceWithStreamingResponse(client.experiment)
@@ -429,6 +429,6 @@ class AsyncBraintrustdataWithStreamedResponse:
         self.top_level = resources.AsyncTopLevelWithStreamingResponse(client.top_level)
 
 
-Client = Braintrustdata
+Client = Braintrust
 
-AsyncClient = AsyncBraintrustdata
+AsyncClient = AsyncBraintrust

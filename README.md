@@ -1,8 +1,8 @@
-# Braintrustdata Python API library
+# Braintrust Python API library
 
 [![PyPI version](https://img.shields.io/pypi/v/braintrust.svg)](https://pypi.org/project/braintrust/)
 
-The Braintrustdata Python library provides convenient access to the Braintrustdata REST API from any Python 3.7+
+The Braintrust Python library provides convenient access to the Braintrust REST API from any Python 3.7+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -22,9 +22,9 @@ The full API of this library can be found in [api.md](https://www.github.com/bra
 
 ```python
 import os
-from braintrustdata import Braintrustdata
+from braintrust import Braintrust
 
-client = Braintrustdata(
+client = Braintrust(
     # This is the default and can be omitted
     api_key=os.environ.get("BRAINTRUST_API_KEY"),
 )
@@ -42,14 +42,14 @@ so that your API Key is not stored in source control.
 
 ## Async usage
 
-Simply import `AsyncBraintrustdata` instead of `Braintrustdata` and use `await` with each API call:
+Simply import `AsyncBraintrust` instead of `Braintrust` and use `await` with each API call:
 
 ```python
 import os
 import asyncio
-from braintrustdata import AsyncBraintrustdata
+from braintrust import AsyncBraintrust
 
-client = AsyncBraintrustdata(
+client = AsyncBraintrust(
     # This is the default and can be omitted
     api_key=os.environ.get("BRAINTRUST_API_KEY"),
 )
@@ -78,29 +78,29 @@ Typed requests and responses provide autocomplete and documentation within your 
 
 ## Handling errors
 
-When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `braintrustdata.APIConnectionError` is raised.
+When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `braintrust.APIConnectionError` is raised.
 
 When the API returns a non-success status code (that is, 4xx or 5xx
-response), a subclass of `braintrustdata.APIStatusError` is raised, containing `status_code` and `response` properties.
+response), a subclass of `braintrust.APIStatusError` is raised, containing `status_code` and `response` properties.
 
-All errors inherit from `braintrustdata.APIError`.
+All errors inherit from `braintrust.APIError`.
 
 ```python
-import braintrustdata
-from braintrustdata import Braintrustdata
+import braintrust
+from braintrust import Braintrust
 
-client = Braintrustdata()
+client = Braintrust()
 
 try:
     client.project.create(
         name="string",
     )
-except braintrustdata.APIConnectionError as e:
+except braintrust.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
-except braintrustdata.RateLimitError as e:
+except braintrust.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
-except braintrustdata.APIStatusError as e:
+except braintrust.APIStatusError as e:
     print("Another non-200-range status code was received")
     print(e.status_code)
     print(e.response)
@@ -128,10 +128,10 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from braintrustdata import Braintrustdata
+from braintrust import Braintrust
 
 # Configure the default for all requests:
-client = Braintrustdata(
+client = Braintrust(
     # default is 2
     max_retries=0,
 )
@@ -148,16 +148,16 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
 
 ```python
-from braintrustdata import Braintrustdata
+from braintrust import Braintrust
 
 # Configure the default for all requests:
-client = Braintrustdata(
+client = Braintrust(
     # 20 seconds (default is 1 minute)
     timeout=20.0,
 )
 
 # More granular control:
-client = Braintrustdata(
+client = Braintrust(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
 )
 
@@ -177,10 +177,10 @@ Note that requests that time out are [retried twice by default](#retries).
 
 We use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.
 
-You can enable logging by setting the environment variable `BRAINTRUSTDATA_LOG` to `debug`.
+You can enable logging by setting the environment variable `BRAINTRUST_LOG` to `debug`.
 
 ```shell
-$ export BRAINTRUSTDATA_LOG=debug
+$ export BRAINTRUST_LOG=debug
 ```
 
 ### How to tell whether `None` means `null` or missing
@@ -200,9 +200,9 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from braintrustdata import Braintrustdata
+from braintrust import Braintrust
 
-client = Braintrustdata()
+client = Braintrust()
 response = client.project.with_raw_response.create(
     name="string",
 )
@@ -212,9 +212,9 @@ project = response.parse()  # get the object that `project.create()` would have 
 print(project.id)
 ```
 
-These methods return an [`APIResponse`](https://github.com/braintrustdata/tree/main/src/braintrustdata/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/braintrustdata/tree/main/src/braintrust/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/braintrustdata/tree/main/src/braintrustdata/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/braintrustdata/tree/main/src/braintrust/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -244,10 +244,10 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 ```python
 import httpx
-from braintrustdata import Braintrustdata
+from braintrust import Braintrust
 
-client = Braintrustdata(
-    # Or use the `BRAINTRUSTDATA_BASE_URL` env var
+client = Braintrust(
+    # Or use the `BRAINTRUST_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
     http_client=httpx.Client(
         proxies="http://my.test.proxy.example.com",

@@ -29,7 +29,7 @@ from ._utils import is_given, extract_type_var_from_base
 from ._models import BaseModel, is_basemodel
 from ._constants import RAW_RESPONSE_HEADER, OVERRIDE_CAST_TO_HEADER
 from ._streaming import Stream, AsyncStream, is_stream_class_type, extract_stream_chunk_type
-from ._exceptions import BraintrustdataError, APIResponseValidationError
+from ._exceptions import BraintrustError, APIResponseValidationError
 
 if TYPE_CHECKING:
     from ._models import FinalRequestOptions
@@ -189,7 +189,7 @@ class BaseAPIResponse(Generic[R]):
 
         if inspect.isclass(origin) and not issubclass(origin, BaseModel) and issubclass(origin, pydantic.BaseModel):
             raise TypeError(
-                "Pydantic models must subclass our base model type, e.g. `from braintrustdata import BaseModel`"
+                "Pydantic models must subclass our base model type, e.g. `from braintrust import BaseModel`"
             )
 
         if (
@@ -258,7 +258,7 @@ class APIResponse(BaseAPIResponse[R]):
         the `to` argument, e.g.
 
         ```py
-        from braintrustdata import BaseModel
+        from braintrust import BaseModel
 
 
         class MyModel(BaseModel):
@@ -360,7 +360,7 @@ class AsyncAPIResponse(BaseAPIResponse[R]):
         the `to` argument, e.g.
 
         ```py
-        from braintrustdata import BaseModel
+        from braintrust import BaseModel
 
 
         class MyModel(BaseModel):
@@ -531,11 +531,11 @@ class AsyncStreamedBinaryAPIResponse(AsyncAPIResponse[bytes]):
 class MissingStreamClassError(TypeError):
     def __init__(self) -> None:
         super().__init__(
-            "The `stream` argument was set to `True` but the `stream_cls` argument was not given. See `braintrustdata._streaming` for reference",
+            "The `stream` argument was set to `True` but the `stream_cls` argument was not given. See `braintrust._streaming` for reference",
         )
 
 
-class StreamAlreadyConsumed(BraintrustdataError):
+class StreamAlreadyConsumed(BraintrustError):
     """
     Attempted to read or stream content, but the content has already
     been streamed.

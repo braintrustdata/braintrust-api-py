@@ -18,11 +18,11 @@ __all__ = [
 ]
 
 
-class BraintrustdataError(Exception):
+class BraintrustError(Exception):
     pass
 
 
-class APIError(BraintrustdataError):
+class APIError(BraintrustError):
     message: str
     request: httpx.Request
 

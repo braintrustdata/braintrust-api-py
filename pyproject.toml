@@ -1,11 +1,11 @@
 [project]
 name = "braintrust"
 version = "0.0.1"
-description = "The official Python library for the braintrustdata API"
+description = "The official Python library for the braintrust API"
 readme = "README.md"
 license = "Apache-2.0"
 authors = [
-{ name = "Braintrustdata", email = "dev-feedback@braintrustdata.com" },
+{ name = "Braintrust", email = "dev-feedback@braintrustdata.com" },
 ]
 dependencies = [
     "httpx>=0.23.0, <1",
@@ -80,7 +80,7 @@ typecheck = { chain = [
   "typecheck:mypy"
 ]}
 "typecheck:pyright" = "pyright"
-"typecheck:verify-types" = "pyright --verifytypes braintrustdata --ignoreexternal"
+"typecheck:verify-types" = "pyright --verifytypes braintrust --ignoreexternal"
 "typecheck:mypy" = "mypy ."
 
 [build-system]
@@ -93,7 +93,7 @@ include = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/braintrustdata"]
+packages = ["src/braintrust"]
 
 [tool.black]
 line-length = 120
@@ -166,7 +166,7 @@ length-sort = true
 length-sort-straight = true
 combine-as-imports = true
 extra-standard-library = ["typing_extensions"]
-known-first-party = ["braintrustdata", "tests"]
+known-first-party = ["braintrust", "tests"]
 
 [tool.ruff.per-file-ignores]
 "bin/**.py" = ["T201", "T203"]

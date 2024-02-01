@@ -7,14 +7,14 @@ from typing import TYPE_CHECKING, Iterator, AsyncIterator
 
 import pytest
 
-from braintrustdata import Braintrustdata, AsyncBraintrustdata
+from braintrust import Braintrust, AsyncBraintrust
 
 if TYPE_CHECKING:
     from _pytest.fixtures import FixtureRequest
 
 pytest.register_assert_rewrite("tests.utils")
 
-logging.getLogger("braintrustdata").setLevel(logging.DEBUG)
+logging.getLogger("braintrust").setLevel(logging.DEBUG)
 
 
 @pytest.fixture(scope="session")
@@ -30,20 +30,20 @@ api_key = "My API Key"
 
 
 @pytest.fixture(scope="session")
-def client(request: FixtureRequest) -> Iterator[Braintrustdata]:
+def client(request: FixtureRequest) -> Iterator[Braintrust]:
     strict = getattr(request, "param", True)
     if not isinstance(strict, bool):
         raise TypeError(f"Unexpected fixture parameter type {type(strict)}, expected {bool}")
 
-    with Braintrustdata(base_url=base_url, api_key=api_key, _strict_response_validation=strict) as client:
+    with Braintrust(base_url=base_url, api_key=api_key, _strict_response_validation=strict) as client:
         yield client
 
 
 @pytest.fixture(scope="session")
-async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncBraintrustdata]:
+async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncBraintrust]:
     strict = getattr(request, "param", True)
     if not isinstance(strict, bool):
         raise TypeError(f"Unexpected fixture parameter type {type(strict)}, expected {bool}")
 
-    async with AsyncBraintrustdata(base_url=base_url, api_key=api_key, _strict_response_validation=strict) as client:
+    async with AsyncBraintrust(base_url=base_url, api_key=api_key, _strict_response_validation=strict) as client:
         yield client

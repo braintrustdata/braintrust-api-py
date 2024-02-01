@@ -4,8 +4,8 @@ from typing import Sequence
 
 import pytest
 
-from braintrustdata._types import FileTypes
-from braintrustdata._utils import extract_files
+from braintrust._types import FileTypes
+from braintrust._utils import extract_files
 
 
 def test_removes_files_from_input() -> None:

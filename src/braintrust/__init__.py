@@ -8,11 +8,11 @@ from ._client import (
     Stream,
     Timeout,
     Transport,
+    Braintrust,
     AsyncClient,
     AsyncStream,
-    Braintrustdata,
     RequestOptions,
-    AsyncBraintrustdata,
+    AsyncBraintrust,
 )
 from ._models import BaseModel
 from ._version import __title__, __version__
@@ -25,9 +25,9 @@ from ._exceptions import (
     RateLimitError,
     APITimeoutError,
     BadRequestError,
+    BraintrustError,
     APIConnectionError,
     AuthenticationError,
-    BraintrustdataError,
     InternalServerError,
     PermissionDeniedError,
     UnprocessableEntityError,
@@ -42,7 +42,7 @@ __all__ = [
     "NoneType",
     "Transport",
     "ProxiesTypes",
-    "BraintrustdataError",
+    "BraintrustError",
     "APIError",
     "APIStatusError",
     "APITimeoutError",
@@ -62,8 +62,8 @@ __all__ = [
     "AsyncClient",
     "Stream",
     "AsyncStream",
-    "Braintrustdata",
-    "AsyncBraintrustdata",
+    "Braintrust",
+    "AsyncBraintrust",
     "file_from_path",
     "BaseModel",
 ]
@@ -73,12 +73,12 @@ _setup_logging()
 # Update the __module__ attribute for exported symbols so that
 # error messages point to this module instead of the module
 # it was originally defined in, e.g.
-# braintrustdata._exceptions.NotFoundError -> braintrustdata.NotFoundError
+# braintrust._exceptions.NotFoundError -> braintrust.NotFoundError
 __locals = locals()
 for __name in __all__:
     if not __name.startswith("__"):
         try:
-            __locals[__name].__module__ = "braintrustdata"
+            __locals[__name].__module__ = "braintrust"
         except (TypeError, AttributeError):
             # Some of our exported symbols are builtins which we can't set attributes for.
             pass
