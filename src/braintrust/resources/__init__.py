@@ -34,6 +34,12 @@ from .experiment import (
 )
 
 __all__ = [
+    "TopLevel",
+    "AsyncTopLevel",
+    "TopLevelWithRawResponse",
+    "AsyncTopLevelWithRawResponse",
+    "TopLevelWithStreamingResponse",
+    "AsyncTopLevelWithStreamingResponse",
     "ProjectResource",
     "AsyncProjectResource",
     "ProjectResourceWithRawResponse",
@@ -52,10 +58,4 @@ __all__ = [
     "AsyncDatasetResourceWithRawResponse",
     "DatasetResourceWithStreamingResponse",
     "AsyncDatasetResourceWithStreamingResponse",
-    "TopLevel",
-    "AsyncTopLevel",
-    "TopLevelWithRawResponse",
-    "AsyncTopLevelWithRawResponse",
-    "TopLevelWithStreamingResponse",
-    "AsyncTopLevelWithStreamingResponse",
 ]

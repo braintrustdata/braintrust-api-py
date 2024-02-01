@@ -46,10 +46,10 @@ __all__ = [
 
 
 class Braintrust(SyncAPIClient):
+    top_level: resources.TopLevel
     project: resources.ProjectResource
     experiment: resources.ExperimentResource
     dataset: resources.DatasetResource
-    top_level: resources.TopLevel
     with_raw_response: BraintrustWithRawResponse
     with_streaming_response: BraintrustWithStreamedResponse
 
@@ -105,10 +105,10 @@ class Braintrust(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
+        self.top_level = resources.TopLevel(self)
         self.project = resources.ProjectResource(self)
         self.experiment = resources.ExperimentResource(self)
         self.dataset = resources.DatasetResource(self)
-        self.top_level = resources.TopLevel(self)
         self.with_raw_response = BraintrustWithRawResponse(self)
         self.with_streaming_response = BraintrustWithStreamedResponse(self)
 
@@ -218,10 +218,10 @@ class Braintrust(SyncAPIClient):
 
 
 class AsyncBraintrust(AsyncAPIClient):
+    top_level: resources.AsyncTopLevel
     project: resources.AsyncProjectResource
     experiment: resources.AsyncExperimentResource
     dataset: resources.AsyncDatasetResource
-    top_level: resources.AsyncTopLevel
     with_raw_response: AsyncBraintrustWithRawResponse
     with_streaming_response: AsyncBraintrustWithStreamedResponse
 
@@ -277,10 +277,10 @@ class AsyncBraintrust(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
+        self.top_level = resources.AsyncTopLevel(self)
         self.project = resources.AsyncProjectResource(self)
         self.experiment = resources.AsyncExperimentResource(self)
         self.dataset = resources.AsyncDatasetResource(self)
-        self.top_level = resources.AsyncTopLevel(self)
         self.with_raw_response = AsyncBraintrustWithRawResponse(self)
         self.with_streaming_response = AsyncBraintrustWithStreamedResponse(self)
 
@@ -391,34 +391,34 @@ class AsyncBraintrust(AsyncAPIClient):
 
 class BraintrustWithRawResponse:
     def __init__(self, client: Braintrust) -> None:
+        self.top_level = resources.TopLevelWithRawResponse(client.top_level)
         self.project = resources.ProjectResourceWithRawResponse(client.project)
         self.experiment = resources.ExperimentResourceWithRawResponse(client.experiment)
         self.dataset = resources.DatasetResourceWithRawResponse(client.dataset)
-        self.top_level = resources.TopLevelWithRawResponse(client.top_level)
 
 
 class AsyncBraintrustWithRawResponse:
     def __init__(self, client: AsyncBraintrust) -> None:
+        self.top_level = resources.AsyncTopLevelWithRawResponse(client.top_level)
         self.project = resources.AsyncProjectResourceWithRawResponse(client.project)
         self.experiment = resources.AsyncExperimentResourceWithRawResponse(client.experiment)
         self.dataset = resources.AsyncDatasetResourceWithRawResponse(client.dataset)
-        self.top_level = resources.AsyncTopLevelWithRawResponse(client.top_level)
 
 
 class BraintrustWithStreamedResponse:
     def __init__(self, client: Braintrust) -> None:
+        self.top_level = resources.TopLevelWithStreamingResponse(client.top_level)
         self.project = resources.ProjectResourceWithStreamingResponse(client.project)
         self.experiment = resources.ExperimentResourceWithStreamingResponse(client.experiment)
         self.dataset = resources.DatasetResourceWithStreamingResponse(client.dataset)
-        self.top_level = resources.TopLevelWithStreamingResponse(client.top_level)
 
 
 class AsyncBraintrustWithStreamedResponse:
     def __init__(self, client: AsyncBraintrust) -> None:
+        self.top_level = resources.AsyncTopLevelWithStreamingResponse(client.top_level)
         self.project = resources.AsyncProjectResourceWithStreamingResponse(client.project)
         self.experiment = resources.AsyncExperimentResourceWithStreamingResponse(client.experiment)
         self.dataset = resources.AsyncDatasetResourceWithStreamingResponse(client.dataset)
-        self.top_level = resources.AsyncTopLevelWithStreamingResponse(client.top_level)
 
 
 Client = Braintrust

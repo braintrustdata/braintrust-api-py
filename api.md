@@ -1,3 +1,15 @@
+# TopLevel
+
+Types:
+
+```python
+from braintrust.types import TopLevelHelloWorldResponse
+```
+
+Methods:
+
+- <code title="get /v1">client.top_level.<a href="./src/braintrust/resources/top_level.py">hello_world</a>() -> str</code>
+
 # ProjectResource
 
 Types:
@@ -81,15 +93,3 @@ Methods:
 - <code title="post /v1/dataset/{dataset_id}/fetch">client.dataset.<a href="./src/braintrust/resources/dataset.py">fetch_post</a>(dataset_id, \*\*<a href="src/braintrust/types/dataset_fetch_post_params.py">params</a>) -> <a href="./src/braintrust/types/dataset_fetch_post_response.py">DatasetFetchPostResponse</a></code>
 - <code title="post /v1/dataset/{dataset_id}/insert">client.dataset.<a href="./src/braintrust/resources/dataset.py">insert</a>(dataset_id, \*\*<a href="src/braintrust/types/dataset_insert_params.py">params</a>) -> <a href="./src/braintrust/types/dataset_insert_response.py">DatasetInsertResponse</a></code>
 - <code title="put /v1/dataset">client.dataset.<a href="./src/braintrust/resources/dataset.py">replace</a>(\*\*<a href="src/braintrust/types/dataset_replace_params.py">params</a>) -> <a href="./src/braintrust/types/dataset.py">Dataset</a></code>
-
-# TopLevel
-
-Types:
-
-```python
-from braintrust.types import TopLevelHelloWorldResponse
-```
-
-Methods:
-
-- <code title="get /v1">client.top_level.<a href="./src/braintrust/resources/top_level.py">hello_world</a>() -> str</code>
