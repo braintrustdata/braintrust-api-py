@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import List, Optional
-from typing_extensions import Required, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["ExperimentFetchPostParams", "Filter"]
 
@@ -65,7 +65,7 @@ class Filter(TypedDict, total=False):
     `{"input": {"a": {"b": {"c": "hello"}}}}`, pass `path=["input", "a", "b", "c"]`
     """
 
-    type: Required[str]
+    type: Required[Literal["path_lookup"]]
     """Denotes the type of filter as a path-lookup filter"""
 
     value: object

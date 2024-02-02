@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict, List, Union, Optional
-from typing_extensions import Required, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["DatasetInsertParams", "Event", "EventInsertDatasetEventReplace", "EventInsertDatasetEventMerge"]
 
@@ -20,7 +20,7 @@ class EventInsertDatasetEventReplace(TypedDict, total=False):
     If you don't provide one, BrainTrust will generate one for you
     """
 
-    _is_merge: Optional[bool]
+    _is_merge: Optional[Literal[False]]
     """
     The `_is_merge` field controls how the row is merged with any existing row with
     the same id in the DB. By default (or when set to `false`), the existing row is
@@ -80,7 +80,7 @@ class EventInsertDatasetEventReplace(TypedDict, total=False):
 
 
 class EventInsertDatasetEventMerge(TypedDict, total=False):
-    _is_merge: Required[bool]
+    _is_merge: Required[Literal[True]]
     """
     The `_is_merge` field controls how the row is merged with any existing row with
     the same id in the DB. By default (or when set to `false`), the existing row is

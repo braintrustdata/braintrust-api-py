@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict, List, Optional
-from typing_extensions import Required, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["DatasetFeedbackParams", "Feedback"]
 
@@ -29,7 +29,7 @@ class Feedback(TypedDict, total=False):
     If you have a `user_id`, you can log it here and access it in the Braintrust UI.
     """
 
-    source: Optional[str]
+    source: Optional[Literal["app", "api", "external"]]
     """The source of the feedback.
 
     Must be one of "external" (default), "app", or "api"
