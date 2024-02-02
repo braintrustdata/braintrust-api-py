@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict, List, Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Required, TypedDict
 
 __all__ = ["ExperimentFeedbackParams", "Feedback"]
 
@@ -41,7 +41,7 @@ class Feedback(TypedDict, total=False):
     These scores will be merged into the existing scores for the experiment event
     """
 
-    source: Optional[Literal["app", "api", "external"]]
+    source: Optional[str]
     """The source of the feedback.
 
     Must be one of "external" (default), "app", or "api"

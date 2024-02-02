@@ -2,7 +2,6 @@
 
 from typing import TYPE_CHECKING, Dict, List, Optional
 from datetime import datetime
-from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
@@ -54,7 +53,7 @@ class EventSpanAttributes(BaseModel):
     name: Optional[str] = None
     """Name of the span, for display purposes only"""
 
-    type: Optional[Literal["llm", "score", "function", "eval", "task", "tool"]] = None
+    type: Optional[str] = None
     """Type of the span, for display purposes only"""
 
     if TYPE_CHECKING:
@@ -80,7 +79,7 @@ class Event(BaseModel):
     `version` parameter)
     """
 
-    log_id: Literal["g"]
+    log_id: str
     """A literal 'g' which identifies the log as a project log"""
 
     org_id: str
