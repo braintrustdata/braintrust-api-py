@@ -64,7 +64,7 @@ class EventInsertProjectLogsEventReplace(TypedDict, total=False):
     If you don't provide one, BrainTrust will generate one for you
     """
 
-    _is_merge: Optional[Literal[False]]
+    _is_merge: Optional[bool]
     """
     The `_is_merge` field controls how the row is merged with any existing row with
     the same id in the DB. By default (or when set to `false`), the existing row is
@@ -200,7 +200,7 @@ class EventInsertProjectLogsEventMergeSpanAttributes(TypedDict, total=False):
 
 
 class EventInsertProjectLogsEventMerge(TypedDict, total=False):
-    _is_merge: Required[Literal[True]]
+    _is_merge: Required[bool]
     """
     The `_is_merge` field controls how the row is merged with any existing row with
     the same id in the DB. By default (or when set to `false`), the existing row is
