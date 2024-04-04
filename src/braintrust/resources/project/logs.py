@@ -1,13 +1,16 @@
-# File generated from our OpenAPI spec by Stainless.
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Iterable, Optional
 
 import httpx
 
 from ..._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
-from ..._utils import maybe_transform
+from ..._utils import (
+    maybe_transform,
+    async_maybe_transform,
+)
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -45,7 +48,7 @@ class Logs(SyncAPIResource):
         self,
         project_id: str,
         *,
-        feedback: List[log_feedback_params.Feedback],
+        feedback: Iterable[log_feedback_params.Feedback],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -166,7 +169,7 @@ class Logs(SyncAPIResource):
         self,
         project_id: str,
         *,
-        filters: Optional[List[log_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
+        filters: Optional[Iterable[log_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
         max_xact_id: Optional[int] | NotGiven = NOT_GIVEN,
@@ -249,7 +252,7 @@ class Logs(SyncAPIResource):
         self,
         project_id: str,
         *,
-        events: List[log_insert_params.Event],
+        events: Iterable[log_insert_params.Event],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -298,7 +301,7 @@ class AsyncLogs(AsyncAPIResource):
         self,
         project_id: str,
         *,
-        feedback: List[log_feedback_params.Feedback],
+        feedback: Iterable[log_feedback_params.Feedback],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -327,7 +330,7 @@ class AsyncLogs(AsyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             f"/v1/project_logs/{project_id}/feedback",
-            body=maybe_transform({"feedback": feedback}, log_feedback_params.LogFeedbackParams),
+            body=await async_maybe_transform({"feedback": feedback}, log_feedback_params.LogFeedbackParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -402,7 +405,7 @@ class AsyncLogs(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
+                query=await async_maybe_transform(
                     {
                         "limit": limit,
                         "max_root_span_id": max_root_span_id,
@@ -419,7 +422,7 @@ class AsyncLogs(AsyncAPIResource):
         self,
         project_id: str,
         *,
-        filters: Optional[List[log_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
+        filters: Optional[Iterable[log_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
         max_xact_id: Optional[int] | NotGiven = NOT_GIVEN,
@@ -482,7 +485,7 @@ class AsyncLogs(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `project_id` but received {project_id!r}")
         return await self._post(
             f"/v1/project_logs/{project_id}/fetch",
-            body=maybe_transform(
+            body=await async_maybe_transform(
                 {
                     "filters": filters,
                     "limit": limit,
@@ -502,7 +505,7 @@ class AsyncLogs(AsyncAPIResource):
         self,
         project_id: str,
         *,
-        events: List[log_insert_params.Event],
+        events: Iterable[log_insert_params.Event],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -530,7 +533,7 @@ class AsyncLogs(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `project_id` but received {project_id!r}")
         return await self._post(
             f"/v1/project_logs/{project_id}/insert",
-            body=maybe_transform({"events": events}, log_insert_params.LogInsertParams),
+            body=await async_maybe_transform({"events": events}, log_insert_params.LogInsertParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

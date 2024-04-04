@@ -1,8 +1,8 @@
-# File generated from our OpenAPI spec by Stainless.
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from __future__ import annotations
 
-from typing import Dict, List, Optional
+from typing import Dict, Iterable, Optional
 
 import httpx
 
@@ -21,7 +21,10 @@ from ..types import (
     experiment_fetch_post_params,
 )
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
-from .._utils import maybe_transform
+from .._utils import (
+    maybe_transform,
+    async_maybe_transform,
+)
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -348,7 +351,7 @@ class ExperimentResource(SyncAPIResource):
         self,
         experiment_id: str,
         *,
-        feedback: List[experiment_feedback_params.Feedback],
+        feedback: Iterable[experiment_feedback_params.Feedback],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -469,7 +472,7 @@ class ExperimentResource(SyncAPIResource):
         self,
         experiment_id: str,
         *,
-        filters: Optional[List[experiment_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
+        filters: Optional[Iterable[experiment_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
         max_xact_id: Optional[int] | NotGiven = NOT_GIVEN,
@@ -552,7 +555,7 @@ class ExperimentResource(SyncAPIResource):
         self,
         experiment_id: str,
         *,
-        events: List[experiment_insert_params.Event],
+        events: Iterable[experiment_insert_params.Event],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -731,7 +734,7 @@ class AsyncExperimentResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/experiment",
-            body=maybe_transform(
+            body=await async_maybe_transform(
                 {
                     "project_id": project_id,
                     "base_exp_id": base_exp_id,
@@ -847,7 +850,7 @@ class AsyncExperimentResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `experiment_id` but received {experiment_id!r}")
         return await self._patch(
             f"/v1/experiment/{experiment_id}",
-            body=maybe_transform(
+            body=await async_maybe_transform(
                 {
                     "base_exp_id": base_exp_id,
                     "dataset_id": dataset_id,
@@ -974,7 +977,7 @@ class AsyncExperimentResource(AsyncAPIResource):
         self,
         experiment_id: str,
         *,
-        feedback: List[experiment_feedback_params.Feedback],
+        feedback: Iterable[experiment_feedback_params.Feedback],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1003,7 +1006,9 @@ class AsyncExperimentResource(AsyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             f"/v1/experiment/{experiment_id}/feedback",
-            body=maybe_transform({"feedback": feedback}, experiment_feedback_params.ExperimentFeedbackParams),
+            body=await async_maybe_transform(
+                {"feedback": feedback}, experiment_feedback_params.ExperimentFeedbackParams
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1078,7 +1083,7 @@ class AsyncExperimentResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
+                query=await async_maybe_transform(
                     {
                         "limit": limit,
                         "max_root_span_id": max_root_span_id,
@@ -1095,7 +1100,7 @@ class AsyncExperimentResource(AsyncAPIResource):
         self,
         experiment_id: str,
         *,
-        filters: Optional[List[experiment_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
+        filters: Optional[Iterable[experiment_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
         max_xact_id: Optional[int] | NotGiven = NOT_GIVEN,
@@ -1158,7 +1163,7 @@ class AsyncExperimentResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `experiment_id` but received {experiment_id!r}")
         return await self._post(
             f"/v1/experiment/{experiment_id}/fetch",
-            body=maybe_transform(
+            body=await async_maybe_transform(
                 {
                     "filters": filters,
                     "limit": limit,
@@ -1178,7 +1183,7 @@ class AsyncExperimentResource(AsyncAPIResource):
         self,
         experiment_id: str,
         *,
-        events: List[experiment_insert_params.Event],
+        events: Iterable[experiment_insert_params.Event],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1206,7 +1211,7 @@ class AsyncExperimentResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `experiment_id` but received {experiment_id!r}")
         return await self._post(
             f"/v1/experiment/{experiment_id}/insert",
-            body=maybe_transform({"events": events}, experiment_insert_params.ExperimentInsertParams),
+            body=await async_maybe_transform({"events": events}, experiment_insert_params.ExperimentInsertParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1270,7 +1275,7 @@ class AsyncExperimentResource(AsyncAPIResource):
         """
         return await self._put(
             "/v1/experiment",
-            body=maybe_transform(
+            body=await async_maybe_transform(
                 {
                     "project_id": project_id,
                     "base_exp_id": base_exp_id,

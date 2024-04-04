@@ -1,15 +1,15 @@
-# File generated from our OpenAPI spec by Stainless.
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import List, Iterable, Optional
 from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["LogFetchPostParams", "Filter"]
 
 
 class LogFetchPostParams(TypedDict, total=False):
-    filters: Optional[List[Filter]]
+    filters: Optional[Iterable[Filter]]
     """A list of filters on the events to fetch.
 
     Currently, only path-lookup type filters are supported, but we may add more in
