@@ -1,4 +1,4 @@
-# File generated from our OpenAPI spec by Stainless.
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from __future__ import annotations
 
@@ -22,7 +22,10 @@ from ...types import (
     project_replace_params,
 )
 from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from ..._utils import maybe_transform
+from ..._utils import (
+    maybe_transform,
+    async_maybe_transform,
+)
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -375,7 +378,7 @@ class AsyncProjectResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/project",
-            body=maybe_transform(
+            body=await async_maybe_transform(
                 {
                     "name": name,
                     "org_name": org_name,
@@ -460,7 +463,7 @@ class AsyncProjectResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `project_id` but received {project_id!r}")
         return await self._patch(
             f"/v1/project/{project_id}",
-            body=maybe_transform({"name": name}, project_update_params.ProjectUpdateParams),
+            body=await async_maybe_transform({"name": name}, project_update_params.ProjectUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -602,7 +605,7 @@ class AsyncProjectResource(AsyncAPIResource):
         """
         return await self._put(
             "/v1/project",
-            body=maybe_transform(
+            body=await async_maybe_transform(
                 {
                     "name": name,
                     "org_name": org_name,

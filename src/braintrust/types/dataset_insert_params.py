@@ -1,15 +1,15 @@
-# File generated from our OpenAPI spec by Stainless.
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Optional
+from typing import Dict, List, Union, Iterable, Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["DatasetInsertParams", "Event", "EventInsertDatasetEventReplace", "EventInsertDatasetEventMerge"]
 
 
 class DatasetInsertParams(TypedDict, total=False):
-    events: Required[List[Event]]
+    events: Required[Iterable[Event]]
     """A list of dataset events to insert"""
 
 
@@ -101,7 +101,7 @@ class EventInsertDatasetEventMerge(TypedDict, total=False):
     If you don't provide one, BrainTrust will generate one for you
     """
 
-    _merge_paths: Optional[List[List[str]]]
+    _merge_paths: Optional[Iterable[List[str]]]
     """The `_merge_paths` field allows controlling the depth of the merge.
 
     It can only be specified alongside `_is_merge=true`. `_merge_paths` is a list of

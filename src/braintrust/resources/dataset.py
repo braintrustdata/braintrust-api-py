@@ -1,8 +1,8 @@
-# File generated from our OpenAPI spec by Stainless.
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Iterable, Optional
 
 import httpx
 
@@ -21,7 +21,10 @@ from ..types import (
     dataset_fetch_post_params,
 )
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
-from .._utils import maybe_transform
+from .._utils import (
+    maybe_transform,
+    async_maybe_transform,
+)
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -294,7 +297,7 @@ class DatasetResource(SyncAPIResource):
         self,
         dataset_id: str,
         *,
-        feedback: List[dataset_feedback_params.Feedback],
+        feedback: Iterable[dataset_feedback_params.Feedback],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -415,7 +418,7 @@ class DatasetResource(SyncAPIResource):
         self,
         dataset_id: str,
         *,
-        filters: Optional[List[dataset_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
+        filters: Optional[Iterable[dataset_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
         max_xact_id: Optional[int] | NotGiven = NOT_GIVEN,
@@ -498,7 +501,7 @@ class DatasetResource(SyncAPIResource):
         self,
         dataset_id: str,
         *,
-        events: List[dataset_insert_params.Event],
+        events: Iterable[dataset_insert_params.Event],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -629,7 +632,7 @@ class AsyncDatasetResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/dataset",
-            body=maybe_transform(
+            body=await async_maybe_transform(
                 {
                     "name": name,
                     "description": description,
@@ -718,7 +721,7 @@ class AsyncDatasetResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         return await self._patch(
             f"/v1/dataset/{dataset_id}",
-            body=maybe_transform(
+            body=await async_maybe_transform(
                 {
                     "name": name,
                     "description": description,
@@ -839,7 +842,7 @@ class AsyncDatasetResource(AsyncAPIResource):
         self,
         dataset_id: str,
         *,
-        feedback: List[dataset_feedback_params.Feedback],
+        feedback: Iterable[dataset_feedback_params.Feedback],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -868,7 +871,7 @@ class AsyncDatasetResource(AsyncAPIResource):
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             f"/v1/dataset/{dataset_id}/feedback",
-            body=maybe_transform({"feedback": feedback}, dataset_feedback_params.DatasetFeedbackParams),
+            body=await async_maybe_transform({"feedback": feedback}, dataset_feedback_params.DatasetFeedbackParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -943,7 +946,7 @@ class AsyncDatasetResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
+                query=await async_maybe_transform(
                     {
                         "limit": limit,
                         "max_root_span_id": max_root_span_id,
@@ -960,7 +963,7 @@ class AsyncDatasetResource(AsyncAPIResource):
         self,
         dataset_id: str,
         *,
-        filters: Optional[List[dataset_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
+        filters: Optional[Iterable[dataset_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
         max_xact_id: Optional[int] | NotGiven = NOT_GIVEN,
@@ -1023,7 +1026,7 @@ class AsyncDatasetResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         return await self._post(
             f"/v1/dataset/{dataset_id}/fetch",
-            body=maybe_transform(
+            body=await async_maybe_transform(
                 {
                     "filters": filters,
                     "limit": limit,
@@ -1043,7 +1046,7 @@ class AsyncDatasetResource(AsyncAPIResource):
         self,
         dataset_id: str,
         *,
-        events: List[dataset_insert_params.Event],
+        events: Iterable[dataset_insert_params.Event],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1071,7 +1074,7 @@ class AsyncDatasetResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         return await self._post(
             f"/v1/dataset/{dataset_id}/insert",
-            body=maybe_transform({"events": events}, dataset_insert_params.DatasetInsertParams),
+            body=await async_maybe_transform({"events": events}, dataset_insert_params.DatasetInsertParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1114,7 +1117,7 @@ class AsyncDatasetResource(AsyncAPIResource):
         """
         return await self._put(
             "/v1/dataset",
-            body=maybe_transform(
+            body=await async_maybe_transform(
                 {
                     "name": name,
                     "description": description,
