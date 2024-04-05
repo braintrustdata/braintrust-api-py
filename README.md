@@ -33,7 +33,7 @@ client = Braintrust(
 )
 
 project = client.project.create(
-    name="string",
+    name="first model",
 )
 print(project.id)
 ```
@@ -60,7 +60,7 @@ client = AsyncBraintrust(
 
 async def main() -> None:
     project = await client.project.create(
-        name="string",
+        name="first model",
     )
     print(project.id)
 
