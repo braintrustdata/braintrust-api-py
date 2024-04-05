@@ -709,7 +709,7 @@ class TestBraintrust:
         with pytest.raises(APITimeoutError):
             self.client.post(
                 "/v1/project",
-                body=cast(object, dict(name="string")),
+                body=cast(object, dict(name="first model")),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -724,7 +724,7 @@ class TestBraintrust:
         with pytest.raises(APIStatusError):
             self.client.post(
                 "/v1/project",
-                body=cast(object, dict(name="string")),
+                body=cast(object, dict(name="first model")),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1397,7 +1397,7 @@ class TestAsyncBraintrust:
         with pytest.raises(APITimeoutError):
             await self.client.post(
                 "/v1/project",
-                body=cast(object, dict(name="string")),
+                body=cast(object, dict(name="first model")),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1412,7 +1412,7 @@ class TestAsyncBraintrust:
         with pytest.raises(APIStatusError):
             await self.client.post(
                 "/v1/project",
-                body=cast(object, dict(name="string")),
+                body=cast(object, dict(name="first model")),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )

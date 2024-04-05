@@ -159,7 +159,7 @@ client = Braintrust()
 
 try:
     client.project.create(
-        name="string",
+        name="first model",
     )
 except braintrust.APIConnectionError as e:
     print("The server could not be reached")
@@ -204,7 +204,7 @@ client = Braintrust(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).project.create(
-    name="string",
+    name="first model",
 )
 ```
 
@@ -229,7 +229,7 @@ client = Braintrust(
 
 # Override per-request:
 client.with_options(timeout=5 * 1000).project.create(
-    name="string",
+    name="first model",
 )
 ```
 
@@ -270,7 +270,7 @@ from braintrust import Braintrust
 
 client = Braintrust()
 response = client.project.with_raw_response.create(
-    name="string",
+    name="first model",
 )
 print(response.headers.get('X-My-Header'))
 
@@ -290,7 +290,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.project.with_streaming_response.create(
-    name="string",
+    name="first model",
 ) as response:
     print(response.headers.get("X-My-Header"))
 
