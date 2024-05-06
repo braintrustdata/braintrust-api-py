@@ -50,6 +50,11 @@ class Braintrust(SyncAPIClient):
     project: resources.ProjectResource
     experiment: resources.ExperimentResource
     dataset: resources.DatasetResource
+    prompt: resources.PromptResource
+    role: resources.RoleResource
+    group: resources.GroupResource
+    acl: resources.ACLResource
+    user: resources.UserResource
     with_raw_response: BraintrustWithRawResponse
     with_streaming_response: BraintrustWithStreamedResponse
 
@@ -111,6 +116,11 @@ class Braintrust(SyncAPIClient):
         self.project = resources.ProjectResource(self)
         self.experiment = resources.ExperimentResource(self)
         self.dataset = resources.DatasetResource(self)
+        self.prompt = resources.PromptResource(self)
+        self.role = resources.RoleResource(self)
+        self.group = resources.GroupResource(self)
+        self.acl = resources.ACLResource(self)
+        self.user = resources.UserResource(self)
         self.with_raw_response = BraintrustWithRawResponse(self)
         self.with_streaming_response = BraintrustWithStreamedResponse(self)
 
@@ -224,6 +234,11 @@ class AsyncBraintrust(AsyncAPIClient):
     project: resources.AsyncProjectResource
     experiment: resources.AsyncExperimentResource
     dataset: resources.AsyncDatasetResource
+    prompt: resources.AsyncPromptResource
+    role: resources.AsyncRoleResource
+    group: resources.AsyncGroupResource
+    acl: resources.AsyncACLResource
+    user: resources.AsyncUserResource
     with_raw_response: AsyncBraintrustWithRawResponse
     with_streaming_response: AsyncBraintrustWithStreamedResponse
 
@@ -285,6 +300,11 @@ class AsyncBraintrust(AsyncAPIClient):
         self.project = resources.AsyncProjectResource(self)
         self.experiment = resources.AsyncExperimentResource(self)
         self.dataset = resources.AsyncDatasetResource(self)
+        self.prompt = resources.AsyncPromptResource(self)
+        self.role = resources.AsyncRoleResource(self)
+        self.group = resources.AsyncGroupResource(self)
+        self.acl = resources.AsyncACLResource(self)
+        self.user = resources.AsyncUserResource(self)
         self.with_raw_response = AsyncBraintrustWithRawResponse(self)
         self.with_streaming_response = AsyncBraintrustWithStreamedResponse(self)
 
@@ -399,6 +419,11 @@ class BraintrustWithRawResponse:
         self.project = resources.ProjectResourceWithRawResponse(client.project)
         self.experiment = resources.ExperimentResourceWithRawResponse(client.experiment)
         self.dataset = resources.DatasetResourceWithRawResponse(client.dataset)
+        self.prompt = resources.PromptResourceWithRawResponse(client.prompt)
+        self.role = resources.RoleResourceWithRawResponse(client.role)
+        self.group = resources.GroupResourceWithRawResponse(client.group)
+        self.acl = resources.ACLResourceWithRawResponse(client.acl)
+        self.user = resources.UserResourceWithRawResponse(client.user)
 
 
 class AsyncBraintrustWithRawResponse:
@@ -407,6 +432,11 @@ class AsyncBraintrustWithRawResponse:
         self.project = resources.AsyncProjectResourceWithRawResponse(client.project)
         self.experiment = resources.AsyncExperimentResourceWithRawResponse(client.experiment)
         self.dataset = resources.AsyncDatasetResourceWithRawResponse(client.dataset)
+        self.prompt = resources.AsyncPromptResourceWithRawResponse(client.prompt)
+        self.role = resources.AsyncRoleResourceWithRawResponse(client.role)
+        self.group = resources.AsyncGroupResourceWithRawResponse(client.group)
+        self.acl = resources.AsyncACLResourceWithRawResponse(client.acl)
+        self.user = resources.AsyncUserResourceWithRawResponse(client.user)
 
 
 class BraintrustWithStreamedResponse:
@@ -415,6 +445,11 @@ class BraintrustWithStreamedResponse:
         self.project = resources.ProjectResourceWithStreamingResponse(client.project)
         self.experiment = resources.ExperimentResourceWithStreamingResponse(client.experiment)
         self.dataset = resources.DatasetResourceWithStreamingResponse(client.dataset)
+        self.prompt = resources.PromptResourceWithStreamingResponse(client.prompt)
+        self.role = resources.RoleResourceWithStreamingResponse(client.role)
+        self.group = resources.GroupResourceWithStreamingResponse(client.group)
+        self.acl = resources.ACLResourceWithStreamingResponse(client.acl)
+        self.user = resources.UserResourceWithStreamingResponse(client.user)
 
 
 class AsyncBraintrustWithStreamedResponse:
@@ -423,6 +458,11 @@ class AsyncBraintrustWithStreamedResponse:
         self.project = resources.AsyncProjectResourceWithStreamingResponse(client.project)
         self.experiment = resources.AsyncExperimentResourceWithStreamingResponse(client.experiment)
         self.dataset = resources.AsyncDatasetResourceWithStreamingResponse(client.dataset)
+        self.prompt = resources.AsyncPromptResourceWithStreamingResponse(client.prompt)
+        self.role = resources.AsyncRoleResourceWithStreamingResponse(client.role)
+        self.group = resources.AsyncGroupResourceWithStreamingResponse(client.group)
+        self.acl = resources.AsyncACLResourceWithStreamingResponse(client.acl)
+        self.user = resources.AsyncUserResourceWithStreamingResponse(client.user)
 
 
 Client = Braintrust

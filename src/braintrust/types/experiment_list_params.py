@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import List, Union
 from typing_extensions import TypedDict
 
 __all__ = ["ExperimentListParams"]
@@ -9,7 +10,7 @@ __all__ = ["ExperimentListParams"]
 
 class ExperimentListParams(TypedDict, total=False):
     ending_before: str
-    """A cursor for pagination.
+    """Pagination cursor id.
 
     For example, if the initial item in the last page you fetched had an id of
     `foo`, pass `ending_before=foo` to fetch the previous page. Note: you may only
@@ -18,6 +19,12 @@ class ExperimentListParams(TypedDict, total=False):
 
     experiment_name: str
     """Name of the experiment to search for"""
+
+    ids: Union[str, List[str]]
+    """Filter search results to a particular set of object IDs.
+
+    To specify a list of IDs, include the query param multiple times
+    """
 
     limit: int
     """Limit the number of objects to return"""
@@ -29,7 +36,7 @@ class ExperimentListParams(TypedDict, total=False):
     """Name of the project to search for"""
 
     starting_after: str
-    """A cursor for pagination.
+    """Pagination cursor id.
 
     For example, if the final item in the last page you fetched had an id of `foo`,
     pass `starting_after=foo` to fetch the next page. Note: you may only pass one of

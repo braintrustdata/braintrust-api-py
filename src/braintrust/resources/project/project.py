@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import List, Union, Optional
 
 import httpx
 
@@ -154,9 +154,7 @@ class ProjectResource(SyncAPIResource):
 
         Specify the fields to update in the payload.
         Any object-type fields will be deep-merged with existing content. Currently we
-        do not support removing fields or setting them to null. As a workaround, you may
-        retrieve the full object with `GET /project/{id}` and then replace it with
-        `PUT /project`.
+        do not support removing fields or setting them to null.
 
         Args:
           project_id: Project id
@@ -186,6 +184,7 @@ class ProjectResource(SyncAPIResource):
         self,
         *,
         ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         org_name: str | NotGiven = NOT_GIVEN,
         project_name: str | NotGiven = NOT_GIVEN,
@@ -203,9 +202,14 @@ class ProjectResource(SyncAPIResource):
         recently-created projects coming first
 
         Args:
-          ending_before: A cursor for pagination. For example, if the initial item in the last page you
-              fetched had an id of `foo`, pass `ending_before=foo` to fetch the previous page.
-              Note: you may only pass one of `starting_after` and `ending_before`
+          ending_before: Pagination cursor id.
+
+              For example, if the initial item in the last page you fetched had an id of
+              `foo`, pass `ending_before=foo` to fetch the previous page. Note: you may only
+              pass one of `starting_after` and `ending_before`
+
+          ids: Filter search results to a particular set of object IDs. To specify a list of
+              IDs, include the query param multiple times
 
           limit: Limit the number of objects to return
 
@@ -213,9 +217,11 @@ class ProjectResource(SyncAPIResource):
 
           project_name: Name of the project to search for
 
-          starting_after: A cursor for pagination. For example, if the final item in the last page you
-              fetched had an id of `foo`, pass `starting_after=foo` to fetch the next page.
-              Note: you may only pass one of `starting_after` and `ending_before`
+          starting_after: Pagination cursor id.
+
+              For example, if the final item in the last page you fetched had an id of `foo`,
+              pass `starting_after=foo` to fetch the next page. Note: you may only pass one of
+              `starting_after` and `ending_before`
 
           extra_headers: Send extra headers
 
@@ -236,6 +242,7 @@ class ProjectResource(SyncAPIResource):
                 query=maybe_transform(
                     {
                         "ending_before": ending_before,
+                        "ids": ids,
                         "limit": limit,
                         "org_name": org_name,
                         "project_name": project_name,
@@ -294,11 +301,11 @@ class ProjectResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Project:
-        """Create or replace a new project.
-
-        If there is an existing project with the same
-        name as the one specified in the request, will replace the existing project with
-        the provided fields
+        """
+        NOTE: This operation is deprecated and will be removed in a future revision of
+        the API. Create or replace a new project. If there is an existing project with
+        the same name as the one specified in the request, will return the existing
+        project unmodified, will replace the existing project with the provided fields
 
         Args:
           name: Name of the project
@@ -442,9 +449,7 @@ class AsyncProjectResource(AsyncAPIResource):
 
         Specify the fields to update in the payload.
         Any object-type fields will be deep-merged with existing content. Currently we
-        do not support removing fields or setting them to null. As a workaround, you may
-        retrieve the full object with `GET /project/{id}` and then replace it with
-        `PUT /project`.
+        do not support removing fields or setting them to null.
 
         Args:
           project_id: Project id
@@ -474,6 +479,7 @@ class AsyncProjectResource(AsyncAPIResource):
         self,
         *,
         ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         org_name: str | NotGiven = NOT_GIVEN,
         project_name: str | NotGiven = NOT_GIVEN,
@@ -491,9 +497,14 @@ class AsyncProjectResource(AsyncAPIResource):
         recently-created projects coming first
 
         Args:
-          ending_before: A cursor for pagination. For example, if the initial item in the last page you
-              fetched had an id of `foo`, pass `ending_before=foo` to fetch the previous page.
-              Note: you may only pass one of `starting_after` and `ending_before`
+          ending_before: Pagination cursor id.
+
+              For example, if the initial item in the last page you fetched had an id of
+              `foo`, pass `ending_before=foo` to fetch the previous page. Note: you may only
+              pass one of `starting_after` and `ending_before`
+
+          ids: Filter search results to a particular set of object IDs. To specify a list of
+              IDs, include the query param multiple times
 
           limit: Limit the number of objects to return
 
@@ -501,9 +512,11 @@ class AsyncProjectResource(AsyncAPIResource):
 
           project_name: Name of the project to search for
 
-          starting_after: A cursor for pagination. For example, if the final item in the last page you
-              fetched had an id of `foo`, pass `starting_after=foo` to fetch the next page.
-              Note: you may only pass one of `starting_after` and `ending_before`
+          starting_after: Pagination cursor id.
+
+              For example, if the final item in the last page you fetched had an id of `foo`,
+              pass `starting_after=foo` to fetch the next page. Note: you may only pass one of
+              `starting_after` and `ending_before`
 
           extra_headers: Send extra headers
 
@@ -524,6 +537,7 @@ class AsyncProjectResource(AsyncAPIResource):
                 query=maybe_transform(
                     {
                         "ending_before": ending_before,
+                        "ids": ids,
                         "limit": limit,
                         "org_name": org_name,
                         "project_name": project_name,
@@ -582,11 +596,11 @@ class AsyncProjectResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Project:
-        """Create or replace a new project.
-
-        If there is an existing project with the same
-        name as the one specified in the request, will replace the existing project with
-        the provided fields
+        """
+        NOTE: This operation is deprecated and will be removed in a future revision of
+        the API. Create or replace a new project. If there is an existing project with
+        the same name as the one specified in the request, will return the existing
+        project unmodified, will replace the existing project with the provided fields
 
         Args:
           name: Name of the project

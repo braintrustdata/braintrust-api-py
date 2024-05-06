@@ -3,14 +3,14 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Required, TypedDict
+from typing_extensions import TypedDict
 
 __all__ = ["DatasetUpdateParams"]
 
 
 class DatasetUpdateParams(TypedDict, total=False):
-    name: Required[str]
-    """Name of the dataset. Within a project, dataset names are unique"""
-
     description: Optional[str]
     """Textual description of the dataset"""
+
+    name: Optional[str]
+    """Name of the dataset. Within a project, dataset names are unique"""

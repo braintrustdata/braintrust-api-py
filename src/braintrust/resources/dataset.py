@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
+from typing import List, Union, Iterable, Optional
 
 import httpx
 
@@ -140,8 +140,8 @@ class DatasetResource(SyncAPIResource):
         self,
         dataset_id: str,
         *,
-        name: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -153,16 +153,14 @@ class DatasetResource(SyncAPIResource):
 
         Specify the fields to update in the payload.
         Any object-type fields will be deep-merged with existing content. Currently we
-        do not support removing fields or setting them to null. As a workaround, you may
-        retrieve the full object with `GET /dataset/{id}` and then replace it with
-        `PUT /dataset`.
+        do not support removing fields or setting them to null.
 
         Args:
           dataset_id: Dataset id
 
-          name: Name of the dataset. Within a project, dataset names are unique
-
           description: Textual description of the dataset
+
+          name: Name of the dataset. Within a project, dataset names are unique
 
           extra_headers: Send extra headers
 
@@ -178,8 +176,8 @@ class DatasetResource(SyncAPIResource):
             f"/v1/dataset/{dataset_id}",
             body=maybe_transform(
                 {
-                    "name": name,
                     "description": description,
+                    "name": name,
                 },
                 dataset_update_params.DatasetUpdateParams,
             ),
@@ -194,6 +192,7 @@ class DatasetResource(SyncAPIResource):
         *,
         dataset_name: str | NotGiven = NOT_GIVEN,
         ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         org_name: str | NotGiven = NOT_GIVEN,
         project_name: str | NotGiven = NOT_GIVEN,
@@ -213,9 +212,14 @@ class DatasetResource(SyncAPIResource):
         Args:
           dataset_name: Name of the dataset to search for
 
-          ending_before: A cursor for pagination. For example, if the initial item in the last page you
-              fetched had an id of `foo`, pass `ending_before=foo` to fetch the previous page.
-              Note: you may only pass one of `starting_after` and `ending_before`
+          ending_before: Pagination cursor id.
+
+              For example, if the initial item in the last page you fetched had an id of
+              `foo`, pass `ending_before=foo` to fetch the previous page. Note: you may only
+              pass one of `starting_after` and `ending_before`
+
+          ids: Filter search results to a particular set of object IDs. To specify a list of
+              IDs, include the query param multiple times
 
           limit: Limit the number of objects to return
 
@@ -223,9 +227,11 @@ class DatasetResource(SyncAPIResource):
 
           project_name: Name of the project to search for
 
-          starting_after: A cursor for pagination. For example, if the final item in the last page you
-              fetched had an id of `foo`, pass `starting_after=foo` to fetch the next page.
-              Note: you may only pass one of `starting_after` and `ending_before`
+          starting_after: Pagination cursor id.
+
+              For example, if the final item in the last page you fetched had an id of `foo`,
+              pass `starting_after=foo` to fetch the next page. Note: you may only pass one of
+              `starting_after` and `ending_before`
 
           extra_headers: Send extra headers
 
@@ -247,6 +253,7 @@ class DatasetResource(SyncAPIResource):
                     {
                         "dataset_name": dataset_name,
                         "ending_before": ending_before,
+                        "ids": ids,
                         "limit": limit,
                         "org_name": org_name,
                         "project_name": project_name,
@@ -339,8 +346,8 @@ class DatasetResource(SyncAPIResource):
         *,
         limit: int | NotGiven = NOT_GIVEN,
         max_root_span_id: str | NotGiven = NOT_GIVEN,
-        max_xact_id: int | NotGiven = NOT_GIVEN,
-        version: int | NotGiven = NOT_GIVEN,
+        max_xact_id: str | NotGiven = NOT_GIVEN,
+        version: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -356,7 +363,9 @@ class DatasetResource(SyncAPIResource):
         Args:
           dataset_id: Dataset id
 
-          limit: Fetch queries may be paginated if the total result size is expected to be large
+          limit: limit the number of traces fetched
+
+              Fetch queries may be paginated if the total result size is expected to be large
               (e.g. project_logs which accumulate over a long time). Note that fetch queries
               only support pagination in descending time order (from latest to earliest
               `_xact_id`. Furthermore, later pages may return rows which showed up in earlier
@@ -369,20 +378,25 @@ class DatasetResource(SyncAPIResource):
               end up with more individual rows than the specified limit if you are fetching
               events containing traces.
 
-          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
-              event fetches. Given a previous fetch with a list of rows, you can determine
-              `max_root_span_id` as the maximum of the `root_span_id` field over all rows. See
-              the documentation for `limit` for an overview of paginating fetch queries.
+          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
-          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
-              event fetches. Given a previous fetch with a list of rows, you can determine
-              `max_xact_id` as the maximum of the `_xact_id` field over all rows. See the
-              documentation for `limit` for an overview of paginating fetch queries.
+              Since a paginated fetch query returns results in order from latest to earliest,
+              the cursor for the next page can be found as the row with the minimum (earliest)
+              value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
+              for an overview of paginating fetch queries.
 
-          version: You may specify a version id to retrieve a snapshot of the events from a past
-              time. The version id is essentially a filter on the latest event transaction id.
-              You can use the `max_xact_id` returned by a past fetch as the version to
-              reproduce that exact fetch.
+          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+
+              Since a paginated fetch query returns results in order from latest to earliest,
+              the cursor for the next page can be found as the row with the minimum (earliest)
+              value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
+              for an overview of paginating fetch queries.
+
+          version: Retrieve a snapshot of events from a past time
+
+              The version id is essentially a filter on the latest event transaction id. You
+              can use the `max_xact_id` returned by a past fetch as the version to reproduce
+              that exact fetch.
 
           extra_headers: Send extra headers
 
@@ -421,8 +435,8 @@ class DatasetResource(SyncAPIResource):
         filters: Optional[Iterable[dataset_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
-        max_xact_id: Optional[int] | NotGiven = NOT_GIVEN,
-        version: Optional[int] | NotGiven = NOT_GIVEN,
+        max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
+        version: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -441,7 +455,9 @@ class DatasetResource(SyncAPIResource):
           filters: A list of filters on the events to fetch. Currently, only path-lookup type
               filters are supported, but we may add more in the future
 
-          limit: Fetch queries may be paginated if the total result size is expected to be large
+          limit: limit the number of traces fetched
+
+              Fetch queries may be paginated if the total result size is expected to be large
               (e.g. project_logs which accumulate over a long time). Note that fetch queries
               only support pagination in descending time order (from latest to earliest
               `_xact_id`. Furthermore, later pages may return rows which showed up in earlier
@@ -454,20 +470,25 @@ class DatasetResource(SyncAPIResource):
               end up with more individual rows than the specified limit if you are fetching
               events containing traces.
 
-          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
-              event fetches. Given a previous fetch with a list of rows, you can determine
-              `max_root_span_id` as the maximum of the `root_span_id` field over all rows. See
-              the documentation for `limit` for an overview of paginating fetch queries.
+          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
-          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
-              event fetches. Given a previous fetch with a list of rows, you can determine
-              `max_xact_id` as the maximum of the `_xact_id` field over all rows. See the
-              documentation for `limit` for an overview of paginating fetch queries.
+              Since a paginated fetch query returns results in order from latest to earliest,
+              the cursor for the next page can be found as the row with the minimum (earliest)
+              value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
+              for an overview of paginating fetch queries.
 
-          version: You may specify a version id to retrieve a snapshot of the events from a past
-              time. The version id is essentially a filter on the latest event transaction id.
-              You can use the `max_xact_id` returned by a past fetch as the version to
-              reproduce that exact fetch.
+          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+
+              Since a paginated fetch query returns results in order from latest to earliest,
+              the cursor for the next page can be found as the row with the minimum (earliest)
+              value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
+              for an overview of paginating fetch queries.
+
+          version: Retrieve a snapshot of events from a past time
+
+              The version id is essentially a filter on the latest event transaction id. You
+              can use the `max_xact_id` returned by a past fetch as the version to reproduce
+              that exact fetch.
 
           extra_headers: Send extra headers
 
@@ -549,11 +570,12 @@ class DatasetResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Dataset:
-        """Create or replace a new dataset.
-
-        If there is an existing dataset in the project
-        with the same name as the one specified in the request, will replace the
-        existing dataset with the provided fields
+        """
+        NOTE: This operation is deprecated and will be removed in a future revision of
+        the API. Create or replace a new dataset. If there is an existing dataset in the
+        project with the same name as the one specified in the request, will return the
+        existing dataset unmodified, will replace the existing dataset with the provided
+        fields
 
         Args:
           name: Name of the dataset. Within a project, dataset names are unique
@@ -685,8 +707,8 @@ class AsyncDatasetResource(AsyncAPIResource):
         self,
         dataset_id: str,
         *,
-        name: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -698,16 +720,14 @@ class AsyncDatasetResource(AsyncAPIResource):
 
         Specify the fields to update in the payload.
         Any object-type fields will be deep-merged with existing content. Currently we
-        do not support removing fields or setting them to null. As a workaround, you may
-        retrieve the full object with `GET /dataset/{id}` and then replace it with
-        `PUT /dataset`.
+        do not support removing fields or setting them to null.
 
         Args:
           dataset_id: Dataset id
 
-          name: Name of the dataset. Within a project, dataset names are unique
-
           description: Textual description of the dataset
+
+          name: Name of the dataset. Within a project, dataset names are unique
 
           extra_headers: Send extra headers
 
@@ -723,8 +743,8 @@ class AsyncDatasetResource(AsyncAPIResource):
             f"/v1/dataset/{dataset_id}",
             body=await async_maybe_transform(
                 {
-                    "name": name,
                     "description": description,
+                    "name": name,
                 },
                 dataset_update_params.DatasetUpdateParams,
             ),
@@ -739,6 +759,7 @@ class AsyncDatasetResource(AsyncAPIResource):
         *,
         dataset_name: str | NotGiven = NOT_GIVEN,
         ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         org_name: str | NotGiven = NOT_GIVEN,
         project_name: str | NotGiven = NOT_GIVEN,
@@ -758,9 +779,14 @@ class AsyncDatasetResource(AsyncAPIResource):
         Args:
           dataset_name: Name of the dataset to search for
 
-          ending_before: A cursor for pagination. For example, if the initial item in the last page you
-              fetched had an id of `foo`, pass `ending_before=foo` to fetch the previous page.
-              Note: you may only pass one of `starting_after` and `ending_before`
+          ending_before: Pagination cursor id.
+
+              For example, if the initial item in the last page you fetched had an id of
+              `foo`, pass `ending_before=foo` to fetch the previous page. Note: you may only
+              pass one of `starting_after` and `ending_before`
+
+          ids: Filter search results to a particular set of object IDs. To specify a list of
+              IDs, include the query param multiple times
 
           limit: Limit the number of objects to return
 
@@ -768,9 +794,11 @@ class AsyncDatasetResource(AsyncAPIResource):
 
           project_name: Name of the project to search for
 
-          starting_after: A cursor for pagination. For example, if the final item in the last page you
-              fetched had an id of `foo`, pass `starting_after=foo` to fetch the next page.
-              Note: you may only pass one of `starting_after` and `ending_before`
+          starting_after: Pagination cursor id.
+
+              For example, if the final item in the last page you fetched had an id of `foo`,
+              pass `starting_after=foo` to fetch the next page. Note: you may only pass one of
+              `starting_after` and `ending_before`
 
           extra_headers: Send extra headers
 
@@ -792,6 +820,7 @@ class AsyncDatasetResource(AsyncAPIResource):
                     {
                         "dataset_name": dataset_name,
                         "ending_before": ending_before,
+                        "ids": ids,
                         "limit": limit,
                         "org_name": org_name,
                         "project_name": project_name,
@@ -884,8 +913,8 @@ class AsyncDatasetResource(AsyncAPIResource):
         *,
         limit: int | NotGiven = NOT_GIVEN,
         max_root_span_id: str | NotGiven = NOT_GIVEN,
-        max_xact_id: int | NotGiven = NOT_GIVEN,
-        version: int | NotGiven = NOT_GIVEN,
+        max_xact_id: str | NotGiven = NOT_GIVEN,
+        version: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -901,7 +930,9 @@ class AsyncDatasetResource(AsyncAPIResource):
         Args:
           dataset_id: Dataset id
 
-          limit: Fetch queries may be paginated if the total result size is expected to be large
+          limit: limit the number of traces fetched
+
+              Fetch queries may be paginated if the total result size is expected to be large
               (e.g. project_logs which accumulate over a long time). Note that fetch queries
               only support pagination in descending time order (from latest to earliest
               `_xact_id`. Furthermore, later pages may return rows which showed up in earlier
@@ -914,20 +945,25 @@ class AsyncDatasetResource(AsyncAPIResource):
               end up with more individual rows than the specified limit if you are fetching
               events containing traces.
 
-          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
-              event fetches. Given a previous fetch with a list of rows, you can determine
-              `max_root_span_id` as the maximum of the `root_span_id` field over all rows. See
-              the documentation for `limit` for an overview of paginating fetch queries.
+          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
-          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
-              event fetches. Given a previous fetch with a list of rows, you can determine
-              `max_xact_id` as the maximum of the `_xact_id` field over all rows. See the
-              documentation for `limit` for an overview of paginating fetch queries.
+              Since a paginated fetch query returns results in order from latest to earliest,
+              the cursor for the next page can be found as the row with the minimum (earliest)
+              value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
+              for an overview of paginating fetch queries.
 
-          version: You may specify a version id to retrieve a snapshot of the events from a past
-              time. The version id is essentially a filter on the latest event transaction id.
-              You can use the `max_xact_id` returned by a past fetch as the version to
-              reproduce that exact fetch.
+          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+
+              Since a paginated fetch query returns results in order from latest to earliest,
+              the cursor for the next page can be found as the row with the minimum (earliest)
+              value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
+              for an overview of paginating fetch queries.
+
+          version: Retrieve a snapshot of events from a past time
+
+              The version id is essentially a filter on the latest event transaction id. You
+              can use the `max_xact_id` returned by a past fetch as the version to reproduce
+              that exact fetch.
 
           extra_headers: Send extra headers
 
@@ -966,8 +1002,8 @@ class AsyncDatasetResource(AsyncAPIResource):
         filters: Optional[Iterable[dataset_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
-        max_xact_id: Optional[int] | NotGiven = NOT_GIVEN,
-        version: Optional[int] | NotGiven = NOT_GIVEN,
+        max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
+        version: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -986,7 +1022,9 @@ class AsyncDatasetResource(AsyncAPIResource):
           filters: A list of filters on the events to fetch. Currently, only path-lookup type
               filters are supported, but we may add more in the future
 
-          limit: Fetch queries may be paginated if the total result size is expected to be large
+          limit: limit the number of traces fetched
+
+              Fetch queries may be paginated if the total result size is expected to be large
               (e.g. project_logs which accumulate over a long time). Note that fetch queries
               only support pagination in descending time order (from latest to earliest
               `_xact_id`. Furthermore, later pages may return rows which showed up in earlier
@@ -999,20 +1037,25 @@ class AsyncDatasetResource(AsyncAPIResource):
               end up with more individual rows than the specified limit if you are fetching
               events containing traces.
 
-          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
-              event fetches. Given a previous fetch with a list of rows, you can determine
-              `max_root_span_id` as the maximum of the `root_span_id` field over all rows. See
-              the documentation for `limit` for an overview of paginating fetch queries.
+          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
-          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
-              event fetches. Given a previous fetch with a list of rows, you can determine
-              `max_xact_id` as the maximum of the `_xact_id` field over all rows. See the
-              documentation for `limit` for an overview of paginating fetch queries.
+              Since a paginated fetch query returns results in order from latest to earliest,
+              the cursor for the next page can be found as the row with the minimum (earliest)
+              value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
+              for an overview of paginating fetch queries.
 
-          version: You may specify a version id to retrieve a snapshot of the events from a past
-              time. The version id is essentially a filter on the latest event transaction id.
-              You can use the `max_xact_id` returned by a past fetch as the version to
-              reproduce that exact fetch.
+          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+
+              Since a paginated fetch query returns results in order from latest to earliest,
+              the cursor for the next page can be found as the row with the minimum (earliest)
+              value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
+              for an overview of paginating fetch queries.
+
+          version: Retrieve a snapshot of events from a past time
+
+              The version id is essentially a filter on the latest event transaction id. You
+              can use the `max_xact_id` returned by a past fetch as the version to reproduce
+              that exact fetch.
 
           extra_headers: Send extra headers
 
@@ -1094,11 +1137,12 @@ class AsyncDatasetResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Dataset:
-        """Create or replace a new dataset.
-
-        If there is an existing dataset in the project
-        with the same name as the one specified in the request, will replace the
-        existing dataset with the provided fields
+        """
+        NOTE: This operation is deprecated and will be removed in a future revision of
+        the API. Create or replace a new dataset. If there is an existing dataset in the
+        project with the same name as the one specified in the request, will return the
+        existing dataset unmodified, will replace the existing dataset with the provided
+        fields
 
         Args:
           name: Name of the dataset. Within a project, dataset names are unique

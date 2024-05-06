@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Iterable, Optional
+from typing import Dict, List, Union, Iterable, Optional
 
 import httpx
 
@@ -59,6 +59,7 @@ class ExperimentResource(SyncAPIResource):
         dataset_id: Optional[str] | NotGiven = NOT_GIVEN,
         dataset_version: Optional[str] | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
+        ensure_new: Optional[bool] | NotGiven = NOT_GIVEN,
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         public: Optional[bool] | NotGiven = NOT_GIVEN,
@@ -73,8 +74,8 @@ class ExperimentResource(SyncAPIResource):
         """Create a new experiment.
 
         If there is an existing experiment in the project with
-        the same name as the one specified in the request, will create a new experiment
-        from `name`, suffixed with a unique identifier
+        the same name as the one specified in the request, will return the existing
+        experiment unmodified
 
         Args:
           project_id: Unique identifier for the project that the experiment belongs under
@@ -88,6 +89,11 @@ class ExperimentResource(SyncAPIResource):
               used to reproduce the experiment after the dataset has been modified.
 
           description: Textual description of the experiment
+
+          ensure_new: Normally, creating an experiment with the same name as an existing experiment
+              will return the existing one un-modified. But if `ensure_new` is true,
+              registration will generate a new experiment with a unique name in case of a
+              conflict.
 
           metadata: User-controlled metadata about the experiment
 
@@ -115,6 +121,7 @@ class ExperimentResource(SyncAPIResource):
                     "dataset_id": dataset_id,
                     "dataset_version": dataset_version,
                     "description": description,
+                    "ensure_new": ensure_new,
                     "metadata": metadata,
                     "name": name,
                     "public": public,
@@ -186,9 +193,7 @@ class ExperimentResource(SyncAPIResource):
 
         Specify the fields to update in the
         payload. Any object-type fields will be deep-merged with existing content.
-        Currently we do not support removing fields or setting them to null. As a
-        workaround, you may retrieve the full object with `GET /experiment/{id}` and
-        then replace it with `PUT /experiment`.
+        Currently we do not support removing fields or setting them to null.
 
         Args:
           experiment_id: Experiment id
@@ -248,6 +253,7 @@ class ExperimentResource(SyncAPIResource):
         *,
         ending_before: str | NotGiven = NOT_GIVEN,
         experiment_name: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         org_name: str | NotGiven = NOT_GIVEN,
         project_name: str | NotGiven = NOT_GIVEN,
@@ -265,11 +271,16 @@ class ExperimentResource(SyncAPIResource):
         most recently-created experiments coming first
 
         Args:
-          ending_before: A cursor for pagination. For example, if the initial item in the last page you
-              fetched had an id of `foo`, pass `ending_before=foo` to fetch the previous page.
-              Note: you may only pass one of `starting_after` and `ending_before`
+          ending_before: Pagination cursor id.
+
+              For example, if the initial item in the last page you fetched had an id of
+              `foo`, pass `ending_before=foo` to fetch the previous page. Note: you may only
+              pass one of `starting_after` and `ending_before`
 
           experiment_name: Name of the experiment to search for
+
+          ids: Filter search results to a particular set of object IDs. To specify a list of
+              IDs, include the query param multiple times
 
           limit: Limit the number of objects to return
 
@@ -277,9 +288,11 @@ class ExperimentResource(SyncAPIResource):
 
           project_name: Name of the project to search for
 
-          starting_after: A cursor for pagination. For example, if the final item in the last page you
-              fetched had an id of `foo`, pass `starting_after=foo` to fetch the next page.
-              Note: you may only pass one of `starting_after` and `ending_before`
+          starting_after: Pagination cursor id.
+
+              For example, if the final item in the last page you fetched had an id of `foo`,
+              pass `starting_after=foo` to fetch the next page. Note: you may only pass one of
+              `starting_after` and `ending_before`
 
           extra_headers: Send extra headers
 
@@ -301,6 +314,7 @@ class ExperimentResource(SyncAPIResource):
                     {
                         "ending_before": ending_before,
                         "experiment_name": experiment_name,
+                        "ids": ids,
                         "limit": limit,
                         "org_name": org_name,
                         "project_name": project_name,
@@ -393,8 +407,8 @@ class ExperimentResource(SyncAPIResource):
         *,
         limit: int | NotGiven = NOT_GIVEN,
         max_root_span_id: str | NotGiven = NOT_GIVEN,
-        max_xact_id: int | NotGiven = NOT_GIVEN,
-        version: int | NotGiven = NOT_GIVEN,
+        max_xact_id: str | NotGiven = NOT_GIVEN,
+        version: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -410,7 +424,9 @@ class ExperimentResource(SyncAPIResource):
         Args:
           experiment_id: Experiment id
 
-          limit: Fetch queries may be paginated if the total result size is expected to be large
+          limit: limit the number of traces fetched
+
+              Fetch queries may be paginated if the total result size is expected to be large
               (e.g. project_logs which accumulate over a long time). Note that fetch queries
               only support pagination in descending time order (from latest to earliest
               `_xact_id`. Furthermore, later pages may return rows which showed up in earlier
@@ -423,20 +439,25 @@ class ExperimentResource(SyncAPIResource):
               end up with more individual rows than the specified limit if you are fetching
               events containing traces.
 
-          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
-              event fetches. Given a previous fetch with a list of rows, you can determine
-              `max_root_span_id` as the maximum of the `root_span_id` field over all rows. See
-              the documentation for `limit` for an overview of paginating fetch queries.
+          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
-          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
-              event fetches. Given a previous fetch with a list of rows, you can determine
-              `max_xact_id` as the maximum of the `_xact_id` field over all rows. See the
-              documentation for `limit` for an overview of paginating fetch queries.
+              Since a paginated fetch query returns results in order from latest to earliest,
+              the cursor for the next page can be found as the row with the minimum (earliest)
+              value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
+              for an overview of paginating fetch queries.
 
-          version: You may specify a version id to retrieve a snapshot of the events from a past
-              time. The version id is essentially a filter on the latest event transaction id.
-              You can use the `max_xact_id` returned by a past fetch as the version to
-              reproduce that exact fetch.
+          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+
+              Since a paginated fetch query returns results in order from latest to earliest,
+              the cursor for the next page can be found as the row with the minimum (earliest)
+              value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
+              for an overview of paginating fetch queries.
+
+          version: Retrieve a snapshot of events from a past time
+
+              The version id is essentially a filter on the latest event transaction id. You
+              can use the `max_xact_id` returned by a past fetch as the version to reproduce
+              that exact fetch.
 
           extra_headers: Send extra headers
 
@@ -475,8 +496,8 @@ class ExperimentResource(SyncAPIResource):
         filters: Optional[Iterable[experiment_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
-        max_xact_id: Optional[int] | NotGiven = NOT_GIVEN,
-        version: Optional[int] | NotGiven = NOT_GIVEN,
+        max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
+        version: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -495,7 +516,9 @@ class ExperimentResource(SyncAPIResource):
           filters: A list of filters on the events to fetch. Currently, only path-lookup type
               filters are supported, but we may add more in the future
 
-          limit: Fetch queries may be paginated if the total result size is expected to be large
+          limit: limit the number of traces fetched
+
+              Fetch queries may be paginated if the total result size is expected to be large
               (e.g. project_logs which accumulate over a long time). Note that fetch queries
               only support pagination in descending time order (from latest to earliest
               `_xact_id`. Furthermore, later pages may return rows which showed up in earlier
@@ -508,20 +531,25 @@ class ExperimentResource(SyncAPIResource):
               end up with more individual rows than the specified limit if you are fetching
               events containing traces.
 
-          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
-              event fetches. Given a previous fetch with a list of rows, you can determine
-              `max_root_span_id` as the maximum of the `root_span_id` field over all rows. See
-              the documentation for `limit` for an overview of paginating fetch queries.
+          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
-          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
-              event fetches. Given a previous fetch with a list of rows, you can determine
-              `max_xact_id` as the maximum of the `_xact_id` field over all rows. See the
-              documentation for `limit` for an overview of paginating fetch queries.
+              Since a paginated fetch query returns results in order from latest to earliest,
+              the cursor for the next page can be found as the row with the minimum (earliest)
+              value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
+              for an overview of paginating fetch queries.
 
-          version: You may specify a version id to retrieve a snapshot of the events from a past
-              time. The version id is essentially a filter on the latest event transaction id.
-              You can use the `max_xact_id` returned by a past fetch as the version to
-              reproduce that exact fetch.
+          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+
+              Since a paginated fetch query returns results in order from latest to earliest,
+              the cursor for the next page can be found as the row with the minimum (earliest)
+              value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
+              for an overview of paginating fetch queries.
+
+          version: Retrieve a snapshot of events from a past time
+
+              The version id is essentially a filter on the latest event transaction id. You
+              can use the `max_xact_id` returned by a past fetch as the version to reproduce
+              that exact fetch.
 
           extra_headers: Send extra headers
 
@@ -598,6 +626,7 @@ class ExperimentResource(SyncAPIResource):
         dataset_id: Optional[str] | NotGiven = NOT_GIVEN,
         dataset_version: Optional[str] | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
+        ensure_new: Optional[bool] | NotGiven = NOT_GIVEN,
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         public: Optional[bool] | NotGiven = NOT_GIVEN,
@@ -609,11 +638,12 @@ class ExperimentResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Experiment:
-        """Create or replace a new experiment.
-
-        If there is an existing experiment in the
-        project with the same name as the one specified in the request, will replace the
-        existing experiment with the provided fields
+        """
+        NOTE: This operation is deprecated and will be removed in a future revision of
+        the API. Create or replace a new experiment. If there is an existing experiment
+        in the project with the same name as the one specified in the request, will
+        return the existing experiment unmodified, will replace the existing experiment
+        with the provided fields
 
         Args:
           project_id: Unique identifier for the project that the experiment belongs under
@@ -627,6 +657,11 @@ class ExperimentResource(SyncAPIResource):
               used to reproduce the experiment after the dataset has been modified.
 
           description: Textual description of the experiment
+
+          ensure_new: Normally, creating an experiment with the same name as an existing experiment
+              will return the existing one un-modified. But if `ensure_new` is true,
+              registration will generate a new experiment with a unique name in case of a
+              conflict.
 
           metadata: User-controlled metadata about the experiment
 
@@ -654,6 +689,7 @@ class ExperimentResource(SyncAPIResource):
                     "dataset_id": dataset_id,
                     "dataset_version": dataset_version,
                     "description": description,
+                    "ensure_new": ensure_new,
                     "metadata": metadata,
                     "name": name,
                     "public": public,
@@ -685,6 +721,7 @@ class AsyncExperimentResource(AsyncAPIResource):
         dataset_id: Optional[str] | NotGiven = NOT_GIVEN,
         dataset_version: Optional[str] | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
+        ensure_new: Optional[bool] | NotGiven = NOT_GIVEN,
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         public: Optional[bool] | NotGiven = NOT_GIVEN,
@@ -699,8 +736,8 @@ class AsyncExperimentResource(AsyncAPIResource):
         """Create a new experiment.
 
         If there is an existing experiment in the project with
-        the same name as the one specified in the request, will create a new experiment
-        from `name`, suffixed with a unique identifier
+        the same name as the one specified in the request, will return the existing
+        experiment unmodified
 
         Args:
           project_id: Unique identifier for the project that the experiment belongs under
@@ -714,6 +751,11 @@ class AsyncExperimentResource(AsyncAPIResource):
               used to reproduce the experiment after the dataset has been modified.
 
           description: Textual description of the experiment
+
+          ensure_new: Normally, creating an experiment with the same name as an existing experiment
+              will return the existing one un-modified. But if `ensure_new` is true,
+              registration will generate a new experiment with a unique name in case of a
+              conflict.
 
           metadata: User-controlled metadata about the experiment
 
@@ -741,6 +783,7 @@ class AsyncExperimentResource(AsyncAPIResource):
                     "dataset_id": dataset_id,
                     "dataset_version": dataset_version,
                     "description": description,
+                    "ensure_new": ensure_new,
                     "metadata": metadata,
                     "name": name,
                     "public": public,
@@ -812,9 +855,7 @@ class AsyncExperimentResource(AsyncAPIResource):
 
         Specify the fields to update in the
         payload. Any object-type fields will be deep-merged with existing content.
-        Currently we do not support removing fields or setting them to null. As a
-        workaround, you may retrieve the full object with `GET /experiment/{id}` and
-        then replace it with `PUT /experiment`.
+        Currently we do not support removing fields or setting them to null.
 
         Args:
           experiment_id: Experiment id
@@ -874,6 +915,7 @@ class AsyncExperimentResource(AsyncAPIResource):
         *,
         ending_before: str | NotGiven = NOT_GIVEN,
         experiment_name: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         org_name: str | NotGiven = NOT_GIVEN,
         project_name: str | NotGiven = NOT_GIVEN,
@@ -891,11 +933,16 @@ class AsyncExperimentResource(AsyncAPIResource):
         most recently-created experiments coming first
 
         Args:
-          ending_before: A cursor for pagination. For example, if the initial item in the last page you
-              fetched had an id of `foo`, pass `ending_before=foo` to fetch the previous page.
-              Note: you may only pass one of `starting_after` and `ending_before`
+          ending_before: Pagination cursor id.
+
+              For example, if the initial item in the last page you fetched had an id of
+              `foo`, pass `ending_before=foo` to fetch the previous page. Note: you may only
+              pass one of `starting_after` and `ending_before`
 
           experiment_name: Name of the experiment to search for
+
+          ids: Filter search results to a particular set of object IDs. To specify a list of
+              IDs, include the query param multiple times
 
           limit: Limit the number of objects to return
 
@@ -903,9 +950,11 @@ class AsyncExperimentResource(AsyncAPIResource):
 
           project_name: Name of the project to search for
 
-          starting_after: A cursor for pagination. For example, if the final item in the last page you
-              fetched had an id of `foo`, pass `starting_after=foo` to fetch the next page.
-              Note: you may only pass one of `starting_after` and `ending_before`
+          starting_after: Pagination cursor id.
+
+              For example, if the final item in the last page you fetched had an id of `foo`,
+              pass `starting_after=foo` to fetch the next page. Note: you may only pass one of
+              `starting_after` and `ending_before`
 
           extra_headers: Send extra headers
 
@@ -927,6 +976,7 @@ class AsyncExperimentResource(AsyncAPIResource):
                     {
                         "ending_before": ending_before,
                         "experiment_name": experiment_name,
+                        "ids": ids,
                         "limit": limit,
                         "org_name": org_name,
                         "project_name": project_name,
@@ -1021,8 +1071,8 @@ class AsyncExperimentResource(AsyncAPIResource):
         *,
         limit: int | NotGiven = NOT_GIVEN,
         max_root_span_id: str | NotGiven = NOT_GIVEN,
-        max_xact_id: int | NotGiven = NOT_GIVEN,
-        version: int | NotGiven = NOT_GIVEN,
+        max_xact_id: str | NotGiven = NOT_GIVEN,
+        version: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1038,7 +1088,9 @@ class AsyncExperimentResource(AsyncAPIResource):
         Args:
           experiment_id: Experiment id
 
-          limit: Fetch queries may be paginated if the total result size is expected to be large
+          limit: limit the number of traces fetched
+
+              Fetch queries may be paginated if the total result size is expected to be large
               (e.g. project_logs which accumulate over a long time). Note that fetch queries
               only support pagination in descending time order (from latest to earliest
               `_xact_id`. Furthermore, later pages may return rows which showed up in earlier
@@ -1051,20 +1103,25 @@ class AsyncExperimentResource(AsyncAPIResource):
               end up with more individual rows than the specified limit if you are fetching
               events containing traces.
 
-          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
-              event fetches. Given a previous fetch with a list of rows, you can determine
-              `max_root_span_id` as the maximum of the `root_span_id` field over all rows. See
-              the documentation for `limit` for an overview of paginating fetch queries.
+          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
-          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
-              event fetches. Given a previous fetch with a list of rows, you can determine
-              `max_xact_id` as the maximum of the `_xact_id` field over all rows. See the
-              documentation for `limit` for an overview of paginating fetch queries.
+              Since a paginated fetch query returns results in order from latest to earliest,
+              the cursor for the next page can be found as the row with the minimum (earliest)
+              value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
+              for an overview of paginating fetch queries.
 
-          version: You may specify a version id to retrieve a snapshot of the events from a past
-              time. The version id is essentially a filter on the latest event transaction id.
-              You can use the `max_xact_id` returned by a past fetch as the version to
-              reproduce that exact fetch.
+          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+
+              Since a paginated fetch query returns results in order from latest to earliest,
+              the cursor for the next page can be found as the row with the minimum (earliest)
+              value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
+              for an overview of paginating fetch queries.
+
+          version: Retrieve a snapshot of events from a past time
+
+              The version id is essentially a filter on the latest event transaction id. You
+              can use the `max_xact_id` returned by a past fetch as the version to reproduce
+              that exact fetch.
 
           extra_headers: Send extra headers
 
@@ -1103,8 +1160,8 @@ class AsyncExperimentResource(AsyncAPIResource):
         filters: Optional[Iterable[experiment_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
-        max_xact_id: Optional[int] | NotGiven = NOT_GIVEN,
-        version: Optional[int] | NotGiven = NOT_GIVEN,
+        max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
+        version: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1123,7 +1180,9 @@ class AsyncExperimentResource(AsyncAPIResource):
           filters: A list of filters on the events to fetch. Currently, only path-lookup type
               filters are supported, but we may add more in the future
 
-          limit: Fetch queries may be paginated if the total result size is expected to be large
+          limit: limit the number of traces fetched
+
+              Fetch queries may be paginated if the total result size is expected to be large
               (e.g. project_logs which accumulate over a long time). Note that fetch queries
               only support pagination in descending time order (from latest to earliest
               `_xact_id`. Furthermore, later pages may return rows which showed up in earlier
@@ -1136,20 +1195,25 @@ class AsyncExperimentResource(AsyncAPIResource):
               end up with more individual rows than the specified limit if you are fetching
               events containing traces.
 
-          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
-              event fetches. Given a previous fetch with a list of rows, you can determine
-              `max_root_span_id` as the maximum of the `root_span_id` field over all rows. See
-              the documentation for `limit` for an overview of paginating fetch queries.
+          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
-          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
-              event fetches. Given a previous fetch with a list of rows, you can determine
-              `max_xact_id` as the maximum of the `_xact_id` field over all rows. See the
-              documentation for `limit` for an overview of paginating fetch queries.
+              Since a paginated fetch query returns results in order from latest to earliest,
+              the cursor for the next page can be found as the row with the minimum (earliest)
+              value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
+              for an overview of paginating fetch queries.
 
-          version: You may specify a version id to retrieve a snapshot of the events from a past
-              time. The version id is essentially a filter on the latest event transaction id.
-              You can use the `max_xact_id` returned by a past fetch as the version to
-              reproduce that exact fetch.
+          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+
+              Since a paginated fetch query returns results in order from latest to earliest,
+              the cursor for the next page can be found as the row with the minimum (earliest)
+              value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
+              for an overview of paginating fetch queries.
+
+          version: Retrieve a snapshot of events from a past time
+
+              The version id is essentially a filter on the latest event transaction id. You
+              can use the `max_xact_id` returned by a past fetch as the version to reproduce
+              that exact fetch.
 
           extra_headers: Send extra headers
 
@@ -1226,6 +1290,7 @@ class AsyncExperimentResource(AsyncAPIResource):
         dataset_id: Optional[str] | NotGiven = NOT_GIVEN,
         dataset_version: Optional[str] | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
+        ensure_new: Optional[bool] | NotGiven = NOT_GIVEN,
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         public: Optional[bool] | NotGiven = NOT_GIVEN,
@@ -1237,11 +1302,12 @@ class AsyncExperimentResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Experiment:
-        """Create or replace a new experiment.
-
-        If there is an existing experiment in the
-        project with the same name as the one specified in the request, will replace the
-        existing experiment with the provided fields
+        """
+        NOTE: This operation is deprecated and will be removed in a future revision of
+        the API. Create or replace a new experiment. If there is an existing experiment
+        in the project with the same name as the one specified in the request, will
+        return the existing experiment unmodified, will replace the existing experiment
+        with the provided fields
 
         Args:
           project_id: Unique identifier for the project that the experiment belongs under
@@ -1255,6 +1321,11 @@ class AsyncExperimentResource(AsyncAPIResource):
               used to reproduce the experiment after the dataset has been modified.
 
           description: Textual description of the experiment
+
+          ensure_new: Normally, creating an experiment with the same name as an existing experiment
+              will return the existing one un-modified. But if `ensure_new` is true,
+              registration will generate a new experiment with a unique name in case of a
+              conflict.
 
           metadata: User-controlled metadata about the experiment
 
@@ -1282,6 +1353,7 @@ class AsyncExperimentResource(AsyncAPIResource):
                     "dataset_id": dataset_id,
                     "dataset_version": dataset_version,
                     "description": description,
+                    "ensure_new": ensure_new,
                     "metadata": metadata,
                     "name": name,
                     "public": public,

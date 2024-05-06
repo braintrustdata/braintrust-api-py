@@ -38,6 +38,7 @@ class TestExperiment:
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             dataset_version="string",
             description="string",
+            ensure_new=True,
             metadata={"foo": {}},
             name="string",
             public=True,
@@ -190,6 +191,7 @@ class TestExperiment:
         experiment = client.experiment.list(
             ending_before="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             experiment_name="string",
+            ids="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             org_name="string",
             project_name="string",
@@ -310,8 +312,8 @@ class TestExperiment:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             max_root_span_id="string",
-            max_xact_id=0,
-            version=0,
+            max_xact_id="string",
+            version="string",
         )
         assert_matches_type(ExperimentFetchResponse, experiment, path=["response"])
 
@@ -376,8 +378,8 @@ class TestExperiment:
             ],
             limit=0,
             max_root_span_id="string",
-            max_xact_id=0,
-            version=0,
+            max_xact_id="string",
+            version="string",
         )
         assert_matches_type(ExperimentFetchPostResponse, experiment, path=["response"])
 
@@ -469,6 +471,7 @@ class TestExperiment:
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             dataset_version="string",
             description="string",
+            ensure_new=True,
             metadata={"foo": {}},
             name="string",
             public=True,
@@ -529,6 +532,7 @@ class TestAsyncExperiment:
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             dataset_version="string",
             description="string",
+            ensure_new=True,
             metadata={"foo": {}},
             name="string",
             public=True,
@@ -681,6 +685,7 @@ class TestAsyncExperiment:
         experiment = await async_client.experiment.list(
             ending_before="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             experiment_name="string",
+            ids="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             org_name="string",
             project_name="string",
@@ -801,8 +806,8 @@ class TestAsyncExperiment:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             max_root_span_id="string",
-            max_xact_id=0,
-            version=0,
+            max_xact_id="string",
+            version="string",
         )
         assert_matches_type(ExperimentFetchResponse, experiment, path=["response"])
 
@@ -867,8 +872,8 @@ class TestAsyncExperiment:
             ],
             limit=0,
             max_root_span_id="string",
-            max_xact_id=0,
-            version=0,
+            max_xact_id="string",
+            version="string",
         )
         assert_matches_type(ExperimentFetchPostResponse, experiment, path=["response"])
 
@@ -960,6 +965,7 @@ class TestAsyncExperiment:
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             dataset_version="string",
             description="string",
+            ensure_new=True,
             metadata={"foo": {}},
             name="string",
             public=True,

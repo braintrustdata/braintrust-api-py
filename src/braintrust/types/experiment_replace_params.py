@@ -31,6 +31,14 @@ class ExperimentReplaceParams(TypedDict, total=False):
     description: Optional[str]
     """Textual description of the experiment"""
 
+    ensure_new: Optional[bool]
+    """
+    Normally, creating an experiment with the same name as an existing experiment
+    will return the existing one un-modified. But if `ensure_new` is true,
+    registration will generate a new experiment with a unique name in case of a
+    conflict.
+    """
+
     metadata: Optional[Dict[str, object]]
     """User-controlled metadata about the experiment"""
 
