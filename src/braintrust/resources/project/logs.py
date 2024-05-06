@@ -22,27 +22,22 @@ from ..._response import (
 from ..._base_client import (
     make_request_options,
 )
-from ...types.project import (
-    LogFetchResponse,
-    LogInsertResponse,
-    LogFetchPostResponse,
-    log_fetch_params,
-    log_insert_params,
-    log_feedback_params,
-    log_fetch_post_params,
-)
+from ...types.project import log_fetch_params, log_insert_params, log_feedback_params, log_fetch_post_params
+from ...types.project.log_fetch_response import LogFetchResponse
+from ...types.project.log_insert_response import LogInsertResponse
+from ...types.project.log_fetch_post_response import LogFetchPostResponse
 
-__all__ = ["Logs", "AsyncLogs"]
+__all__ = ["LogsResource", "AsyncLogsResource"]
 
 
-class Logs(SyncAPIResource):
+class LogsResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> LogsWithRawResponse:
-        return LogsWithRawResponse(self)
+    def with_raw_response(self) -> LogsResourceWithRawResponse:
+        return LogsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> LogsWithStreamingResponse:
-        return LogsWithStreamingResponse(self)
+    def with_streaming_response(self) -> LogsResourceWithStreamingResponse:
+        return LogsResourceWithStreamingResponse(self)
 
     def feedback(
         self,
@@ -288,14 +283,14 @@ class Logs(SyncAPIResource):
         )
 
 
-class AsyncLogs(AsyncAPIResource):
+class AsyncLogsResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncLogsWithRawResponse:
-        return AsyncLogsWithRawResponse(self)
+    def with_raw_response(self) -> AsyncLogsResourceWithRawResponse:
+        return AsyncLogsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncLogsWithStreamingResponse:
-        return AsyncLogsWithStreamingResponse(self)
+    def with_streaming_response(self) -> AsyncLogsResourceWithStreamingResponse:
+        return AsyncLogsResourceWithStreamingResponse(self)
 
     async def feedback(
         self,
@@ -541,8 +536,8 @@ class AsyncLogs(AsyncAPIResource):
         )
 
 
-class LogsWithRawResponse:
-    def __init__(self, logs: Logs) -> None:
+class LogsResourceWithRawResponse:
+    def __init__(self, logs: LogsResource) -> None:
         self._logs = logs
 
         self.feedback = to_raw_response_wrapper(
@@ -559,8 +554,8 @@ class LogsWithRawResponse:
         )
 
 
-class AsyncLogsWithRawResponse:
-    def __init__(self, logs: AsyncLogs) -> None:
+class AsyncLogsResourceWithRawResponse:
+    def __init__(self, logs: AsyncLogsResource) -> None:
         self._logs = logs
 
         self.feedback = async_to_raw_response_wrapper(
@@ -577,8 +572,8 @@ class AsyncLogsWithRawResponse:
         )
 
 
-class LogsWithStreamingResponse:
-    def __init__(self, logs: Logs) -> None:
+class LogsResourceWithStreamingResponse:
+    def __init__(self, logs: LogsResource) -> None:
         self._logs = logs
 
         self.feedback = to_streamed_response_wrapper(
@@ -595,8 +590,8 @@ class LogsWithStreamingResponse:
         )
 
 
-class AsyncLogsWithStreamingResponse:
-    def __init__(self, logs: AsyncLogs) -> None:
+class AsyncLogsResourceWithStreamingResponse:
+    def __init__(self, logs: AsyncLogsResource) -> None:
         self._logs = logs
 
         self.feedback = async_to_streamed_response_wrapper(
