@@ -1,5 +1,45 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from .acl import (
+    ACLResource,
+    AsyncACLResource,
+    ACLResourceWithRawResponse,
+    AsyncACLResourceWithRawResponse,
+    ACLResourceWithStreamingResponse,
+    AsyncACLResourceWithStreamingResponse,
+)
+from .role import (
+    RoleResource,
+    AsyncRoleResource,
+    RoleResourceWithRawResponse,
+    AsyncRoleResourceWithRawResponse,
+    RoleResourceWithStreamingResponse,
+    AsyncRoleResourceWithStreamingResponse,
+)
+from .user import (
+    UserResource,
+    AsyncUserResource,
+    UserResourceWithRawResponse,
+    AsyncUserResourceWithRawResponse,
+    UserResourceWithStreamingResponse,
+    AsyncUserResourceWithStreamingResponse,
+)
+from .group import (
+    GroupResource,
+    AsyncGroupResource,
+    GroupResourceWithRawResponse,
+    AsyncGroupResourceWithRawResponse,
+    GroupResourceWithStreamingResponse,
+    AsyncGroupResourceWithStreamingResponse,
+)
+from .prompt import (
+    PromptResource,
+    AsyncPromptResource,
+    PromptResourceWithRawResponse,
+    AsyncPromptResourceWithRawResponse,
+    PromptResourceWithStreamingResponse,
+    AsyncPromptResourceWithStreamingResponse,
+)
 from .dataset import (
     DatasetResource,
     AsyncDatasetResource,
@@ -58,4 +98,34 @@ __all__ = [
     "AsyncDatasetResourceWithRawResponse",
     "DatasetResourceWithStreamingResponse",
     "AsyncDatasetResourceWithStreamingResponse",
+    "PromptResource",
+    "AsyncPromptResource",
+    "PromptResourceWithRawResponse",
+    "AsyncPromptResourceWithRawResponse",
+    "PromptResourceWithStreamingResponse",
+    "AsyncPromptResourceWithStreamingResponse",
+    "RoleResource",
+    "AsyncRoleResource",
+    "RoleResourceWithRawResponse",
+    "AsyncRoleResourceWithRawResponse",
+    "RoleResourceWithStreamingResponse",
+    "AsyncRoleResourceWithStreamingResponse",
+    "GroupResource",
+    "AsyncGroupResource",
+    "GroupResourceWithRawResponse",
+    "AsyncGroupResourceWithRawResponse",
+    "GroupResourceWithStreamingResponse",
+    "AsyncGroupResourceWithStreamingResponse",
+    "ACLResource",
+    "AsyncACLResource",
+    "ACLResourceWithRawResponse",
+    "AsyncACLResourceWithRawResponse",
+    "ACLResourceWithStreamingResponse",
+    "AsyncACLResourceWithStreamingResponse",
+    "UserResource",
+    "AsyncUserResource",
+    "UserResourceWithRawResponse",
+    "AsyncUserResourceWithRawResponse",
+    "UserResourceWithStreamingResponse",
+    "AsyncUserResourceWithStreamingResponse",
 ]

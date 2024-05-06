@@ -17,13 +17,16 @@ class Event(BaseModel):
     If you don't provide one, BrainTrust will generate one for you
     """
 
-    api_xact_id: int = FieldInfo(alias="_xact_id")
+    api_xact_id: str = FieldInfo(alias="_xact_id")
     """
     The transaction id of an event is unique to the network operation that processed
     the event insertion. Transaction ids are monotonically increasing over time and
     can be used to retrieve a versioned snapshot of the dataset (see the `version`
     parameter)
     """
+
+    created: datetime
+    """The timestamp the dataset event was created"""
 
     dataset_id: str
     """Unique identifier for the dataset"""
@@ -39,8 +42,11 @@ class Event(BaseModel):
     details on tracing
     """
 
-    created: Optional[datetime] = None
-    """The timestamp the dataset event was created"""
+    expected: Optional[object] = None
+    """
+    The output of your application, including post-processing (an arbitrary, JSON
+    serializable object)
+    """
 
     input: Optional[object] = None
     """
@@ -57,14 +63,11 @@ class Event(BaseModel):
     can be any JSON-serializable type, but its keys must be strings
     """
 
-    output: Optional[object] = None
-    """
-    The output of your application, including post-processing (an arbitrary, JSON
-    serializable object)
-    """
-
     project_id: Optional[str] = None
     """Unique identifier for the project that the dataset belongs under"""
+
+    tags: Optional[List[str]] = None
+    """A list of tags to log"""
 
 
 class DatasetFetchResponse(BaseModel):

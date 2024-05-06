@@ -76,8 +76,8 @@ class TestLogs:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             max_root_span_id="string",
-            max_xact_id=0,
-            version=0,
+            max_xact_id="string",
+            version="string",
         )
         assert_matches_type(LogFetchResponse, log, path=["response"])
 
@@ -142,8 +142,8 @@ class TestLogs:
             ],
             limit=0,
             max_root_span_id="string",
-            max_xact_id=0,
-            version=0,
+            max_xact_id="string",
+            version="string",
         )
         assert_matches_type(LogFetchPostResponse, log, path=["response"])
 
@@ -279,8 +279,8 @@ class TestAsyncLogs:
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             max_root_span_id="string",
-            max_xact_id=0,
-            version=0,
+            max_xact_id="string",
+            version="string",
         )
         assert_matches_type(LogFetchResponse, log, path=["response"])
 
@@ -345,8 +345,8 @@ class TestAsyncLogs:
             ],
             limit=0,
             max_root_span_id="string",
-            max_xact_id=0,
-            version=0,
+            max_xact_id="string",
+            version="string",
         )
         assert_matches_type(LogFetchPostResponse, log, path=["response"])
 

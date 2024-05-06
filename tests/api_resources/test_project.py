@@ -150,6 +150,7 @@ class TestProject:
     def test_method_list_with_all_params(self, client: Braintrust) -> None:
         project = client.project.list(
             ending_before="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            ids="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             org_name="string",
             project_name="string",
@@ -390,6 +391,7 @@ class TestAsyncProject:
     async def test_method_list_with_all_params(self, async_client: AsyncBraintrust) -> None:
         project = await async_client.project.list(
             ending_before="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            ids="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             org_name="string",
             project_name="string",

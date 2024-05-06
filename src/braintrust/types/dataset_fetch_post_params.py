@@ -17,7 +17,8 @@ class DatasetFetchPostParams(TypedDict, total=False):
     """
 
     limit: Optional[int]
-    """
+    """limit the number of traces fetched
+
     Fetch queries may be paginated if the total result size is expected to be large
     (e.g. project_logs which accumulate over a long time). Note that fetch queries
     only support pagination in descending time order (from latest to earliest
@@ -33,27 +34,29 @@ class DatasetFetchPostParams(TypedDict, total=False):
     """
 
     max_root_span_id: Optional[str]
-    """
-    Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
-    event fetches. Given a previous fetch with a list of rows, you can determine
-    `max_root_span_id` as the maximum of the `root_span_id` field over all rows. See
-    the documentation for `limit` for an overview of paginating fetch queries.
+    """Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+
+    Since a paginated fetch query returns results in order from latest to earliest,
+    the cursor for the next page can be found as the row with the minimum (earliest)
+    value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
+    for an overview of paginating fetch queries.
     """
 
-    max_xact_id: Optional[int]
-    """
-    Together, `max_xact_id` and `max_root_span_id` form a cursor for paginating
-    event fetches. Given a previous fetch with a list of rows, you can determine
-    `max_xact_id` as the maximum of the `_xact_id` field over all rows. See the
-    documentation for `limit` for an overview of paginating fetch queries.
+    max_xact_id: Optional[str]
+    """Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+
+    Since a paginated fetch query returns results in order from latest to earliest,
+    the cursor for the next page can be found as the row with the minimum (earliest)
+    value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
+    for an overview of paginating fetch queries.
     """
 
-    version: Optional[int]
-    """
-    You may specify a version id to retrieve a snapshot of the events from a past
-    time. The version id is essentially a filter on the latest event transaction id.
-    You can use the `max_xact_id` returned by a past fetch as the version to
-    reproduce that exact fetch.
+    version: Optional[str]
+    """Retrieve a snapshot of events from a past time
+
+    The version id is essentially a filter on the latest event transaction id. You
+    can use the `max_xact_id` returned by a past fetch as the version to reproduce
+    that exact fetch.
     """
 
 

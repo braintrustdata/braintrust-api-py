@@ -57,6 +57,12 @@ class EventInsertDatasetEventReplace(TypedDict, total=False):
     clicking on the "abc" row.
     """
 
+    expected: object
+    """
+    The output of your application, including post-processing (an arbitrary, JSON
+    serializable object)
+    """
+
     input: object
     """
     The argument that uniquely define an input case (an arbitrary, JSON serializable
@@ -72,11 +78,8 @@ class EventInsertDatasetEventReplace(TypedDict, total=False):
     can be any JSON-serializable type, but its keys must be strings
     """
 
-    output: object
-    """
-    The output of your application, including post-processing (an arbitrary, JSON
-    serializable object)
-    """
+    tags: Optional[List[str]]
+    """A list of tags to log"""
 
 
 class EventInsertDatasetEventMerge(TypedDict, total=False):
@@ -124,6 +127,12 @@ class EventInsertDatasetEventMerge(TypedDict, total=False):
     Deleted events will not show up in subsequent fetches for this dataset
     """
 
+    expected: object
+    """
+    The output of your application, including post-processing (an arbitrary, JSON
+    serializable object)
+    """
+
     input: object
     """
     The argument that uniquely define an input case (an arbitrary, JSON serializable
@@ -139,11 +148,8 @@ class EventInsertDatasetEventMerge(TypedDict, total=False):
     can be any JSON-serializable type, but its keys must be strings
     """
 
-    output: object
-    """
-    The output of your application, including post-processing (an arbitrary, JSON
-    serializable object)
-    """
+    tags: Optional[List[str]]
+    """A list of tags to log"""
 
 
 Event = Union[EventInsertDatasetEventReplace, EventInsertDatasetEventMerge]

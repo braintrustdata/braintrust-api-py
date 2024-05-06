@@ -93,3 +93,91 @@ Methods:
 - <code title="post /v1/dataset/{dataset_id}/fetch">client.dataset.<a href="./src/braintrust/resources/dataset.py">fetch_post</a>(dataset_id, \*\*<a href="src/braintrust/types/dataset_fetch_post_params.py">params</a>) -> <a href="./src/braintrust/types/dataset_fetch_post_response.py">DatasetFetchPostResponse</a></code>
 - <code title="post /v1/dataset/{dataset_id}/insert">client.dataset.<a href="./src/braintrust/resources/dataset.py">insert</a>(dataset_id, \*\*<a href="src/braintrust/types/dataset_insert_params.py">params</a>) -> <a href="./src/braintrust/types/dataset_insert_response.py">DatasetInsertResponse</a></code>
 - <code title="put /v1/dataset">client.dataset.<a href="./src/braintrust/resources/dataset.py">replace</a>(\*\*<a href="src/braintrust/types/dataset_replace_params.py">params</a>) -> <a href="./src/braintrust/types/dataset.py">Dataset</a></code>
+
+# Prompt
+
+Types:
+
+```python
+from braintrust.types import (
+    PromptCreateResponse,
+    PromptRetrieveResponse,
+    PromptUpdateResponse,
+    PromptListResponse,
+    PromptDeleteResponse,
+    PromptReplaceResponse,
+)
+```
+
+Methods:
+
+- <code title="post /v1/prompt">client.prompt.<a href="./src/braintrust/resources/prompt.py">create</a>(\*\*<a href="src/braintrust/types/prompt_create_params.py">params</a>) -> <a href="./src/braintrust/types/prompt_create_response.py">PromptCreateResponse</a></code>
+- <code title="get /v1/prompt/{prompt_id}">client.prompt.<a href="./src/braintrust/resources/prompt.py">retrieve</a>(prompt_id) -> <a href="./src/braintrust/types/prompt_retrieve_response.py">PromptRetrieveResponse</a></code>
+- <code title="patch /v1/prompt/{prompt_id}">client.prompt.<a href="./src/braintrust/resources/prompt.py">update</a>(prompt_id, \*\*<a href="src/braintrust/types/prompt_update_params.py">params</a>) -> <a href="./src/braintrust/types/prompt_update_response.py">PromptUpdateResponse</a></code>
+- <code title="get /v1/prompt">client.prompt.<a href="./src/braintrust/resources/prompt.py">list</a>(\*\*<a href="src/braintrust/types/prompt_list_params.py">params</a>) -> <a href="./src/braintrust/types/prompt_list_response.py">SyncListObjects[PromptListResponse]</a></code>
+- <code title="delete /v1/prompt/{prompt_id}">client.prompt.<a href="./src/braintrust/resources/prompt.py">delete</a>(prompt_id) -> <a href="./src/braintrust/types/prompt_delete_response.py">PromptDeleteResponse</a></code>
+- <code title="post /v1/prompt/{prompt_id}/feedback">client.prompt.<a href="./src/braintrust/resources/prompt.py">feedback</a>(prompt_id, \*\*<a href="src/braintrust/types/prompt_feedback_params.py">params</a>) -> None</code>
+- <code title="put /v1/prompt">client.prompt.<a href="./src/braintrust/resources/prompt.py">replace</a>(\*\*<a href="src/braintrust/types/prompt_replace_params.py">params</a>) -> <a href="./src/braintrust/types/prompt_replace_response.py">PromptReplaceResponse</a></code>
+
+# Role
+
+Types:
+
+```python
+from braintrust.types import Role
+```
+
+Methods:
+
+- <code title="post /v1/role">client.role.<a href="./src/braintrust/resources/role.py">create</a>(\*\*<a href="src/braintrust/types/role_create_params.py">params</a>) -> <a href="./src/braintrust/types/role.py">Role</a></code>
+- <code title="get /v1/role/{role_id}">client.role.<a href="./src/braintrust/resources/role.py">retrieve</a>(role_id) -> <a href="./src/braintrust/types/role.py">Role</a></code>
+- <code title="patch /v1/role/{role_id}">client.role.<a href="./src/braintrust/resources/role.py">update</a>(role_id, \*\*<a href="src/braintrust/types/role_update_params.py">params</a>) -> <a href="./src/braintrust/types/role.py">Role</a></code>
+- <code title="get /v1/role">client.role.<a href="./src/braintrust/resources/role.py">list</a>(\*\*<a href="src/braintrust/types/role_list_params.py">params</a>) -> <a href="./src/braintrust/types/role.py">SyncListObjects[Role]</a></code>
+- <code title="delete /v1/role/{role_id}">client.role.<a href="./src/braintrust/resources/role.py">delete</a>(role_id) -> <a href="./src/braintrust/types/role.py">Role</a></code>
+- <code title="put /v1/role">client.role.<a href="./src/braintrust/resources/role.py">replace</a>(\*\*<a href="src/braintrust/types/role_replace_params.py">params</a>) -> <a href="./src/braintrust/types/role.py">Role</a></code>
+
+# Group
+
+Types:
+
+```python
+from braintrust.types import Group
+```
+
+Methods:
+
+- <code title="post /v1/group">client.group.<a href="./src/braintrust/resources/group.py">create</a>(\*\*<a href="src/braintrust/types/group_create_params.py">params</a>) -> <a href="./src/braintrust/types/group.py">Group</a></code>
+- <code title="get /v1/group/{group_id}">client.group.<a href="./src/braintrust/resources/group.py">retrieve</a>(group_id) -> <a href="./src/braintrust/types/group.py">Group</a></code>
+- <code title="patch /v1/group/{group_id}">client.group.<a href="./src/braintrust/resources/group.py">update</a>(group_id, \*\*<a href="src/braintrust/types/group_update_params.py">params</a>) -> <a href="./src/braintrust/types/group.py">Group</a></code>
+- <code title="get /v1/group">client.group.<a href="./src/braintrust/resources/group.py">list</a>(\*\*<a href="src/braintrust/types/group_list_params.py">params</a>) -> <a href="./src/braintrust/types/group.py">SyncListObjects[Group]</a></code>
+- <code title="delete /v1/group/{group_id}">client.group.<a href="./src/braintrust/resources/group.py">delete</a>(group_id) -> <a href="./src/braintrust/types/group.py">Group</a></code>
+- <code title="put /v1/group">client.group.<a href="./src/braintrust/resources/group.py">replace</a>(\*\*<a href="src/braintrust/types/group_replace_params.py">params</a>) -> <a href="./src/braintrust/types/group.py">Group</a></code>
+
+# ACL
+
+Types:
+
+```python
+from braintrust.types import ACL
+```
+
+Methods:
+
+- <code title="post /v1/acl">client.acl.<a href="./src/braintrust/resources/acl.py">create</a>(\*\*<a href="src/braintrust/types/acl_create_params.py">params</a>) -> <a href="./src/braintrust/types/acl.py">ACL</a></code>
+- <code title="get /v1/acl/{acl_id}">client.acl.<a href="./src/braintrust/resources/acl.py">retrieve</a>(acl_id) -> <a href="./src/braintrust/types/acl.py">ACL</a></code>
+- <code title="get /v1/acl">client.acl.<a href="./src/braintrust/resources/acl.py">list</a>(\*\*<a href="src/braintrust/types/acl_list_params.py">params</a>) -> <a href="./src/braintrust/types/acl.py">SyncListObjects[ACL]</a></code>
+- <code title="delete /v1/acl/{acl_id}">client.acl.<a href="./src/braintrust/resources/acl.py">delete</a>(acl_id) -> <a href="./src/braintrust/types/acl.py">ACL</a></code>
+- <code title="put /v1/acl">client.acl.<a href="./src/braintrust/resources/acl.py">replace</a>(\*\*<a href="src/braintrust/types/acl_replace_params.py">params</a>) -> <a href="./src/braintrust/types/acl.py">ACL</a></code>
+
+# User
+
+Types:
+
+```python
+from braintrust.types import User
+```
+
+Methods:
+
+- <code title="get /v1/user/{user_id}">client.user.<a href="./src/braintrust/resources/user.py">retrieve</a>(user_id) -> <a href="./src/braintrust/types/user.py">User</a></code>
+- <code title="get /v1/user">client.user.<a href="./src/braintrust/resources/user.py">list</a>(\*\*<a href="src/braintrust/types/user_list_params.py">params</a>) -> <a href="./src/braintrust/types/user.py">SyncListObjects[User]</a></code>
