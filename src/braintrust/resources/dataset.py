@@ -7,10 +7,6 @@ from typing import Iterable, Optional
 import httpx
 
 from ..types import (
-    Dataset,
-    DatasetFetchResponse,
-    DatasetInsertResponse,
-    DatasetFetchPostResponse,
     dataset_list_params,
     dataset_fetch_params,
     dataset_create_params,
@@ -38,6 +34,10 @@ from .._base_client import (
     AsyncPaginator,
     make_request_options,
 )
+from ..types.dataset import Dataset
+from ..types.dataset_fetch_response import DatasetFetchResponse
+from ..types.dataset_insert_response import DatasetInsertResponse
+from ..types.dataset_fetch_post_response import DatasetFetchPostResponse
 
 __all__ = ["DatasetResource", "AsyncDatasetResource"]
 

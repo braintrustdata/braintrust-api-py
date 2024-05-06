@@ -17,12 +17,12 @@ from .project import (
     AsyncProjectResourceWithStreamingResponse,
 )
 from .top_level import (
-    TopLevel,
-    AsyncTopLevel,
-    TopLevelWithRawResponse,
-    AsyncTopLevelWithRawResponse,
-    TopLevelWithStreamingResponse,
-    AsyncTopLevelWithStreamingResponse,
+    TopLevelResource,
+    AsyncTopLevelResource,
+    TopLevelResourceWithRawResponse,
+    AsyncTopLevelResourceWithRawResponse,
+    TopLevelResourceWithStreamingResponse,
+    AsyncTopLevelResourceWithStreamingResponse,
 )
 from .experiment import (
     ExperimentResource,
@@ -34,12 +34,12 @@ from .experiment import (
 )
 
 __all__ = [
-    "TopLevel",
-    "AsyncTopLevel",
-    "TopLevelWithRawResponse",
-    "AsyncTopLevelWithRawResponse",
-    "TopLevelWithStreamingResponse",
-    "AsyncTopLevelWithStreamingResponse",
+    "TopLevelResource",
+    "AsyncTopLevelResource",
+    "TopLevelResourceWithRawResponse",
+    "AsyncTopLevelResourceWithRawResponse",
+    "TopLevelResourceWithStreamingResponse",
+    "AsyncTopLevelResourceWithStreamingResponse",
     "ProjectResource",
     "AsyncProjectResource",
     "ProjectResourceWithRawResponse",

@@ -7,10 +7,6 @@ from typing import Dict, Iterable, Optional
 import httpx
 
 from ..types import (
-    Experiment,
-    ExperimentFetchResponse,
-    ExperimentInsertResponse,
-    ExperimentFetchPostResponse,
     experiment_list_params,
     experiment_fetch_params,
     experiment_create_params,
@@ -38,6 +34,10 @@ from .._base_client import (
     AsyncPaginator,
     make_request_options,
 )
+from ..types.experiment import Experiment
+from ..types.experiment_fetch_response import ExperimentFetchResponse
+from ..types.experiment_insert_response import ExperimentInsertResponse
+from ..types.experiment_fetch_post_response import ExperimentFetchPostResponse
 
 __all__ = ["ExperimentResource", "AsyncExperimentResource"]
 

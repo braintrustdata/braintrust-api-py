@@ -15,22 +15,21 @@ The REST API documentation can be found [on www.braintrustdata.com](https://www.
 ## Installation
 
 ```sh
-# install from PyPI
-pip install braintrust
+# install from this staging repo
+pip install git+ssh://git@github.com/stainless-sdks/manugoyal/braintrust-sdk-kotlin-python.git
 ```
+
+> [!NOTE]
+> Once this package is [published to PyPI](https://app.stainlessapi.com/docs/guides/publish), this will become: `pip install braintrust`
 
 ## Usage
 
 The full API of this library can be found in [api.md](api.md).
 
 ```python
-import os
 from braintrust import Braintrust
 
-client = Braintrust(
-    # This is the default and can be omitted
-    api_key=os.environ.get("BRAINTRUST_API_KEY"),
-)
+client = Braintrust()
 
 project = client.project.create(
     name="first model",
@@ -48,14 +47,10 @@ so that your API Key is not stored in source control.
 Simply import `AsyncBraintrust` instead of `Braintrust` and use `await` with each API call:
 
 ```python
-import os
 import asyncio
 from braintrust import AsyncBraintrust
 
-client = AsyncBraintrust(
-    # This is the default and can be omitted
-    api_key=os.environ.get("BRAINTRUST_API_KEY"),
-)
+client = AsyncBraintrust()
 
 
 async def main() -> None:
@@ -72,10 +67,10 @@ Functionality between the synchronous and asynchronous clients is otherwise iden
 
 ## Using types
 
-Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev), which provide helper methods for things like:
+Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev) which also provide helper methods for things like:
 
-- Serializing back into JSON, `model.model_dump_json(indent=2, exclude_unset=True)`
-- Converting to a dictionary, `model.model_dump(exclude_unset=True)`
+- Serializing back into JSON, `model.to_json()`
+- Converting to a dictionary, `model.to_dict()`
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
 
@@ -228,7 +223,7 @@ client = Braintrust(
 )
 
 # Override per-request:
-client.with_options(timeout=5 * 1000).project.create(
+client.with_options(timeout=5.0).project.create(
     name="first model",
 )
 ```
@@ -302,7 +297,7 @@ The context manager is required so that the response will reliably be closed.
 
 ### Making custom/undocumented requests
 
-This library is typed for convenient access the documented API.
+This library is typed for convenient access to the documented API.
 
 If you need to access undocumented endpoints, params, or response properties, the library can still be used.
 
@@ -344,13 +339,12 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 - Additional [advanced](https://www.python-httpx.org/advanced/#client-instances) functionality
 
 ```python
-import httpx
-from braintrust import Braintrust
+from braintrust import Braintrust, DefaultHttpxClient
 
 client = Braintrust(
     # Or use the `BRAINTRUST_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
-    http_client=httpx.Client(
+    http_client=DefaultHttpxClient(
         proxies="http://my.test.proxy.example.com",
         transport=httpx.HTTPTransport(local_address="0.0.0.0"),
     ),
@@ -371,7 +365,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/braintrustdata/braintrust-python/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/manugoyal/braintrust-sdk-kotlin-python/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 

@@ -7,15 +7,14 @@ from typing import Optional
 import httpx
 
 from .logs import (
-    Logs,
-    AsyncLogs,
-    LogsWithRawResponse,
-    AsyncLogsWithRawResponse,
-    LogsWithStreamingResponse,
-    AsyncLogsWithStreamingResponse,
+    LogsResource,
+    AsyncLogsResource,
+    LogsResourceWithRawResponse,
+    AsyncLogsResourceWithRawResponse,
+    LogsResourceWithStreamingResponse,
+    AsyncLogsResourceWithStreamingResponse,
 )
 from ...types import (
-    Project,
     project_list_params,
     project_create_params,
     project_update_params,
@@ -39,14 +38,15 @@ from ..._base_client import (
     AsyncPaginator,
     make_request_options,
 )
+from ...types.project.project import Project
 
 __all__ = ["ProjectResource", "AsyncProjectResource"]
 
 
 class ProjectResource(SyncAPIResource):
     @cached_property
-    def logs(self) -> Logs:
-        return Logs(self._client)
+    def logs(self) -> LogsResource:
+        return LogsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> ProjectResourceWithRawResponse:
@@ -333,8 +333,8 @@ class ProjectResource(SyncAPIResource):
 
 class AsyncProjectResource(AsyncAPIResource):
     @cached_property
-    def logs(self) -> AsyncLogs:
-        return AsyncLogs(self._client)
+    def logs(self) -> AsyncLogsResource:
+        return AsyncLogsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncProjectResourceWithRawResponse:
@@ -643,8 +643,8 @@ class ProjectResourceWithRawResponse:
         )
 
     @cached_property
-    def logs(self) -> LogsWithRawResponse:
-        return LogsWithRawResponse(self._project.logs)
+    def logs(self) -> LogsResourceWithRawResponse:
+        return LogsResourceWithRawResponse(self._project.logs)
 
 
 class AsyncProjectResourceWithRawResponse:
@@ -671,8 +671,8 @@ class AsyncProjectResourceWithRawResponse:
         )
 
     @cached_property
-    def logs(self) -> AsyncLogsWithRawResponse:
-        return AsyncLogsWithRawResponse(self._project.logs)
+    def logs(self) -> AsyncLogsResourceWithRawResponse:
+        return AsyncLogsResourceWithRawResponse(self._project.logs)
 
 
 class ProjectResourceWithStreamingResponse:
@@ -699,8 +699,8 @@ class ProjectResourceWithStreamingResponse:
         )
 
     @cached_property
-    def logs(self) -> LogsWithStreamingResponse:
-        return LogsWithStreamingResponse(self._project.logs)
+    def logs(self) -> LogsResourceWithStreamingResponse:
+        return LogsResourceWithStreamingResponse(self._project.logs)
 
 
 class AsyncProjectResourceWithStreamingResponse:
@@ -727,5 +727,5 @@ class AsyncProjectResourceWithStreamingResponse:
         )
 
     @cached_property
-    def logs(self) -> AsyncLogsWithStreamingResponse:
-        return AsyncLogsWithStreamingResponse(self._project.logs)
+    def logs(self) -> AsyncLogsResourceWithStreamingResponse:
+        return AsyncLogsResourceWithStreamingResponse(self._project.logs)

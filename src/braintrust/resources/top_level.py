@@ -17,17 +17,17 @@ from .._base_client import (
     make_request_options,
 )
 
-__all__ = ["TopLevel", "AsyncTopLevel"]
+__all__ = ["TopLevelResource", "AsyncTopLevelResource"]
 
 
-class TopLevel(SyncAPIResource):
+class TopLevelResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> TopLevelWithRawResponse:
-        return TopLevelWithRawResponse(self)
+    def with_raw_response(self) -> TopLevelResourceWithRawResponse:
+        return TopLevelResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> TopLevelWithStreamingResponse:
-        return TopLevelWithStreamingResponse(self)
+    def with_streaming_response(self) -> TopLevelResourceWithStreamingResponse:
+        return TopLevelResourceWithStreamingResponse(self)
 
     def hello_world(
         self,
@@ -54,14 +54,14 @@ class TopLevel(SyncAPIResource):
         )
 
 
-class AsyncTopLevel(AsyncAPIResource):
+class AsyncTopLevelResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncTopLevelWithRawResponse:
-        return AsyncTopLevelWithRawResponse(self)
+    def with_raw_response(self) -> AsyncTopLevelResourceWithRawResponse:
+        return AsyncTopLevelResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncTopLevelWithStreamingResponse:
-        return AsyncTopLevelWithStreamingResponse(self)
+    def with_streaming_response(self) -> AsyncTopLevelResourceWithStreamingResponse:
+        return AsyncTopLevelResourceWithStreamingResponse(self)
 
     async def hello_world(
         self,
@@ -88,8 +88,8 @@ class AsyncTopLevel(AsyncAPIResource):
         )
 
 
-class TopLevelWithRawResponse:
-    def __init__(self, top_level: TopLevel) -> None:
+class TopLevelResourceWithRawResponse:
+    def __init__(self, top_level: TopLevelResource) -> None:
         self._top_level = top_level
 
         self.hello_world = to_raw_response_wrapper(
@@ -97,8 +97,8 @@ class TopLevelWithRawResponse:
         )
 
 
-class AsyncTopLevelWithRawResponse:
-    def __init__(self, top_level: AsyncTopLevel) -> None:
+class AsyncTopLevelResourceWithRawResponse:
+    def __init__(self, top_level: AsyncTopLevelResource) -> None:
         self._top_level = top_level
 
         self.hello_world = async_to_raw_response_wrapper(
@@ -106,8 +106,8 @@ class AsyncTopLevelWithRawResponse:
         )
 
 
-class TopLevelWithStreamingResponse:
-    def __init__(self, top_level: TopLevel) -> None:
+class TopLevelResourceWithStreamingResponse:
+    def __init__(self, top_level: TopLevelResource) -> None:
         self._top_level = top_level
 
         self.hello_world = to_streamed_response_wrapper(
@@ -115,8 +115,8 @@ class TopLevelWithStreamingResponse:
         )
 
 
-class AsyncTopLevelWithStreamingResponse:
-    def __init__(self, top_level: AsyncTopLevel) -> None:
+class AsyncTopLevelResourceWithStreamingResponse:
+    def __init__(self, top_level: AsyncTopLevelResource) -> None:
         self._top_level = top_level
 
         self.hello_world = async_to_streamed_response_wrapper(

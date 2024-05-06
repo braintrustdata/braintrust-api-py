@@ -46,7 +46,7 @@ __all__ = [
 
 
 class Braintrust(SyncAPIClient):
-    top_level: resources.TopLevel
+    top_level: resources.TopLevelResource
     project: resources.ProjectResource
     experiment: resources.ExperimentResource
     dataset: resources.DatasetResource
@@ -65,7 +65,9 @@ class Braintrust(SyncAPIClient):
         max_retries: int = DEFAULT_MAX_RETRIES,
         default_headers: Mapping[str, str] | None = None,
         default_query: Mapping[str, object] | None = None,
-        # Configure a custom httpx client. See the [httpx documentation](https://www.python-httpx.org/api/#client) for more details.
+        # Configure a custom httpx client.
+        # We provide a `DefaultHttpxClient` class that you can pass to retain the default values we use for `limits`, `timeout` & `follow_redirects`.
+        # See the [httpx documentation](https://www.python-httpx.org/api/#client) for more details.
         http_client: httpx.Client | None = None,
         # Enable or disable schema validation for data returned by the API.
         # When enabled an error APIResponseValidationError is raised
@@ -105,7 +107,7 @@ class Braintrust(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.top_level = resources.TopLevel(self)
+        self.top_level = resources.TopLevelResource(self)
         self.project = resources.ProjectResource(self)
         self.experiment = resources.ExperimentResource(self)
         self.dataset = resources.DatasetResource(self)
@@ -218,7 +220,7 @@ class Braintrust(SyncAPIClient):
 
 
 class AsyncBraintrust(AsyncAPIClient):
-    top_level: resources.AsyncTopLevel
+    top_level: resources.AsyncTopLevelResource
     project: resources.AsyncProjectResource
     experiment: resources.AsyncExperimentResource
     dataset: resources.AsyncDatasetResource
@@ -237,7 +239,9 @@ class AsyncBraintrust(AsyncAPIClient):
         max_retries: int = DEFAULT_MAX_RETRIES,
         default_headers: Mapping[str, str] | None = None,
         default_query: Mapping[str, object] | None = None,
-        # Configure a custom httpx client. See the [httpx documentation](https://www.python-httpx.org/api/#asyncclient) for more details.
+        # Configure a custom httpx client.
+        # We provide a `DefaultAsyncHttpxClient` class that you can pass to retain the default values we use for `limits`, `timeout` & `follow_redirects`.
+        # See the [httpx documentation](https://www.python-httpx.org/api/#asyncclient) for more details.
         http_client: httpx.AsyncClient | None = None,
         # Enable or disable schema validation for data returned by the API.
         # When enabled an error APIResponseValidationError is raised
@@ -277,7 +281,7 @@ class AsyncBraintrust(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.top_level = resources.AsyncTopLevel(self)
+        self.top_level = resources.AsyncTopLevelResource(self)
         self.project = resources.AsyncProjectResource(self)
         self.experiment = resources.AsyncExperimentResource(self)
         self.dataset = resources.AsyncDatasetResource(self)
@@ -391,7 +395,7 @@ class AsyncBraintrust(AsyncAPIClient):
 
 class BraintrustWithRawResponse:
     def __init__(self, client: Braintrust) -> None:
-        self.top_level = resources.TopLevelWithRawResponse(client.top_level)
+        self.top_level = resources.TopLevelResourceWithRawResponse(client.top_level)
         self.project = resources.ProjectResourceWithRawResponse(client.project)
         self.experiment = resources.ExperimentResourceWithRawResponse(client.experiment)
         self.dataset = resources.DatasetResourceWithRawResponse(client.dataset)
@@ -399,7 +403,7 @@ class BraintrustWithRawResponse:
 
 class AsyncBraintrustWithRawResponse:
     def __init__(self, client: AsyncBraintrust) -> None:
-        self.top_level = resources.AsyncTopLevelWithRawResponse(client.top_level)
+        self.top_level = resources.AsyncTopLevelResourceWithRawResponse(client.top_level)
         self.project = resources.AsyncProjectResourceWithRawResponse(client.project)
         self.experiment = resources.AsyncExperimentResourceWithRawResponse(client.experiment)
         self.dataset = resources.AsyncDatasetResourceWithRawResponse(client.dataset)
@@ -407,7 +411,7 @@ class AsyncBraintrustWithRawResponse:
 
 class BraintrustWithStreamedResponse:
     def __init__(self, client: Braintrust) -> None:
-        self.top_level = resources.TopLevelWithStreamingResponse(client.top_level)
+        self.top_level = resources.TopLevelResourceWithStreamingResponse(client.top_level)
         self.project = resources.ProjectResourceWithStreamingResponse(client.project)
         self.experiment = resources.ExperimentResourceWithStreamingResponse(client.experiment)
         self.dataset = resources.DatasetResourceWithStreamingResponse(client.dataset)
@@ -415,7 +419,7 @@ class BraintrustWithStreamedResponse:
 
 class AsyncBraintrustWithStreamedResponse:
     def __init__(self, client: AsyncBraintrust) -> None:
-        self.top_level = resources.AsyncTopLevelWithStreamingResponse(client.top_level)
+        self.top_level = resources.AsyncTopLevelResourceWithStreamingResponse(client.top_level)
         self.project = resources.AsyncProjectResourceWithStreamingResponse(client.project)
         self.experiment = resources.AsyncExperimentResourceWithStreamingResponse(client.experiment)
         self.dataset = resources.AsyncDatasetResourceWithStreamingResponse(client.dataset)

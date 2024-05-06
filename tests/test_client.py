@@ -17,7 +17,6 @@ from respx import MockRouter
 from pydantic import ValidationError
 
 from braintrust import Braintrust, AsyncBraintrust, APIResponseValidationError
-from braintrust._client import Braintrust, AsyncBraintrust
 from braintrust._models import BaseModel, FinalRequestOptions
 from braintrust._constants import RAW_RESPONSE_HEADER
 from braintrust._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
