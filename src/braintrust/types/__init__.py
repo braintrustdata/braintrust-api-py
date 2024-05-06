@@ -6,6 +6,7 @@ from .acl import ACL as ACL
 from .role import Role as Role
 from .user import User as User
 from .group import Group as Group
+from .prompt import Prompt as Prompt
 from .dataset import Dataset as Dataset
 from .project import Project as Project
 from .experiment import Experiment as Experiment
@@ -26,7 +27,6 @@ from .role_replace_params import RoleReplaceParams as RoleReplaceParams
 from .dataset_fetch_params import DatasetFetchParams as DatasetFetchParams
 from .group_replace_params import GroupReplaceParams as GroupReplaceParams
 from .prompt_create_params import PromptCreateParams as PromptCreateParams
-from .prompt_list_response import PromptListResponse as PromptListResponse
 from .prompt_update_params import PromptUpdateParams as PromptUpdateParams
 from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
 from .dataset_insert_params import DatasetInsertParams as DatasetInsertParams
@@ -38,18 +38,13 @@ from .dataset_fetch_response import DatasetFetchResponse as DatasetFetchResponse
 from .dataset_replace_params import DatasetReplaceParams as DatasetReplaceParams
 from .experiment_list_params import ExperimentListParams as ExperimentListParams
 from .project_replace_params import ProjectReplaceParams as ProjectReplaceParams
-from .prompt_create_response import PromptCreateResponse as PromptCreateResponse
-from .prompt_delete_response import PromptDeleteResponse as PromptDeleteResponse
 from .prompt_feedback_params import PromptFeedbackParams as PromptFeedbackParams
-from .prompt_update_response import PromptUpdateResponse as PromptUpdateResponse
 from .dataset_feedback_params import DatasetFeedbackParams as DatasetFeedbackParams
 from .dataset_insert_response import DatasetInsertResponse as DatasetInsertResponse
 from .experiment_fetch_params import ExperimentFetchParams as ExperimentFetchParams
-from .prompt_replace_response import PromptReplaceResponse as PromptReplaceResponse
 from .experiment_create_params import ExperimentCreateParams as ExperimentCreateParams
 from .experiment_insert_params import ExperimentInsertParams as ExperimentInsertParams
 from .experiment_update_params import ExperimentUpdateParams as ExperimentUpdateParams
-from .prompt_retrieve_response import PromptRetrieveResponse as PromptRetrieveResponse
 from .dataset_fetch_post_params import DatasetFetchPostParams as DatasetFetchPostParams
 from .experiment_fetch_response import ExperimentFetchResponse as ExperimentFetchResponse
 from .experiment_replace_params import ExperimentReplaceParams as ExperimentReplaceParams
