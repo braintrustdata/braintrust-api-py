@@ -31,12 +31,7 @@ from .._base_client import (
     AsyncPaginator,
     make_request_options,
 )
-from ..types.prompt_list_response import PromptListResponse
-from ..types.prompt_create_response import PromptCreateResponse
-from ..types.prompt_delete_response import PromptDeleteResponse
-from ..types.prompt_update_response import PromptUpdateResponse
-from ..types.prompt_replace_response import PromptReplaceResponse
-from ..types.prompt_retrieve_response import PromptRetrieveResponse
+from ..types.prompt import Prompt
 
 __all__ = ["PromptResource", "AsyncPromptResource"]
 
@@ -65,7 +60,7 @@ class PromptResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PromptCreateResponse:
+    ) -> Prompt:
         """Create a new prompt.
 
         If there is an existing prompt in the project with the same
@@ -109,7 +104,7 @@ class PromptResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PromptCreateResponse,
+            cast_to=Prompt,
         )
 
     def retrieve(
@@ -122,7 +117,7 @@ class PromptResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PromptRetrieveResponse:
+    ) -> Prompt:
         """
         Get a prompt object by its id
 
@@ -144,7 +139,7 @@ class PromptResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PromptRetrieveResponse,
+            cast_to=Prompt,
         )
 
     def update(
@@ -161,7 +156,7 @@ class PromptResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PromptUpdateResponse:
+    ) -> Prompt:
         """Partially update a prompt object.
 
         Specify the fields to update in the payload.
@@ -203,7 +198,7 @@ class PromptResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PromptUpdateResponse,
+            cast_to=Prompt,
         )
 
     def list(
@@ -224,7 +219,7 @@ class PromptResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncListObjects[PromptListResponse]:
+    ) -> SyncListObjects[Prompt]:
         """List out all prompts.
 
         The prompts are sorted by creation date, with the most
@@ -272,7 +267,7 @@ class PromptResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/prompt",
-            page=SyncListObjects[PromptListResponse],
+            page=SyncListObjects[Prompt],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -293,7 +288,7 @@ class PromptResource(SyncAPIResource):
                     prompt_list_params.PromptListParams,
                 ),
             ),
-            model=PromptListResponse,
+            model=Prompt,
         )
 
     def delete(
@@ -306,7 +301,7 @@ class PromptResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PromptDeleteResponse:
+    ) -> Prompt:
         """
         Delete a prompt object by its id
 
@@ -328,7 +323,7 @@ class PromptResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PromptDeleteResponse,
+            cast_to=Prompt,
         )
 
     def feedback(
@@ -386,7 +381,7 @@ class PromptResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PromptReplaceResponse:
+    ) -> Prompt:
         """
         NOTE: This operation is deprecated and will be removed in a future revision of
         the API. Create or replace a new prompt. If there is an existing prompt in the
@@ -431,7 +426,7 @@ class PromptResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PromptReplaceResponse,
+            cast_to=Prompt,
         )
 
 
@@ -459,7 +454,7 @@ class AsyncPromptResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PromptCreateResponse:
+    ) -> Prompt:
         """Create a new prompt.
 
         If there is an existing prompt in the project with the same
@@ -503,7 +498,7 @@ class AsyncPromptResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PromptCreateResponse,
+            cast_to=Prompt,
         )
 
     async def retrieve(
@@ -516,7 +511,7 @@ class AsyncPromptResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PromptRetrieveResponse:
+    ) -> Prompt:
         """
         Get a prompt object by its id
 
@@ -538,7 +533,7 @@ class AsyncPromptResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PromptRetrieveResponse,
+            cast_to=Prompt,
         )
 
     async def update(
@@ -555,7 +550,7 @@ class AsyncPromptResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PromptUpdateResponse:
+    ) -> Prompt:
         """Partially update a prompt object.
 
         Specify the fields to update in the payload.
@@ -597,7 +592,7 @@ class AsyncPromptResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PromptUpdateResponse,
+            cast_to=Prompt,
         )
 
     def list(
@@ -618,7 +613,7 @@ class AsyncPromptResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[PromptListResponse, AsyncListObjects[PromptListResponse]]:
+    ) -> AsyncPaginator[Prompt, AsyncListObjects[Prompt]]:
         """List out all prompts.
 
         The prompts are sorted by creation date, with the most
@@ -666,7 +661,7 @@ class AsyncPromptResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/prompt",
-            page=AsyncListObjects[PromptListResponse],
+            page=AsyncListObjects[Prompt],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -687,7 +682,7 @@ class AsyncPromptResource(AsyncAPIResource):
                     prompt_list_params.PromptListParams,
                 ),
             ),
-            model=PromptListResponse,
+            model=Prompt,
         )
 
     async def delete(
@@ -700,7 +695,7 @@ class AsyncPromptResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PromptDeleteResponse:
+    ) -> Prompt:
         """
         Delete a prompt object by its id
 
@@ -722,7 +717,7 @@ class AsyncPromptResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PromptDeleteResponse,
+            cast_to=Prompt,
         )
 
     async def feedback(
@@ -780,7 +775,7 @@ class AsyncPromptResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> PromptReplaceResponse:
+    ) -> Prompt:
         """
         NOTE: This operation is deprecated and will be removed in a future revision of
         the API. Create or replace a new prompt. If there is an existing prompt in the
@@ -825,7 +820,7 @@ class AsyncPromptResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=PromptReplaceResponse,
+            cast_to=Prompt,
         )
 
 

@@ -10,12 +10,7 @@ import pytest
 from braintrust import Braintrust, AsyncBraintrust
 from tests.utils import assert_matches_type
 from braintrust.types import (
-    PromptListResponse,
-    PromptCreateResponse,
-    PromptDeleteResponse,
-    PromptUpdateResponse,
-    PromptReplaceResponse,
-    PromptRetrieveResponse,
+    Prompt,
 )
 from braintrust.pagination import SyncListObjects, AsyncListObjects
 
@@ -32,7 +27,7 @@ class TestPrompt:
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             slug="string",
         )
-        assert_matches_type(PromptCreateResponse, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
     def test_method_create_with_all_params(self, client: Braintrust) -> None:
@@ -71,7 +66,7 @@ class TestPrompt:
             },
             tags=["string", "string", "string"],
         )
-        assert_matches_type(PromptCreateResponse, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
     def test_raw_response_create(self, client: Braintrust) -> None:
@@ -84,7 +79,7 @@ class TestPrompt:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         prompt = response.parse()
-        assert_matches_type(PromptCreateResponse, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
     def test_streaming_response_create(self, client: Braintrust) -> None:
@@ -97,7 +92,7 @@ class TestPrompt:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             prompt = response.parse()
-            assert_matches_type(PromptCreateResponse, prompt, path=["response"])
+            assert_matches_type(Prompt, prompt, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -106,7 +101,7 @@ class TestPrompt:
         prompt = client.prompt.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(PromptRetrieveResponse, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
     def test_raw_response_retrieve(self, client: Braintrust) -> None:
@@ -117,7 +112,7 @@ class TestPrompt:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         prompt = response.parse()
-        assert_matches_type(PromptRetrieveResponse, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
     def test_streaming_response_retrieve(self, client: Braintrust) -> None:
@@ -128,7 +123,7 @@ class TestPrompt:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             prompt = response.parse()
-            assert_matches_type(PromptRetrieveResponse, prompt, path=["response"])
+            assert_matches_type(Prompt, prompt, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -144,7 +139,7 @@ class TestPrompt:
         prompt = client.prompt.update(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(PromptUpdateResponse, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
     def test_method_update_with_all_params(self, client: Braintrust) -> None:
@@ -182,7 +177,7 @@ class TestPrompt:
             },
             tags=["string", "string", "string"],
         )
-        assert_matches_type(PromptUpdateResponse, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
     def test_raw_response_update(self, client: Braintrust) -> None:
@@ -193,7 +188,7 @@ class TestPrompt:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         prompt = response.parse()
-        assert_matches_type(PromptUpdateResponse, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
     def test_streaming_response_update(self, client: Braintrust) -> None:
@@ -204,7 +199,7 @@ class TestPrompt:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             prompt = response.parse()
-            assert_matches_type(PromptUpdateResponse, prompt, path=["response"])
+            assert_matches_type(Prompt, prompt, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -218,7 +213,7 @@ class TestPrompt:
     @parametrize
     def test_method_list(self, client: Braintrust) -> None:
         prompt = client.prompt.list()
-        assert_matches_type(SyncListObjects[PromptListResponse], prompt, path=["response"])
+        assert_matches_type(SyncListObjects[Prompt], prompt, path=["response"])
 
     @parametrize
     def test_method_list_with_all_params(self, client: Braintrust) -> None:
@@ -233,7 +228,7 @@ class TestPrompt:
             starting_after="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             version="string",
         )
-        assert_matches_type(SyncListObjects[PromptListResponse], prompt, path=["response"])
+        assert_matches_type(SyncListObjects[Prompt], prompt, path=["response"])
 
     @parametrize
     def test_raw_response_list(self, client: Braintrust) -> None:
@@ -242,7 +237,7 @@ class TestPrompt:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         prompt = response.parse()
-        assert_matches_type(SyncListObjects[PromptListResponse], prompt, path=["response"])
+        assert_matches_type(SyncListObjects[Prompt], prompt, path=["response"])
 
     @parametrize
     def test_streaming_response_list(self, client: Braintrust) -> None:
@@ -251,7 +246,7 @@ class TestPrompt:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             prompt = response.parse()
-            assert_matches_type(SyncListObjects[PromptListResponse], prompt, path=["response"])
+            assert_matches_type(SyncListObjects[Prompt], prompt, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -260,7 +255,7 @@ class TestPrompt:
         prompt = client.prompt.delete(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(PromptDeleteResponse, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
     def test_raw_response_delete(self, client: Braintrust) -> None:
@@ -271,7 +266,7 @@ class TestPrompt:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         prompt = response.parse()
-        assert_matches_type(PromptDeleteResponse, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
     def test_streaming_response_delete(self, client: Braintrust) -> None:
@@ -282,7 +277,7 @@ class TestPrompt:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             prompt = response.parse()
-            assert_matches_type(PromptDeleteResponse, prompt, path=["response"])
+            assert_matches_type(Prompt, prompt, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -342,7 +337,7 @@ class TestPrompt:
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             slug="string",
         )
-        assert_matches_type(PromptReplaceResponse, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
     def test_method_replace_with_all_params(self, client: Braintrust) -> None:
@@ -381,7 +376,7 @@ class TestPrompt:
             },
             tags=["string", "string", "string"],
         )
-        assert_matches_type(PromptReplaceResponse, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
     def test_raw_response_replace(self, client: Braintrust) -> None:
@@ -394,7 +389,7 @@ class TestPrompt:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         prompt = response.parse()
-        assert_matches_type(PromptReplaceResponse, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
     def test_streaming_response_replace(self, client: Braintrust) -> None:
@@ -407,7 +402,7 @@ class TestPrompt:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             prompt = response.parse()
-            assert_matches_type(PromptReplaceResponse, prompt, path=["response"])
+            assert_matches_type(Prompt, prompt, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -422,7 +417,7 @@ class TestAsyncPrompt:
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             slug="string",
         )
-        assert_matches_type(PromptCreateResponse, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncBraintrust) -> None:
@@ -461,7 +456,7 @@ class TestAsyncPrompt:
             },
             tags=["string", "string", "string"],
         )
-        assert_matches_type(PromptCreateResponse, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncBraintrust) -> None:
@@ -474,7 +469,7 @@ class TestAsyncPrompt:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         prompt = await response.parse()
-        assert_matches_type(PromptCreateResponse, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncBraintrust) -> None:
@@ -487,7 +482,7 @@ class TestAsyncPrompt:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             prompt = await response.parse()
-            assert_matches_type(PromptCreateResponse, prompt, path=["response"])
+            assert_matches_type(Prompt, prompt, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -496,7 +491,7 @@ class TestAsyncPrompt:
         prompt = await async_client.prompt.retrieve(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(PromptRetrieveResponse, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncBraintrust) -> None:
@@ -507,7 +502,7 @@ class TestAsyncPrompt:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         prompt = await response.parse()
-        assert_matches_type(PromptRetrieveResponse, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncBraintrust) -> None:
@@ -518,7 +513,7 @@ class TestAsyncPrompt:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             prompt = await response.parse()
-            assert_matches_type(PromptRetrieveResponse, prompt, path=["response"])
+            assert_matches_type(Prompt, prompt, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -534,7 +529,7 @@ class TestAsyncPrompt:
         prompt = await async_client.prompt.update(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(PromptUpdateResponse, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncBraintrust) -> None:
@@ -572,7 +567,7 @@ class TestAsyncPrompt:
             },
             tags=["string", "string", "string"],
         )
-        assert_matches_type(PromptUpdateResponse, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncBraintrust) -> None:
@@ -583,7 +578,7 @@ class TestAsyncPrompt:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         prompt = await response.parse()
-        assert_matches_type(PromptUpdateResponse, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncBraintrust) -> None:
@@ -594,7 +589,7 @@ class TestAsyncPrompt:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             prompt = await response.parse()
-            assert_matches_type(PromptUpdateResponse, prompt, path=["response"])
+            assert_matches_type(Prompt, prompt, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -608,7 +603,7 @@ class TestAsyncPrompt:
     @parametrize
     async def test_method_list(self, async_client: AsyncBraintrust) -> None:
         prompt = await async_client.prompt.list()
-        assert_matches_type(AsyncListObjects[PromptListResponse], prompt, path=["response"])
+        assert_matches_type(AsyncListObjects[Prompt], prompt, path=["response"])
 
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncBraintrust) -> None:
@@ -623,7 +618,7 @@ class TestAsyncPrompt:
             starting_after="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             version="string",
         )
-        assert_matches_type(AsyncListObjects[PromptListResponse], prompt, path=["response"])
+        assert_matches_type(AsyncListObjects[Prompt], prompt, path=["response"])
 
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncBraintrust) -> None:
@@ -632,7 +627,7 @@ class TestAsyncPrompt:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         prompt = await response.parse()
-        assert_matches_type(AsyncListObjects[PromptListResponse], prompt, path=["response"])
+        assert_matches_type(AsyncListObjects[Prompt], prompt, path=["response"])
 
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncBraintrust) -> None:
@@ -641,7 +636,7 @@ class TestAsyncPrompt:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             prompt = await response.parse()
-            assert_matches_type(AsyncListObjects[PromptListResponse], prompt, path=["response"])
+            assert_matches_type(AsyncListObjects[Prompt], prompt, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -650,7 +645,7 @@ class TestAsyncPrompt:
         prompt = await async_client.prompt.delete(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(PromptDeleteResponse, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncBraintrust) -> None:
@@ -661,7 +656,7 @@ class TestAsyncPrompt:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         prompt = await response.parse()
-        assert_matches_type(PromptDeleteResponse, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncBraintrust) -> None:
@@ -672,7 +667,7 @@ class TestAsyncPrompt:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             prompt = await response.parse()
-            assert_matches_type(PromptDeleteResponse, prompt, path=["response"])
+            assert_matches_type(Prompt, prompt, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -732,7 +727,7 @@ class TestAsyncPrompt:
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             slug="string",
         )
-        assert_matches_type(PromptReplaceResponse, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
     async def test_method_replace_with_all_params(self, async_client: AsyncBraintrust) -> None:
@@ -771,7 +766,7 @@ class TestAsyncPrompt:
             },
             tags=["string", "string", "string"],
         )
-        assert_matches_type(PromptReplaceResponse, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
     async def test_raw_response_replace(self, async_client: AsyncBraintrust) -> None:
@@ -784,7 +779,7 @@ class TestAsyncPrompt:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         prompt = await response.parse()
-        assert_matches_type(PromptReplaceResponse, prompt, path=["response"])
+        assert_matches_type(Prompt, prompt, path=["response"])
 
     @parametrize
     async def test_streaming_response_replace(self, async_client: AsyncBraintrust) -> None:
@@ -797,6 +792,6 @@ class TestAsyncPrompt:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             prompt = await response.parse()
-            assert_matches_type(PromptReplaceResponse, prompt, path=["response"])
+            assert_matches_type(Prompt, prompt, path=["response"])
 
         assert cast(Any, response.is_closed) is True

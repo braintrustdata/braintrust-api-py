@@ -99,25 +99,18 @@ Methods:
 Types:
 
 ```python
-from braintrust.types import (
-    PromptCreateResponse,
-    PromptRetrieveResponse,
-    PromptUpdateResponse,
-    PromptListResponse,
-    PromptDeleteResponse,
-    PromptReplaceResponse,
-)
+from braintrust.types import Prompt
 ```
 
 Methods:
 
-- <code title="post /v1/prompt">client.prompt.<a href="./src/braintrust/resources/prompt.py">create</a>(\*\*<a href="src/braintrust/types/prompt_create_params.py">params</a>) -> <a href="./src/braintrust/types/prompt_create_response.py">PromptCreateResponse</a></code>
-- <code title="get /v1/prompt/{prompt_id}">client.prompt.<a href="./src/braintrust/resources/prompt.py">retrieve</a>(prompt_id) -> <a href="./src/braintrust/types/prompt_retrieve_response.py">PromptRetrieveResponse</a></code>
-- <code title="patch /v1/prompt/{prompt_id}">client.prompt.<a href="./src/braintrust/resources/prompt.py">update</a>(prompt_id, \*\*<a href="src/braintrust/types/prompt_update_params.py">params</a>) -> <a href="./src/braintrust/types/prompt_update_response.py">PromptUpdateResponse</a></code>
-- <code title="get /v1/prompt">client.prompt.<a href="./src/braintrust/resources/prompt.py">list</a>(\*\*<a href="src/braintrust/types/prompt_list_params.py">params</a>) -> <a href="./src/braintrust/types/prompt_list_response.py">SyncListObjects[PromptListResponse]</a></code>
-- <code title="delete /v1/prompt/{prompt_id}">client.prompt.<a href="./src/braintrust/resources/prompt.py">delete</a>(prompt_id) -> <a href="./src/braintrust/types/prompt_delete_response.py">PromptDeleteResponse</a></code>
+- <code title="post /v1/prompt">client.prompt.<a href="./src/braintrust/resources/prompt.py">create</a>(\*\*<a href="src/braintrust/types/prompt_create_params.py">params</a>) -> <a href="./src/braintrust/types/prompt.py">Prompt</a></code>
+- <code title="get /v1/prompt/{prompt_id}">client.prompt.<a href="./src/braintrust/resources/prompt.py">retrieve</a>(prompt_id) -> <a href="./src/braintrust/types/prompt.py">Prompt</a></code>
+- <code title="patch /v1/prompt/{prompt_id}">client.prompt.<a href="./src/braintrust/resources/prompt.py">update</a>(prompt_id, \*\*<a href="src/braintrust/types/prompt_update_params.py">params</a>) -> <a href="./src/braintrust/types/prompt.py">Prompt</a></code>
+- <code title="get /v1/prompt">client.prompt.<a href="./src/braintrust/resources/prompt.py">list</a>(\*\*<a href="src/braintrust/types/prompt_list_params.py">params</a>) -> <a href="./src/braintrust/types/prompt.py">SyncListObjects[Prompt]</a></code>
+- <code title="delete /v1/prompt/{prompt_id}">client.prompt.<a href="./src/braintrust/resources/prompt.py">delete</a>(prompt_id) -> <a href="./src/braintrust/types/prompt.py">Prompt</a></code>
 - <code title="post /v1/prompt/{prompt_id}/feedback">client.prompt.<a href="./src/braintrust/resources/prompt.py">feedback</a>(prompt_id, \*\*<a href="src/braintrust/types/prompt_feedback_params.py">params</a>) -> None</code>
-- <code title="put /v1/prompt">client.prompt.<a href="./src/braintrust/resources/prompt.py">replace</a>(\*\*<a href="src/braintrust/types/prompt_replace_params.py">params</a>) -> <a href="./src/braintrust/types/prompt_replace_response.py">PromptReplaceResponse</a></code>
+- <code title="put /v1/prompt">client.prompt.<a href="./src/braintrust/resources/prompt.py">replace</a>(\*\*<a href="src/braintrust/types/prompt_replace_params.py">params</a>) -> <a href="./src/braintrust/types/prompt.py">Prompt</a></code>
 
 # Role
 

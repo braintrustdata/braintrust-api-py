@@ -9,7 +9,7 @@ from pydantic import Field as FieldInfo
 from .._models import BaseModel
 
 __all__ = [
-    "PromptUpdateResponse",
+    "Prompt",
     "PromptData",
     "PromptDataOptions",
     "PromptDataOptionsParams",
@@ -285,7 +285,7 @@ class PromptData(BaseModel):
     prompt: Optional[PromptDataPrompt] = None
 
 
-class PromptUpdateResponse(BaseModel):
+class Prompt(BaseModel):
     id: str
     """Unique identifier for the prompt"""
 
