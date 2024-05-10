@@ -2,15 +2,26 @@
 
 from __future__ import annotations
 
-import os
+from braintrust import Braintrust, AsyncBraintrust
+
+from braintrust.types.project import Project
+
 from typing import Any, cast
 
-import pytest
+from braintrust.pagination import SyncListObjects, AsyncListObjects
 
+import os
+import pytest
+import httpx
+from typing_extensions import get_args
+from typing import Optional
+from respx import MockRouter
 from braintrust import Braintrust, AsyncBraintrust
 from tests.utils import assert_matches_type
-from braintrust.pagination import SyncListObjects, AsyncListObjects
-from braintrust.types.project import Project
+from braintrust.types import project_create_params
+from braintrust.types import project_update_params
+from braintrust.types import project_list_params
+from braintrust.types import project_replace_params
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 

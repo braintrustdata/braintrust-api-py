@@ -2,10 +2,46 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
-
 import httpx
 
+from .logs import LogsResource, AsyncLogsResource
+
+from ..._compat import cached_property
+
+from ...types.project.project import Project
+
+from ..._utils import maybe_transform, async_maybe_transform
+
+from typing import Optional, Union, List
+
+from ...pagination import SyncListObjects, AsyncListObjects
+
+from ..._response import (
+    to_raw_response_wrapper,
+    async_to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+
+import warnings
+from typing import TYPE_CHECKING, Optional, Union, List, Dict, Any, Mapping, cast, overload
+from typing_extensions import Literal
+from ..._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
+from ..._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._base_client import (
+    SyncAPIClient,
+    AsyncAPIClient,
+    _merge_mappings,
+    AsyncPaginator,
+    make_request_options,
+    HttpxBinaryResponseContent,
+)
+from ...types import shared_params
+from ...types import project_create_params
+from ...types import project_update_params
+from ...types import project_list_params
+from ...types import project_replace_params
 from .logs import (
     LogsResource,
     AsyncLogsResource,
@@ -14,31 +50,6 @@ from .logs import (
     LogsResourceWithStreamingResponse,
     AsyncLogsResourceWithStreamingResponse,
 )
-from ...types import (
-    project_list_params,
-    project_create_params,
-    project_update_params,
-    project_replace_params,
-)
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from ..._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
-from ..._compat import cached_property
-from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ...pagination import SyncListObjects, AsyncListObjects
-from ..._base_client import (
-    AsyncPaginator,
-    make_request_options,
-)
-from ...types.project.project import Project
 
 __all__ = ["ProjectResource", "AsyncProjectResource"]
 

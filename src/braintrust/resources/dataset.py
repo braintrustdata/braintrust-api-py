@@ -2,44 +2,59 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
-
 import httpx
 
-from ..types import (
-    dataset_list_params,
-    dataset_fetch_params,
-    dataset_create_params,
-    dataset_insert_params,
-    dataset_update_params,
-    dataset_replace_params,
-    dataset_feedback_params,
-    dataset_summarize_params,
-    dataset_fetch_post_params,
-)
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
-from .._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
 from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
+
+from ..types.dataset import Dataset
+
+from .._utils import maybe_transform, async_maybe_transform
+
+from typing import Optional, Union, List, Iterable
+
+from ..pagination import SyncListObjects, AsyncListObjects
+
+from ..types.dataset_fetch_response import DatasetFetchResponse
+
+from ..types.dataset_fetch_post_response import DatasetFetchPostResponse
+
+from ..types.dataset_insert_response import DatasetInsertResponse
+
+from ..types.dataset_summarize_response import DatasetSummarizeResponse
+
 from .._response import (
     to_raw_response_wrapper,
-    to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
+    to_streamed_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncListObjects, AsyncListObjects
+
+from ..types import dataset_feedback_params, dataset_fetch_post_params, dataset_insert_params
+
+import warnings
+from typing import TYPE_CHECKING, Optional, Union, List, Dict, Any, Mapping, cast, overload
+from typing_extensions import Literal
+from .._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
+from .._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
+from .._resource import SyncAPIResource, AsyncAPIResource
 from .._base_client import (
+    SyncAPIClient,
+    AsyncAPIClient,
+    _merge_mappings,
     AsyncPaginator,
     make_request_options,
+    HttpxBinaryResponseContent,
 )
-from ..types.dataset import Dataset
-from ..types.dataset_fetch_response import DatasetFetchResponse
-from ..types.dataset_insert_response import DatasetInsertResponse
-from ..types.dataset_summarize_response import DatasetSummarizeResponse
-from ..types.dataset_fetch_post_response import DatasetFetchPostResponse
+from ..types import shared_params
+from ..types import dataset_create_params
+from ..types import dataset_update_params
+from ..types import dataset_list_params
+from ..types import dataset_feedback_params
+from ..types import dataset_fetch_params
+from ..types import dataset_fetch_post_params
+from ..types import dataset_insert_params
+from ..types import dataset_replace_params
+from ..types import dataset_summarize_params
 
 __all__ = ["DatasetResource", "AsyncDatasetResource"]
 
