@@ -62,7 +62,11 @@ class RoleResource(SyncAPIResource):
         description: Optional[str] | NotGiven = NOT_GIVEN,
         member_permissions: Optional[
             List[
-                Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
+                Optional[
+                    Literal[
+                        "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
+                    ]
+                ]
             ]
         ]
         | NotGiven = NOT_GIVEN,
@@ -164,7 +168,11 @@ class RoleResource(SyncAPIResource):
         description: Optional[str] | NotGiven = NOT_GIVEN,
         member_permissions: Optional[
             List[
-                Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
+                Optional[
+                    Literal[
+                        "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
+                    ]
+                ]
             ]
         ]
         | NotGiven = NOT_GIVEN,
@@ -340,7 +348,11 @@ class RoleResource(SyncAPIResource):
         description: Optional[str] | NotGiven = NOT_GIVEN,
         member_permissions: Optional[
             List[
-                Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
+                Optional[
+                    Literal[
+                        "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
+                    ]
+                ]
             ]
         ]
         | NotGiven = NOT_GIVEN,
@@ -418,7 +430,11 @@ class AsyncRoleResource(AsyncAPIResource):
         description: Optional[str] | NotGiven = NOT_GIVEN,
         member_permissions: Optional[
             List[
-                Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
+                Optional[
+                    Literal[
+                        "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
+                    ]
+                ]
             ]
         ]
         | NotGiven = NOT_GIVEN,
@@ -520,7 +536,11 @@ class AsyncRoleResource(AsyncAPIResource):
         description: Optional[str] | NotGiven = NOT_GIVEN,
         member_permissions: Optional[
             List[
-                Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
+                Optional[
+                    Literal[
+                        "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
+                    ]
+                ]
             ]
         ]
         | NotGiven = NOT_GIVEN,
@@ -696,7 +716,11 @@ class AsyncRoleResource(AsyncAPIResource):
         description: Optional[str] | NotGiven = NOT_GIVEN,
         member_permissions: Optional[
             List[
-                Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
+                Optional[
+                    Literal[
+                        "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
+                    ]
+                ]
             ]
         ]
         | NotGiven = NOT_GIVEN,

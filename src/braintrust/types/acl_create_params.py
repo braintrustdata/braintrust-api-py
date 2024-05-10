@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing_extensions import TypedDict, Required, Literal
 
-from typing import Optional, Union
+from typing import Optional
 
 from typing import List, Union, Dict, Optional
 from typing_extensions import Literal, TypedDict, Required, Annotated
@@ -12,13 +12,7 @@ from .._types import FileTypes
 from .._utils import PropertyInfo
 from ..types import shared_params
 
-__all__ = [
-    "ACLCreateParams",
-    "Permission",
-    "PermissionUnionMember1",
-    "RestrictObjectType",
-    "RestrictObjectTypeUnionMember1",
-]
+__all__ = ["ACLCreateParams"]
 
 
 class ACLCreateParams(TypedDict, total=False):
@@ -26,6 +20,38 @@ class ACLCreateParams(TypedDict, total=False):
     """The id of the object the ACL applies to"""
 
     object_type: Required[
+        Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "project_score",
+                "project_tag",
+                "group",
+                "role",
+            ]
+        ]
+    ]
+    """The object type that the ACL applies to"""
+
+    group_id: Optional[str]
+    """Id of the group the ACL applies to.
+
+    Exactly one of `user_id` and `group_id` will be provided
+    """
+
+    permission: Optional[
+        Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
+    ]
+    """Permission the ACL grants.
+
+    Exactly one of `permission` and `role_id` will be provided
+    """
+
+    restrict_object_type: Optional[
         Literal[
             "organization",
             "project",
@@ -39,21 +65,6 @@ class ACLCreateParams(TypedDict, total=False):
             "role",
         ]
     ]
-    """The object type that the ACL applies to"""
-
-    group_id: Optional[str]
-    """Id of the group the ACL applies to.
-
-    Exactly one of `user_id` and `group_id` will be provided
-    """
-
-    permission: Permission
-    """Permission the ACL grants.
-
-    Exactly one of `permission` and `role_id` will be provided
-    """
-
-    restrict_object_type: RestrictObjectType
     """Optionally restricts the permission grant to just the specified object type"""
 
     role_id: Optional[str]
@@ -67,34 +78,3 @@ class ACLCreateParams(TypedDict, total=False):
 
     Exactly one of `user_id` and `group_id` will be provided
     """
-
-
-class PermissionUnionMember1(TypedDict, total=False):
-    pass
-
-
-Permission = Union[
-    Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"],
-    Optional[PermissionUnionMember1],
-]
-
-
-class RestrictObjectTypeUnionMember1(TypedDict, total=False):
-    pass
-
-
-RestrictObjectType = Union[
-    Literal[
-        "organization",
-        "project",
-        "experiment",
-        "dataset",
-        "prompt",
-        "prompt_session",
-        "project_score",
-        "project_tag",
-        "group",
-        "role",
-    ],
-    Optional[RestrictObjectTypeUnionMember1],
-]

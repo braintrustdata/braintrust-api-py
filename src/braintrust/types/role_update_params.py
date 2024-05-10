@@ -20,7 +20,11 @@ class RoleUpdateParams(TypedDict, total=False):
     """Textual description of the role"""
 
     member_permissions: Optional[
-        List[Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]]
+        List[
+            Optional[
+                Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
+            ]
+        ]
     ]
     """Permissions which belong to this role"""
 

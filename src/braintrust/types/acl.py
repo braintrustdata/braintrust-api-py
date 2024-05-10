@@ -1,10 +1,10 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing_extensions import Literal
+from .._models import BaseModel
 
 from typing import Optional
 
-from .._models import BaseModel
+from typing_extensions import Literal
 
 from datetime import datetime
 
@@ -13,38 +13,7 @@ from typing_extensions import Literal
 from pydantic import Field as FieldInfo
 from ..types import shared
 
-__all__ = ["ACL", "Permission", "PermissionUnionMember1", "RestrictObjectType", "RestrictObjectTypeUnionMember1"]
-
-
-class PermissionUnionMember1(BaseModel):
-    pass
-
-
-Permission = Union[
-    Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"],
-    Optional[PermissionUnionMember1],
-]
-
-
-class RestrictObjectTypeUnionMember1(BaseModel):
-    pass
-
-
-RestrictObjectType = Union[
-    Literal[
-        "organization",
-        "project",
-        "experiment",
-        "dataset",
-        "prompt",
-        "prompt_session",
-        "project_score",
-        "project_tag",
-        "group",
-        "role",
-    ],
-    Optional[RestrictObjectTypeUnionMember1],
-]
+__all__ = ["ACL"]
 
 
 class ACL(BaseModel):
@@ -57,18 +26,20 @@ class ACL(BaseModel):
     object_id: str
     """The id of the object the ACL applies to"""
 
-    object_type: Literal[
-        "organization",
-        "project",
-        "experiment",
-        "dataset",
-        "prompt",
-        "prompt_session",
-        "project_score",
-        "project_tag",
-        "group",
-        "role",
-    ]
+    object_type: Optional[
+        Literal[
+            "organization",
+            "project",
+            "experiment",
+            "dataset",
+            "prompt",
+            "prompt_session",
+            "project_score",
+            "project_tag",
+            "group",
+            "role",
+        ]
+    ] = None
     """The object type that the ACL applies to"""
 
     created: Optional[datetime] = None
@@ -80,13 +51,28 @@ class ACL(BaseModel):
     Exactly one of `user_id` and `group_id` will be provided
     """
 
-    permission: Optional[Permission] = None
+    permission: Optional[
+        Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
+    ] = None
     """Permission the ACL grants.
 
     Exactly one of `permission` and `role_id` will be provided
     """
 
-    restrict_object_type: Optional[RestrictObjectType] = None
+    restrict_object_type: Optional[
+        Literal[
+            "organization",
+            "project",
+            "experiment",
+            "dataset",
+            "prompt",
+            "prompt_session",
+            "project_score",
+            "project_tag",
+            "group",
+            "role",
+        ]
+    ] = None
     """Optionally restricts the permission grant to just the specified object type"""
 
     role_id: Optional[str] = None
