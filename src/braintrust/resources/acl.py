@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, cast, overload
+from typing import Optional
 from typing_extensions import Literal
 
 import httpx
@@ -10,7 +10,6 @@ import httpx
 from ..types import acl_list_params, acl_create_params, acl_replace_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
-    required_args,
     maybe_transform,
     async_maybe_transform,
 )
@@ -41,7 +40,6 @@ class ACLResource(SyncAPIResource):
     def with_streaming_response(self) -> ACLResourceWithStreamingResponse:
         return ACLResourceWithStreamingResponse(self)
 
-    @overload
     def create(
         self,
         *,
@@ -58,11 +56,11 @@ class ACLResource(SyncAPIResource):
             "group",
             "role",
         ],
-        permission: Literal[
-            "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
-        ],
-        user_id: str,
-        restrict_object_type: acl_create_params.CreateUserPermissionACLRestrictObjectType | NotGiven = NOT_GIVEN,
+        group_id: Optional[str] | NotGiven = NOT_GIVEN,
+        permission: acl_create_params.Permission | NotGiven = NOT_GIVEN,
+        restrict_object_type: acl_create_params.RestrictObjectType | NotGiven = NOT_GIVEN,
+        role_id: Optional[str] | NotGiven = NOT_GIVEN,
+        user_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -80,11 +78,19 @@ class ACLResource(SyncAPIResource):
 
           object_type: The object type that the ACL applies to
 
-          permission: Permission the ACL grants
+          group_id: Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
+              be provided
 
-          user_id: Id of the user the ACL applies to
+          permission: Permission the ACL grants. Exactly one of `permission` and `role_id` will be
+              provided
 
           restrict_object_type: Optionally restricts the permission grant to just the specified object type
+
+          role_id: Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
+              provided
+
+          user_id: Id of the user the ACL applies to. Exactly one of `user_id` and `group_id` will
+              be provided
 
           extra_headers: Send extra headers
 
@@ -94,227 +100,24 @@ class ACLResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        ...
-
-    @overload
-    def create(
-        self,
-        *,
-        object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "project_score",
-            "project_tag",
-            "group",
-            "role",
-        ],
-        role_id: str,
-        user_id: str,
-        restrict_object_type: acl_create_params.CreateUserRoleACLRestrictObjectType | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ACL:
-        """Create a new acl.
-
-        If there is an existing acl with the same contents as the one
-        specified in the request, will return the existing acl unmodified
-
-        Args:
-          object_id: The id of the object the ACL applies to
-
-          object_type: The object type that the ACL applies to
-
-          role_id: Id of the role the ACL grants
-
-          user_id: Id of the user the ACL applies to
-
-          restrict_object_type: Optionally restricts the permission grant to just the specified object type
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    def create(
-        self,
-        *,
-        group_id: str,
-        object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "project_score",
-            "project_tag",
-            "group",
-            "role",
-        ],
-        permission: Literal[
-            "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
-        ],
-        restrict_object_type: acl_create_params.CreateGroupPermissionACLRestrictObjectType | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ACL:
-        """Create a new acl.
-
-        If there is an existing acl with the same contents as the one
-        specified in the request, will return the existing acl unmodified
-
-        Args:
-          group_id: Id of the group the ACL applies to
-
-          object_id: The id of the object the ACL applies to
-
-          object_type: The object type that the ACL applies to
-
-          permission: Permission the ACL grants
-
-          restrict_object_type: Optionally restricts the permission grant to just the specified object type
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    def create(
-        self,
-        *,
-        group_id: str,
-        object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "project_score",
-            "project_tag",
-            "group",
-            "role",
-        ],
-        role_id: str,
-        restrict_object_type: acl_create_params.CreateGroupRoleACLRestrictObjectType | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ACL:
-        """Create a new acl.
-
-        If there is an existing acl with the same contents as the one
-        specified in the request, will return the existing acl unmodified
-
-        Args:
-          group_id: Id of the group the ACL applies to
-
-          object_id: The id of the object the ACL applies to
-
-          object_type: The object type that the ACL applies to
-
-          role_id: Id of the role the ACL grants
-
-          restrict_object_type: Optionally restricts the permission grant to just the specified object type
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @required_args(
-        ["object_id", "object_type", "permission", "user_id"],
-        ["object_id", "object_type", "role_id", "user_id"],
-        ["group_id", "object_id", "object_type", "permission"],
-        ["group_id", "object_id", "object_type", "role_id"],
-    )
-    def create(
-        self,
-        *,
-        object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "project_score",
-            "project_tag",
-            "group",
-            "role",
-        ],
-        permission: Literal[
-            "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
-        ]
-        | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
-        restrict_object_type: acl_create_params.CreateUserPermissionACLRestrictObjectType | NotGiven = NOT_GIVEN,
-        role_id: str | NotGiven = NOT_GIVEN,
-        group_id: str | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ACL:
-        return cast(
-            ACL,
-            self._post(
-                "/v1/acl",
-                body=maybe_transform(
-                    {
-                        "object_id": object_id,
-                        "object_type": object_type,
-                        "permission": permission,
-                        "user_id": user_id,
-                        "restrict_object_type": restrict_object_type,
-                        "role_id": role_id,
-                        "group_id": group_id,
-                    },
-                    acl_create_params.ACLCreateParams,
-                ),
-                options=make_request_options(
-                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-                ),
-                cast_to=cast(Any, ACL),  # Union types cannot be passed in as arguments in the type system
+        return self._post(
+            "/v1/acl",
+            body=maybe_transform(
+                {
+                    "object_id": object_id,
+                    "object_type": object_type,
+                    "group_id": group_id,
+                    "permission": permission,
+                    "restrict_object_type": restrict_object_type,
+                    "role_id": role_id,
+                    "user_id": user_id,
+                },
+                acl_create_params.ACLCreateParams,
             ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ACL,
         )
 
     def retrieve(
@@ -344,15 +147,12 @@ class ACLResource(SyncAPIResource):
         """
         if not acl_id:
             raise ValueError(f"Expected a non-empty value for `acl_id` but received {acl_id!r}")
-        return cast(
-            ACL,
-            self._get(
-                f"/v1/acl/{acl_id}",
-                options=make_request_options(
-                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-                ),
-                cast_to=cast(Any, ACL),  # Union types cannot be passed in as arguments in the type system
+        return self._get(
+            f"/v1/acl/{acl_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
+            cast_to=ACL,
         )
 
     def list(
@@ -432,7 +232,7 @@ class ACLResource(SyncAPIResource):
                     acl_list_params.ACLListParams,
                 ),
             ),
-            model=cast(Any, ACL),  # Union types cannot be passed in as arguments in the type system
+            model=ACL,
         )
 
     def delete(
@@ -462,18 +262,14 @@ class ACLResource(SyncAPIResource):
         """
         if not acl_id:
             raise ValueError(f"Expected a non-empty value for `acl_id` but received {acl_id!r}")
-        return cast(
-            ACL,
-            self._delete(
-                f"/v1/acl/{acl_id}",
-                options=make_request_options(
-                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-                ),
-                cast_to=cast(Any, ACL),  # Union types cannot be passed in as arguments in the type system
+        return self._delete(
+            f"/v1/acl/{acl_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
+            cast_to=ACL,
         )
 
-    @overload
     def replace(
         self,
         *,
@@ -490,11 +286,11 @@ class ACLResource(SyncAPIResource):
             "group",
             "role",
         ],
-        permission: Literal[
-            "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
-        ],
-        user_id: str,
-        restrict_object_type: acl_replace_params.CreateUserPermissionACLRestrictObjectType | NotGiven = NOT_GIVEN,
+        group_id: Optional[str] | NotGiven = NOT_GIVEN,
+        permission: acl_replace_params.Permission | NotGiven = NOT_GIVEN,
+        restrict_object_type: acl_replace_params.RestrictObjectType | NotGiven = NOT_GIVEN,
+        role_id: Optional[str] | NotGiven = NOT_GIVEN,
+        user_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -513,11 +309,19 @@ class ACLResource(SyncAPIResource):
 
           object_type: The object type that the ACL applies to
 
-          permission: Permission the ACL grants
+          group_id: Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
+              be provided
 
-          user_id: Id of the user the ACL applies to
+          permission: Permission the ACL grants. Exactly one of `permission` and `role_id` will be
+              provided
 
           restrict_object_type: Optionally restricts the permission grant to just the specified object type
+
+          role_id: Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
+              provided
+
+          user_id: Id of the user the ACL applies to. Exactly one of `user_id` and `group_id` will
+              be provided
 
           extra_headers: Send extra headers
 
@@ -527,230 +331,24 @@ class ACLResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        ...
-
-    @overload
-    def replace(
-        self,
-        *,
-        object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "project_score",
-            "project_tag",
-            "group",
-            "role",
-        ],
-        role_id: str,
-        user_id: str,
-        restrict_object_type: acl_replace_params.CreateUserRoleACLRestrictObjectType | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ACL:
-        """
-        NOTE: This operation is deprecated and will be removed in a future revision of
-        the API. Create or replace a new acl. If there is an existing acl with the same
-        contents as the one specified in the request, will return the existing acl
-        unmodified, will replace the existing acl with the provided fields
-
-        Args:
-          object_id: The id of the object the ACL applies to
-
-          object_type: The object type that the ACL applies to
-
-          role_id: Id of the role the ACL grants
-
-          user_id: Id of the user the ACL applies to
-
-          restrict_object_type: Optionally restricts the permission grant to just the specified object type
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    def replace(
-        self,
-        *,
-        group_id: str,
-        object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "project_score",
-            "project_tag",
-            "group",
-            "role",
-        ],
-        permission: Literal[
-            "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
-        ],
-        restrict_object_type: acl_replace_params.CreateGroupPermissionACLRestrictObjectType | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ACL:
-        """
-        NOTE: This operation is deprecated and will be removed in a future revision of
-        the API. Create or replace a new acl. If there is an existing acl with the same
-        contents as the one specified in the request, will return the existing acl
-        unmodified, will replace the existing acl with the provided fields
-
-        Args:
-          group_id: Id of the group the ACL applies to
-
-          object_id: The id of the object the ACL applies to
-
-          object_type: The object type that the ACL applies to
-
-          permission: Permission the ACL grants
-
-          restrict_object_type: Optionally restricts the permission grant to just the specified object type
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    def replace(
-        self,
-        *,
-        group_id: str,
-        object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "project_score",
-            "project_tag",
-            "group",
-            "role",
-        ],
-        role_id: str,
-        restrict_object_type: acl_replace_params.CreateGroupRoleACLRestrictObjectType | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ACL:
-        """
-        NOTE: This operation is deprecated and will be removed in a future revision of
-        the API. Create or replace a new acl. If there is an existing acl with the same
-        contents as the one specified in the request, will return the existing acl
-        unmodified, will replace the existing acl with the provided fields
-
-        Args:
-          group_id: Id of the group the ACL applies to
-
-          object_id: The id of the object the ACL applies to
-
-          object_type: The object type that the ACL applies to
-
-          role_id: Id of the role the ACL grants
-
-          restrict_object_type: Optionally restricts the permission grant to just the specified object type
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @required_args(
-        ["object_id", "object_type", "permission", "user_id"],
-        ["object_id", "object_type", "role_id", "user_id"],
-        ["group_id", "object_id", "object_type", "permission"],
-        ["group_id", "object_id", "object_type", "role_id"],
-    )
-    def replace(
-        self,
-        *,
-        object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "project_score",
-            "project_tag",
-            "group",
-            "role",
-        ],
-        permission: Literal[
-            "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
-        ]
-        | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
-        restrict_object_type: acl_replace_params.CreateUserPermissionACLRestrictObjectType | NotGiven = NOT_GIVEN,
-        role_id: str | NotGiven = NOT_GIVEN,
-        group_id: str | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ACL:
-        return cast(
-            ACL,
-            self._put(
-                "/v1/acl",
-                body=maybe_transform(
-                    {
-                        "object_id": object_id,
-                        "object_type": object_type,
-                        "permission": permission,
-                        "user_id": user_id,
-                        "restrict_object_type": restrict_object_type,
-                        "role_id": role_id,
-                        "group_id": group_id,
-                    },
-                    acl_replace_params.ACLReplaceParams,
-                ),
-                options=make_request_options(
-                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-                ),
-                cast_to=cast(Any, ACL),  # Union types cannot be passed in as arguments in the type system
+        return self._put(
+            "/v1/acl",
+            body=maybe_transform(
+                {
+                    "object_id": object_id,
+                    "object_type": object_type,
+                    "group_id": group_id,
+                    "permission": permission,
+                    "restrict_object_type": restrict_object_type,
+                    "role_id": role_id,
+                    "user_id": user_id,
+                },
+                acl_replace_params.ACLReplaceParams,
             ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ACL,
         )
 
 
@@ -763,7 +361,6 @@ class AsyncACLResource(AsyncAPIResource):
     def with_streaming_response(self) -> AsyncACLResourceWithStreamingResponse:
         return AsyncACLResourceWithStreamingResponse(self)
 
-    @overload
     async def create(
         self,
         *,
@@ -780,11 +377,11 @@ class AsyncACLResource(AsyncAPIResource):
             "group",
             "role",
         ],
-        permission: Literal[
-            "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
-        ],
-        user_id: str,
-        restrict_object_type: acl_create_params.CreateUserPermissionACLRestrictObjectType | NotGiven = NOT_GIVEN,
+        group_id: Optional[str] | NotGiven = NOT_GIVEN,
+        permission: acl_create_params.Permission | NotGiven = NOT_GIVEN,
+        restrict_object_type: acl_create_params.RestrictObjectType | NotGiven = NOT_GIVEN,
+        role_id: Optional[str] | NotGiven = NOT_GIVEN,
+        user_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -802,11 +399,19 @@ class AsyncACLResource(AsyncAPIResource):
 
           object_type: The object type that the ACL applies to
 
-          permission: Permission the ACL grants
+          group_id: Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
+              be provided
 
-          user_id: Id of the user the ACL applies to
+          permission: Permission the ACL grants. Exactly one of `permission` and `role_id` will be
+              provided
 
           restrict_object_type: Optionally restricts the permission grant to just the specified object type
+
+          role_id: Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
+              provided
+
+          user_id: Id of the user the ACL applies to. Exactly one of `user_id` and `group_id` will
+              be provided
 
           extra_headers: Send extra headers
 
@@ -816,227 +421,24 @@ class AsyncACLResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        ...
-
-    @overload
-    async def create(
-        self,
-        *,
-        object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "project_score",
-            "project_tag",
-            "group",
-            "role",
-        ],
-        role_id: str,
-        user_id: str,
-        restrict_object_type: acl_create_params.CreateUserRoleACLRestrictObjectType | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ACL:
-        """Create a new acl.
-
-        If there is an existing acl with the same contents as the one
-        specified in the request, will return the existing acl unmodified
-
-        Args:
-          object_id: The id of the object the ACL applies to
-
-          object_type: The object type that the ACL applies to
-
-          role_id: Id of the role the ACL grants
-
-          user_id: Id of the user the ACL applies to
-
-          restrict_object_type: Optionally restricts the permission grant to just the specified object type
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    async def create(
-        self,
-        *,
-        group_id: str,
-        object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "project_score",
-            "project_tag",
-            "group",
-            "role",
-        ],
-        permission: Literal[
-            "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
-        ],
-        restrict_object_type: acl_create_params.CreateGroupPermissionACLRestrictObjectType | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ACL:
-        """Create a new acl.
-
-        If there is an existing acl with the same contents as the one
-        specified in the request, will return the existing acl unmodified
-
-        Args:
-          group_id: Id of the group the ACL applies to
-
-          object_id: The id of the object the ACL applies to
-
-          object_type: The object type that the ACL applies to
-
-          permission: Permission the ACL grants
-
-          restrict_object_type: Optionally restricts the permission grant to just the specified object type
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    async def create(
-        self,
-        *,
-        group_id: str,
-        object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "project_score",
-            "project_tag",
-            "group",
-            "role",
-        ],
-        role_id: str,
-        restrict_object_type: acl_create_params.CreateGroupRoleACLRestrictObjectType | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ACL:
-        """Create a new acl.
-
-        If there is an existing acl with the same contents as the one
-        specified in the request, will return the existing acl unmodified
-
-        Args:
-          group_id: Id of the group the ACL applies to
-
-          object_id: The id of the object the ACL applies to
-
-          object_type: The object type that the ACL applies to
-
-          role_id: Id of the role the ACL grants
-
-          restrict_object_type: Optionally restricts the permission grant to just the specified object type
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @required_args(
-        ["object_id", "object_type", "permission", "user_id"],
-        ["object_id", "object_type", "role_id", "user_id"],
-        ["group_id", "object_id", "object_type", "permission"],
-        ["group_id", "object_id", "object_type", "role_id"],
-    )
-    async def create(
-        self,
-        *,
-        object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "project_score",
-            "project_tag",
-            "group",
-            "role",
-        ],
-        permission: Literal[
-            "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
-        ]
-        | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
-        restrict_object_type: acl_create_params.CreateUserPermissionACLRestrictObjectType | NotGiven = NOT_GIVEN,
-        role_id: str | NotGiven = NOT_GIVEN,
-        group_id: str | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ACL:
-        return cast(
-            ACL,
-            await self._post(
-                "/v1/acl",
-                body=await async_maybe_transform(
-                    {
-                        "object_id": object_id,
-                        "object_type": object_type,
-                        "permission": permission,
-                        "user_id": user_id,
-                        "restrict_object_type": restrict_object_type,
-                        "role_id": role_id,
-                        "group_id": group_id,
-                    },
-                    acl_create_params.ACLCreateParams,
-                ),
-                options=make_request_options(
-                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-                ),
-                cast_to=cast(Any, ACL),  # Union types cannot be passed in as arguments in the type system
+        return await self._post(
+            "/v1/acl",
+            body=await async_maybe_transform(
+                {
+                    "object_id": object_id,
+                    "object_type": object_type,
+                    "group_id": group_id,
+                    "permission": permission,
+                    "restrict_object_type": restrict_object_type,
+                    "role_id": role_id,
+                    "user_id": user_id,
+                },
+                acl_create_params.ACLCreateParams,
             ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ACL,
         )
 
     async def retrieve(
@@ -1066,15 +468,12 @@ class AsyncACLResource(AsyncAPIResource):
         """
         if not acl_id:
             raise ValueError(f"Expected a non-empty value for `acl_id` but received {acl_id!r}")
-        return cast(
-            ACL,
-            await self._get(
-                f"/v1/acl/{acl_id}",
-                options=make_request_options(
-                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-                ),
-                cast_to=cast(Any, ACL),  # Union types cannot be passed in as arguments in the type system
+        return await self._get(
+            f"/v1/acl/{acl_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
+            cast_to=ACL,
         )
 
     def list(
@@ -1154,7 +553,7 @@ class AsyncACLResource(AsyncAPIResource):
                     acl_list_params.ACLListParams,
                 ),
             ),
-            model=cast(Any, ACL),  # Union types cannot be passed in as arguments in the type system
+            model=ACL,
         )
 
     async def delete(
@@ -1184,18 +583,14 @@ class AsyncACLResource(AsyncAPIResource):
         """
         if not acl_id:
             raise ValueError(f"Expected a non-empty value for `acl_id` but received {acl_id!r}")
-        return cast(
-            ACL,
-            await self._delete(
-                f"/v1/acl/{acl_id}",
-                options=make_request_options(
-                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-                ),
-                cast_to=cast(Any, ACL),  # Union types cannot be passed in as arguments in the type system
+        return await self._delete(
+            f"/v1/acl/{acl_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
+            cast_to=ACL,
         )
 
-    @overload
     async def replace(
         self,
         *,
@@ -1212,11 +607,11 @@ class AsyncACLResource(AsyncAPIResource):
             "group",
             "role",
         ],
-        permission: Literal[
-            "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
-        ],
-        user_id: str,
-        restrict_object_type: acl_replace_params.CreateUserPermissionACLRestrictObjectType | NotGiven = NOT_GIVEN,
+        group_id: Optional[str] | NotGiven = NOT_GIVEN,
+        permission: acl_replace_params.Permission | NotGiven = NOT_GIVEN,
+        restrict_object_type: acl_replace_params.RestrictObjectType | NotGiven = NOT_GIVEN,
+        role_id: Optional[str] | NotGiven = NOT_GIVEN,
+        user_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1235,11 +630,19 @@ class AsyncACLResource(AsyncAPIResource):
 
           object_type: The object type that the ACL applies to
 
-          permission: Permission the ACL grants
+          group_id: Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
+              be provided
 
-          user_id: Id of the user the ACL applies to
+          permission: Permission the ACL grants. Exactly one of `permission` and `role_id` will be
+              provided
 
           restrict_object_type: Optionally restricts the permission grant to just the specified object type
+
+          role_id: Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
+              provided
+
+          user_id: Id of the user the ACL applies to. Exactly one of `user_id` and `group_id` will
+              be provided
 
           extra_headers: Send extra headers
 
@@ -1249,230 +652,24 @@ class AsyncACLResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        ...
-
-    @overload
-    async def replace(
-        self,
-        *,
-        object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "project_score",
-            "project_tag",
-            "group",
-            "role",
-        ],
-        role_id: str,
-        user_id: str,
-        restrict_object_type: acl_replace_params.CreateUserRoleACLRestrictObjectType | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ACL:
-        """
-        NOTE: This operation is deprecated and will be removed in a future revision of
-        the API. Create or replace a new acl. If there is an existing acl with the same
-        contents as the one specified in the request, will return the existing acl
-        unmodified, will replace the existing acl with the provided fields
-
-        Args:
-          object_id: The id of the object the ACL applies to
-
-          object_type: The object type that the ACL applies to
-
-          role_id: Id of the role the ACL grants
-
-          user_id: Id of the user the ACL applies to
-
-          restrict_object_type: Optionally restricts the permission grant to just the specified object type
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    async def replace(
-        self,
-        *,
-        group_id: str,
-        object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "project_score",
-            "project_tag",
-            "group",
-            "role",
-        ],
-        permission: Literal[
-            "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
-        ],
-        restrict_object_type: acl_replace_params.CreateGroupPermissionACLRestrictObjectType | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ACL:
-        """
-        NOTE: This operation is deprecated and will be removed in a future revision of
-        the API. Create or replace a new acl. If there is an existing acl with the same
-        contents as the one specified in the request, will return the existing acl
-        unmodified, will replace the existing acl with the provided fields
-
-        Args:
-          group_id: Id of the group the ACL applies to
-
-          object_id: The id of the object the ACL applies to
-
-          object_type: The object type that the ACL applies to
-
-          permission: Permission the ACL grants
-
-          restrict_object_type: Optionally restricts the permission grant to just the specified object type
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @overload
-    async def replace(
-        self,
-        *,
-        group_id: str,
-        object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "project_score",
-            "project_tag",
-            "group",
-            "role",
-        ],
-        role_id: str,
-        restrict_object_type: acl_replace_params.CreateGroupRoleACLRestrictObjectType | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ACL:
-        """
-        NOTE: This operation is deprecated and will be removed in a future revision of
-        the API. Create or replace a new acl. If there is an existing acl with the same
-        contents as the one specified in the request, will return the existing acl
-        unmodified, will replace the existing acl with the provided fields
-
-        Args:
-          group_id: Id of the group the ACL applies to
-
-          object_id: The id of the object the ACL applies to
-
-          object_type: The object type that the ACL applies to
-
-          role_id: Id of the role the ACL grants
-
-          restrict_object_type: Optionally restricts the permission grant to just the specified object type
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        ...
-
-    @required_args(
-        ["object_id", "object_type", "permission", "user_id"],
-        ["object_id", "object_type", "role_id", "user_id"],
-        ["group_id", "object_id", "object_type", "permission"],
-        ["group_id", "object_id", "object_type", "role_id"],
-    )
-    async def replace(
-        self,
-        *,
-        object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "project_score",
-            "project_tag",
-            "group",
-            "role",
-        ],
-        permission: Literal[
-            "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
-        ]
-        | NotGiven = NOT_GIVEN,
-        user_id: str | NotGiven = NOT_GIVEN,
-        restrict_object_type: acl_replace_params.CreateUserPermissionACLRestrictObjectType | NotGiven = NOT_GIVEN,
-        role_id: str | NotGiven = NOT_GIVEN,
-        group_id: str | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ACL:
-        return cast(
-            ACL,
-            await self._put(
-                "/v1/acl",
-                body=await async_maybe_transform(
-                    {
-                        "object_id": object_id,
-                        "object_type": object_type,
-                        "permission": permission,
-                        "user_id": user_id,
-                        "restrict_object_type": restrict_object_type,
-                        "role_id": role_id,
-                        "group_id": group_id,
-                    },
-                    acl_replace_params.ACLReplaceParams,
-                ),
-                options=make_request_options(
-                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-                ),
-                cast_to=cast(Any, ACL),  # Union types cannot be passed in as arguments in the type system
+        return await self._put(
+            "/v1/acl",
+            body=await async_maybe_transform(
+                {
+                    "object_id": object_id,
+                    "object_type": object_type,
+                    "group_id": group_id,
+                    "permission": permission,
+                    "restrict_object_type": restrict_object_type,
+                    "role_id": role_id,
+                    "user_id": user_id,
+                },
+                acl_replace_params.ACLReplaceParams,
             ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ACL,
         )
 
 

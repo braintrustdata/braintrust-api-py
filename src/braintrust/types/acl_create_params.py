@@ -7,22 +7,14 @@ from typing_extensions import Literal, Required, TypedDict
 
 __all__ = [
     "ACLCreateParams",
-    "CreateUserPermissionACL",
-    "CreateUserPermissionACLRestrictObjectType",
-    "CreateUserPermissionACLRestrictObjectTypeUnionMember1",
-    "CreateUserRoleACL",
-    "CreateUserRoleACLRestrictObjectType",
-    "CreateUserRoleACLRestrictObjectTypeUnionMember1",
-    "CreateGroupPermissionACL",
-    "CreateGroupPermissionACLRestrictObjectType",
-    "CreateGroupPermissionACLRestrictObjectTypeUnionMember1",
-    "CreateGroupRoleACL",
-    "CreateGroupRoleACLRestrictObjectType",
-    "CreateGroupRoleACLRestrictObjectTypeUnionMember1",
+    "Permission",
+    "PermissionUnionMember1",
+    "RestrictObjectType",
+    "RestrictObjectTypeUnionMember1",
 ]
 
 
-class CreateUserPermissionACL(TypedDict, total=False):
+class ACLCreateParams(TypedDict, total=False):
     object_id: Required[str]
     """The id of the object the ACL applies to"""
 
@@ -42,23 +34,49 @@ class CreateUserPermissionACL(TypedDict, total=False):
     ]
     """The object type that the ACL applies to"""
 
-    permission: Required[
-        Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
-    ]
-    """Permission the ACL grants"""
+    group_id: Optional[str]
+    """Id of the group the ACL applies to.
 
-    user_id: Required[str]
-    """Id of the user the ACL applies to"""
+    Exactly one of `user_id` and `group_id` will be provided
+    """
 
-    restrict_object_type: CreateUserPermissionACLRestrictObjectType
+    permission: Permission
+    """Permission the ACL grants.
+
+    Exactly one of `permission` and `role_id` will be provided
+    """
+
+    restrict_object_type: RestrictObjectType
     """Optionally restricts the permission grant to just the specified object type"""
 
+    role_id: Optional[str]
+    """Id of the role the ACL grants.
 
-class CreateUserPermissionACLRestrictObjectTypeUnionMember1(TypedDict, total=False):
+    Exactly one of `permission` and `role_id` will be provided
+    """
+
+    user_id: Optional[str]
+    """Id of the user the ACL applies to.
+
+    Exactly one of `user_id` and `group_id` will be provided
+    """
+
+
+class PermissionUnionMember1(TypedDict, total=False):
     pass
 
 
-CreateUserPermissionACLRestrictObjectType = Union[
+Permission = Union[
+    Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"],
+    Optional[PermissionUnionMember1],
+]
+
+
+class RestrictObjectTypeUnionMember1(TypedDict, total=False):
+    pass
+
+
+RestrictObjectType = Union[
     Literal[
         "organization",
         "project",
@@ -71,162 +89,5 @@ CreateUserPermissionACLRestrictObjectType = Union[
         "group",
         "role",
     ],
-    Optional[CreateUserPermissionACLRestrictObjectTypeUnionMember1],
+    Optional[RestrictObjectTypeUnionMember1],
 ]
-
-
-class CreateUserRoleACL(TypedDict, total=False):
-    object_id: Required[str]
-    """The id of the object the ACL applies to"""
-
-    object_type: Required[
-        Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "project_score",
-            "project_tag",
-            "group",
-            "role",
-        ]
-    ]
-    """The object type that the ACL applies to"""
-
-    role_id: Required[str]
-    """Id of the role the ACL grants"""
-
-    user_id: Required[str]
-    """Id of the user the ACL applies to"""
-
-    restrict_object_type: CreateUserRoleACLRestrictObjectType
-    """Optionally restricts the permission grant to just the specified object type"""
-
-
-class CreateUserRoleACLRestrictObjectTypeUnionMember1(TypedDict, total=False):
-    pass
-
-
-CreateUserRoleACLRestrictObjectType = Union[
-    Literal[
-        "organization",
-        "project",
-        "experiment",
-        "dataset",
-        "prompt",
-        "prompt_session",
-        "project_score",
-        "project_tag",
-        "group",
-        "role",
-    ],
-    Optional[CreateUserRoleACLRestrictObjectTypeUnionMember1],
-]
-
-
-class CreateGroupPermissionACL(TypedDict, total=False):
-    group_id: Required[str]
-    """Id of the group the ACL applies to"""
-
-    object_id: Required[str]
-    """The id of the object the ACL applies to"""
-
-    object_type: Required[
-        Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "project_score",
-            "project_tag",
-            "group",
-            "role",
-        ]
-    ]
-    """The object type that the ACL applies to"""
-
-    permission: Required[
-        Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
-    ]
-    """Permission the ACL grants"""
-
-    restrict_object_type: CreateGroupPermissionACLRestrictObjectType
-    """Optionally restricts the permission grant to just the specified object type"""
-
-
-class CreateGroupPermissionACLRestrictObjectTypeUnionMember1(TypedDict, total=False):
-    pass
-
-
-CreateGroupPermissionACLRestrictObjectType = Union[
-    Literal[
-        "organization",
-        "project",
-        "experiment",
-        "dataset",
-        "prompt",
-        "prompt_session",
-        "project_score",
-        "project_tag",
-        "group",
-        "role",
-    ],
-    Optional[CreateGroupPermissionACLRestrictObjectTypeUnionMember1],
-]
-
-
-class CreateGroupRoleACL(TypedDict, total=False):
-    group_id: Required[str]
-    """Id of the group the ACL applies to"""
-
-    object_id: Required[str]
-    """The id of the object the ACL applies to"""
-
-    object_type: Required[
-        Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "project_score",
-            "project_tag",
-            "group",
-            "role",
-        ]
-    ]
-    """The object type that the ACL applies to"""
-
-    role_id: Required[str]
-    """Id of the role the ACL grants"""
-
-    restrict_object_type: CreateGroupRoleACLRestrictObjectType
-    """Optionally restricts the permission grant to just the specified object type"""
-
-
-class CreateGroupRoleACLRestrictObjectTypeUnionMember1(TypedDict, total=False):
-    pass
-
-
-CreateGroupRoleACLRestrictObjectType = Union[
-    Literal[
-        "organization",
-        "project",
-        "experiment",
-        "dataset",
-        "prompt",
-        "prompt_session",
-        "project_score",
-        "project_tag",
-        "group",
-        "role",
-    ],
-    Optional[CreateGroupRoleACLRestrictObjectTypeUnionMember1],
-]
-
-ACLCreateParams = Union[CreateUserPermissionACL, CreateUserRoleACL, CreateGroupPermissionACL, CreateGroupRoleACL]
