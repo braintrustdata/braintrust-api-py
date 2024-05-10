@@ -47,7 +47,13 @@ Methods:
 Types:
 
 ```python
-from braintrust.types import Experiment, ExperimentFetchResponse, ExperimentFetchPostResponse, ExperimentInsertResponse, ExperimentSummarizeResponse
+from braintrust.types import (
+    Experiment,
+    ExperimentFetchResponse,
+    ExperimentFetchPostResponse,
+    ExperimentInsertResponse,
+    ExperimentSummarizeResponse,
+)
 ```
 
 Methods:
@@ -69,7 +75,13 @@ Methods:
 Types:
 
 ```python
-from braintrust.types import Dataset, DatasetFetchResponse, DatasetFetchPostResponse, DatasetInsertResponse, DatasetSummarizeResponse
+from braintrust.types import (
+    Dataset,
+    DatasetFetchResponse,
+    DatasetFetchPostResponse,
+    DatasetInsertResponse,
+    DatasetSummarizeResponse,
+)
 ```
 
 Methods:

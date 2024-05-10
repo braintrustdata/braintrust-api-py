@@ -2,26 +2,15 @@
 
 from __future__ import annotations
 
-from braintrust import Braintrust, AsyncBraintrust
-
-from braintrust.types import Role
-
+import os
 from typing import Any, cast
 
-from braintrust.pagination import SyncListObjects, AsyncListObjects
-
-import os
 import pytest
-import httpx
-from typing_extensions import get_args
-from typing import Optional
-from respx import MockRouter
+
 from braintrust import Braintrust, AsyncBraintrust
 from tests.utils import assert_matches_type
-from braintrust.types import role_create_params
-from braintrust.types import role_update_params
-from braintrust.types import role_list_params
-from braintrust.types import role_replace_params
+from braintrust.types import Role
+from braintrust.pagination import SyncListObjects, AsyncListObjects
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 

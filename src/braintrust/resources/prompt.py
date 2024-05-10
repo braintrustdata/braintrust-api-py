@@ -2,47 +2,36 @@
 
 from __future__ import annotations
 
+from typing import List, Union, Iterable, Optional
+
 import httpx
 
+from ..types import (
+    prompt_list_params,
+    prompt_create_params,
+    prompt_update_params,
+    prompt_replace_params,
+    prompt_feedback_params,
+)
+from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from .._utils import (
+    maybe_transform,
+    async_maybe_transform,
+)
 from .._compat import cached_property
-
-from ..types.prompt import Prompt
-
-from .._utils import maybe_transform, async_maybe_transform
-
-from typing import Optional, List, Union, Iterable
-
-from ..pagination import SyncListObjects, AsyncListObjects
-
+from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
     to_raw_response_wrapper,
-    async_to_raw_response_wrapper,
     to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-
-from ..types import prompt_create_params, prompt_update_params, prompt_feedback_params, prompt_replace_params
-
-import warnings
-from typing import TYPE_CHECKING, Optional, Union, List, Dict, Any, Mapping, cast, overload
-from typing_extensions import Literal
-from .._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
-from .._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
-from .._resource import SyncAPIResource, AsyncAPIResource
+from ..pagination import SyncListObjects, AsyncListObjects
 from .._base_client import (
-    SyncAPIClient,
-    AsyncAPIClient,
-    _merge_mappings,
     AsyncPaginator,
     make_request_options,
-    HttpxBinaryResponseContent,
 )
-from ..types import shared_params
-from ..types import prompt_create_params
-from ..types import prompt_update_params
-from ..types import prompt_list_params
-from ..types import prompt_feedback_params
-from ..types import prompt_replace_params
+from ..types.prompt import Prompt
 
 __all__ = ["PromptResource", "AsyncPromptResource"]
 

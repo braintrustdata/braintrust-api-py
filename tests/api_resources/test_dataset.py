@@ -2,37 +2,21 @@
 
 from __future__ import annotations
 
-from braintrust import Braintrust, AsyncBraintrust
+import os
+from typing import Any, cast
 
+import pytest
+
+from braintrust import Braintrust, AsyncBraintrust
+from tests.utils import assert_matches_type
 from braintrust.types import (
     Dataset,
     DatasetFetchResponse,
-    DatasetFetchPostResponse,
     DatasetInsertResponse,
+    DatasetFetchPostResponse,
     DatasetSummarizeResponse,
 )
-
-from typing import Any, cast
-
 from braintrust.pagination import SyncListObjects, AsyncListObjects
-
-import os
-import pytest
-import httpx
-from typing_extensions import get_args
-from typing import Optional
-from respx import MockRouter
-from braintrust import Braintrust, AsyncBraintrust
-from tests.utils import assert_matches_type
-from braintrust.types import dataset_create_params
-from braintrust.types import dataset_update_params
-from braintrust.types import dataset_list_params
-from braintrust.types import dataset_feedback_params
-from braintrust.types import dataset_fetch_params
-from braintrust.types import dataset_fetch_post_params
-from braintrust.types import dataset_insert_params
-from braintrust.types import dataset_replace_params
-from braintrust.types import dataset_summarize_params
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 

@@ -1,19 +1,9 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing_extensions import override
+from typing import Any, List, Generic, TypeVar, Optional, cast
+from typing_extensions import Protocol, override, runtime_checkable
 
-from typing import List
-
-import re
-from typing import Optional, TypeVar, List, Generic, Dict, Any, Type, Mapping, cast
-from typing_extensions import TypedDict, Literal, Annotated, Protocol, runtime_checkable
-
-from httpx import URL, Response
-from pydantic import Field as FieldInfo
-
-from ._models import BaseModel
-from ._utils import PropertyInfo, is_mapping
-from ._base_client import BasePage, BaseSyncPage, BaseAsyncPage, PageInfo
+from ._base_client import BasePage, PageInfo, BaseSyncPage, BaseAsyncPage
 
 __all__ = ["SyncListObjects", "AsyncListObjects"]
 
