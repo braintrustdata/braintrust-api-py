@@ -1,20 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .._models import BaseModel
-
-from typing import Optional, Dict, List
-
-from typing_extensions import Literal
-
+from typing import TYPE_CHECKING, Dict, List, Optional
 from datetime import datetime
-
-from typing import Optional, Union, List, Dict, Any
 from typing_extensions import Literal
+
 from pydantic import Field as FieldInfo
-from ..types import shared
-from typing import TYPE_CHECKING
-from typing import TYPE_CHECKING
-from typing import TYPE_CHECKING
+
+from .._models import BaseModel
 
 __all__ = ["ExperimentFetchResponse", "Event", "EventContext", "EventMetrics", "EventSpanAttributes"]
 

@@ -2,24 +2,18 @@
 
 from __future__ import annotations
 
-from braintrust import Braintrust, AsyncBraintrust
-
+import os
 from typing import Any, cast
 
-from braintrust.types.project import LogFetchResponse, LogFetchPostResponse, LogInsertResponse
-
-import os
 import pytest
-import httpx
-from typing_extensions import get_args
-from typing import Optional
-from respx import MockRouter
+
 from braintrust import Braintrust, AsyncBraintrust
 from tests.utils import assert_matches_type
-from braintrust.types.project import log_feedback_params
-from braintrust.types.project import log_fetch_params
-from braintrust.types.project import log_fetch_post_params
-from braintrust.types.project import log_insert_params
+from braintrust.types.project import (
+    LogFetchResponse,
+    LogInsertResponse,
+    LogFetchPostResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 

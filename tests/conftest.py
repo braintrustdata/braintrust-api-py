@@ -1,13 +1,11 @@
 from __future__ import annotations
 
+import os
 import asyncio
 import logging
-from typing import Iterator
+from typing import TYPE_CHECKING, Iterator, AsyncIterator
 
 import pytest
-
-import os
-from typing import TYPE_CHECKING, AsyncIterator
 
 from braintrust import Braintrust, AsyncBraintrust
 
@@ -29,7 +27,6 @@ def event_loop() -> Iterator[asyncio.AbstractEventLoop]:
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 api_key = "My API Key"
-base_url = "My Base URL"
 
 
 @pytest.fixture(scope="session")
