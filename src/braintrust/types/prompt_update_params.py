@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
+from typing import List, Union, Iterable, Optional
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
@@ -40,6 +40,7 @@ __all__ = [
     "PromptDataPromptUnionMember1MessageUnionMember3",
     "PromptDataPromptUnionMember1MessageUnionMember4",
     "PromptDataPrompt_ReservedOnlyAllowNull",
+    "PromptDataPrompt_ReservedOnlyAllowNull_ReservedOnlyAllowNull",
 ]
 
 
@@ -277,8 +278,17 @@ class PromptDataPromptUnionMember1(TypedDict, total=False):
     tools: str
 
 
+class PromptDataPrompt_ReservedOnlyAllowNull_ReservedOnlyAllowNull(TypedDict, total=False):
+    pass
+
+
 class PromptDataPrompt_ReservedOnlyAllowNull(TypedDict, total=False):
-    _reserved_only_allow_null: Required[Annotated[Dict[str, object], PropertyInfo(alias="__reserved_only_allow_null")]]
+    _reserved_only_allow_null: Required[
+        Annotated[
+            PromptDataPrompt_ReservedOnlyAllowNull_ReservedOnlyAllowNull,
+            PropertyInfo(alias="__reserved_only_allow_null"),
+        ]
+    ]
     """This is just a placeholder nullable object.
 
     Only pass null, not the object itself
