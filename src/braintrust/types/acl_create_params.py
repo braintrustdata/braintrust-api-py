@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Optional
+from typing import Union, Optional
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
@@ -12,15 +12,19 @@ __all__ = [
     "CreateUserPermissionACL",
     "CreateUserPermissionACLRestrictObjectType",
     "CreateUserPermissionACLRestrictObjectType_ReservedOnlyAllowNull",
+    "CreateUserPermissionACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull",
     "CreateUserRoleACL",
     "CreateUserRoleACLRestrictObjectType",
     "CreateUserRoleACLRestrictObjectType_ReservedOnlyAllowNull",
+    "CreateUserRoleACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull",
     "CreateGroupPermissionACL",
     "CreateGroupPermissionACLRestrictObjectType",
     "CreateGroupPermissionACLRestrictObjectType_ReservedOnlyAllowNull",
+    "CreateGroupPermissionACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull",
     "CreateGroupRoleACL",
     "CreateGroupRoleACLRestrictObjectType",
     "CreateGroupRoleACLRestrictObjectType_ReservedOnlyAllowNull",
+    "CreateGroupRoleACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull",
 ]
 
 
@@ -56,8 +60,17 @@ class CreateUserPermissionACL(TypedDict, total=False):
     """Optionally restricts the permission grant to just the specified object type"""
 
 
+class CreateUserPermissionACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull(TypedDict, total=False):
+    pass
+
+
 class CreateUserPermissionACLRestrictObjectType_ReservedOnlyAllowNull(TypedDict, total=False):
-    _reserved_only_allow_null: Required[Annotated[Dict[str, object], PropertyInfo(alias="__reserved_only_allow_null")]]
+    _reserved_only_allow_null: Required[
+        Annotated[
+            CreateUserPermissionACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull,
+            PropertyInfo(alias="__reserved_only_allow_null"),
+        ]
+    ]
     """This is just a placeholder nullable object.
 
     Only pass null, not the object itself
@@ -111,8 +124,17 @@ class CreateUserRoleACL(TypedDict, total=False):
     """Optionally restricts the permission grant to just the specified object type"""
 
 
+class CreateUserRoleACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull(TypedDict, total=False):
+    pass
+
+
 class CreateUserRoleACLRestrictObjectType_ReservedOnlyAllowNull(TypedDict, total=False):
-    _reserved_only_allow_null: Required[Annotated[Dict[str, object], PropertyInfo(alias="__reserved_only_allow_null")]]
+    _reserved_only_allow_null: Required[
+        Annotated[
+            CreateUserRoleACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull,
+            PropertyInfo(alias="__reserved_only_allow_null"),
+        ]
+    ]
     """This is just a placeholder nullable object.
 
     Only pass null, not the object itself
@@ -168,8 +190,17 @@ class CreateGroupPermissionACL(TypedDict, total=False):
     """Optionally restricts the permission grant to just the specified object type"""
 
 
+class CreateGroupPermissionACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull(TypedDict, total=False):
+    pass
+
+
 class CreateGroupPermissionACLRestrictObjectType_ReservedOnlyAllowNull(TypedDict, total=False):
-    _reserved_only_allow_null: Required[Annotated[Dict[str, object], PropertyInfo(alias="__reserved_only_allow_null")]]
+    _reserved_only_allow_null: Required[
+        Annotated[
+            CreateGroupPermissionACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull,
+            PropertyInfo(alias="__reserved_only_allow_null"),
+        ]
+    ]
     """This is just a placeholder nullable object.
 
     Only pass null, not the object itself
@@ -223,8 +254,17 @@ class CreateGroupRoleACL(TypedDict, total=False):
     """Optionally restricts the permission grant to just the specified object type"""
 
 
+class CreateGroupRoleACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull(TypedDict, total=False):
+    pass
+
+
 class CreateGroupRoleACLRestrictObjectType_ReservedOnlyAllowNull(TypedDict, total=False):
-    _reserved_only_allow_null: Required[Annotated[Dict[str, object], PropertyInfo(alias="__reserved_only_allow_null")]]
+    _reserved_only_allow_null: Required[
+        Annotated[
+            CreateGroupRoleACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull,
+            PropertyInfo(alias="__reserved_only_allow_null"),
+        ]
+    ]
     """This is just a placeholder nullable object.
 
     Only pass null, not the object itself

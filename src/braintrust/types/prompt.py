@@ -41,6 +41,7 @@ __all__ = [
     "PromptDataPromptUnionMember1MessageUnionMember3",
     "PromptDataPromptUnionMember1MessageUnionMember4",
     "PromptDataPrompt_ReservedOnlyAllowNull",
+    "PromptDataPrompt_ReservedOnlyAllowNull_ReservedOnlyAllowNull",
 ]
 
 
@@ -264,8 +265,14 @@ class PromptDataPromptUnionMember1(BaseModel):
     tools: Optional[str] = None
 
 
+class PromptDataPrompt_ReservedOnlyAllowNull_ReservedOnlyAllowNull(BaseModel):
+    pass
+
+
 class PromptDataPrompt_ReservedOnlyAllowNull(BaseModel):
-    api_reserved_only_allow_null: Dict[str, object] = FieldInfo(alias="__reserved_only_allow_null")
+    api_reserved_only_allow_null: PromptDataPrompt_ReservedOnlyAllowNull_ReservedOnlyAllowNull = FieldInfo(
+        alias="__reserved_only_allow_null"
+    )
     """This is just a placeholder nullable object.
 
     Only pass null, not the object itself

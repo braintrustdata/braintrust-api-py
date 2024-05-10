@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Union, Optional
+from typing import Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -13,20 +13,30 @@ __all__ = [
     "UserPermissionACL",
     "UserPermissionACLRestrictObjectType",
     "UserPermissionACLRestrictObjectType_ReservedOnlyAllowNull",
+    "UserPermissionACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull",
     "UserRoleACL",
     "UserRoleACLRestrictObjectType",
     "UserRoleACLRestrictObjectType_ReservedOnlyAllowNull",
+    "UserRoleACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull",
     "GroupPermissionACL",
     "GroupPermissionACLRestrictObjectType",
     "GroupPermissionACLRestrictObjectType_ReservedOnlyAllowNull",
+    "GroupPermissionACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull",
     "GroupRoleACL",
     "GroupRoleACLRestrictObjectType",
     "GroupRoleACLRestrictObjectType_ReservedOnlyAllowNull",
+    "GroupRoleACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull",
 ]
 
 
+class UserPermissionACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull(BaseModel):
+    pass
+
+
 class UserPermissionACLRestrictObjectType_ReservedOnlyAllowNull(BaseModel):
-    api_reserved_only_allow_null: Dict[str, object] = FieldInfo(alias="__reserved_only_allow_null")
+    api_reserved_only_allow_null: UserPermissionACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull = (
+        FieldInfo(alias="__reserved_only_allow_null")
+    )
     """This is just a placeholder nullable object.
 
     Only pass null, not the object itself
@@ -87,8 +97,14 @@ class UserPermissionACL(BaseModel):
     """Optionally restricts the permission grant to just the specified object type"""
 
 
+class UserRoleACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull(BaseModel):
+    pass
+
+
 class UserRoleACLRestrictObjectType_ReservedOnlyAllowNull(BaseModel):
-    api_reserved_only_allow_null: Dict[str, object] = FieldInfo(alias="__reserved_only_allow_null")
+    api_reserved_only_allow_null: UserRoleACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull = FieldInfo(
+        alias="__reserved_only_allow_null"
+    )
     """This is just a placeholder nullable object.
 
     Only pass null, not the object itself
@@ -149,8 +165,14 @@ class UserRoleACL(BaseModel):
     """Optionally restricts the permission grant to just the specified object type"""
 
 
+class GroupPermissionACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull(BaseModel):
+    pass
+
+
 class GroupPermissionACLRestrictObjectType_ReservedOnlyAllowNull(BaseModel):
-    api_reserved_only_allow_null: Dict[str, object] = FieldInfo(alias="__reserved_only_allow_null")
+    api_reserved_only_allow_null: GroupPermissionACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull = (
+        FieldInfo(alias="__reserved_only_allow_null")
+    )
     """This is just a placeholder nullable object.
 
     Only pass null, not the object itself
@@ -211,8 +233,14 @@ class GroupPermissionACL(BaseModel):
     """Optionally restricts the permission grant to just the specified object type"""
 
 
+class GroupRoleACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull(BaseModel):
+    pass
+
+
 class GroupRoleACLRestrictObjectType_ReservedOnlyAllowNull(BaseModel):
-    api_reserved_only_allow_null: Dict[str, object] = FieldInfo(alias="__reserved_only_allow_null")
+    api_reserved_only_allow_null: GroupRoleACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull = (
+        FieldInfo(alias="__reserved_only_allow_null")
+    )
     """This is just a placeholder nullable object.
 
     Only pass null, not the object itself
