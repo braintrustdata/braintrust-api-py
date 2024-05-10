@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing_extensions import TypedDict, Required, Literal
 
+from typing import Optional
+
 from typing import List, Union, Dict, Optional
 from typing_extensions import Literal, TypedDict, Required, Annotated
 from .._types import FileTypes
@@ -18,17 +20,19 @@ class ACLListParams(TypedDict, total=False):
     """The id of the object the ACL applies to"""
 
     object_type: Required[
-        Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "project_score",
-            "project_tag",
-            "group",
-            "role",
+        Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "project_score",
+                "project_tag",
+                "group",
+                "role",
+            ]
         ]
     ]
     """The object type that the ACL applies to"""
