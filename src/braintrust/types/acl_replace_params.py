@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import Dict, Union, Optional
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
@@ -57,7 +57,7 @@ class CreateUserPermissionACL(TypedDict, total=False):
 
 
 class CreateUserPermissionACLRestrictObjectType_ReservedOnlyAllowNull(TypedDict, total=False):
-    _reserved_only_allow_null: Required[Annotated[object, PropertyInfo(alias="__reserved_only_allow_null")]]
+    _reserved_only_allow_null: Required[Annotated[Dict[str, object], PropertyInfo(alias="__reserved_only_allow_null")]]
     """This is just a placeholder nullable object.
 
     Only pass null, not the object itself
@@ -112,7 +112,7 @@ class CreateUserRoleACL(TypedDict, total=False):
 
 
 class CreateUserRoleACLRestrictObjectType_ReservedOnlyAllowNull(TypedDict, total=False):
-    _reserved_only_allow_null: Required[Annotated[object, PropertyInfo(alias="__reserved_only_allow_null")]]
+    _reserved_only_allow_null: Required[Annotated[Dict[str, object], PropertyInfo(alias="__reserved_only_allow_null")]]
     """This is just a placeholder nullable object.
 
     Only pass null, not the object itself
@@ -169,7 +169,7 @@ class CreateGroupPermissionACL(TypedDict, total=False):
 
 
 class CreateGroupPermissionACLRestrictObjectType_ReservedOnlyAllowNull(TypedDict, total=False):
-    _reserved_only_allow_null: Required[Annotated[object, PropertyInfo(alias="__reserved_only_allow_null")]]
+    _reserved_only_allow_null: Required[Annotated[Dict[str, object], PropertyInfo(alias="__reserved_only_allow_null")]]
     """This is just a placeholder nullable object.
 
     Only pass null, not the object itself
@@ -224,7 +224,7 @@ class CreateGroupRoleACL(TypedDict, total=False):
 
 
 class CreateGroupRoleACLRestrictObjectType_ReservedOnlyAllowNull(TypedDict, total=False):
-    _reserved_only_allow_null: Required[Annotated[object, PropertyInfo(alias="__reserved_only_allow_null")]]
+    _reserved_only_allow_null: Required[Annotated[Dict[str, object], PropertyInfo(alias="__reserved_only_allow_null")]]
     """This is just a placeholder nullable object.
 
     Only pass null, not the object itself

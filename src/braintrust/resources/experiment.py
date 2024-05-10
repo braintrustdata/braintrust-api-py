@@ -14,6 +14,7 @@ from ..types import (
     experiment_update_params,
     experiment_replace_params,
     experiment_feedback_params,
+    experiment_summarize_params,
     experiment_fetch_post_params,
 )
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
@@ -37,6 +38,7 @@ from .._base_client import (
 from ..types.experiment import Experiment
 from ..types.experiment_fetch_response import ExperimentFetchResponse
 from ..types.experiment_insert_response import ExperimentInsertResponse
+from ..types.experiment_summarize_response import ExperimentSummarizeResponse
 from ..types.experiment_fetch_post_response import ExperimentFetchPostResponse
 
 __all__ = ["ExperimentResource", "AsyncExperimentResource"]
@@ -439,14 +441,22 @@ class ExperimentResource(SyncAPIResource):
               end up with more individual rows than the specified limit if you are fetching
               events containing traces.
 
-          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+          max_root_span_id: DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+              favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+              the 'cursor' argument going forwards.
+
+              Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
               Since a paginated fetch query returns results in order from latest to earliest,
               the cursor for the next page can be found as the row with the minimum (earliest)
               value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
               for an overview of paginating fetch queries.
 
-          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+          max_xact_id: DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+              favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+              the 'cursor' argument going forwards.
+
+              Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
               Since a paginated fetch query returns results in order from latest to earliest,
               the cursor for the next page can be found as the row with the minimum (earliest)
@@ -493,6 +503,7 @@ class ExperimentResource(SyncAPIResource):
         self,
         experiment_id: str,
         *,
+        cursor: Optional[str] | NotGiven = NOT_GIVEN,
         filters: Optional[Iterable[experiment_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -513,6 +524,12 @@ class ExperimentResource(SyncAPIResource):
         Args:
           experiment_id: Experiment id
 
+          cursor: An opaque string to be used as a cursor for the next page of results, in order
+              from latest to earliest.
+
+              The string can be obtained directly from the `cursor` property of the previous
+              fetch query
+
           filters: A list of filters on the events to fetch. Currently, only path-lookup type
               filters are supported, but we may add more in the future
 
@@ -531,14 +548,22 @@ class ExperimentResource(SyncAPIResource):
               end up with more individual rows than the specified limit if you are fetching
               events containing traces.
 
-          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+          max_root_span_id: DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+              favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+              the 'cursor' argument going forwards.
+
+              Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
               Since a paginated fetch query returns results in order from latest to earliest,
               the cursor for the next page can be found as the row with the minimum (earliest)
               value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
               for an overview of paginating fetch queries.
 
-          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+          max_xact_id: DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+              favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+              the 'cursor' argument going forwards.
+
+              Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
               Since a paginated fetch query returns results in order from latest to earliest,
               the cursor for the next page can be found as the row with the minimum (earliest)
@@ -565,6 +590,7 @@ class ExperimentResource(SyncAPIResource):
             f"/v1/experiment/{experiment_id}/fetch",
             body=maybe_transform(
                 {
+                    "cursor": cursor,
                     "filters": filters,
                     "limit": limit,
                     "max_root_span_id": max_root_span_id,
@@ -701,6 +727,61 @@ class ExperimentResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Experiment,
+        )
+
+    def summarize(
+        self,
+        experiment_id: str,
+        *,
+        comparison_experiment_id: str | NotGiven = NOT_GIVEN,
+        summarize_scores: bool | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ExperimentSummarizeResponse:
+        """
+        Summarize experiment
+
+        Args:
+          experiment_id: Experiment id
+
+          comparison_experiment_id: The experiment to compare against, if summarizing scores and metrics. If
+              omitted, will fall back to the `base_exp_id` stored in the experiment metadata,
+              and then to the most recent experiment run in the same project. Must pass
+              `summarize_scores=true` for this id to be used
+
+          summarize_scores: Whether to summarize the scores and metrics. If false (or omitted), only the
+              metadata will be returned.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not experiment_id:
+            raise ValueError(f"Expected a non-empty value for `experiment_id` but received {experiment_id!r}")
+        return self._get(
+            f"/v1/experiment/{experiment_id}/summarize",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "comparison_experiment_id": comparison_experiment_id,
+                        "summarize_scores": summarize_scores,
+                    },
+                    experiment_summarize_params.ExperimentSummarizeParams,
+                ),
+            ),
+            cast_to=ExperimentSummarizeResponse,
         )
 
 
@@ -1103,14 +1184,22 @@ class AsyncExperimentResource(AsyncAPIResource):
               end up with more individual rows than the specified limit if you are fetching
               events containing traces.
 
-          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+          max_root_span_id: DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+              favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+              the 'cursor' argument going forwards.
+
+              Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
               Since a paginated fetch query returns results in order from latest to earliest,
               the cursor for the next page can be found as the row with the minimum (earliest)
               value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
               for an overview of paginating fetch queries.
 
-          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+          max_xact_id: DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+              favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+              the 'cursor' argument going forwards.
+
+              Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
               Since a paginated fetch query returns results in order from latest to earliest,
               the cursor for the next page can be found as the row with the minimum (earliest)
@@ -1157,6 +1246,7 @@ class AsyncExperimentResource(AsyncAPIResource):
         self,
         experiment_id: str,
         *,
+        cursor: Optional[str] | NotGiven = NOT_GIVEN,
         filters: Optional[Iterable[experiment_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -1177,6 +1267,12 @@ class AsyncExperimentResource(AsyncAPIResource):
         Args:
           experiment_id: Experiment id
 
+          cursor: An opaque string to be used as a cursor for the next page of results, in order
+              from latest to earliest.
+
+              The string can be obtained directly from the `cursor` property of the previous
+              fetch query
+
           filters: A list of filters on the events to fetch. Currently, only path-lookup type
               filters are supported, but we may add more in the future
 
@@ -1195,14 +1291,22 @@ class AsyncExperimentResource(AsyncAPIResource):
               end up with more individual rows than the specified limit if you are fetching
               events containing traces.
 
-          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+          max_root_span_id: DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+              favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+              the 'cursor' argument going forwards.
+
+              Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
               Since a paginated fetch query returns results in order from latest to earliest,
               the cursor for the next page can be found as the row with the minimum (earliest)
               value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
               for an overview of paginating fetch queries.
 
-          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+          max_xact_id: DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+              favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+              the 'cursor' argument going forwards.
+
+              Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
               Since a paginated fetch query returns results in order from latest to earliest,
               the cursor for the next page can be found as the row with the minimum (earliest)
@@ -1229,6 +1333,7 @@ class AsyncExperimentResource(AsyncAPIResource):
             f"/v1/experiment/{experiment_id}/fetch",
             body=await async_maybe_transform(
                 {
+                    "cursor": cursor,
                     "filters": filters,
                     "limit": limit,
                     "max_root_span_id": max_root_span_id,
@@ -1367,6 +1472,61 @@ class AsyncExperimentResource(AsyncAPIResource):
             cast_to=Experiment,
         )
 
+    async def summarize(
+        self,
+        experiment_id: str,
+        *,
+        comparison_experiment_id: str | NotGiven = NOT_GIVEN,
+        summarize_scores: bool | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ExperimentSummarizeResponse:
+        """
+        Summarize experiment
+
+        Args:
+          experiment_id: Experiment id
+
+          comparison_experiment_id: The experiment to compare against, if summarizing scores and metrics. If
+              omitted, will fall back to the `base_exp_id` stored in the experiment metadata,
+              and then to the most recent experiment run in the same project. Must pass
+              `summarize_scores=true` for this id to be used
+
+          summarize_scores: Whether to summarize the scores and metrics. If false (or omitted), only the
+              metadata will be returned.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not experiment_id:
+            raise ValueError(f"Expected a non-empty value for `experiment_id` but received {experiment_id!r}")
+        return await self._get(
+            f"/v1/experiment/{experiment_id}/summarize",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "comparison_experiment_id": comparison_experiment_id,
+                        "summarize_scores": summarize_scores,
+                    },
+                    experiment_summarize_params.ExperimentSummarizeParams,
+                ),
+            ),
+            cast_to=ExperimentSummarizeResponse,
+        )
+
 
 class ExperimentResourceWithRawResponse:
     def __init__(self, experiment: ExperimentResource) -> None:
@@ -1401,6 +1561,9 @@ class ExperimentResourceWithRawResponse:
         )
         self.replace = to_raw_response_wrapper(
             experiment.replace,
+        )
+        self.summarize = to_raw_response_wrapper(
+            experiment.summarize,
         )
 
 
@@ -1438,6 +1601,9 @@ class AsyncExperimentResourceWithRawResponse:
         self.replace = async_to_raw_response_wrapper(
             experiment.replace,
         )
+        self.summarize = async_to_raw_response_wrapper(
+            experiment.summarize,
+        )
 
 
 class ExperimentResourceWithStreamingResponse:
@@ -1474,6 +1640,9 @@ class ExperimentResourceWithStreamingResponse:
         self.replace = to_streamed_response_wrapper(
             experiment.replace,
         )
+        self.summarize = to_streamed_response_wrapper(
+            experiment.summarize,
+        )
 
 
 class AsyncExperimentResourceWithStreamingResponse:
@@ -1509,4 +1678,7 @@ class AsyncExperimentResourceWithStreamingResponse:
         )
         self.replace = async_to_streamed_response_wrapper(
             experiment.replace,
+        )
+        self.summarize = async_to_streamed_response_wrapper(
+            experiment.summarize,
         )

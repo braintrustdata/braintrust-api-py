@@ -14,6 +14,7 @@ from braintrust.types import (
     ExperimentFetchResponse,
     ExperimentInsertResponse,
     ExperimentFetchPostResponse,
+    ExperimentSummarizeResponse,
 )
 from braintrust.pagination import SyncListObjects, AsyncListObjects
 
@@ -359,6 +360,7 @@ class TestExperiment:
     def test_method_fetch_post_with_all_params(self, client: Braintrust) -> None:
         experiment = client.experiment.fetch_post(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            cursor="string",
             filters=[
                 {
                     "type": "path_lookup",
@@ -512,6 +514,53 @@ class TestExperiment:
             assert_matches_type(Experiment, experiment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_method_summarize(self, client: Braintrust) -> None:
+        experiment = client.experiment.summarize(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ExperimentSummarizeResponse, experiment, path=["response"])
+
+    @parametrize
+    def test_method_summarize_with_all_params(self, client: Braintrust) -> None:
+        experiment = client.experiment.summarize(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            comparison_experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            summarize_scores=True,
+        )
+        assert_matches_type(ExperimentSummarizeResponse, experiment, path=["response"])
+
+    @parametrize
+    def test_raw_response_summarize(self, client: Braintrust) -> None:
+        response = client.experiment.with_raw_response.summarize(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        experiment = response.parse()
+        assert_matches_type(ExperimentSummarizeResponse, experiment, path=["response"])
+
+    @parametrize
+    def test_streaming_response_summarize(self, client: Braintrust) -> None:
+        with client.experiment.with_streaming_response.summarize(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            experiment = response.parse()
+            assert_matches_type(ExperimentSummarizeResponse, experiment, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    def test_path_params_summarize(self, client: Braintrust) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
+            client.experiment.with_raw_response.summarize(
+                "",
+            )
 
 
 class TestAsyncExperiment:
@@ -853,6 +902,7 @@ class TestAsyncExperiment:
     async def test_method_fetch_post_with_all_params(self, async_client: AsyncBraintrust) -> None:
         experiment = await async_client.experiment.fetch_post(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            cursor="string",
             filters=[
                 {
                     "type": "path_lookup",
@@ -1006,3 +1056,50 @@ class TestAsyncExperiment:
             assert_matches_type(Experiment, experiment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_method_summarize(self, async_client: AsyncBraintrust) -> None:
+        experiment = await async_client.experiment.summarize(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+        assert_matches_type(ExperimentSummarizeResponse, experiment, path=["response"])
+
+    @parametrize
+    async def test_method_summarize_with_all_params(self, async_client: AsyncBraintrust) -> None:
+        experiment = await async_client.experiment.summarize(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            comparison_experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            summarize_scores=True,
+        )
+        assert_matches_type(ExperimentSummarizeResponse, experiment, path=["response"])
+
+    @parametrize
+    async def test_raw_response_summarize(self, async_client: AsyncBraintrust) -> None:
+        response = await async_client.experiment.with_raw_response.summarize(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        experiment = await response.parse()
+        assert_matches_type(ExperimentSummarizeResponse, experiment, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_summarize(self, async_client: AsyncBraintrust) -> None:
+        async with async_client.experiment.with_streaming_response.summarize(
+            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            experiment = await response.parse()
+            assert_matches_type(ExperimentSummarizeResponse, experiment, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
+    async def test_path_params_summarize(self, async_client: AsyncBraintrust) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
+            await async_client.experiment.with_raw_response.summarize(
+                "",
+            )

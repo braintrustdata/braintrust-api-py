@@ -52,6 +52,7 @@ from braintrust.types import (
     ExperimentFetchResponse,
     ExperimentFetchPostResponse,
     ExperimentInsertResponse,
+    ExperimentSummarizeResponse,
 )
 ```
 
@@ -67,6 +68,7 @@ Methods:
 - <code title="post /v1/experiment/{experiment_id}/fetch">client.experiment.<a href="./src/braintrust/resources/experiment.py">fetch_post</a>(experiment_id, \*\*<a href="src/braintrust/types/experiment_fetch_post_params.py">params</a>) -> <a href="./src/braintrust/types/experiment_fetch_post_response.py">ExperimentFetchPostResponse</a></code>
 - <code title="post /v1/experiment/{experiment_id}/insert">client.experiment.<a href="./src/braintrust/resources/experiment.py">insert</a>(experiment_id, \*\*<a href="src/braintrust/types/experiment_insert_params.py">params</a>) -> <a href="./src/braintrust/types/experiment_insert_response.py">ExperimentInsertResponse</a></code>
 - <code title="put /v1/experiment">client.experiment.<a href="./src/braintrust/resources/experiment.py">replace</a>(\*\*<a href="src/braintrust/types/experiment_replace_params.py">params</a>) -> <a href="./src/braintrust/types/experiment.py">Experiment</a></code>
+- <code title="get /v1/experiment/{experiment_id}/summarize">client.experiment.<a href="./src/braintrust/resources/experiment.py">summarize</a>(experiment_id, \*\*<a href="src/braintrust/types/experiment_summarize_params.py">params</a>) -> <a href="./src/braintrust/types/experiment_summarize_response.py">ExperimentSummarizeResponse</a></code>
 
 # Dataset
 
@@ -78,6 +80,7 @@ from braintrust.types import (
     DatasetFetchResponse,
     DatasetFetchPostResponse,
     DatasetInsertResponse,
+    DatasetSummarizeResponse,
 )
 ```
 
@@ -93,6 +96,7 @@ Methods:
 - <code title="post /v1/dataset/{dataset_id}/fetch">client.dataset.<a href="./src/braintrust/resources/dataset.py">fetch_post</a>(dataset_id, \*\*<a href="src/braintrust/types/dataset_fetch_post_params.py">params</a>) -> <a href="./src/braintrust/types/dataset_fetch_post_response.py">DatasetFetchPostResponse</a></code>
 - <code title="post /v1/dataset/{dataset_id}/insert">client.dataset.<a href="./src/braintrust/resources/dataset.py">insert</a>(dataset_id, \*\*<a href="src/braintrust/types/dataset_insert_params.py">params</a>) -> <a href="./src/braintrust/types/dataset_insert_response.py">DatasetInsertResponse</a></code>
 - <code title="put /v1/dataset">client.dataset.<a href="./src/braintrust/resources/dataset.py">replace</a>(\*\*<a href="src/braintrust/types/dataset_replace_params.py">params</a>) -> <a href="./src/braintrust/types/dataset.py">Dataset</a></code>
+- <code title="get /v1/dataset/{dataset_id}/summarize">client.dataset.<a href="./src/braintrust/resources/dataset.py">summarize</a>(dataset_id, \*\*<a href="src/braintrust/types/dataset_summarize_params.py">params</a>) -> <a href="./src/braintrust/types/dataset_summarize_response.py">DatasetSummarizeResponse</a></code>
 
 # Prompt
 

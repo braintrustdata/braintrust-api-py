@@ -73,3 +73,10 @@ class Event(BaseModel):
 class DatasetFetchPostResponse(BaseModel):
     events: List[Event]
     """A list of fetched events"""
+
+    cursor: Optional[str] = None
+    """Pagination cursor
+
+    Pass this string directly as the `cursor` param to your next fetch request to
+    get the next page of results. Not provided if the returned result set is empty.
+    """

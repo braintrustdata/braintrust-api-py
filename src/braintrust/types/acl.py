@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Union, Optional
+from typing import Dict, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -26,7 +26,7 @@ __all__ = [
 
 
 class UserPermissionACLRestrictObjectType_ReservedOnlyAllowNull(BaseModel):
-    api_reserved_only_allow_null: object = FieldInfo(alias="__reserved_only_allow_null")
+    api_reserved_only_allow_null: Dict[str, object] = FieldInfo(alias="__reserved_only_allow_null")
     """This is just a placeholder nullable object.
 
     Only pass null, not the object itself
@@ -88,7 +88,7 @@ class UserPermissionACL(BaseModel):
 
 
 class UserRoleACLRestrictObjectType_ReservedOnlyAllowNull(BaseModel):
-    api_reserved_only_allow_null: object = FieldInfo(alias="__reserved_only_allow_null")
+    api_reserved_only_allow_null: Dict[str, object] = FieldInfo(alias="__reserved_only_allow_null")
     """This is just a placeholder nullable object.
 
     Only pass null, not the object itself
@@ -150,7 +150,7 @@ class UserRoleACL(BaseModel):
 
 
 class GroupPermissionACLRestrictObjectType_ReservedOnlyAllowNull(BaseModel):
-    api_reserved_only_allow_null: object = FieldInfo(alias="__reserved_only_allow_null")
+    api_reserved_only_allow_null: Dict[str, object] = FieldInfo(alias="__reserved_only_allow_null")
     """This is just a placeholder nullable object.
 
     Only pass null, not the object itself
@@ -212,7 +212,7 @@ class GroupPermissionACL(BaseModel):
 
 
 class GroupRoleACLRestrictObjectType_ReservedOnlyAllowNull(BaseModel):
-    api_reserved_only_allow_null: object = FieldInfo(alias="__reserved_only_allow_null")
+    api_reserved_only_allow_null: Dict[str, object] = FieldInfo(alias="__reserved_only_allow_null")
     """This is just a placeholder nullable object.
 
     Only pass null, not the object itself
