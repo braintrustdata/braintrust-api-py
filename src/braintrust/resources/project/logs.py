@@ -117,14 +117,22 @@ class LogsResource(SyncAPIResource):
               end up with more individual rows than the specified limit if you are fetching
               events containing traces.
 
-          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+          max_root_span_id: DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+              favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+              the 'cursor' argument going forwards.
+
+              Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
               Since a paginated fetch query returns results in order from latest to earliest,
               the cursor for the next page can be found as the row with the minimum (earliest)
               value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
               for an overview of paginating fetch queries.
 
-          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+          max_xact_id: DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+              favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+              the 'cursor' argument going forwards.
+
+              Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
               Since a paginated fetch query returns results in order from latest to earliest,
               the cursor for the next page can be found as the row with the minimum (earliest)
@@ -171,6 +179,7 @@ class LogsResource(SyncAPIResource):
         self,
         project_id: str,
         *,
+        cursor: Optional[str] | NotGiven = NOT_GIVEN,
         filters: Optional[Iterable[log_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -191,6 +200,12 @@ class LogsResource(SyncAPIResource):
         Args:
           project_id: Project id
 
+          cursor: An opaque string to be used as a cursor for the next page of results, in order
+              from latest to earliest.
+
+              The string can be obtained directly from the `cursor` property of the previous
+              fetch query
+
           filters: A list of filters on the events to fetch. Currently, only path-lookup type
               filters are supported, but we may add more in the future
 
@@ -209,14 +224,22 @@ class LogsResource(SyncAPIResource):
               end up with more individual rows than the specified limit if you are fetching
               events containing traces.
 
-          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+          max_root_span_id: DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+              favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+              the 'cursor' argument going forwards.
+
+              Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
               Since a paginated fetch query returns results in order from latest to earliest,
               the cursor for the next page can be found as the row with the minimum (earliest)
               value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
               for an overview of paginating fetch queries.
 
-          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+          max_xact_id: DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+              favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+              the 'cursor' argument going forwards.
+
+              Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
               Since a paginated fetch query returns results in order from latest to earliest,
               the cursor for the next page can be found as the row with the minimum (earliest)
@@ -243,6 +266,7 @@ class LogsResource(SyncAPIResource):
             f"/v1/project_logs/{project_id}/fetch",
             body=maybe_transform(
                 {
+                    "cursor": cursor,
                     "filters": filters,
                     "limit": limit,
                     "max_root_span_id": max_root_span_id,
@@ -384,14 +408,22 @@ class AsyncLogsResource(AsyncAPIResource):
               end up with more individual rows than the specified limit if you are fetching
               events containing traces.
 
-          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+          max_root_span_id: DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+              favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+              the 'cursor' argument going forwards.
+
+              Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
               Since a paginated fetch query returns results in order from latest to earliest,
               the cursor for the next page can be found as the row with the minimum (earliest)
               value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
               for an overview of paginating fetch queries.
 
-          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+          max_xact_id: DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+              favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+              the 'cursor' argument going forwards.
+
+              Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
               Since a paginated fetch query returns results in order from latest to earliest,
               the cursor for the next page can be found as the row with the minimum (earliest)
@@ -438,6 +470,7 @@ class AsyncLogsResource(AsyncAPIResource):
         self,
         project_id: str,
         *,
+        cursor: Optional[str] | NotGiven = NOT_GIVEN,
         filters: Optional[Iterable[log_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -458,6 +491,12 @@ class AsyncLogsResource(AsyncAPIResource):
         Args:
           project_id: Project id
 
+          cursor: An opaque string to be used as a cursor for the next page of results, in order
+              from latest to earliest.
+
+              The string can be obtained directly from the `cursor` property of the previous
+              fetch query
+
           filters: A list of filters on the events to fetch. Currently, only path-lookup type
               filters are supported, but we may add more in the future
 
@@ -476,14 +515,22 @@ class AsyncLogsResource(AsyncAPIResource):
               end up with more individual rows than the specified limit if you are fetching
               events containing traces.
 
-          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+          max_root_span_id: DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+              favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+              the 'cursor' argument going forwards.
+
+              Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
               Since a paginated fetch query returns results in order from latest to earliest,
               the cursor for the next page can be found as the row with the minimum (earliest)
               value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
               for an overview of paginating fetch queries.
 
-          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+          max_xact_id: DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+              favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+              the 'cursor' argument going forwards.
+
+              Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
               Since a paginated fetch query returns results in order from latest to earliest,
               the cursor for the next page can be found as the row with the minimum (earliest)
@@ -510,6 +557,7 @@ class AsyncLogsResource(AsyncAPIResource):
             f"/v1/project_logs/{project_id}/fetch",
             body=await async_maybe_transform(
                 {
+                    "cursor": cursor,
                     "filters": filters,
                     "limit": limit,
                     "max_root_span_id": max_root_span_id,

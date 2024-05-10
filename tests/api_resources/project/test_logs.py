@@ -123,6 +123,7 @@ class TestLogs:
     def test_method_fetch_post_with_all_params(self, client: Braintrust) -> None:
         log = client.project.logs.fetch_post(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            cursor="string",
             filters=[
                 {
                     "type": "path_lookup",
@@ -326,6 +327,7 @@ class TestAsyncLogs:
     async def test_method_fetch_post_with_all_params(self, async_client: AsyncBraintrust) -> None:
         log = await async_client.project.logs.fetch_post(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            cursor="string",
             filters=[
                 {
                     "type": "path_lookup",

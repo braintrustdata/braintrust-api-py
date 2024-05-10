@@ -14,6 +14,7 @@ from ..types import (
     dataset_update_params,
     dataset_replace_params,
     dataset_feedback_params,
+    dataset_summarize_params,
     dataset_fetch_post_params,
 )
 from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
@@ -37,6 +38,7 @@ from .._base_client import (
 from ..types.dataset import Dataset
 from ..types.dataset_fetch_response import DatasetFetchResponse
 from ..types.dataset_insert_response import DatasetInsertResponse
+from ..types.dataset_summarize_response import DatasetSummarizeResponse
 from ..types.dataset_fetch_post_response import DatasetFetchPostResponse
 
 __all__ = ["DatasetResource", "AsyncDatasetResource"]
@@ -378,14 +380,22 @@ class DatasetResource(SyncAPIResource):
               end up with more individual rows than the specified limit if you are fetching
               events containing traces.
 
-          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+          max_root_span_id: DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+              favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+              the 'cursor' argument going forwards.
+
+              Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
               Since a paginated fetch query returns results in order from latest to earliest,
               the cursor for the next page can be found as the row with the minimum (earliest)
               value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
               for an overview of paginating fetch queries.
 
-          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+          max_xact_id: DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+              favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+              the 'cursor' argument going forwards.
+
+              Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
               Since a paginated fetch query returns results in order from latest to earliest,
               the cursor for the next page can be found as the row with the minimum (earliest)
@@ -432,6 +442,7 @@ class DatasetResource(SyncAPIResource):
         self,
         dataset_id: str,
         *,
+        cursor: Optional[str] | NotGiven = NOT_GIVEN,
         filters: Optional[Iterable[dataset_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -452,6 +463,12 @@ class DatasetResource(SyncAPIResource):
         Args:
           dataset_id: Dataset id
 
+          cursor: An opaque string to be used as a cursor for the next page of results, in order
+              from latest to earliest.
+
+              The string can be obtained directly from the `cursor` property of the previous
+              fetch query
+
           filters: A list of filters on the events to fetch. Currently, only path-lookup type
               filters are supported, but we may add more in the future
 
@@ -470,14 +487,22 @@ class DatasetResource(SyncAPIResource):
               end up with more individual rows than the specified limit if you are fetching
               events containing traces.
 
-          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+          max_root_span_id: DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+              favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+              the 'cursor' argument going forwards.
+
+              Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
               Since a paginated fetch query returns results in order from latest to earliest,
               the cursor for the next page can be found as the row with the minimum (earliest)
               value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
               for an overview of paginating fetch queries.
 
-          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+          max_xact_id: DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+              favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+              the 'cursor' argument going forwards.
+
+              Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
               Since a paginated fetch query returns results in order from latest to earliest,
               the cursor for the next page can be found as the row with the minimum (earliest)
@@ -504,6 +529,7 @@ class DatasetResource(SyncAPIResource):
             f"/v1/dataset/{dataset_id}/fetch",
             body=maybe_transform(
                 {
+                    "cursor": cursor,
                     "filters": filters,
                     "limit": limit,
                     "max_root_span_id": max_root_span_id,
@@ -606,6 +632,51 @@ class DatasetResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Dataset,
+        )
+
+    def summarize(
+        self,
+        dataset_id: str,
+        *,
+        summarize_data: bool | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> DatasetSummarizeResponse:
+        """
+        Summarize dataset
+
+        Args:
+          dataset_id: Dataset id
+
+          summarize_data: Whether to summarize the data. If false (or omitted), only the metadata will be
+              returned.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not dataset_id:
+            raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
+        return self._get(
+            f"/v1/dataset/{dataset_id}/summarize",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"summarize_data": summarize_data}, dataset_summarize_params.DatasetSummarizeParams
+                ),
+            ),
+            cast_to=DatasetSummarizeResponse,
         )
 
 
@@ -945,14 +1016,22 @@ class AsyncDatasetResource(AsyncAPIResource):
               end up with more individual rows than the specified limit if you are fetching
               events containing traces.
 
-          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+          max_root_span_id: DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+              favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+              the 'cursor' argument going forwards.
+
+              Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
               Since a paginated fetch query returns results in order from latest to earliest,
               the cursor for the next page can be found as the row with the minimum (earliest)
               value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
               for an overview of paginating fetch queries.
 
-          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+          max_xact_id: DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+              favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+              the 'cursor' argument going forwards.
+
+              Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
               Since a paginated fetch query returns results in order from latest to earliest,
               the cursor for the next page can be found as the row with the minimum (earliest)
@@ -999,6 +1078,7 @@ class AsyncDatasetResource(AsyncAPIResource):
         self,
         dataset_id: str,
         *,
+        cursor: Optional[str] | NotGiven = NOT_GIVEN,
         filters: Optional[Iterable[dataset_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -1019,6 +1099,12 @@ class AsyncDatasetResource(AsyncAPIResource):
         Args:
           dataset_id: Dataset id
 
+          cursor: An opaque string to be used as a cursor for the next page of results, in order
+              from latest to earliest.
+
+              The string can be obtained directly from the `cursor` property of the previous
+              fetch query
+
           filters: A list of filters on the events to fetch. Currently, only path-lookup type
               filters are supported, but we may add more in the future
 
@@ -1037,14 +1123,22 @@ class AsyncDatasetResource(AsyncAPIResource):
               end up with more individual rows than the specified limit if you are fetching
               events containing traces.
 
-          max_root_span_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+          max_root_span_id: DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+              favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+              the 'cursor' argument going forwards.
+
+              Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
               Since a paginated fetch query returns results in order from latest to earliest,
               the cursor for the next page can be found as the row with the minimum (earliest)
               value of the tuple `(_xact_id, root_span_id)`. See the documentation of `limit`
               for an overview of paginating fetch queries.
 
-          max_xact_id: Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
+          max_xact_id: DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
+              favor of the explicit 'cursor' returned by object fetch requests. Please prefer
+              the 'cursor' argument going forwards.
+
+              Together, `max_xact_id` and `max_root_span_id` form a pagination cursor
 
               Since a paginated fetch query returns results in order from latest to earliest,
               the cursor for the next page can be found as the row with the minimum (earliest)
@@ -1071,6 +1165,7 @@ class AsyncDatasetResource(AsyncAPIResource):
             f"/v1/dataset/{dataset_id}/fetch",
             body=await async_maybe_transform(
                 {
+                    "cursor": cursor,
                     "filters": filters,
                     "limit": limit,
                     "max_root_span_id": max_root_span_id,
@@ -1175,6 +1270,51 @@ class AsyncDatasetResource(AsyncAPIResource):
             cast_to=Dataset,
         )
 
+    async def summarize(
+        self,
+        dataset_id: str,
+        *,
+        summarize_data: bool | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> DatasetSummarizeResponse:
+        """
+        Summarize dataset
+
+        Args:
+          dataset_id: Dataset id
+
+          summarize_data: Whether to summarize the data. If false (or omitted), only the metadata will be
+              returned.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not dataset_id:
+            raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
+        return await self._get(
+            f"/v1/dataset/{dataset_id}/summarize",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"summarize_data": summarize_data}, dataset_summarize_params.DatasetSummarizeParams
+                ),
+            ),
+            cast_to=DatasetSummarizeResponse,
+        )
+
 
 class DatasetResourceWithRawResponse:
     def __init__(self, dataset: DatasetResource) -> None:
@@ -1209,6 +1349,9 @@ class DatasetResourceWithRawResponse:
         )
         self.replace = to_raw_response_wrapper(
             dataset.replace,
+        )
+        self.summarize = to_raw_response_wrapper(
+            dataset.summarize,
         )
 
 
@@ -1246,6 +1389,9 @@ class AsyncDatasetResourceWithRawResponse:
         self.replace = async_to_raw_response_wrapper(
             dataset.replace,
         )
+        self.summarize = async_to_raw_response_wrapper(
+            dataset.summarize,
+        )
 
 
 class DatasetResourceWithStreamingResponse:
@@ -1282,6 +1428,9 @@ class DatasetResourceWithStreamingResponse:
         self.replace = to_streamed_response_wrapper(
             dataset.replace,
         )
+        self.summarize = to_streamed_response_wrapper(
+            dataset.summarize,
+        )
 
 
 class AsyncDatasetResourceWithStreamingResponse:
@@ -1317,4 +1466,7 @@ class AsyncDatasetResourceWithStreamingResponse:
         )
         self.replace = async_to_streamed_response_wrapper(
             dataset.replace,
+        )
+        self.summarize = async_to_streamed_response_wrapper(
+            dataset.summarize,
         )

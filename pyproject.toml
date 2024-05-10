@@ -39,8 +39,8 @@ classifiers = [
 
 
 [project.urls]
-Homepage = "https://github.com/stainless-sdks/manugoyal/braintrust-sdk-kotlin-python"
-Repository = "https://github.com/stainless-sdks/manugoyal/braintrust-sdk-kotlin-python"
+Homepage = "https://github.com/stainless-sdks/braintrust-sdk-kotlin-python"
+Repository = "https://github.com/stainless-sdks/braintrust-sdk-kotlin-python"
 
 
 

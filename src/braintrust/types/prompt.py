@@ -265,7 +265,7 @@ class PromptDataPromptUnionMember1(BaseModel):
 
 
 class PromptDataPrompt_ReservedOnlyAllowNull(BaseModel):
-    api_reserved_only_allow_null: object = FieldInfo(alias="__reserved_only_allow_null")
+    api_reserved_only_allow_null: Dict[str, object] = FieldInfo(alias="__reserved_only_allow_null")
     """This is just a placeholder nullable object.
 
     Only pass null, not the object itself
