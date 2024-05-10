@@ -3,28 +3,22 @@
 from __future__ import annotations
 
 from typing import Union, Optional
-from typing_extensions import Literal, Required, Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = [
     "ACLCreateParams",
     "CreateUserPermissionACL",
     "CreateUserPermissionACLRestrictObjectType",
-    "CreateUserPermissionACLRestrictObjectType_ReservedOnlyAllowNull",
-    "CreateUserPermissionACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull",
+    "CreateUserPermissionACLRestrictObjectTypeUnionMember1",
     "CreateUserRoleACL",
     "CreateUserRoleACLRestrictObjectType",
-    "CreateUserRoleACLRestrictObjectType_ReservedOnlyAllowNull",
-    "CreateUserRoleACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull",
+    "CreateUserRoleACLRestrictObjectTypeUnionMember1",
     "CreateGroupPermissionACL",
     "CreateGroupPermissionACLRestrictObjectType",
-    "CreateGroupPermissionACLRestrictObjectType_ReservedOnlyAllowNull",
-    "CreateGroupPermissionACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull",
+    "CreateGroupPermissionACLRestrictObjectTypeUnionMember1",
     "CreateGroupRoleACL",
     "CreateGroupRoleACLRestrictObjectType",
-    "CreateGroupRoleACLRestrictObjectType_ReservedOnlyAllowNull",
-    "CreateGroupRoleACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull",
+    "CreateGroupRoleACLRestrictObjectTypeUnionMember1",
 ]
 
 
@@ -60,21 +54,8 @@ class CreateUserPermissionACL(TypedDict, total=False):
     """Optionally restricts the permission grant to just the specified object type"""
 
 
-class CreateUserPermissionACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull(TypedDict, total=False):
+class CreateUserPermissionACLRestrictObjectTypeUnionMember1(TypedDict, total=False):
     pass
-
-
-class CreateUserPermissionACLRestrictObjectType_ReservedOnlyAllowNull(TypedDict, total=False):
-    _reserved_only_allow_null: Required[
-        Annotated[
-            CreateUserPermissionACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull,
-            PropertyInfo(alias="__reserved_only_allow_null"),
-        ]
-    ]
-    """This is just a placeholder nullable object.
-
-    Only pass null, not the object itself
-    """
 
 
 CreateUserPermissionACLRestrictObjectType = Union[
@@ -90,7 +71,7 @@ CreateUserPermissionACLRestrictObjectType = Union[
         "group",
         "role",
     ],
-    Optional[CreateUserPermissionACLRestrictObjectType_ReservedOnlyAllowNull],
+    Optional[CreateUserPermissionACLRestrictObjectTypeUnionMember1],
 ]
 
 
@@ -124,21 +105,8 @@ class CreateUserRoleACL(TypedDict, total=False):
     """Optionally restricts the permission grant to just the specified object type"""
 
 
-class CreateUserRoleACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull(TypedDict, total=False):
+class CreateUserRoleACLRestrictObjectTypeUnionMember1(TypedDict, total=False):
     pass
-
-
-class CreateUserRoleACLRestrictObjectType_ReservedOnlyAllowNull(TypedDict, total=False):
-    _reserved_only_allow_null: Required[
-        Annotated[
-            CreateUserRoleACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull,
-            PropertyInfo(alias="__reserved_only_allow_null"),
-        ]
-    ]
-    """This is just a placeholder nullable object.
-
-    Only pass null, not the object itself
-    """
 
 
 CreateUserRoleACLRestrictObjectType = Union[
@@ -154,7 +122,7 @@ CreateUserRoleACLRestrictObjectType = Union[
         "group",
         "role",
     ],
-    Optional[CreateUserRoleACLRestrictObjectType_ReservedOnlyAllowNull],
+    Optional[CreateUserRoleACLRestrictObjectTypeUnionMember1],
 ]
 
 
@@ -190,21 +158,8 @@ class CreateGroupPermissionACL(TypedDict, total=False):
     """Optionally restricts the permission grant to just the specified object type"""
 
 
-class CreateGroupPermissionACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull(TypedDict, total=False):
+class CreateGroupPermissionACLRestrictObjectTypeUnionMember1(TypedDict, total=False):
     pass
-
-
-class CreateGroupPermissionACLRestrictObjectType_ReservedOnlyAllowNull(TypedDict, total=False):
-    _reserved_only_allow_null: Required[
-        Annotated[
-            CreateGroupPermissionACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull,
-            PropertyInfo(alias="__reserved_only_allow_null"),
-        ]
-    ]
-    """This is just a placeholder nullable object.
-
-    Only pass null, not the object itself
-    """
 
 
 CreateGroupPermissionACLRestrictObjectType = Union[
@@ -220,7 +175,7 @@ CreateGroupPermissionACLRestrictObjectType = Union[
         "group",
         "role",
     ],
-    Optional[CreateGroupPermissionACLRestrictObjectType_ReservedOnlyAllowNull],
+    Optional[CreateGroupPermissionACLRestrictObjectTypeUnionMember1],
 ]
 
 
@@ -254,21 +209,8 @@ class CreateGroupRoleACL(TypedDict, total=False):
     """Optionally restricts the permission grant to just the specified object type"""
 
 
-class CreateGroupRoleACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull(TypedDict, total=False):
+class CreateGroupRoleACLRestrictObjectTypeUnionMember1(TypedDict, total=False):
     pass
-
-
-class CreateGroupRoleACLRestrictObjectType_ReservedOnlyAllowNull(TypedDict, total=False):
-    _reserved_only_allow_null: Required[
-        Annotated[
-            CreateGroupRoleACLRestrictObjectType_ReservedOnlyAllowNull_ReservedOnlyAllowNull,
-            PropertyInfo(alias="__reserved_only_allow_null"),
-        ]
-    ]
-    """This is just a placeholder nullable object.
-
-    Only pass null, not the object itself
-    """
 
 
 CreateGroupRoleACLRestrictObjectType = Union[
@@ -284,7 +226,7 @@ CreateGroupRoleACLRestrictObjectType = Union[
         "group",
         "role",
     ],
-    Optional[CreateGroupRoleACLRestrictObjectType_ReservedOnlyAllowNull],
+    Optional[CreateGroupRoleACLRestrictObjectTypeUnionMember1],
 ]
 
 ACLCreateParams = Union[CreateUserPermissionACL, CreateUserRoleACL, CreateGroupPermissionACL, CreateGroupRoleACL]
