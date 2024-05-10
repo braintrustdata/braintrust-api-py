@@ -39,8 +39,7 @@ __all__ = [
     "PromptDataPromptUnionMember1MessageUnionMember2ToolCallFunction",
     "PromptDataPromptUnionMember1MessageUnionMember3",
     "PromptDataPromptUnionMember1MessageUnionMember4",
-    "PromptDataPrompt_ReservedOnlyAllowNull",
-    "PromptDataPrompt_ReservedOnlyAllowNull_ReservedOnlyAllowNull",
+    "PromptDataPromptUnionMember2",
 ]
 
 
@@ -284,25 +283,12 @@ class PromptDataPromptUnionMember1(TypedDict, total=False):
     tools: str
 
 
-class PromptDataPrompt_ReservedOnlyAllowNull_ReservedOnlyAllowNull(TypedDict, total=False):
+class PromptDataPromptUnionMember2(TypedDict, total=False):
     pass
 
 
-class PromptDataPrompt_ReservedOnlyAllowNull(TypedDict, total=False):
-    _reserved_only_allow_null: Required[
-        Annotated[
-            PromptDataPrompt_ReservedOnlyAllowNull_ReservedOnlyAllowNull,
-            PropertyInfo(alias="__reserved_only_allow_null"),
-        ]
-    ]
-    """This is just a placeholder nullable object.
-
-    Only pass null, not the object itself
-    """
-
-
 PromptDataPrompt = Union[
-    PromptDataPromptUnionMember0, PromptDataPromptUnionMember1, Optional[PromptDataPrompt_ReservedOnlyAllowNull]
+    PromptDataPromptUnionMember0, PromptDataPromptUnionMember1, Optional[PromptDataPromptUnionMember2]
 ]
 
 

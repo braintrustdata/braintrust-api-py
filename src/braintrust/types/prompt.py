@@ -40,8 +40,7 @@ __all__ = [
     "PromptDataPromptUnionMember1MessageUnionMember2ToolCallFunction",
     "PromptDataPromptUnionMember1MessageUnionMember3",
     "PromptDataPromptUnionMember1MessageUnionMember4",
-    "PromptDataPrompt_ReservedOnlyAllowNull",
-    "PromptDataPrompt_ReservedOnlyAllowNull_ReservedOnlyAllowNull",
+    "PromptDataPromptUnionMember2",
 ]
 
 
@@ -265,22 +264,12 @@ class PromptDataPromptUnionMember1(BaseModel):
     tools: Optional[str] = None
 
 
-class PromptDataPrompt_ReservedOnlyAllowNull_ReservedOnlyAllowNull(BaseModel):
+class PromptDataPromptUnionMember2(BaseModel):
     pass
 
 
-class PromptDataPrompt_ReservedOnlyAllowNull(BaseModel):
-    api_reserved_only_allow_null: PromptDataPrompt_ReservedOnlyAllowNull_ReservedOnlyAllowNull = FieldInfo(
-        alias="__reserved_only_allow_null"
-    )
-    """This is just a placeholder nullable object.
-
-    Only pass null, not the object itself
-    """
-
-
 PromptDataPrompt = Union[
-    PromptDataPromptUnionMember0, PromptDataPromptUnionMember1, Optional[PromptDataPrompt_ReservedOnlyAllowNull]
+    PromptDataPromptUnionMember0, PromptDataPromptUnionMember1, Optional[PromptDataPromptUnionMember2]
 ]
 
 
