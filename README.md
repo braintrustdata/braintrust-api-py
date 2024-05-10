@@ -29,7 +29,9 @@ The full API of this library can be found in [api.md](api.md).
 ```python
 from braintrust import Braintrust
 
-client = Braintrust()
+client = Braintrust(
+    base_url="My Base URL",
+)
 
 project = client.project.create(
     name="string",
@@ -50,15 +52,15 @@ Simply import `AsyncBraintrust` instead of `Braintrust` and use `await` with eac
 import asyncio
 from braintrust import AsyncBraintrust
 
-client = AsyncBraintrust()
-
+client = AsyncBraintrust(
+    base_url="My Base URL",
+)
 
 async def main() -> None:
-    project = await client.project.create(
-        name="string",
-    )
-    print(project.id)
-
+  project = await client.project.create(
+      name="string",
+  )
+  print(project.id)
 
 asyncio.run(main())
 ```
@@ -83,7 +85,9 @@ This library provides auto-paginating iterators with each list response, so you 
 ```python
 import braintrust
 
-client = Braintrust()
+client = Braintrust(
+    base_url="My Base URL",
+)
 
 all_projects = []
 # Automatically fetches more pages as needed.
@@ -99,8 +103,9 @@ Or, asynchronously:
 import asyncio
 import braintrust
 
-client = AsyncBraintrust()
-
+client = AsyncBraintrust(
+    base_url="My Base URL",
+)
 
 async def main() -> None:
     all_projects = []
@@ -108,7 +113,6 @@ async def main() -> None:
     async for project in client.project.list():
         all_projects.append(project)
     print(all_projects)
-
 
 asyncio.run(main())
 ```
@@ -130,7 +134,7 @@ Or just work directly with the returned data:
 ```python
 first_page = await client.project.list()
 
-print(f"next page cursor: {first_page.starting_after}")  # => "next page cursor: ..."
+print(f"next page cursor: {first_page.starting_after}") # => "next page cursor: ..."
 for project in first_page.objects:
     print(project.id)
 
@@ -150,7 +154,9 @@ All errors inherit from `braintrust.APIError`.
 import braintrust
 from braintrust import Braintrust
 
-client = Braintrust()
+client = Braintrust(
+    base_url="My Base URL",
+)
 
 try:
     client.project.create(
@@ -158,7 +164,7 @@ try:
     )
 except braintrust.APIConnectionError as e:
     print("The server could not be reached")
-    print(e.__cause__)  # an underlying Exception, likely raised within httpx.
+    print(e.__cause__) # an underlying Exception, likely raised within httpx.
 except braintrust.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
 except braintrust.APIStatusError as e:
@@ -195,10 +201,11 @@ from braintrust import Braintrust
 client = Braintrust(
     # default is 2
     max_retries=0,
+    base_url="My Base URL",
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).project.create(
+client.with_options(max_retries = 5).project.create(
     name="string",
 )
 ```
@@ -215,15 +222,17 @@ from braintrust import Braintrust
 client = Braintrust(
     # 20 seconds (default is 1 minute)
     timeout=20.0,
+    base_url="My Base URL",
 )
 
 # More granular control:
 client = Braintrust(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
+    base_url="My Base URL",
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).project.create(
+client.with_options(timeout = 5.0).project.create(
     name="string",
 )
 ```
@@ -263,7 +272,9 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 ```py
 from braintrust import Braintrust
 
-client = Braintrust()
+client = Braintrust(
+    base_url="My Base URL",
+)
 response = client.project.with_raw_response.create(
     name="string",
 )
@@ -286,11 +297,11 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 ```python
 with client.project.with_streaming_response.create(
     name="string",
-) as response:
-    print(response.headers.get("X-My-Header"))
+) as response :
+    print(response.headers.get('X-My-Header'))
 
     for line in response.iter_lines():
-        print(line)
+      print(line)
 ```
 
 The context manager is required so that the response will reliably be closed.
@@ -344,10 +355,8 @@ from braintrust import Braintrust, DefaultHttpxClient
 client = Braintrust(
     # Or use the `BRAINTRUST_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
-    http_client=DefaultHttpxClient(
-        proxies="http://my.test.proxy.example.com",
-        transport=httpx.HTTPTransport(local_address="0.0.0.0"),
-    ),
+    http_client=DefaultHttpxClient(proxies="http://my.test.proxy.example.com", transport=httpx.HTTPTransport(local_address="0.0.0.0")),
+    base_url="My Base URL",
 )
 ```
 

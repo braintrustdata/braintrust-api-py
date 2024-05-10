@@ -2,35 +2,49 @@
 
 from __future__ import annotations
 
-import gc
-import os
-import json
+import httpx
+
+from braintrust import Braintrust, AsyncBraintrust
+
+from braintrust._exceptions import APITimeoutError, APIStatusError, APIResponseValidationError
+
+from typing import Any, cast
+
+from pydantic import ValidationError
+
 import asyncio
+import gc
 import inspect
+import json
+import os
 import tracemalloc
-from typing import Any, Union, cast
+from typing import Dict, Any, Union, cast
 from unittest import mock
 
 import httpx
 import pytest
 from respx import MockRouter
-from pydantic import ValidationError
 
 from braintrust import Braintrust, AsyncBraintrust, APIResponseValidationError
-from braintrust._models import BaseModel, FinalRequestOptions
-from braintrust._constants import RAW_RESPONSE_HEADER
-from braintrust._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
+from braintrust._models import FinalRequestOptions, BaseModel
+from braintrust._types import NOT_GIVEN, Headers, NotGiven, Query, Body, Timeout, Omit
 from braintrust._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
     BaseClient,
+    RequestOptions,
     make_request_options,
 )
-
+from braintrust._streaming import Stream, AsyncStream
+from braintrust._constants import RAW_RESPONSE_HEADER
+from braintrust._response import APIResponse, AsyncAPIResponse
 from .utils import update_env
+from typing import cast
+from typing import cast
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 api_key = "My API Key"
+base_url = "My Base URL"
 
 
 def _get_params(client: BaseClient[Any, Any]) -> dict[str, str]:
@@ -81,6 +95,10 @@ class TestBraintrust:
         copied = self.client.copy(api_key="another My API Key")
         assert copied.api_key == "another My API Key"
         assert self.client.api_key == "My API Key"
+
+        copied = self.client.copy(base_url="another My Base URL")
+        assert copied.base_url == "another My Base URL"
+        assert self.client.base_url == "My Base URL"
 
     def test_copy_default_options(self) -> None:
         # options that have a default are overridden correctly
@@ -763,6 +781,10 @@ class TestAsyncBraintrust:
         copied = self.client.copy(api_key="another My API Key")
         assert copied.api_key == "another My API Key"
         assert self.client.api_key == "My API Key"
+
+        copied = self.client.copy(base_url="another My Base URL")
+        assert copied.base_url == "another My Base URL"
+        assert self.client.base_url == "My Base URL"
 
     def test_copy_default_options(self) -> None:
         # options that have a default are overridden correctly

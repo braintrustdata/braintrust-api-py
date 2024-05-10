@@ -2,44 +2,66 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
-
 import httpx
 
-from ..types import (
-    experiment_list_params,
-    experiment_fetch_params,
-    experiment_create_params,
-    experiment_insert_params,
-    experiment_update_params,
-    experiment_replace_params,
-    experiment_feedback_params,
-    experiment_summarize_params,
-    experiment_fetch_post_params,
-)
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
-from .._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
 from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
+
+from ..types.experiment import Experiment
+
+from .._utils import maybe_transform, async_maybe_transform
+
+from typing import Optional, Dict, Union, List, Iterable
+
+from ..pagination import SyncListObjects, AsyncListObjects
+
+from ..types.experiment_fetch_response import ExperimentFetchResponse
+
+from ..types.experiment_fetch_post_response import ExperimentFetchPostResponse
+
+from ..types.experiment_insert_response import ExperimentInsertResponse
+
+from ..types.experiment_summarize_response import ExperimentSummarizeResponse
+
 from .._response import (
     to_raw_response_wrapper,
-    to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
+    to_streamed_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncListObjects, AsyncListObjects
+
+from ..types import (
+    experiment_create_params,
+    experiment_update_params,
+    experiment_feedback_params,
+    experiment_fetch_post_params,
+    experiment_insert_params,
+    experiment_replace_params,
+)
+
+import warnings
+from typing import TYPE_CHECKING, Optional, Union, List, Dict, Any, Mapping, cast, overload
+from typing_extensions import Literal
+from .._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
+from .._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
+from .._resource import SyncAPIResource, AsyncAPIResource
 from .._base_client import (
+    SyncAPIClient,
+    AsyncAPIClient,
+    _merge_mappings,
     AsyncPaginator,
     make_request_options,
+    HttpxBinaryResponseContent,
 )
-from ..types.experiment import Experiment
-from ..types.experiment_fetch_response import ExperimentFetchResponse
-from ..types.experiment_insert_response import ExperimentInsertResponse
-from ..types.experiment_summarize_response import ExperimentSummarizeResponse
-from ..types.experiment_fetch_post_response import ExperimentFetchPostResponse
+from ..types import shared_params
+from ..types import experiment_create_params
+from ..types import experiment_update_params
+from ..types import experiment_list_params
+from ..types import experiment_feedback_params
+from ..types import experiment_fetch_params
+from ..types import experiment_fetch_post_params
+from ..types import experiment_insert_params
+from ..types import experiment_replace_params
+from ..types import experiment_summarize_params
 
 __all__ = ["ExperimentResource", "AsyncExperimentResource"]
 

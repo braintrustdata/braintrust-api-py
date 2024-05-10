@@ -2,8 +2,15 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
-from typing_extensions import Literal, TypedDict
+from typing_extensions import TypedDict, Literal
+
+from typing import Optional, List
+
+from typing import List, Union, Dict, Optional
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from .._types import FileTypes
+from .._utils import PropertyInfo
+from ..types import shared_params
 
 __all__ = ["RoleUpdateParams"]
 
