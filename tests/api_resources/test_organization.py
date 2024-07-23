@@ -59,25 +59,25 @@ class TestOrganization:
     @parametrize
     def test_method_update(self, client: Braintrust) -> None:
         organization = client.organization.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(Organization, organization, path=["response"])
 
     @parametrize
     def test_method_update_with_all_params(self, client: Braintrust) -> None:
         organization = client.organization.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            api_url="string",
-            name="string",
-            proxy_url="string",
-            realtime_url="string",
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            api_url="api_url",
+            name="name",
+            proxy_url="proxy_url",
+            realtime_url="realtime_url",
         )
         assert_matches_type(Organization, organization, path=["response"])
 
     @parametrize
     def test_raw_response_update(self, client: Braintrust) -> None:
         response = client.organization.with_raw_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -88,7 +88,7 @@ class TestOrganization:
     @parametrize
     def test_streaming_response_update(self, client: Braintrust) -> None:
         with client.organization.with_streaming_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -102,7 +102,7 @@ class TestOrganization:
     def test_path_params_update(self, client: Braintrust) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `organization_id` but received ''"):
             client.organization.with_raw_response.update(
-                "",
+                organization_id="",
             )
 
     @parametrize
@@ -116,8 +116,8 @@ class TestOrganization:
             ending_before="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             ids="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
-            org_name="string",
-            organization_name="string",
+            org_name="org_name",
+            organization_name="organization_name",
             starting_after="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(SyncListObjects[Organization], organization, path=["response"])
@@ -225,25 +225,25 @@ class TestAsyncOrganization:
     @parametrize
     async def test_method_update(self, async_client: AsyncBraintrust) -> None:
         organization = await async_client.organization.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(Organization, organization, path=["response"])
 
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncBraintrust) -> None:
         organization = await async_client.organization.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            api_url="string",
-            name="string",
-            proxy_url="string",
-            realtime_url="string",
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            api_url="api_url",
+            name="name",
+            proxy_url="proxy_url",
+            realtime_url="realtime_url",
         )
         assert_matches_type(Organization, organization, path=["response"])
 
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.organization.with_raw_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -254,7 +254,7 @@ class TestAsyncOrganization:
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncBraintrust) -> None:
         async with async_client.organization.with_streaming_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -268,7 +268,7 @@ class TestAsyncOrganization:
     async def test_path_params_update(self, async_client: AsyncBraintrust) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `organization_id` but received ''"):
             await async_client.organization.with_raw_response.update(
-                "",
+                organization_id="",
             )
 
     @parametrize
@@ -282,8 +282,8 @@ class TestAsyncOrganization:
             ending_before="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             ids="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
-            org_name="string",
-            organization_name="string",
+            org_name="org_name",
+            organization_name="organization_name",
             starting_after="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(AsyncListObjects[Organization], organization, path=["response"])

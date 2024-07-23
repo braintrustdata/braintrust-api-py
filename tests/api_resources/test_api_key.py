@@ -21,22 +21,22 @@ class TestAPIKey:
     @parametrize
     def test_method_create(self, client: Braintrust) -> None:
         api_key = client.api_key.create(
-            name="string",
+            name="name",
         )
         assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
 
     @parametrize
     def test_method_create_with_all_params(self, client: Braintrust) -> None:
         api_key = client.api_key.create(
-            name="string",
-            org_name="string",
+            name="name",
+            org_name="org_name",
         )
         assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
 
     @parametrize
     def test_raw_response_create(self, client: Braintrust) -> None:
         response = client.api_key.with_raw_response.create(
-            name="string",
+            name="name",
         )
 
         assert response.is_closed is True
@@ -47,7 +47,7 @@ class TestAPIKey:
     @parametrize
     def test_streaming_response_create(self, client: Braintrust) -> None:
         with client.api_key.with_streaming_response.create(
-            name="string",
+            name="name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -103,11 +103,11 @@ class TestAPIKey:
     @parametrize
     def test_method_list_with_all_params(self, client: Braintrust) -> None:
         api_key = client.api_key.list(
-            api_key_name="string",
+            api_key_name="api_key_name",
             ending_before="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             ids="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
-            org_name="string",
+            org_name="org_name",
             starting_after="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(SyncListObjects[APIKey], api_key, path=["response"])
@@ -177,22 +177,22 @@ class TestAsyncAPIKey:
     @parametrize
     async def test_method_create(self, async_client: AsyncBraintrust) -> None:
         api_key = await async_client.api_key.create(
-            name="string",
+            name="name",
         )
         assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
 
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncBraintrust) -> None:
         api_key = await async_client.api_key.create(
-            name="string",
-            org_name="string",
+            name="name",
+            org_name="org_name",
         )
         assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.api_key.with_raw_response.create(
-            name="string",
+            name="name",
         )
 
         assert response.is_closed is True
@@ -203,7 +203,7 @@ class TestAsyncAPIKey:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncBraintrust) -> None:
         async with async_client.api_key.with_streaming_response.create(
-            name="string",
+            name="name",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -259,11 +259,11 @@ class TestAsyncAPIKey:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncBraintrust) -> None:
         api_key = await async_client.api_key.list(
-            api_key_name="string",
+            api_key_name="api_key_name",
             ending_before="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             ids="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
-            org_name="string",
+            org_name="org_name",
             starting_after="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(AsyncListObjects[APIKey], api_key, path=["response"])

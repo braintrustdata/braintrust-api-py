@@ -19,10 +19,7 @@ from .._response import (
 )
 from ..pagination import SyncListObjects, AsyncListObjects
 from ..types.user import User
-from .._base_client import (
-    AsyncPaginator,
-    make_request_options,
-)
+from .._base_client import AsyncPaginator, make_request_options
 
 __all__ = ["UserResource", "AsyncUserResource"]
 
