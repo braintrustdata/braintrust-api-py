@@ -39,8 +39,8 @@ classifiers = [
 
 
 [project.urls]
-Homepage = "https://github.com/braintrustdata/braintrust-api-python"
-Repository = "https://github.com/braintrustdata/braintrust-api-python"
+Homepage = "https://github.com/braintrustdata/braintrust-api-py"
+Repository = "https://github.com/braintrustdata/braintrust-api-py"
 
 
 
@@ -124,7 +124,7 @@ path = "README.md"
 [[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
 # replace relative links with absolute links
 pattern = '\[(.+?)\]\(((?!https?://)\S+?)\)'
-replacement = '[\1](https://github.com/braintrustdata/braintrust-api-python/tree/main/\g<2>)'
+replacement = '[\1](https://github.com/braintrustdata/braintrust-api-py/tree/main/\g<2>)'
 
 [tool.black]
 line-length = 120

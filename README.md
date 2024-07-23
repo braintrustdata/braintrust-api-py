@@ -78,7 +78,7 @@ List methods in the Braintrust API are paginated.
 This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
 
 ```python
-import braintrust
+from braintrust import Braintrust
 
 client = Braintrust()
 
@@ -94,7 +94,7 @@ Or, asynchronously:
 
 ```python
 import asyncio
-import braintrust
+from braintrust import AsyncBraintrust
 
 client = AsyncBraintrust()
 
@@ -270,9 +270,9 @@ project = response.parse()  # get the object that `project.create()` would have 
 print(project.id)
 ```
 
-These methods return an [`APIResponse`](https://github.com/braintrustdata/braintrust-api-python/tree/main/src/braintrust/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/braintrustdata/braintrust-api-py/tree/main/src/braintrust/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/braintrustdata/braintrust-api-python/tree/main/src/braintrust/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/braintrustdata/braintrust-api-py/tree/main/src/braintrust/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -348,6 +348,12 @@ client = Braintrust(
 )
 ```
 
+You can also customize the client on a per-request basis by using `with_options()`:
+
+```python
+client.with_options(http_client=DefaultHttpxClient(...))
+```
+
 ### Managing HTTP resources
 
 By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
@@ -362,7 +368,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/braintrustdata/braintrust-api-python/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/braintrustdata/braintrust-api-py/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 
