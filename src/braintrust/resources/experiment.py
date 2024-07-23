@@ -12,7 +12,6 @@ from ..types import (
     experiment_create_params,
     experiment_insert_params,
     experiment_update_params,
-    experiment_replace_params,
     experiment_feedback_params,
     experiment_summarize_params,
     experiment_fetch_post_params,
@@ -642,91 +641,6 @@ class ExperimentResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=ExperimentInsertResponse,
-        )
-
-    def replace(
-        self,
-        *,
-        project_id: str,
-        base_exp_id: Optional[str] | NotGiven = NOT_GIVEN,
-        dataset_id: Optional[str] | NotGiven = NOT_GIVEN,
-        dataset_version: Optional[str] | NotGiven = NOT_GIVEN,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        ensure_new: Optional[bool] | NotGiven = NOT_GIVEN,
-        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        public: Optional[bool] | NotGiven = NOT_GIVEN,
-        repo_info: Optional[experiment_replace_params.RepoInfo] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Experiment:
-        """
-        NOTE: This operation is deprecated and will be removed in a future revision of
-        the API. Create or replace a new experiment. If there is an existing experiment
-        in the project with the same name as the one specified in the request, will
-        return the existing experiment unmodified, will replace the existing experiment
-        with the provided fields
-
-        Args:
-          project_id: Unique identifier for the project that the experiment belongs under
-
-          base_exp_id: Id of default base experiment to compare against when viewing this experiment
-
-          dataset_id: Identifier of the linked dataset, or null if the experiment is not linked to a
-              dataset
-
-          dataset_version: Version number of the linked dataset the experiment was run against. This can be
-              used to reproduce the experiment after the dataset has been modified.
-
-          description: Textual description of the experiment
-
-          ensure_new: Normally, creating an experiment with the same name as an existing experiment
-              will return the existing one un-modified. But if `ensure_new` is true,
-              registration will generate a new experiment with a unique name in case of a
-              conflict.
-
-          metadata: User-controlled metadata about the experiment
-
-          name: Name of the experiment. Within a project, experiment names are unique
-
-          public: Whether or not the experiment is public. Public experiments can be viewed by
-              anybody inside or outside the organization
-
-          repo_info: Metadata about the state of the repo when the experiment was created
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._put(
-            "/v1/experiment",
-            body=maybe_transform(
-                {
-                    "project_id": project_id,
-                    "base_exp_id": base_exp_id,
-                    "dataset_id": dataset_id,
-                    "dataset_version": dataset_version,
-                    "description": description,
-                    "ensure_new": ensure_new,
-                    "metadata": metadata,
-                    "name": name,
-                    "public": public,
-                    "repo_info": repo_info,
-                },
-                experiment_replace_params.ExperimentReplaceParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Experiment,
         )
 
     def summarize(
@@ -1387,91 +1301,6 @@ class AsyncExperimentResource(AsyncAPIResource):
             cast_to=ExperimentInsertResponse,
         )
 
-    async def replace(
-        self,
-        *,
-        project_id: str,
-        base_exp_id: Optional[str] | NotGiven = NOT_GIVEN,
-        dataset_id: Optional[str] | NotGiven = NOT_GIVEN,
-        dataset_version: Optional[str] | NotGiven = NOT_GIVEN,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        ensure_new: Optional[bool] | NotGiven = NOT_GIVEN,
-        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        public: Optional[bool] | NotGiven = NOT_GIVEN,
-        repo_info: Optional[experiment_replace_params.RepoInfo] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Experiment:
-        """
-        NOTE: This operation is deprecated and will be removed in a future revision of
-        the API. Create or replace a new experiment. If there is an existing experiment
-        in the project with the same name as the one specified in the request, will
-        return the existing experiment unmodified, will replace the existing experiment
-        with the provided fields
-
-        Args:
-          project_id: Unique identifier for the project that the experiment belongs under
-
-          base_exp_id: Id of default base experiment to compare against when viewing this experiment
-
-          dataset_id: Identifier of the linked dataset, or null if the experiment is not linked to a
-              dataset
-
-          dataset_version: Version number of the linked dataset the experiment was run against. This can be
-              used to reproduce the experiment after the dataset has been modified.
-
-          description: Textual description of the experiment
-
-          ensure_new: Normally, creating an experiment with the same name as an existing experiment
-              will return the existing one un-modified. But if `ensure_new` is true,
-              registration will generate a new experiment with a unique name in case of a
-              conflict.
-
-          metadata: User-controlled metadata about the experiment
-
-          name: Name of the experiment. Within a project, experiment names are unique
-
-          public: Whether or not the experiment is public. Public experiments can be viewed by
-              anybody inside or outside the organization
-
-          repo_info: Metadata about the state of the repo when the experiment was created
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._put(
-            "/v1/experiment",
-            body=await async_maybe_transform(
-                {
-                    "project_id": project_id,
-                    "base_exp_id": base_exp_id,
-                    "dataset_id": dataset_id,
-                    "dataset_version": dataset_version,
-                    "description": description,
-                    "ensure_new": ensure_new,
-                    "metadata": metadata,
-                    "name": name,
-                    "public": public,
-                    "repo_info": repo_info,
-                },
-                experiment_replace_params.ExperimentReplaceParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Experiment,
-        )
-
     async def summarize(
         self,
         experiment_id: str,
@@ -1559,9 +1388,6 @@ class ExperimentResourceWithRawResponse:
         self.insert = to_raw_response_wrapper(
             experiment.insert,
         )
-        self.replace = to_raw_response_wrapper(
-            experiment.replace,
-        )
         self.summarize = to_raw_response_wrapper(
             experiment.summarize,
         )
@@ -1597,9 +1423,6 @@ class AsyncExperimentResourceWithRawResponse:
         )
         self.insert = async_to_raw_response_wrapper(
             experiment.insert,
-        )
-        self.replace = async_to_raw_response_wrapper(
-            experiment.replace,
         )
         self.summarize = async_to_raw_response_wrapper(
             experiment.summarize,
@@ -1637,9 +1460,6 @@ class ExperimentResourceWithStreamingResponse:
         self.insert = to_streamed_response_wrapper(
             experiment.insert,
         )
-        self.replace = to_streamed_response_wrapper(
-            experiment.replace,
-        )
         self.summarize = to_streamed_response_wrapper(
             experiment.summarize,
         )
@@ -1675,9 +1495,6 @@ class AsyncExperimentResourceWithStreamingResponse:
         )
         self.insert = async_to_streamed_response_wrapper(
             experiment.insert,
-        )
-        self.replace = async_to_streamed_response_wrapper(
-            experiment.replace,
         )
         self.summarize = async_to_streamed_response_wrapper(
             experiment.summarize,

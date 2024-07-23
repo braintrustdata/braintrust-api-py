@@ -9,18 +9,20 @@ __all__ = ["GroupUpdateParams"]
 
 
 class GroupUpdateParams(TypedDict, total=False):
+    add_member_groups: Optional[List[str]]
+    """A list of group IDs to add to the group's inheriting-from set"""
+
+    add_member_users: Optional[List[str]]
+    """A list of user IDs to add to the group"""
+
     description: Optional[str]
     """Textual description of the group"""
 
-    member_groups: Optional[List[str]]
-    """Ids of the groups this group inherits from
-
-    An inheriting group has all the users contained in its member groups, as well as
-    all of their inherited users
-    """
-
-    member_users: Optional[List[str]]
-    """Ids of users which belong to this group"""
-
     name: Optional[str]
     """Name of the group"""
+
+    remove_member_groups: Optional[List[str]]
+    """A list of group IDs to remove from the group's inheriting-from set"""
+
+    remove_member_users: Optional[List[str]]
+    """A list of user IDs to remove from the group"""

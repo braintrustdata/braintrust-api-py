@@ -251,11 +251,10 @@ class PromptResource(SyncAPIResource):
               pass `starting_after=foo` to fetch the next page. Note: you may only pass one of
               `starting_after` and `ending_before`
 
-          version: Retrieve a snapshot of events from a past time
+          version: Retrieve prompt at a specific version.
 
-              The version id is essentially a filter on the latest event transaction id. You
-              can use the `max_xact_id` returned by a past fetch as the version to reproduce
-              that exact fetch.
+              The version id can either be a transaction id (e.g. '1000192656880881099') or a
+              version identifier (e.g. '81cd05ee665fdfb3').
 
           extra_headers: Send extra headers
 
@@ -382,12 +381,11 @@ class PromptResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Prompt:
-        """
-        NOTE: This operation is deprecated and will be removed in a future revision of
-        the API. Create or replace a new prompt. If there is an existing prompt in the
-        project with the same slug as the one specified in the request, will return the
-        existing prompt unmodified, will replace the existing prompt with the provided
-        fields
+        """Create or replace prompt.
+
+        If there is an existing prompt in the project with the
+        same slug as the one specified in the request, will replace the existing prompt
+        with the provided fields
 
         Args:
           name: Name of the prompt
@@ -645,11 +643,10 @@ class AsyncPromptResource(AsyncAPIResource):
               pass `starting_after=foo` to fetch the next page. Note: you may only pass one of
               `starting_after` and `ending_before`
 
-          version: Retrieve a snapshot of events from a past time
+          version: Retrieve prompt at a specific version.
 
-              The version id is essentially a filter on the latest event transaction id. You
-              can use the `max_xact_id` returned by a past fetch as the version to reproduce
-              that exact fetch.
+              The version id can either be a transaction id (e.g. '1000192656880881099') or a
+              version identifier (e.g. '81cd05ee665fdfb3').
 
           extra_headers: Send extra headers
 
@@ -776,12 +773,11 @@ class AsyncPromptResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Prompt:
-        """
-        NOTE: This operation is deprecated and will be removed in a future revision of
-        the API. Create or replace a new prompt. If there is an existing prompt in the
-        project with the same slug as the one specified in the request, will return the
-        existing prompt unmodified, will replace the existing prompt with the provided
-        fields
+        """Create or replace prompt.
+
+        If there is an existing prompt in the project with the
+        same slug as the one specified in the request, will replace the existing prompt
+        with the provided fields
 
         Args:
           name: Name of the prompt

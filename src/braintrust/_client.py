@@ -55,6 +55,12 @@ class Braintrust(SyncAPIClient):
     group: resources.GroupResource
     acl: resources.ACLResource
     user: resources.UserResource
+    project_score: resources.ProjectScoreResource
+    project_tag: resources.ProjectTagResource
+    function: resources.FunctionResource
+    view: resources.ViewResource
+    organization: resources.OrganizationResource
+    api_key: resources.APIKeyResource
     with_raw_response: BraintrustWithRawResponse
     with_streaming_response: BraintrustWithStreamedResponse
 
@@ -121,6 +127,12 @@ class Braintrust(SyncAPIClient):
         self.group = resources.GroupResource(self)
         self.acl = resources.ACLResource(self)
         self.user = resources.UserResource(self)
+        self.project_score = resources.ProjectScoreResource(self)
+        self.project_tag = resources.ProjectTagResource(self)
+        self.function = resources.FunctionResource(self)
+        self.view = resources.ViewResource(self)
+        self.organization = resources.OrganizationResource(self)
+        self.api_key = resources.APIKeyResource(self)
         self.with_raw_response = BraintrustWithRawResponse(self)
         self.with_streaming_response = BraintrustWithStreamedResponse(self)
 
@@ -239,6 +251,12 @@ class AsyncBraintrust(AsyncAPIClient):
     group: resources.AsyncGroupResource
     acl: resources.AsyncACLResource
     user: resources.AsyncUserResource
+    project_score: resources.AsyncProjectScoreResource
+    project_tag: resources.AsyncProjectTagResource
+    function: resources.AsyncFunctionResource
+    view: resources.AsyncViewResource
+    organization: resources.AsyncOrganizationResource
+    api_key: resources.AsyncAPIKeyResource
     with_raw_response: AsyncBraintrustWithRawResponse
     with_streaming_response: AsyncBraintrustWithStreamedResponse
 
@@ -305,6 +323,12 @@ class AsyncBraintrust(AsyncAPIClient):
         self.group = resources.AsyncGroupResource(self)
         self.acl = resources.AsyncACLResource(self)
         self.user = resources.AsyncUserResource(self)
+        self.project_score = resources.AsyncProjectScoreResource(self)
+        self.project_tag = resources.AsyncProjectTagResource(self)
+        self.function = resources.AsyncFunctionResource(self)
+        self.view = resources.AsyncViewResource(self)
+        self.organization = resources.AsyncOrganizationResource(self)
+        self.api_key = resources.AsyncAPIKeyResource(self)
         self.with_raw_response = AsyncBraintrustWithRawResponse(self)
         self.with_streaming_response = AsyncBraintrustWithStreamedResponse(self)
 
@@ -424,6 +448,12 @@ class BraintrustWithRawResponse:
         self.group = resources.GroupResourceWithRawResponse(client.group)
         self.acl = resources.ACLResourceWithRawResponse(client.acl)
         self.user = resources.UserResourceWithRawResponse(client.user)
+        self.project_score = resources.ProjectScoreResourceWithRawResponse(client.project_score)
+        self.project_tag = resources.ProjectTagResourceWithRawResponse(client.project_tag)
+        self.function = resources.FunctionResourceWithRawResponse(client.function)
+        self.view = resources.ViewResourceWithRawResponse(client.view)
+        self.organization = resources.OrganizationResourceWithRawResponse(client.organization)
+        self.api_key = resources.APIKeyResourceWithRawResponse(client.api_key)
 
 
 class AsyncBraintrustWithRawResponse:
@@ -437,6 +467,12 @@ class AsyncBraintrustWithRawResponse:
         self.group = resources.AsyncGroupResourceWithRawResponse(client.group)
         self.acl = resources.AsyncACLResourceWithRawResponse(client.acl)
         self.user = resources.AsyncUserResourceWithRawResponse(client.user)
+        self.project_score = resources.AsyncProjectScoreResourceWithRawResponse(client.project_score)
+        self.project_tag = resources.AsyncProjectTagResourceWithRawResponse(client.project_tag)
+        self.function = resources.AsyncFunctionResourceWithRawResponse(client.function)
+        self.view = resources.AsyncViewResourceWithRawResponse(client.view)
+        self.organization = resources.AsyncOrganizationResourceWithRawResponse(client.organization)
+        self.api_key = resources.AsyncAPIKeyResourceWithRawResponse(client.api_key)
 
 
 class BraintrustWithStreamedResponse:
@@ -450,6 +486,12 @@ class BraintrustWithStreamedResponse:
         self.group = resources.GroupResourceWithStreamingResponse(client.group)
         self.acl = resources.ACLResourceWithStreamingResponse(client.acl)
         self.user = resources.UserResourceWithStreamingResponse(client.user)
+        self.project_score = resources.ProjectScoreResourceWithStreamingResponse(client.project_score)
+        self.project_tag = resources.ProjectTagResourceWithStreamingResponse(client.project_tag)
+        self.function = resources.FunctionResourceWithStreamingResponse(client.function)
+        self.view = resources.ViewResourceWithStreamingResponse(client.view)
+        self.organization = resources.OrganizationResourceWithStreamingResponse(client.organization)
+        self.api_key = resources.APIKeyResourceWithStreamingResponse(client.api_key)
 
 
 class AsyncBraintrustWithStreamedResponse:
@@ -463,6 +505,12 @@ class AsyncBraintrustWithStreamedResponse:
         self.group = resources.AsyncGroupResourceWithStreamingResponse(client.group)
         self.acl = resources.AsyncACLResourceWithStreamingResponse(client.acl)
         self.user = resources.AsyncUserResourceWithStreamingResponse(client.user)
+        self.project_score = resources.AsyncProjectScoreResourceWithStreamingResponse(client.project_score)
+        self.project_tag = resources.AsyncProjectTagResourceWithStreamingResponse(client.project_tag)
+        self.function = resources.AsyncFunctionResourceWithStreamingResponse(client.function)
+        self.view = resources.AsyncViewResourceWithStreamingResponse(client.view)
+        self.organization = resources.AsyncOrganizationResourceWithStreamingResponse(client.organization)
+        self.api_key = resources.AsyncAPIKeyResourceWithStreamingResponse(client.api_key)
 
 
 Client = Braintrust

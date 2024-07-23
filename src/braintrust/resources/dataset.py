@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
+from typing import Dict, List, Union, Iterable, Optional
 
 import httpx
 
@@ -12,7 +12,6 @@ from ..types import (
     dataset_create_params,
     dataset_insert_params,
     dataset_update_params,
-    dataset_replace_params,
     dataset_feedback_params,
     dataset_summarize_params,
     dataset_fetch_post_params,
@@ -143,6 +142,7 @@ class DatasetResource(SyncAPIResource):
         dataset_id: str,
         *,
         description: Optional[str] | NotGiven = NOT_GIVEN,
+        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -162,6 +162,8 @@ class DatasetResource(SyncAPIResource):
 
           description: Textual description of the dataset
 
+          metadata: User-controlled metadata about the dataset
+
           name: Name of the dataset. Within a project, dataset names are unique
 
           extra_headers: Send extra headers
@@ -179,6 +181,7 @@ class DatasetResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "description": description,
+                    "metadata": metadata,
                     "name": name,
                 },
                 dataset_update_params.DatasetUpdateParams,
@@ -583,57 +586,6 @@ class DatasetResource(SyncAPIResource):
             cast_to=DatasetInsertResponse,
         )
 
-    def replace(
-        self,
-        *,
-        name: str,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        project_id: Optional[str] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Dataset:
-        """
-        NOTE: This operation is deprecated and will be removed in a future revision of
-        the API. Create or replace a new dataset. If there is an existing dataset in the
-        project with the same name as the one specified in the request, will return the
-        existing dataset unmodified, will replace the existing dataset with the provided
-        fields
-
-        Args:
-          name: Name of the dataset. Within a project, dataset names are unique
-
-          description: Textual description of the dataset
-
-          project_id: Unique identifier for the project that the dataset belongs under
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._put(
-            "/v1/dataset",
-            body=maybe_transform(
-                {
-                    "name": name,
-                    "description": description,
-                    "project_id": project_id,
-                },
-                dataset_replace_params.DatasetReplaceParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Dataset,
-        )
-
     def summarize(
         self,
         dataset_id: str,
@@ -779,6 +731,7 @@ class AsyncDatasetResource(AsyncAPIResource):
         dataset_id: str,
         *,
         description: Optional[str] | NotGiven = NOT_GIVEN,
+        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -798,6 +751,8 @@ class AsyncDatasetResource(AsyncAPIResource):
 
           description: Textual description of the dataset
 
+          metadata: User-controlled metadata about the dataset
+
           name: Name of the dataset. Within a project, dataset names are unique
 
           extra_headers: Send extra headers
@@ -815,6 +770,7 @@ class AsyncDatasetResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "description": description,
+                    "metadata": metadata,
                     "name": name,
                 },
                 dataset_update_params.DatasetUpdateParams,
@@ -1219,57 +1175,6 @@ class AsyncDatasetResource(AsyncAPIResource):
             cast_to=DatasetInsertResponse,
         )
 
-    async def replace(
-        self,
-        *,
-        name: str,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        project_id: Optional[str] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Dataset:
-        """
-        NOTE: This operation is deprecated and will be removed in a future revision of
-        the API. Create or replace a new dataset. If there is an existing dataset in the
-        project with the same name as the one specified in the request, will return the
-        existing dataset unmodified, will replace the existing dataset with the provided
-        fields
-
-        Args:
-          name: Name of the dataset. Within a project, dataset names are unique
-
-          description: Textual description of the dataset
-
-          project_id: Unique identifier for the project that the dataset belongs under
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._put(
-            "/v1/dataset",
-            body=await async_maybe_transform(
-                {
-                    "name": name,
-                    "description": description,
-                    "project_id": project_id,
-                },
-                dataset_replace_params.DatasetReplaceParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Dataset,
-        )
-
     async def summarize(
         self,
         dataset_id: str,
@@ -1347,9 +1252,6 @@ class DatasetResourceWithRawResponse:
         self.insert = to_raw_response_wrapper(
             dataset.insert,
         )
-        self.replace = to_raw_response_wrapper(
-            dataset.replace,
-        )
         self.summarize = to_raw_response_wrapper(
             dataset.summarize,
         )
@@ -1385,9 +1287,6 @@ class AsyncDatasetResourceWithRawResponse:
         )
         self.insert = async_to_raw_response_wrapper(
             dataset.insert,
-        )
-        self.replace = async_to_raw_response_wrapper(
-            dataset.replace,
         )
         self.summarize = async_to_raw_response_wrapper(
             dataset.summarize,
@@ -1425,9 +1324,6 @@ class DatasetResourceWithStreamingResponse:
         self.insert = to_streamed_response_wrapper(
             dataset.insert,
         )
-        self.replace = to_streamed_response_wrapper(
-            dataset.replace,
-        )
         self.summarize = to_streamed_response_wrapper(
             dataset.summarize,
         )
@@ -1463,9 +1359,6 @@ class AsyncDatasetResourceWithStreamingResponse:
         )
         self.insert = async_to_streamed_response_wrapper(
             dataset.insert,
-        )
-        self.replace = async_to_streamed_response_wrapper(
-            dataset.replace,
         )
         self.summarize = async_to_streamed_response_wrapper(
             dataset.summarize,

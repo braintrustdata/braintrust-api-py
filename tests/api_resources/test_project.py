@@ -107,6 +107,7 @@ class TestProject:
         project = client.project.update(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="string",
+            settings={"comparison_key": "string"},
         )
         assert_matches_type(Project, project, path=["response"])
 
@@ -216,45 +217,6 @@ class TestProject:
                 "",
             )
 
-    @parametrize
-    def test_method_replace(self, client: Braintrust) -> None:
-        project = client.project.replace(
-            name="string",
-        )
-        assert_matches_type(Project, project, path=["response"])
-
-    @parametrize
-    def test_method_replace_with_all_params(self, client: Braintrust) -> None:
-        project = client.project.replace(
-            name="string",
-            org_name="string",
-        )
-        assert_matches_type(Project, project, path=["response"])
-
-    @parametrize
-    def test_raw_response_replace(self, client: Braintrust) -> None:
-        response = client.project.with_raw_response.replace(
-            name="string",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        project = response.parse()
-        assert_matches_type(Project, project, path=["response"])
-
-    @parametrize
-    def test_streaming_response_replace(self, client: Braintrust) -> None:
-        with client.project.with_streaming_response.replace(
-            name="string",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            project = response.parse()
-            assert_matches_type(Project, project, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
 
 class TestAsyncProject:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
@@ -348,6 +310,7 @@ class TestAsyncProject:
         project = await async_client.project.update(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="string",
+            settings={"comparison_key": "string"},
         )
         assert_matches_type(Project, project, path=["response"])
 
@@ -456,42 +419,3 @@ class TestAsyncProject:
             await async_client.project.with_raw_response.delete(
                 "",
             )
-
-    @parametrize
-    async def test_method_replace(self, async_client: AsyncBraintrust) -> None:
-        project = await async_client.project.replace(
-            name="string",
-        )
-        assert_matches_type(Project, project, path=["response"])
-
-    @parametrize
-    async def test_method_replace_with_all_params(self, async_client: AsyncBraintrust) -> None:
-        project = await async_client.project.replace(
-            name="string",
-            org_name="string",
-        )
-        assert_matches_type(Project, project, path=["response"])
-
-    @parametrize
-    async def test_raw_response_replace(self, async_client: AsyncBraintrust) -> None:
-        response = await async_client.project.with_raw_response.replace(
-            name="string",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        project = await response.parse()
-        assert_matches_type(Project, project, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_replace(self, async_client: AsyncBraintrust) -> None:
-        async with async_client.project.with_streaming_response.replace(
-            name="string",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            project = await response.parse()
-            assert_matches_type(Project, project, path=["response"])
-
-        assert cast(Any, response.is_closed) is True

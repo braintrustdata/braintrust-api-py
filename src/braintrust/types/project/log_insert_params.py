@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 from typing import Dict, List, Union, Iterable, Optional
-from typing_extensions import Literal, Required, TypedDict
+from datetime import datetime
+from typing_extensions import Literal, Required, Annotated, TypedDict
+
+from ..._utils import PropertyInfo
 
 __all__ = [
     "LogInsertParams",
@@ -116,7 +119,7 @@ class EventInsertProjectLogsEventReplace(TypedDict, total=False):
 
     It cannot be specified alongside `_is_merge=true`. Tracking hierarchical
     relationships are important for tracing (see the
-    [guide](https://www.braintrustdata.com/docs/guides/tracing) for full details).
+    [guide](https://www.braintrust.dev/docs/guides/tracing) for full details).
 
     For example, say we have logged a row
     `{"id": "abc", "input": "foo", "output": "bar", "expected": "boo", "scores": {"correctness": 0.33}}`.
@@ -134,6 +137,9 @@ class EventInsertProjectLogsEventReplace(TypedDict, total=False):
     `caller_*` attributes to track the location in code which produced the project
     logs event
     """
+
+    created: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """The timestamp the project logs event was created"""
 
     expected: object
     """
@@ -306,6 +312,9 @@ class EventInsertProjectLogsEventMerge(TypedDict, total=False):
     `caller_*` attributes to track the location in code which produced the project
     logs event
     """
+
+    created: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """The timestamp the project logs event was created"""
 
     expected: object
     """

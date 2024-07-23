@@ -21,10 +21,11 @@ class ACLCreateParams(TypedDict, total=False):
                 "dataset",
                 "prompt",
                 "prompt_session",
-                "project_score",
-                "project_tag",
                 "group",
                 "role",
+                "org_member",
+                "project_log",
+                "org_project",
             ]
         ]
     ]
@@ -52,13 +53,17 @@ class ACLCreateParams(TypedDict, total=False):
             "dataset",
             "prompt",
             "prompt_session",
-            "project_score",
-            "project_tag",
             "group",
             "role",
+            "org_member",
+            "project_log",
+            "org_project",
         ]
     ]
-    """Optionally restricts the permission grant to just the specified object type"""
+    """
+    When setting a permission directly, optionally restricts the permission grant to
+    just the specified object type. Cannot be set alongside a `role_id`.
+    """
 
     role_id: Optional[str]
     """Id of the role the ACL grants.

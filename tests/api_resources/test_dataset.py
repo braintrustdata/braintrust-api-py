@@ -114,6 +114,7 @@ class TestDataset:
         dataset = client.dataset.update(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             description="string",
+            metadata={"foo": {}},
             name="string",
         )
         assert_matches_type(Dataset, dataset, path=["response"])
@@ -426,46 +427,6 @@ class TestDataset:
             )
 
     @parametrize
-    def test_method_replace(self, client: Braintrust) -> None:
-        dataset = client.dataset.replace(
-            name="string",
-        )
-        assert_matches_type(Dataset, dataset, path=["response"])
-
-    @parametrize
-    def test_method_replace_with_all_params(self, client: Braintrust) -> None:
-        dataset = client.dataset.replace(
-            name="string",
-            description="string",
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(Dataset, dataset, path=["response"])
-
-    @parametrize
-    def test_raw_response_replace(self, client: Braintrust) -> None:
-        response = client.dataset.with_raw_response.replace(
-            name="string",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        dataset = response.parse()
-        assert_matches_type(Dataset, dataset, path=["response"])
-
-    @parametrize
-    def test_streaming_response_replace(self, client: Braintrust) -> None:
-        with client.dataset.with_streaming_response.replace(
-            name="string",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            dataset = response.parse()
-            assert_matches_type(Dataset, dataset, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
     def test_method_summarize(self, client: Braintrust) -> None:
         dataset = client.dataset.summarize(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -605,6 +566,7 @@ class TestAsyncDataset:
         dataset = await async_client.dataset.update(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             description="string",
+            metadata={"foo": {}},
             name="string",
         )
         assert_matches_type(Dataset, dataset, path=["response"])
@@ -915,46 +877,6 @@ class TestAsyncDataset:
                 "",
                 events=[{}, {}, {}],
             )
-
-    @parametrize
-    async def test_method_replace(self, async_client: AsyncBraintrust) -> None:
-        dataset = await async_client.dataset.replace(
-            name="string",
-        )
-        assert_matches_type(Dataset, dataset, path=["response"])
-
-    @parametrize
-    async def test_method_replace_with_all_params(self, async_client: AsyncBraintrust) -> None:
-        dataset = await async_client.dataset.replace(
-            name="string",
-            description="string",
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(Dataset, dataset, path=["response"])
-
-    @parametrize
-    async def test_raw_response_replace(self, async_client: AsyncBraintrust) -> None:
-        response = await async_client.dataset.with_raw_response.replace(
-            name="string",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        dataset = await response.parse()
-        assert_matches_type(Dataset, dataset, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_replace(self, async_client: AsyncBraintrust) -> None:
-        async with async_client.dataset.with_streaming_response.replace(
-            name="string",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            dataset = await response.parse()
-            assert_matches_type(Dataset, dataset, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_method_summarize(self, async_client: AsyncBraintrust) -> None:

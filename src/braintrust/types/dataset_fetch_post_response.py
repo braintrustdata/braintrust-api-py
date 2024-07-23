@@ -38,8 +38,8 @@ class Event(BaseModel):
     """
     A unique identifier used to link different dataset events together as part of a
     full trace. See the
-    [tracing guide](https://www.braintrustdata.com/docs/guides/tracing) for full
-    details on tracing
+    [tracing guide](https://www.braintrust.dev/docs/guides/tracing) for full details
+    on tracing
     """
 
     expected: Optional[object] = None

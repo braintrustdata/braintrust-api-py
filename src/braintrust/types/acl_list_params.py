@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import List, Union, Optional
 from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["ACLListParams"]
@@ -21,10 +21,11 @@ class ACLListParams(TypedDict, total=False):
                 "dataset",
                 "prompt",
                 "prompt_session",
-                "project_score",
-                "project_tag",
                 "group",
                 "role",
+                "org_member",
+                "project_log",
+                "org_project",
             ]
         ]
     ]
@@ -36,6 +37,12 @@ class ACLListParams(TypedDict, total=False):
     For example, if the initial item in the last page you fetched had an id of
     `foo`, pass `ending_before=foo` to fetch the previous page. Note: you may only
     pass one of `starting_after` and `ending_before`
+    """
+
+    ids: Union[str, List[str]]
+    """Filter search results to a particular set of object IDs.
+
+    To specify a list of IDs, include the query param multiple times
     """
 
     limit: int

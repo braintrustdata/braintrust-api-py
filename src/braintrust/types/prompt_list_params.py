@@ -47,9 +47,8 @@ class PromptListParams(TypedDict, total=False):
     """
 
     version: str
-    """Retrieve a snapshot of events from a past time
+    """Retrieve prompt at a specific version.
 
-    The version id is essentially a filter on the latest event transaction id. You
-    can use the `max_xact_id` returned by a past fetch as the version to reproduce
-    that exact fetch.
+    The version id can either be a transaction id (e.g. '1000192656880881099') or a
+    version identifier (e.g. '81cd05ee665fdfb3').
     """
