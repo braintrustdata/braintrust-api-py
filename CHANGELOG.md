@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.2.0 (2024-07-23)
+
+Full Changelog: [v0.1.0...v0.2.0](https://github.com/braintrustdata/braintrust-api-py/compare/v0.1.0...v0.2.0)
+
+### Features
+
+* **api:** update via SDK Studio ([c4fffb6](https://github.com/braintrustdata/braintrust-api-py/commit/c4fffb6bb272e76e39ff2fe389d70af34fadb9e5))
+
+
+### Chores
+
+* go live ([#6](https://github.com/braintrustdata/braintrust-api-py/issues/6)) ([14a043a](https://github.com/braintrustdata/braintrust-api-py/commit/14a043a75def8813875602323d1746ad287a8d26))
+
 ## 0.1.0 (2024-07-23)
 
 Full Changelog: [v0.0.1...v0.1.0](https://github.com/braintrustdata/braintrust-api-py/compare/v0.0.1...v0.1.0)
