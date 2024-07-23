@@ -1,13 +1,15 @@
 name: Release Doctor
 on:
   pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
   release_doctor:
     name: release doctor
     runs-on: ubuntu-latest
-    if: github.repository == 'braintrustdata/braintrust-api-python' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || startsWith(github.head_ref, 'release-please') || github.head_ref == 'next')
+    if: github.repository == 'braintrustdata/braintrust-api-py' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || startsWith(github.head_ref, 'release-please') || github.head_ref == 'next')
 
     steps:
       - uses: actions/checkout@v4
@@ -16,5 +18,4 @@ jobs:
         run: |
           bash ./bin/check-release-environment
         env:
-          STAINLESS_API_KEY: ${{ secrets.STAINLESS_API_KEY }}
           PYPI_TOKEN: ${{ secrets.BRAINTRUST_PYPI_TOKEN || secrets.PYPI_TOKEN }}
