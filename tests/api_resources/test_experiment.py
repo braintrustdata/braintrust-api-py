@@ -37,22 +37,22 @@ class TestExperiment:
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             base_exp_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            dataset_version="string",
-            description="string",
+            dataset_version="dataset_version",
+            description="description",
             ensure_new=True,
             metadata={"foo": {}},
-            name="string",
+            name="name",
             public=True,
             repo_info={
-                "commit": "string",
-                "branch": "string",
-                "tag": "string",
+                "commit": "commit",
+                "branch": "branch",
+                "tag": "tag",
                 "dirty": True,
-                "author_name": "string",
-                "author_email": "string",
-                "commit_message": "string",
-                "commit_time": "string",
-                "git_diff": "string",
+                "author_name": "author_name",
+                "author_email": "author_email",
+                "commit_message": "commit_message",
+                "commit_time": "commit_time",
+                "git_diff": "git_diff",
             },
         )
         assert_matches_type(Experiment, experiment, path=["response"])
@@ -122,31 +122,31 @@ class TestExperiment:
     @parametrize
     def test_method_update(self, client: Braintrust) -> None:
         experiment = client.experiment.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(Experiment, experiment, path=["response"])
 
     @parametrize
     def test_method_update_with_all_params(self, client: Braintrust) -> None:
         experiment = client.experiment.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             base_exp_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            dataset_version="string",
-            description="string",
+            dataset_version="dataset_version",
+            description="description",
             metadata={"foo": {}},
-            name="string",
+            name="name",
             public=True,
             repo_info={
-                "commit": "string",
-                "branch": "string",
-                "tag": "string",
+                "commit": "commit",
+                "branch": "branch",
+                "tag": "tag",
                 "dirty": True,
-                "author_name": "string",
-                "author_email": "string",
-                "commit_message": "string",
-                "commit_time": "string",
-                "git_diff": "string",
+                "author_name": "author_name",
+                "author_email": "author_email",
+                "commit_message": "commit_message",
+                "commit_time": "commit_time",
+                "git_diff": "git_diff",
             },
         )
         assert_matches_type(Experiment, experiment, path=["response"])
@@ -154,7 +154,7 @@ class TestExperiment:
     @parametrize
     def test_raw_response_update(self, client: Braintrust) -> None:
         response = client.experiment.with_raw_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -165,7 +165,7 @@ class TestExperiment:
     @parametrize
     def test_streaming_response_update(self, client: Braintrust) -> None:
         with client.experiment.with_streaming_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -179,7 +179,7 @@ class TestExperiment:
     def test_path_params_update(self, client: Braintrust) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
             client.experiment.with_raw_response.update(
-                "",
+                experiment_id="",
             )
 
     @parametrize
@@ -191,11 +191,11 @@ class TestExperiment:
     def test_method_list_with_all_params(self, client: Braintrust) -> None:
         experiment = client.experiment.list(
             ending_before="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            experiment_name="string",
+            experiment_name="experiment_name",
             ids="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
-            org_name="string",
-            project_name="string",
+            org_name="org_name",
+            project_name="project_name",
             starting_after="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(SyncListObjects[Experiment], experiment, path=["response"])
@@ -261,16 +261,16 @@ class TestExperiment:
     @parametrize
     def test_method_feedback(self, client: Braintrust) -> None:
         experiment = client.experiment.feedback(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "string"}, {"id": "string"}, {"id": "string"}],
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
         )
         assert experiment is None
 
     @parametrize
     def test_raw_response_feedback(self, client: Braintrust) -> None:
         response = client.experiment.with_raw_response.feedback(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "string"}, {"id": "string"}, {"id": "string"}],
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
         )
 
         assert response.is_closed is True
@@ -281,8 +281,8 @@ class TestExperiment:
     @parametrize
     def test_streaming_response_feedback(self, client: Braintrust) -> None:
         with client.experiment.with_streaming_response.feedback(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "string"}, {"id": "string"}, {"id": "string"}],
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -296,32 +296,32 @@ class TestExperiment:
     def test_path_params_feedback(self, client: Braintrust) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
             client.experiment.with_raw_response.feedback(
-                "",
-                feedback=[{"id": "string"}, {"id": "string"}, {"id": "string"}],
+                experiment_id="",
+                feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
             )
 
     @parametrize
     def test_method_fetch(self, client: Braintrust) -> None:
         experiment = client.experiment.fetch(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ExperimentFetchResponse, experiment, path=["response"])
 
     @parametrize
     def test_method_fetch_with_all_params(self, client: Braintrust) -> None:
         experiment = client.experiment.fetch(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
-            max_root_span_id="string",
-            max_xact_id="string",
-            version="string",
+            max_root_span_id="max_root_span_id",
+            max_xact_id="max_xact_id",
+            version="version",
         )
         assert_matches_type(ExperimentFetchResponse, experiment, path=["response"])
 
     @parametrize
     def test_raw_response_fetch(self, client: Braintrust) -> None:
         response = client.experiment.with_raw_response.fetch(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -332,7 +332,7 @@ class TestExperiment:
     @parametrize
     def test_streaming_response_fetch(self, client: Braintrust) -> None:
         with client.experiment.with_streaming_response.fetch(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -346,21 +346,21 @@ class TestExperiment:
     def test_path_params_fetch(self, client: Braintrust) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
             client.experiment.with_raw_response.fetch(
-                "",
+                experiment_id="",
             )
 
     @parametrize
     def test_method_fetch_post(self, client: Braintrust) -> None:
         experiment = client.experiment.fetch_post(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ExperimentFetchPostResponse, experiment, path=["response"])
 
     @parametrize
     def test_method_fetch_post_with_all_params(self, client: Braintrust) -> None:
         experiment = client.experiment.fetch_post(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            cursor="string",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            cursor="cursor",
             filters=[
                 {
                     "type": "path_lookup",
@@ -379,16 +379,16 @@ class TestExperiment:
                 },
             ],
             limit=0,
-            max_root_span_id="string",
-            max_xact_id="string",
-            version="string",
+            max_root_span_id="max_root_span_id",
+            max_xact_id="max_xact_id",
+            version="version",
         )
         assert_matches_type(ExperimentFetchPostResponse, experiment, path=["response"])
 
     @parametrize
     def test_raw_response_fetch_post(self, client: Braintrust) -> None:
         response = client.experiment.with_raw_response.fetch_post(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -399,7 +399,7 @@ class TestExperiment:
     @parametrize
     def test_streaming_response_fetch_post(self, client: Braintrust) -> None:
         with client.experiment.with_streaming_response.fetch_post(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -413,13 +413,13 @@ class TestExperiment:
     def test_path_params_fetch_post(self, client: Braintrust) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
             client.experiment.with_raw_response.fetch_post(
-                "",
+                experiment_id="",
             )
 
     @parametrize
     def test_method_insert(self, client: Braintrust) -> None:
         experiment = client.experiment.insert(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             events=[{}, {}, {}],
         )
         assert_matches_type(ExperimentInsertResponse, experiment, path=["response"])
@@ -427,7 +427,7 @@ class TestExperiment:
     @parametrize
     def test_raw_response_insert(self, client: Braintrust) -> None:
         response = client.experiment.with_raw_response.insert(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             events=[{}, {}, {}],
         )
 
@@ -439,7 +439,7 @@ class TestExperiment:
     @parametrize
     def test_streaming_response_insert(self, client: Braintrust) -> None:
         with client.experiment.with_streaming_response.insert(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             events=[{}, {}, {}],
         ) as response:
             assert not response.is_closed
@@ -454,21 +454,21 @@ class TestExperiment:
     def test_path_params_insert(self, client: Braintrust) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
             client.experiment.with_raw_response.insert(
-                "",
+                experiment_id="",
                 events=[{}, {}, {}],
             )
 
     @parametrize
     def test_method_summarize(self, client: Braintrust) -> None:
         experiment = client.experiment.summarize(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ExperimentSummarizeResponse, experiment, path=["response"])
 
     @parametrize
     def test_method_summarize_with_all_params(self, client: Braintrust) -> None:
         experiment = client.experiment.summarize(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             comparison_experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             summarize_scores=True,
         )
@@ -477,7 +477,7 @@ class TestExperiment:
     @parametrize
     def test_raw_response_summarize(self, client: Braintrust) -> None:
         response = client.experiment.with_raw_response.summarize(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -488,7 +488,7 @@ class TestExperiment:
     @parametrize
     def test_streaming_response_summarize(self, client: Braintrust) -> None:
         with client.experiment.with_streaming_response.summarize(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -502,7 +502,7 @@ class TestExperiment:
     def test_path_params_summarize(self, client: Braintrust) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
             client.experiment.with_raw_response.summarize(
-                "",
+                experiment_id="",
             )
 
 
@@ -522,22 +522,22 @@ class TestAsyncExperiment:
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             base_exp_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            dataset_version="string",
-            description="string",
+            dataset_version="dataset_version",
+            description="description",
             ensure_new=True,
             metadata={"foo": {}},
-            name="string",
+            name="name",
             public=True,
             repo_info={
-                "commit": "string",
-                "branch": "string",
-                "tag": "string",
+                "commit": "commit",
+                "branch": "branch",
+                "tag": "tag",
                 "dirty": True,
-                "author_name": "string",
-                "author_email": "string",
-                "commit_message": "string",
-                "commit_time": "string",
-                "git_diff": "string",
+                "author_name": "author_name",
+                "author_email": "author_email",
+                "commit_message": "commit_message",
+                "commit_time": "commit_time",
+                "git_diff": "git_diff",
             },
         )
         assert_matches_type(Experiment, experiment, path=["response"])
@@ -607,31 +607,31 @@ class TestAsyncExperiment:
     @parametrize
     async def test_method_update(self, async_client: AsyncBraintrust) -> None:
         experiment = await async_client.experiment.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(Experiment, experiment, path=["response"])
 
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncBraintrust) -> None:
         experiment = await async_client.experiment.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             base_exp_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            dataset_version="string",
-            description="string",
+            dataset_version="dataset_version",
+            description="description",
             metadata={"foo": {}},
-            name="string",
+            name="name",
             public=True,
             repo_info={
-                "commit": "string",
-                "branch": "string",
-                "tag": "string",
+                "commit": "commit",
+                "branch": "branch",
+                "tag": "tag",
                 "dirty": True,
-                "author_name": "string",
-                "author_email": "string",
-                "commit_message": "string",
-                "commit_time": "string",
-                "git_diff": "string",
+                "author_name": "author_name",
+                "author_email": "author_email",
+                "commit_message": "commit_message",
+                "commit_time": "commit_time",
+                "git_diff": "git_diff",
             },
         )
         assert_matches_type(Experiment, experiment, path=["response"])
@@ -639,7 +639,7 @@ class TestAsyncExperiment:
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.experiment.with_raw_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -650,7 +650,7 @@ class TestAsyncExperiment:
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncBraintrust) -> None:
         async with async_client.experiment.with_streaming_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -664,7 +664,7 @@ class TestAsyncExperiment:
     async def test_path_params_update(self, async_client: AsyncBraintrust) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
             await async_client.experiment.with_raw_response.update(
-                "",
+                experiment_id="",
             )
 
     @parametrize
@@ -676,11 +676,11 @@ class TestAsyncExperiment:
     async def test_method_list_with_all_params(self, async_client: AsyncBraintrust) -> None:
         experiment = await async_client.experiment.list(
             ending_before="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            experiment_name="string",
+            experiment_name="experiment_name",
             ids="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
-            org_name="string",
-            project_name="string",
+            org_name="org_name",
+            project_name="project_name",
             starting_after="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(AsyncListObjects[Experiment], experiment, path=["response"])
@@ -746,16 +746,16 @@ class TestAsyncExperiment:
     @parametrize
     async def test_method_feedback(self, async_client: AsyncBraintrust) -> None:
         experiment = await async_client.experiment.feedback(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "string"}, {"id": "string"}, {"id": "string"}],
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
         )
         assert experiment is None
 
     @parametrize
     async def test_raw_response_feedback(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.experiment.with_raw_response.feedback(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "string"}, {"id": "string"}, {"id": "string"}],
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
         )
 
         assert response.is_closed is True
@@ -766,8 +766,8 @@ class TestAsyncExperiment:
     @parametrize
     async def test_streaming_response_feedback(self, async_client: AsyncBraintrust) -> None:
         async with async_client.experiment.with_streaming_response.feedback(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "string"}, {"id": "string"}, {"id": "string"}],
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -781,32 +781,32 @@ class TestAsyncExperiment:
     async def test_path_params_feedback(self, async_client: AsyncBraintrust) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
             await async_client.experiment.with_raw_response.feedback(
-                "",
-                feedback=[{"id": "string"}, {"id": "string"}, {"id": "string"}],
+                experiment_id="",
+                feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
             )
 
     @parametrize
     async def test_method_fetch(self, async_client: AsyncBraintrust) -> None:
         experiment = await async_client.experiment.fetch(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ExperimentFetchResponse, experiment, path=["response"])
 
     @parametrize
     async def test_method_fetch_with_all_params(self, async_client: AsyncBraintrust) -> None:
         experiment = await async_client.experiment.fetch(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
-            max_root_span_id="string",
-            max_xact_id="string",
-            version="string",
+            max_root_span_id="max_root_span_id",
+            max_xact_id="max_xact_id",
+            version="version",
         )
         assert_matches_type(ExperimentFetchResponse, experiment, path=["response"])
 
     @parametrize
     async def test_raw_response_fetch(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.experiment.with_raw_response.fetch(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -817,7 +817,7 @@ class TestAsyncExperiment:
     @parametrize
     async def test_streaming_response_fetch(self, async_client: AsyncBraintrust) -> None:
         async with async_client.experiment.with_streaming_response.fetch(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -831,21 +831,21 @@ class TestAsyncExperiment:
     async def test_path_params_fetch(self, async_client: AsyncBraintrust) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
             await async_client.experiment.with_raw_response.fetch(
-                "",
+                experiment_id="",
             )
 
     @parametrize
     async def test_method_fetch_post(self, async_client: AsyncBraintrust) -> None:
         experiment = await async_client.experiment.fetch_post(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ExperimentFetchPostResponse, experiment, path=["response"])
 
     @parametrize
     async def test_method_fetch_post_with_all_params(self, async_client: AsyncBraintrust) -> None:
         experiment = await async_client.experiment.fetch_post(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            cursor="string",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            cursor="cursor",
             filters=[
                 {
                     "type": "path_lookup",
@@ -864,16 +864,16 @@ class TestAsyncExperiment:
                 },
             ],
             limit=0,
-            max_root_span_id="string",
-            max_xact_id="string",
-            version="string",
+            max_root_span_id="max_root_span_id",
+            max_xact_id="max_xact_id",
+            version="version",
         )
         assert_matches_type(ExperimentFetchPostResponse, experiment, path=["response"])
 
     @parametrize
     async def test_raw_response_fetch_post(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.experiment.with_raw_response.fetch_post(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -884,7 +884,7 @@ class TestAsyncExperiment:
     @parametrize
     async def test_streaming_response_fetch_post(self, async_client: AsyncBraintrust) -> None:
         async with async_client.experiment.with_streaming_response.fetch_post(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -898,13 +898,13 @@ class TestAsyncExperiment:
     async def test_path_params_fetch_post(self, async_client: AsyncBraintrust) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
             await async_client.experiment.with_raw_response.fetch_post(
-                "",
+                experiment_id="",
             )
 
     @parametrize
     async def test_method_insert(self, async_client: AsyncBraintrust) -> None:
         experiment = await async_client.experiment.insert(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             events=[{}, {}, {}],
         )
         assert_matches_type(ExperimentInsertResponse, experiment, path=["response"])
@@ -912,7 +912,7 @@ class TestAsyncExperiment:
     @parametrize
     async def test_raw_response_insert(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.experiment.with_raw_response.insert(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             events=[{}, {}, {}],
         )
 
@@ -924,7 +924,7 @@ class TestAsyncExperiment:
     @parametrize
     async def test_streaming_response_insert(self, async_client: AsyncBraintrust) -> None:
         async with async_client.experiment.with_streaming_response.insert(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             events=[{}, {}, {}],
         ) as response:
             assert not response.is_closed
@@ -939,21 +939,21 @@ class TestAsyncExperiment:
     async def test_path_params_insert(self, async_client: AsyncBraintrust) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
             await async_client.experiment.with_raw_response.insert(
-                "",
+                experiment_id="",
                 events=[{}, {}, {}],
             )
 
     @parametrize
     async def test_method_summarize(self, async_client: AsyncBraintrust) -> None:
         experiment = await async_client.experiment.summarize(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ExperimentSummarizeResponse, experiment, path=["response"])
 
     @parametrize
     async def test_method_summarize_with_all_params(self, async_client: AsyncBraintrust) -> None:
         experiment = await async_client.experiment.summarize(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             comparison_experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             summarize_scores=True,
         )
@@ -962,7 +962,7 @@ class TestAsyncExperiment:
     @parametrize
     async def test_raw_response_summarize(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.experiment.with_raw_response.summarize(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -973,7 +973,7 @@ class TestAsyncExperiment:
     @parametrize
     async def test_streaming_response_summarize(self, async_client: AsyncBraintrust) -> None:
         async with async_client.experiment.with_streaming_response.summarize(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -987,5 +987,5 @@ class TestAsyncExperiment:
     async def test_path_params_summarize(self, async_client: AsyncBraintrust) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
             await async_client.experiment.with_raw_response.summarize(
-                "",
+                experiment_id="",
             )

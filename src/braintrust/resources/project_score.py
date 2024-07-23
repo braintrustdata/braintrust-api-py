@@ -27,10 +27,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from ..pagination import SyncListObjects, AsyncListObjects
-from .._base_client import (
-    AsyncPaginator,
-    make_request_options,
-)
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.project_score import ProjectScore
 
 __all__ = ["ProjectScoreResource", "AsyncProjectScoreResource"]

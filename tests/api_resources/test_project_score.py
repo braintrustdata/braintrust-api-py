@@ -23,7 +23,7 @@ class TestProjectScore:
     @parametrize
     def test_method_create(self, client: Braintrust) -> None:
         project_score = client.project_score.create(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             score_type="slider",
         )
@@ -32,31 +32,31 @@ class TestProjectScore:
     @parametrize
     def test_method_create_with_all_params(self, client: Braintrust) -> None:
         project_score = client.project_score.create(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             score_type="slider",
             categories=[
                 {
-                    "name": "string",
+                    "name": "name",
                     "value": 0,
                 },
                 {
-                    "name": "string",
+                    "name": "name",
                     "value": 0,
                 },
                 {
-                    "name": "string",
+                    "name": "name",
                     "value": 0,
                 },
             ],
-            description="string",
+            description="description",
         )
         assert_matches_type(ProjectScore, project_score, path=["response"])
 
     @parametrize
     def test_raw_response_create(self, client: Braintrust) -> None:
         response = client.project_score.with_raw_response.create(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             score_type="slider",
         )
@@ -69,7 +69,7 @@ class TestProjectScore:
     @parametrize
     def test_streaming_response_create(self, client: Braintrust) -> None:
         with client.project_score.with_streaming_response.create(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             score_type="slider",
         ) as response:
@@ -122,30 +122,30 @@ class TestProjectScore:
     @parametrize
     def test_method_update(self, client: Braintrust) -> None:
         project_score = client.project_score.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_score_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ProjectScore, project_score, path=["response"])
 
     @parametrize
     def test_method_update_with_all_params(self, client: Braintrust) -> None:
         project_score = client.project_score.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_score_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             categories=[
                 {
-                    "name": "string",
+                    "name": "name",
                     "value": 0,
                 },
                 {
-                    "name": "string",
+                    "name": "name",
                     "value": 0,
                 },
                 {
-                    "name": "string",
+                    "name": "name",
                     "value": 0,
                 },
             ],
-            description="string",
-            name="string",
+            description="description",
+            name="name",
             score_type="slider",
         )
         assert_matches_type(ProjectScore, project_score, path=["response"])
@@ -153,7 +153,7 @@ class TestProjectScore:
     @parametrize
     def test_raw_response_update(self, client: Braintrust) -> None:
         response = client.project_score.with_raw_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_score_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -164,7 +164,7 @@ class TestProjectScore:
     @parametrize
     def test_streaming_response_update(self, client: Braintrust) -> None:
         with client.project_score.with_streaming_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_score_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -178,7 +178,7 @@ class TestProjectScore:
     def test_path_params_update(self, client: Braintrust) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_score_id` but received ''"):
             client.project_score.with_raw_response.update(
-                "",
+                project_score_id="",
             )
 
     @parametrize
@@ -192,9 +192,9 @@ class TestProjectScore:
             ending_before="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             ids="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
-            org_name="string",
-            project_name="string",
-            project_score_name="string",
+            org_name="org_name",
+            project_name="project_name",
+            project_score_name="project_score_name",
             starting_after="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(SyncListObjects[ProjectScore], project_score, path=["response"])
@@ -260,7 +260,7 @@ class TestProjectScore:
     @parametrize
     def test_method_replace(self, client: Braintrust) -> None:
         project_score = client.project_score.replace(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             score_type="slider",
         )
@@ -269,31 +269,31 @@ class TestProjectScore:
     @parametrize
     def test_method_replace_with_all_params(self, client: Braintrust) -> None:
         project_score = client.project_score.replace(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             score_type="slider",
             categories=[
                 {
-                    "name": "string",
+                    "name": "name",
                     "value": 0,
                 },
                 {
-                    "name": "string",
+                    "name": "name",
                     "value": 0,
                 },
                 {
-                    "name": "string",
+                    "name": "name",
                     "value": 0,
                 },
             ],
-            description="string",
+            description="description",
         )
         assert_matches_type(ProjectScore, project_score, path=["response"])
 
     @parametrize
     def test_raw_response_replace(self, client: Braintrust) -> None:
         response = client.project_score.with_raw_response.replace(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             score_type="slider",
         )
@@ -306,7 +306,7 @@ class TestProjectScore:
     @parametrize
     def test_streaming_response_replace(self, client: Braintrust) -> None:
         with client.project_score.with_streaming_response.replace(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             score_type="slider",
         ) as response:
@@ -325,7 +325,7 @@ class TestAsyncProjectScore:
     @parametrize
     async def test_method_create(self, async_client: AsyncBraintrust) -> None:
         project_score = await async_client.project_score.create(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             score_type="slider",
         )
@@ -334,31 +334,31 @@ class TestAsyncProjectScore:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncBraintrust) -> None:
         project_score = await async_client.project_score.create(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             score_type="slider",
             categories=[
                 {
-                    "name": "string",
+                    "name": "name",
                     "value": 0,
                 },
                 {
-                    "name": "string",
+                    "name": "name",
                     "value": 0,
                 },
                 {
-                    "name": "string",
+                    "name": "name",
                     "value": 0,
                 },
             ],
-            description="string",
+            description="description",
         )
         assert_matches_type(ProjectScore, project_score, path=["response"])
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.project_score.with_raw_response.create(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             score_type="slider",
         )
@@ -371,7 +371,7 @@ class TestAsyncProjectScore:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncBraintrust) -> None:
         async with async_client.project_score.with_streaming_response.create(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             score_type="slider",
         ) as response:
@@ -424,30 +424,30 @@ class TestAsyncProjectScore:
     @parametrize
     async def test_method_update(self, async_client: AsyncBraintrust) -> None:
         project_score = await async_client.project_score.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_score_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ProjectScore, project_score, path=["response"])
 
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncBraintrust) -> None:
         project_score = await async_client.project_score.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_score_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             categories=[
                 {
-                    "name": "string",
+                    "name": "name",
                     "value": 0,
                 },
                 {
-                    "name": "string",
+                    "name": "name",
                     "value": 0,
                 },
                 {
-                    "name": "string",
+                    "name": "name",
                     "value": 0,
                 },
             ],
-            description="string",
-            name="string",
+            description="description",
+            name="name",
             score_type="slider",
         )
         assert_matches_type(ProjectScore, project_score, path=["response"])
@@ -455,7 +455,7 @@ class TestAsyncProjectScore:
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.project_score.with_raw_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_score_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -466,7 +466,7 @@ class TestAsyncProjectScore:
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncBraintrust) -> None:
         async with async_client.project_score.with_streaming_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_score_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -480,7 +480,7 @@ class TestAsyncProjectScore:
     async def test_path_params_update(self, async_client: AsyncBraintrust) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_score_id` but received ''"):
             await async_client.project_score.with_raw_response.update(
-                "",
+                project_score_id="",
             )
 
     @parametrize
@@ -494,9 +494,9 @@ class TestAsyncProjectScore:
             ending_before="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             ids="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
-            org_name="string",
-            project_name="string",
-            project_score_name="string",
+            org_name="org_name",
+            project_name="project_name",
+            project_score_name="project_score_name",
             starting_after="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(AsyncListObjects[ProjectScore], project_score, path=["response"])
@@ -562,7 +562,7 @@ class TestAsyncProjectScore:
     @parametrize
     async def test_method_replace(self, async_client: AsyncBraintrust) -> None:
         project_score = await async_client.project_score.replace(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             score_type="slider",
         )
@@ -571,31 +571,31 @@ class TestAsyncProjectScore:
     @parametrize
     async def test_method_replace_with_all_params(self, async_client: AsyncBraintrust) -> None:
         project_score = await async_client.project_score.replace(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             score_type="slider",
             categories=[
                 {
-                    "name": "string",
+                    "name": "name",
                     "value": 0,
                 },
                 {
-                    "name": "string",
+                    "name": "name",
                     "value": 0,
                 },
                 {
-                    "name": "string",
+                    "name": "name",
                     "value": 0,
                 },
             ],
-            description="string",
+            description="description",
         )
         assert_matches_type(ProjectScore, project_score, path=["response"])
 
     @parametrize
     async def test_raw_response_replace(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.project_score.with_raw_response.replace(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             score_type="slider",
         )
@@ -608,7 +608,7 @@ class TestAsyncProjectScore:
     @parametrize
     async def test_streaming_response_replace(self, async_client: AsyncBraintrust) -> None:
         async with async_client.project_score.with_streaming_response.replace(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             score_type="slider",
         ) as response:

@@ -23,10 +23,7 @@ from .._response import (
 )
 from ..types.acl import ACL
 from ..pagination import SyncListObjects, AsyncListObjects
-from .._base_client import (
-    AsyncPaginator,
-    make_request_options,
-)
+from .._base_client import AsyncPaginator, make_request_options
 
 __all__ = ["ACLResource", "AsyncACLResource"]
 

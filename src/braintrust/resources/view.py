@@ -31,10 +31,7 @@ from .._response import (
 )
 from ..pagination import SyncListObjects, AsyncListObjects
 from ..types.view import View
-from .._base_client import (
-    AsyncPaginator,
-    make_request_options,
-)
+from .._base_client import AsyncPaginator, make_request_options
 
 __all__ = ["ViewResource", "AsyncViewResource"]
 

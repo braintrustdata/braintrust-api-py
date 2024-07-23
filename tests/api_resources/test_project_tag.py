@@ -23,7 +23,7 @@ class TestProjectTag:
     @parametrize
     def test_method_create(self, client: Braintrust) -> None:
         project_tag = client.project_tag.create(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ProjectTag, project_tag, path=["response"])
@@ -31,17 +31,17 @@ class TestProjectTag:
     @parametrize
     def test_method_create_with_all_params(self, client: Braintrust) -> None:
         project_tag = client.project_tag.create(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            color="string",
-            description="string",
+            color="color",
+            description="description",
         )
         assert_matches_type(ProjectTag, project_tag, path=["response"])
 
     @parametrize
     def test_raw_response_create(self, client: Braintrust) -> None:
         response = client.project_tag.with_raw_response.create(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -53,7 +53,7 @@ class TestProjectTag:
     @parametrize
     def test_streaming_response_create(self, client: Braintrust) -> None:
         with client.project_tag.with_streaming_response.create(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -105,24 +105,24 @@ class TestProjectTag:
     @parametrize
     def test_method_update(self, client: Braintrust) -> None:
         project_tag = client.project_tag.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_tag_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ProjectTag, project_tag, path=["response"])
 
     @parametrize
     def test_method_update_with_all_params(self, client: Braintrust) -> None:
         project_tag = client.project_tag.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            color="string",
-            description="string",
-            name="string",
+            project_tag_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            color="color",
+            description="description",
+            name="name",
         )
         assert_matches_type(ProjectTag, project_tag, path=["response"])
 
     @parametrize
     def test_raw_response_update(self, client: Braintrust) -> None:
         response = client.project_tag.with_raw_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_tag_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -133,7 +133,7 @@ class TestProjectTag:
     @parametrize
     def test_streaming_response_update(self, client: Braintrust) -> None:
         with client.project_tag.with_streaming_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_tag_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -147,7 +147,7 @@ class TestProjectTag:
     def test_path_params_update(self, client: Braintrust) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_tag_id` but received ''"):
             client.project_tag.with_raw_response.update(
-                "",
+                project_tag_id="",
             )
 
     @parametrize
@@ -161,9 +161,9 @@ class TestProjectTag:
             ending_before="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             ids="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
-            org_name="string",
-            project_name="string",
-            project_tag_name="string",
+            org_name="org_name",
+            project_name="project_name",
+            project_tag_name="project_tag_name",
             starting_after="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(SyncListObjects[ProjectTag], project_tag, path=["response"])
@@ -229,7 +229,7 @@ class TestProjectTag:
     @parametrize
     def test_method_replace(self, client: Braintrust) -> None:
         project_tag = client.project_tag.replace(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ProjectTag, project_tag, path=["response"])
@@ -237,17 +237,17 @@ class TestProjectTag:
     @parametrize
     def test_method_replace_with_all_params(self, client: Braintrust) -> None:
         project_tag = client.project_tag.replace(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            color="string",
-            description="string",
+            color="color",
+            description="description",
         )
         assert_matches_type(ProjectTag, project_tag, path=["response"])
 
     @parametrize
     def test_raw_response_replace(self, client: Braintrust) -> None:
         response = client.project_tag.with_raw_response.replace(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -259,7 +259,7 @@ class TestProjectTag:
     @parametrize
     def test_streaming_response_replace(self, client: Braintrust) -> None:
         with client.project_tag.with_streaming_response.replace(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -277,7 +277,7 @@ class TestAsyncProjectTag:
     @parametrize
     async def test_method_create(self, async_client: AsyncBraintrust) -> None:
         project_tag = await async_client.project_tag.create(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ProjectTag, project_tag, path=["response"])
@@ -285,17 +285,17 @@ class TestAsyncProjectTag:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncBraintrust) -> None:
         project_tag = await async_client.project_tag.create(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            color="string",
-            description="string",
+            color="color",
+            description="description",
         )
         assert_matches_type(ProjectTag, project_tag, path=["response"])
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.project_tag.with_raw_response.create(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -307,7 +307,7 @@ class TestAsyncProjectTag:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncBraintrust) -> None:
         async with async_client.project_tag.with_streaming_response.create(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -359,24 +359,24 @@ class TestAsyncProjectTag:
     @parametrize
     async def test_method_update(self, async_client: AsyncBraintrust) -> None:
         project_tag = await async_client.project_tag.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_tag_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ProjectTag, project_tag, path=["response"])
 
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncBraintrust) -> None:
         project_tag = await async_client.project_tag.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            color="string",
-            description="string",
-            name="string",
+            project_tag_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            color="color",
+            description="description",
+            name="name",
         )
         assert_matches_type(ProjectTag, project_tag, path=["response"])
 
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.project_tag.with_raw_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_tag_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -387,7 +387,7 @@ class TestAsyncProjectTag:
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncBraintrust) -> None:
         async with async_client.project_tag.with_streaming_response.update(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_tag_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -401,7 +401,7 @@ class TestAsyncProjectTag:
     async def test_path_params_update(self, async_client: AsyncBraintrust) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_tag_id` but received ''"):
             await async_client.project_tag.with_raw_response.update(
-                "",
+                project_tag_id="",
             )
 
     @parametrize
@@ -415,9 +415,9 @@ class TestAsyncProjectTag:
             ending_before="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             ids="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
-            org_name="string",
-            project_name="string",
-            project_tag_name="string",
+            org_name="org_name",
+            project_name="project_name",
+            project_tag_name="project_tag_name",
             starting_after="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(AsyncListObjects[ProjectTag], project_tag, path=["response"])
@@ -483,7 +483,7 @@ class TestAsyncProjectTag:
     @parametrize
     async def test_method_replace(self, async_client: AsyncBraintrust) -> None:
         project_tag = await async_client.project_tag.replace(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(ProjectTag, project_tag, path=["response"])
@@ -491,17 +491,17 @@ class TestAsyncProjectTag:
     @parametrize
     async def test_method_replace_with_all_params(self, async_client: AsyncBraintrust) -> None:
         project_tag = await async_client.project_tag.replace(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            color="string",
-            description="string",
+            color="color",
+            description="description",
         )
         assert_matches_type(ProjectTag, project_tag, path=["response"])
 
     @parametrize
     async def test_raw_response_replace(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.project_tag.with_raw_response.replace(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -513,7 +513,7 @@ class TestAsyncProjectTag:
     @parametrize
     async def test_streaming_response_replace(self, async_client: AsyncBraintrust) -> None:
         async with async_client.project_tag.with_streaming_response.replace(
-            name="string",
+            name="name",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed

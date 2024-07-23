@@ -24,16 +24,16 @@ class TestLogs:
     @parametrize
     def test_method_feedback(self, client: Braintrust) -> None:
         log = client.project.logs.feedback(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "string"}, {"id": "string"}, {"id": "string"}],
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
         )
         assert log is None
 
     @parametrize
     def test_raw_response_feedback(self, client: Braintrust) -> None:
         response = client.project.logs.with_raw_response.feedback(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "string"}, {"id": "string"}, {"id": "string"}],
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
         )
 
         assert response.is_closed is True
@@ -44,8 +44,8 @@ class TestLogs:
     @parametrize
     def test_streaming_response_feedback(self, client: Braintrust) -> None:
         with client.project.logs.with_streaming_response.feedback(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "string"}, {"id": "string"}, {"id": "string"}],
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -59,32 +59,32 @@ class TestLogs:
     def test_path_params_feedback(self, client: Braintrust) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_id` but received ''"):
             client.project.logs.with_raw_response.feedback(
-                "",
-                feedback=[{"id": "string"}, {"id": "string"}, {"id": "string"}],
+                project_id="",
+                feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
             )
 
     @parametrize
     def test_method_fetch(self, client: Braintrust) -> None:
         log = client.project.logs.fetch(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(LogFetchResponse, log, path=["response"])
 
     @parametrize
     def test_method_fetch_with_all_params(self, client: Braintrust) -> None:
         log = client.project.logs.fetch(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
-            max_root_span_id="string",
-            max_xact_id="string",
-            version="string",
+            max_root_span_id="max_root_span_id",
+            max_xact_id="max_xact_id",
+            version="version",
         )
         assert_matches_type(LogFetchResponse, log, path=["response"])
 
     @parametrize
     def test_raw_response_fetch(self, client: Braintrust) -> None:
         response = client.project.logs.with_raw_response.fetch(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -95,7 +95,7 @@ class TestLogs:
     @parametrize
     def test_streaming_response_fetch(self, client: Braintrust) -> None:
         with client.project.logs.with_streaming_response.fetch(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -109,21 +109,21 @@ class TestLogs:
     def test_path_params_fetch(self, client: Braintrust) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_id` but received ''"):
             client.project.logs.with_raw_response.fetch(
-                "",
+                project_id="",
             )
 
     @parametrize
     def test_method_fetch_post(self, client: Braintrust) -> None:
         log = client.project.logs.fetch_post(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(LogFetchPostResponse, log, path=["response"])
 
     @parametrize
     def test_method_fetch_post_with_all_params(self, client: Braintrust) -> None:
         log = client.project.logs.fetch_post(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            cursor="string",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            cursor="cursor",
             filters=[
                 {
                     "type": "path_lookup",
@@ -142,16 +142,16 @@ class TestLogs:
                 },
             ],
             limit=0,
-            max_root_span_id="string",
-            max_xact_id="string",
-            version="string",
+            max_root_span_id="max_root_span_id",
+            max_xact_id="max_xact_id",
+            version="version",
         )
         assert_matches_type(LogFetchPostResponse, log, path=["response"])
 
     @parametrize
     def test_raw_response_fetch_post(self, client: Braintrust) -> None:
         response = client.project.logs.with_raw_response.fetch_post(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -162,7 +162,7 @@ class TestLogs:
     @parametrize
     def test_streaming_response_fetch_post(self, client: Braintrust) -> None:
         with client.project.logs.with_streaming_response.fetch_post(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -176,13 +176,13 @@ class TestLogs:
     def test_path_params_fetch_post(self, client: Braintrust) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_id` but received ''"):
             client.project.logs.with_raw_response.fetch_post(
-                "",
+                project_id="",
             )
 
     @parametrize
     def test_method_insert(self, client: Braintrust) -> None:
         log = client.project.logs.insert(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             events=[{}, {}, {}],
         )
         assert_matches_type(LogInsertResponse, log, path=["response"])
@@ -190,7 +190,7 @@ class TestLogs:
     @parametrize
     def test_raw_response_insert(self, client: Braintrust) -> None:
         response = client.project.logs.with_raw_response.insert(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             events=[{}, {}, {}],
         )
 
@@ -202,7 +202,7 @@ class TestLogs:
     @parametrize
     def test_streaming_response_insert(self, client: Braintrust) -> None:
         with client.project.logs.with_streaming_response.insert(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             events=[{}, {}, {}],
         ) as response:
             assert not response.is_closed
@@ -217,7 +217,7 @@ class TestLogs:
     def test_path_params_insert(self, client: Braintrust) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_id` but received ''"):
             client.project.logs.with_raw_response.insert(
-                "",
+                project_id="",
                 events=[{}, {}, {}],
             )
 
@@ -228,16 +228,16 @@ class TestAsyncLogs:
     @parametrize
     async def test_method_feedback(self, async_client: AsyncBraintrust) -> None:
         log = await async_client.project.logs.feedback(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "string"}, {"id": "string"}, {"id": "string"}],
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
         )
         assert log is None
 
     @parametrize
     async def test_raw_response_feedback(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.project.logs.with_raw_response.feedback(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "string"}, {"id": "string"}, {"id": "string"}],
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
         )
 
         assert response.is_closed is True
@@ -248,8 +248,8 @@ class TestAsyncLogs:
     @parametrize
     async def test_streaming_response_feedback(self, async_client: AsyncBraintrust) -> None:
         async with async_client.project.logs.with_streaming_response.feedback(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "string"}, {"id": "string"}, {"id": "string"}],
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -263,32 +263,32 @@ class TestAsyncLogs:
     async def test_path_params_feedback(self, async_client: AsyncBraintrust) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_id` but received ''"):
             await async_client.project.logs.with_raw_response.feedback(
-                "",
-                feedback=[{"id": "string"}, {"id": "string"}, {"id": "string"}],
+                project_id="",
+                feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
             )
 
     @parametrize
     async def test_method_fetch(self, async_client: AsyncBraintrust) -> None:
         log = await async_client.project.logs.fetch(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(LogFetchResponse, log, path=["response"])
 
     @parametrize
     async def test_method_fetch_with_all_params(self, async_client: AsyncBraintrust) -> None:
         log = await async_client.project.logs.fetch(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
-            max_root_span_id="string",
-            max_xact_id="string",
-            version="string",
+            max_root_span_id="max_root_span_id",
+            max_xact_id="max_xact_id",
+            version="version",
         )
         assert_matches_type(LogFetchResponse, log, path=["response"])
 
     @parametrize
     async def test_raw_response_fetch(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.project.logs.with_raw_response.fetch(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -299,7 +299,7 @@ class TestAsyncLogs:
     @parametrize
     async def test_streaming_response_fetch(self, async_client: AsyncBraintrust) -> None:
         async with async_client.project.logs.with_streaming_response.fetch(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -313,21 +313,21 @@ class TestAsyncLogs:
     async def test_path_params_fetch(self, async_client: AsyncBraintrust) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_id` but received ''"):
             await async_client.project.logs.with_raw_response.fetch(
-                "",
+                project_id="",
             )
 
     @parametrize
     async def test_method_fetch_post(self, async_client: AsyncBraintrust) -> None:
         log = await async_client.project.logs.fetch_post(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(LogFetchPostResponse, log, path=["response"])
 
     @parametrize
     async def test_method_fetch_post_with_all_params(self, async_client: AsyncBraintrust) -> None:
         log = await async_client.project.logs.fetch_post(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            cursor="string",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            cursor="cursor",
             filters=[
                 {
                     "type": "path_lookup",
@@ -346,16 +346,16 @@ class TestAsyncLogs:
                 },
             ],
             limit=0,
-            max_root_span_id="string",
-            max_xact_id="string",
-            version="string",
+            max_root_span_id="max_root_span_id",
+            max_xact_id="max_xact_id",
+            version="version",
         )
         assert_matches_type(LogFetchPostResponse, log, path=["response"])
 
     @parametrize
     async def test_raw_response_fetch_post(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.project.logs.with_raw_response.fetch_post(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
         assert response.is_closed is True
@@ -366,7 +366,7 @@ class TestAsyncLogs:
     @parametrize
     async def test_streaming_response_fetch_post(self, async_client: AsyncBraintrust) -> None:
         async with async_client.project.logs.with_streaming_response.fetch_post(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -380,13 +380,13 @@ class TestAsyncLogs:
     async def test_path_params_fetch_post(self, async_client: AsyncBraintrust) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_id` but received ''"):
             await async_client.project.logs.with_raw_response.fetch_post(
-                "",
+                project_id="",
             )
 
     @parametrize
     async def test_method_insert(self, async_client: AsyncBraintrust) -> None:
         log = await async_client.project.logs.insert(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             events=[{}, {}, {}],
         )
         assert_matches_type(LogInsertResponse, log, path=["response"])
@@ -394,7 +394,7 @@ class TestAsyncLogs:
     @parametrize
     async def test_raw_response_insert(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.project.logs.with_raw_response.insert(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             events=[{}, {}, {}],
         )
 
@@ -406,7 +406,7 @@ class TestAsyncLogs:
     @parametrize
     async def test_streaming_response_insert(self, async_client: AsyncBraintrust) -> None:
         async with async_client.project.logs.with_streaming_response.insert(
-            "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             events=[{}, {}, {}],
         ) as response:
             assert not response.is_closed
@@ -421,6 +421,6 @@ class TestAsyncLogs:
     async def test_path_params_insert(self, async_client: AsyncBraintrust) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_id` but received ''"):
             await async_client.project.logs.with_raw_response.insert(
-                "",
+                project_id="",
                 events=[{}, {}, {}],
             )
