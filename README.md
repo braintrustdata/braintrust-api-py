@@ -24,7 +24,7 @@ pip install braintrust-api
 The full API of this library can be found in [api.md](api.md).
 
 ```python
-from braintrust import Braintrust
+from braintrust_api import Braintrust
 
 client = Braintrust()
 
@@ -45,7 +45,7 @@ Simply import `AsyncBraintrust` instead of `Braintrust` and use `await` with eac
 
 ```python
 import asyncio
-from braintrust import AsyncBraintrust
+from braintrust_api import AsyncBraintrust
 
 client = AsyncBraintrust()
 
@@ -78,7 +78,7 @@ List methods in the Braintrust API are paginated.
 This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
 
 ```python
-from braintrust import Braintrust
+from braintrust_api import Braintrust
 
 client = Braintrust()
 
@@ -94,7 +94,7 @@ Or, asynchronously:
 
 ```python
 import asyncio
-from braintrust import AsyncBraintrust
+from braintrust_api import AsyncBraintrust
 
 client = AsyncBraintrust()
 
@@ -136,16 +136,16 @@ for project in first_page.objects:
 
 ## Handling errors
 
-When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `braintrust.APIConnectionError` is raised.
+When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `braintrust_api.APIConnectionError` is raised.
 
 When the API returns a non-success status code (that is, 4xx or 5xx
-response), a subclass of `braintrust.APIStatusError` is raised, containing `status_code` and `response` properties.
+response), a subclass of `braintrust_api.APIStatusError` is raised, containing `status_code` and `response` properties.
 
-All errors inherit from `braintrust.APIError`.
+All errors inherit from `braintrust_api.APIError`.
 
 ```python
-import braintrust
-from braintrust import Braintrust
+import braintrust_api
+from braintrust_api import Braintrust
 
 client = Braintrust()
 
@@ -153,12 +153,12 @@ try:
     client.projects.create(
         name="name",
     )
-except braintrust.APIConnectionError as e:
+except braintrust_api.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
-except braintrust.RateLimitError as e:
+except braintrust_api.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
-except braintrust.APIStatusError as e:
+except braintrust_api.APIStatusError as e:
     print("Another non-200-range status code was received")
     print(e.status_code)
     print(e.response)
@@ -186,7 +186,7 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from braintrust import Braintrust
+from braintrust_api import Braintrust
 
 # Configure the default for all requests:
 client = Braintrust(
@@ -206,7 +206,7 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
 
 ```python
-from braintrust import Braintrust
+from braintrust_api import Braintrust
 
 # Configure the default for all requests:
 client = Braintrust(
@@ -258,7 +258,7 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from braintrust import Braintrust
+from braintrust_api import Braintrust
 
 client = Braintrust()
 response = client.projects.with_raw_response.create(
@@ -270,9 +270,9 @@ project = response.parse()  # get the object that `projects.create()` would have
 print(project.id)
 ```
 
-These methods return an [`APIResponse`](https://github.com/braintrustdata/braintrust-api-py/tree/main/src/braintrust/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/braintrustdata/braintrust-api-python/tree/main/src/braintrust_api/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/braintrustdata/braintrust-api-py/tree/main/src/braintrust/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/braintrustdata/braintrust-api-python/tree/main/src/braintrust_api/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -336,7 +336,7 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 - Additional [advanced](https://www.python-httpx.org/advanced/clients/) functionality
 
 ```python
-from braintrust import Braintrust, DefaultHttpxClient
+from braintrust_api import Braintrust, DefaultHttpxClient
 
 client = Braintrust(
     # Or use the `BRAINTRUST_BASE_URL` env var
@@ -368,7 +368,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/braintrustdata/braintrust-api-py/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/braintrustdata/braintrust-api-python/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 

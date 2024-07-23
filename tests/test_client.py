@@ -16,11 +16,11 @@ import pytest
 from respx import MockRouter
 from pydantic import ValidationError
 
-from braintrust import Braintrust, AsyncBraintrust, APIResponseValidationError
-from braintrust._models import BaseModel, FinalRequestOptions
-from braintrust._constants import RAW_RESPONSE_HEADER
-from braintrust._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
-from braintrust._base_client import (
+from braintrust_api import Braintrust, AsyncBraintrust, APIResponseValidationError
+from braintrust_api._models import BaseModel, FinalRequestOptions
+from braintrust_api._constants import RAW_RESPONSE_HEADER
+from braintrust_api._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
+from braintrust_api._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
     BaseClient,
@@ -224,10 +224,10 @@ class TestBraintrust:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "braintrust/_legacy_response.py",
-                        "braintrust/_response.py",
+                        "braintrust_api/_legacy_response.py",
+                        "braintrust_api/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "braintrust/_compat.py",
+                        "braintrust_api/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -700,7 +700,7 @@ class TestBraintrust:
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("braintrust._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("braintrust_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/project").mock(side_effect=httpx.TimeoutException("Test timeout error"))
@@ -715,7 +715,7 @@ class TestBraintrust:
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("braintrust._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("braintrust_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/project").mock(return_value=httpx.Response(500))
@@ -906,10 +906,10 @@ class TestAsyncBraintrust:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "braintrust/_legacy_response.py",
-                        "braintrust/_response.py",
+                        "braintrust_api/_legacy_response.py",
+                        "braintrust_api/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "braintrust/_compat.py",
+                        "braintrust_api/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -1388,7 +1388,7 @@ class TestAsyncBraintrust:
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("braintrust._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("braintrust_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/project").mock(side_effect=httpx.TimeoutException("Test timeout error"))
@@ -1403,7 +1403,7 @@ class TestAsyncBraintrust:
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("braintrust._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("braintrust_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/project").mock(return_value=httpx.Response(500))

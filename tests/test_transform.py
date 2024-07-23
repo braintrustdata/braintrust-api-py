@@ -8,15 +8,15 @@ from typing_extensions import Required, Annotated, TypedDict
 
 import pytest
 
-from braintrust._types import Base64FileInput
-from braintrust._utils import (
+from braintrust_api._types import Base64FileInput
+from braintrust_api._utils import (
     PropertyInfo,
     transform as _transform,
     parse_datetime,
     async_transform as _async_transform,
 )
-from braintrust._compat import PYDANTIC_V2
-from braintrust._models import BaseModel
+from braintrust_api._compat import PYDANTIC_V2
+from braintrust_api._models import BaseModel
 
 _T = TypeVar("_T")
 

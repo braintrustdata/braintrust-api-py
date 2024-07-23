@@ -7,9 +7,9 @@ import pytest
 import pydantic
 from pydantic import Field
 
-from braintrust._utils import PropertyInfo
-from braintrust._compat import PYDANTIC_V2, parse_obj, model_dump, model_json
-from braintrust._models import BaseModel, construct_type
+from braintrust_api._utils import PropertyInfo
+from braintrust_api._compat import PYDANTIC_V2, parse_obj, model_dump, model_json
+from braintrust_api._models import BaseModel, construct_type
 
 
 class BasicModel(BaseModel):
