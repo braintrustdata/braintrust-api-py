@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
-from braintrust import Braintrust, AsyncBraintrust
 from tests.utils import assert_matches_type
-from braintrust.types.projects import (
+from braintrust_api import Braintrust, AsyncBraintrust
+from braintrust_api.types.projects import (
     LogFetchResponse,
     LogInsertResponse,
     LogFetchPostResponse,

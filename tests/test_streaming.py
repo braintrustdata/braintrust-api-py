@@ -5,8 +5,8 @@ from typing import Iterator, AsyncIterator
 import httpx
 import pytest
 
-from braintrust import Braintrust, AsyncBraintrust
-from braintrust._streaming import Stream, AsyncStream, ServerSentEvent
+from braintrust_api import Braintrust, AsyncBraintrust
+from braintrust_api._streaming import Stream, AsyncStream, ServerSentEvent
 
 
 @pytest.mark.asyncio

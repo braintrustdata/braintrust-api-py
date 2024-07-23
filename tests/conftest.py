@@ -7,14 +7,14 @@ from typing import TYPE_CHECKING, Iterator, AsyncIterator
 
 import pytest
 
-from braintrust import Braintrust, AsyncBraintrust
+from braintrust_api import Braintrust, AsyncBraintrust
 
 if TYPE_CHECKING:
     from _pytest.fixtures import FixtureRequest
 
 pytest.register_assert_rewrite("tests.utils")
 
-logging.getLogger("braintrust").setLevel(logging.DEBUG)
+logging.getLogger("braintrust_api").setLevel(logging.DEBUG)
 
 
 @pytest.fixture(scope="session")

@@ -61,6 +61,6 @@
   ],
   "release-type": "python",
   "extra-files": [
-    "src/braintrust/_version.py"
+    "src/braintrust_api/_version.py"
   ]
 }

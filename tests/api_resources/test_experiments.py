@@ -7,16 +7,16 @@ from typing import Any, cast
 
 import pytest
 
-from braintrust import Braintrust, AsyncBraintrust
 from tests.utils import assert_matches_type
-from braintrust.types import (
+from braintrust_api import Braintrust, AsyncBraintrust
+from braintrust_api.types import (
     Experiment,
     ExperimentFetchResponse,
     ExperimentInsertResponse,
     ExperimentFetchPostResponse,
     ExperimentSummarizeResponse,
 )
-from braintrust.pagination import SyncListObjects, AsyncListObjects
+from braintrust_api.pagination import SyncListObjects, AsyncListObjects
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
