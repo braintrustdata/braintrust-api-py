@@ -14,12 +14,7 @@ from .logs import (
     LogsResourceWithStreamingResponse,
     AsyncLogsResourceWithStreamingResponse,
 )
-from ...types import (
-    project_list_params,
-    project_create_params,
-    project_update_params,
-    project_replace_params,
-)
+from ...types import project_list_params, project_create_params, project_update_params
 from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from ..._utils import (
     maybe_transform,
@@ -143,6 +138,7 @@ class ProjectResource(SyncAPIResource):
         project_id: str,
         *,
         name: Optional[str] | NotGiven = NOT_GIVEN,
+        settings: Optional[project_update_params.Settings] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -161,6 +157,9 @@ class ProjectResource(SyncAPIResource):
 
           name: Name of the project
 
+          settings: Project settings. Patch operations replace all settings, so make sure you
+              include all settings you want to keep.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -173,7 +172,13 @@ class ProjectResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `project_id` but received {project_id!r}")
         return self._patch(
             f"/v1/project/{project_id}",
-            body=maybe_transform({"name": name}, project_update_params.ProjectUpdateParams),
+            body=maybe_transform(
+                {
+                    "name": name,
+                    "settings": settings,
+                },
+                project_update_params.ProjectUpdateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -289,54 +294,6 @@ class ProjectResource(SyncAPIResource):
             cast_to=Project,
         )
 
-    def replace(
-        self,
-        *,
-        name: str,
-        org_name: Optional[str] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Project:
-        """
-        NOTE: This operation is deprecated and will be removed in a future revision of
-        the API. Create or replace a new project. If there is an existing project with
-        the same name as the one specified in the request, will return the existing
-        project unmodified, will replace the existing project with the provided fields
-
-        Args:
-          name: Name of the project
-
-          org_name: For nearly all users, this parameter should be unnecessary. But in the rare case
-              that your API key belongs to multiple organizations, you may specify the name of
-              the organization the project belongs in.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._put(
-            "/v1/project",
-            body=maybe_transform(
-                {
-                    "name": name,
-                    "org_name": org_name,
-                },
-                project_replace_params.ProjectReplaceParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Project,
-        )
-
 
 class AsyncProjectResource(AsyncAPIResource):
     @cached_property
@@ -438,6 +395,7 @@ class AsyncProjectResource(AsyncAPIResource):
         project_id: str,
         *,
         name: Optional[str] | NotGiven = NOT_GIVEN,
+        settings: Optional[project_update_params.Settings] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -456,6 +414,9 @@ class AsyncProjectResource(AsyncAPIResource):
 
           name: Name of the project
 
+          settings: Project settings. Patch operations replace all settings, so make sure you
+              include all settings you want to keep.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -468,7 +429,13 @@ class AsyncProjectResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `project_id` but received {project_id!r}")
         return await self._patch(
             f"/v1/project/{project_id}",
-            body=await async_maybe_transform({"name": name}, project_update_params.ProjectUpdateParams),
+            body=await async_maybe_transform(
+                {
+                    "name": name,
+                    "settings": settings,
+                },
+                project_update_params.ProjectUpdateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -584,54 +551,6 @@ class AsyncProjectResource(AsyncAPIResource):
             cast_to=Project,
         )
 
-    async def replace(
-        self,
-        *,
-        name: str,
-        org_name: Optional[str] | NotGiven = NOT_GIVEN,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Project:
-        """
-        NOTE: This operation is deprecated and will be removed in a future revision of
-        the API. Create or replace a new project. If there is an existing project with
-        the same name as the one specified in the request, will return the existing
-        project unmodified, will replace the existing project with the provided fields
-
-        Args:
-          name: Name of the project
-
-          org_name: For nearly all users, this parameter should be unnecessary. But in the rare case
-              that your API key belongs to multiple organizations, you may specify the name of
-              the organization the project belongs in.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._put(
-            "/v1/project",
-            body=await async_maybe_transform(
-                {
-                    "name": name,
-                    "org_name": org_name,
-                },
-                project_replace_params.ProjectReplaceParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=Project,
-        )
-
 
 class ProjectResourceWithRawResponse:
     def __init__(self, project: ProjectResource) -> None:
@@ -651,9 +570,6 @@ class ProjectResourceWithRawResponse:
         )
         self.delete = to_raw_response_wrapper(
             project.delete,
-        )
-        self.replace = to_raw_response_wrapper(
-            project.replace,
         )
 
     @cached_property
@@ -680,9 +596,6 @@ class AsyncProjectResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             project.delete,
         )
-        self.replace = async_to_raw_response_wrapper(
-            project.replace,
-        )
 
     @cached_property
     def logs(self) -> AsyncLogsResourceWithRawResponse:
@@ -708,9 +621,6 @@ class ProjectResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             project.delete,
         )
-        self.replace = to_streamed_response_wrapper(
-            project.replace,
-        )
 
     @cached_property
     def logs(self) -> LogsResourceWithStreamingResponse:
@@ -735,9 +645,6 @@ class AsyncProjectResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             project.delete,
-        )
-        self.replace = async_to_streamed_response_wrapper(
-            project.replace,
         )
 
     @cached_property

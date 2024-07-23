@@ -21,6 +21,7 @@ __all__ = [
     "PromptDataOptionsParamsUnionMember0ToolChoiceUnionMember2Function",
     "PromptDataOptionsParamsUnionMember1",
     "PromptDataOptionsParamsUnionMember2",
+    "PromptDataOptionsParamsUnionMember3",
     "PromptDataOptionsParamsUseCache",
     "PromptDataOrigin",
     "PromptDataPrompt",
@@ -39,6 +40,7 @@ __all__ = [
     "PromptDataPromptUnionMember1MessageUnionMember2ToolCallFunction",
     "PromptDataPromptUnionMember1MessageUnionMember3",
     "PromptDataPromptUnionMember1MessageUnionMember4",
+    "PromptDataPromptUnionMember1MessageUnionMember5",
     "PromptDataPromptUnionMember2",
 ]
 
@@ -133,13 +135,21 @@ class PromptDataOptionsParamsUnionMember1(TypedDict, total=False):
 
 
 class PromptDataOptionsParamsUnionMember2(TypedDict, total=False):
-    temperature: Required[float]
-
     max_output_tokens: Annotated[float, PropertyInfo(alias="maxOutputTokens")]
+
+    temperature: float
 
     top_k: Annotated[float, PropertyInfo(alias="topK")]
 
     top_p: Annotated[float, PropertyInfo(alias="topP")]
+
+    use_cache: bool
+
+
+class PromptDataOptionsParamsUnionMember3(TypedDict, total=False):
+    temperature: float
+
+    top_k: Annotated[float, PropertyInfo(alias="topK")]
 
     use_cache: bool
 
@@ -152,6 +162,7 @@ PromptDataOptionsParams = Union[
     PromptDataOptionsParamsUnionMember0,
     PromptDataOptionsParamsUnionMember1,
     PromptDataOptionsParamsUnionMember2,
+    PromptDataOptionsParamsUnionMember3,
     PromptDataOptionsParamsUseCache,
 ]
 
@@ -253,9 +264,9 @@ class PromptDataPromptUnionMember1MessageUnionMember2(TypedDict, total=False):
 class PromptDataPromptUnionMember1MessageUnionMember3(TypedDict, total=False):
     role: Required[Literal["tool"]]
 
-    tool_call_id: Required[str]
-
     content: str
+
+    tool_call_id: str
 
 
 class PromptDataPromptUnionMember1MessageUnionMember4(TypedDict, total=False):
@@ -266,12 +277,19 @@ class PromptDataPromptUnionMember1MessageUnionMember4(TypedDict, total=False):
     content: str
 
 
+class PromptDataPromptUnionMember1MessageUnionMember5(TypedDict, total=False):
+    role: Required[Literal["model"]]
+
+    content: Optional[str]
+
+
 PromptDataPromptUnionMember1Message = Union[
     PromptDataPromptUnionMember1MessageUnionMember0,
     PromptDataPromptUnionMember1MessageUnionMember1,
     PromptDataPromptUnionMember1MessageUnionMember2,
     PromptDataPromptUnionMember1MessageUnionMember3,
     PromptDataPromptUnionMember1MessageUnionMember4,
+    PromptDataPromptUnionMember1MessageUnionMember5,
 ]
 
 

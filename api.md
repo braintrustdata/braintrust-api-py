@@ -25,7 +25,6 @@ Methods:
 - <code title="patch /v1/project/{project_id}">client.project.<a href="./src/braintrust/resources/project/project.py">update</a>(project_id, \*\*<a href="src/braintrust/types/project_update_params.py">params</a>) -> <a href="./src/braintrust/types/project/project.py">Project</a></code>
 - <code title="get /v1/project">client.project.<a href="./src/braintrust/resources/project/project.py">list</a>(\*\*<a href="src/braintrust/types/project_list_params.py">params</a>) -> <a href="./src/braintrust/types/project/project.py">SyncListObjects[Project]</a></code>
 - <code title="delete /v1/project/{project_id}">client.project.<a href="./src/braintrust/resources/project/project.py">delete</a>(project_id) -> <a href="./src/braintrust/types/project/project.py">Project</a></code>
-- <code title="put /v1/project">client.project.<a href="./src/braintrust/resources/project/project.py">replace</a>(\*\*<a href="src/braintrust/types/project_replace_params.py">params</a>) -> <a href="./src/braintrust/types/project/project.py">Project</a></code>
 
 ## Logs
 
@@ -67,7 +66,6 @@ Methods:
 - <code title="get /v1/experiment/{experiment_id}/fetch">client.experiment.<a href="./src/braintrust/resources/experiment.py">fetch</a>(experiment_id, \*\*<a href="src/braintrust/types/experiment_fetch_params.py">params</a>) -> <a href="./src/braintrust/types/experiment_fetch_response.py">ExperimentFetchResponse</a></code>
 - <code title="post /v1/experiment/{experiment_id}/fetch">client.experiment.<a href="./src/braintrust/resources/experiment.py">fetch_post</a>(experiment_id, \*\*<a href="src/braintrust/types/experiment_fetch_post_params.py">params</a>) -> <a href="./src/braintrust/types/experiment_fetch_post_response.py">ExperimentFetchPostResponse</a></code>
 - <code title="post /v1/experiment/{experiment_id}/insert">client.experiment.<a href="./src/braintrust/resources/experiment.py">insert</a>(experiment_id, \*\*<a href="src/braintrust/types/experiment_insert_params.py">params</a>) -> <a href="./src/braintrust/types/experiment_insert_response.py">ExperimentInsertResponse</a></code>
-- <code title="put /v1/experiment">client.experiment.<a href="./src/braintrust/resources/experiment.py">replace</a>(\*\*<a href="src/braintrust/types/experiment_replace_params.py">params</a>) -> <a href="./src/braintrust/types/experiment.py">Experiment</a></code>
 - <code title="get /v1/experiment/{experiment_id}/summarize">client.experiment.<a href="./src/braintrust/resources/experiment.py">summarize</a>(experiment_id, \*\*<a href="src/braintrust/types/experiment_summarize_params.py">params</a>) -> <a href="./src/braintrust/types/experiment_summarize_response.py">ExperimentSummarizeResponse</a></code>
 
 # Dataset
@@ -95,7 +93,6 @@ Methods:
 - <code title="get /v1/dataset/{dataset_id}/fetch">client.dataset.<a href="./src/braintrust/resources/dataset.py">fetch</a>(dataset_id, \*\*<a href="src/braintrust/types/dataset_fetch_params.py">params</a>) -> <a href="./src/braintrust/types/dataset_fetch_response.py">DatasetFetchResponse</a></code>
 - <code title="post /v1/dataset/{dataset_id}/fetch">client.dataset.<a href="./src/braintrust/resources/dataset.py">fetch_post</a>(dataset_id, \*\*<a href="src/braintrust/types/dataset_fetch_post_params.py">params</a>) -> <a href="./src/braintrust/types/dataset_fetch_post_response.py">DatasetFetchPostResponse</a></code>
 - <code title="post /v1/dataset/{dataset_id}/insert">client.dataset.<a href="./src/braintrust/resources/dataset.py">insert</a>(dataset_id, \*\*<a href="src/braintrust/types/dataset_insert_params.py">params</a>) -> <a href="./src/braintrust/types/dataset_insert_response.py">DatasetInsertResponse</a></code>
-- <code title="put /v1/dataset">client.dataset.<a href="./src/braintrust/resources/dataset.py">replace</a>(\*\*<a href="src/braintrust/types/dataset_replace_params.py">params</a>) -> <a href="./src/braintrust/types/dataset.py">Dataset</a></code>
 - <code title="get /v1/dataset/{dataset_id}/summarize">client.dataset.<a href="./src/braintrust/resources/dataset.py">summarize</a>(dataset_id, \*\*<a href="src/braintrust/types/dataset_summarize_params.py">params</a>) -> <a href="./src/braintrust/types/dataset_summarize_response.py">DatasetSummarizeResponse</a></code>
 
 # Prompt
@@ -164,7 +161,6 @@ Methods:
 - <code title="get /v1/acl/{acl_id}">client.acl.<a href="./src/braintrust/resources/acl.py">retrieve</a>(acl_id) -> <a href="./src/braintrust/types/acl.py">ACL</a></code>
 - <code title="get /v1/acl">client.acl.<a href="./src/braintrust/resources/acl.py">list</a>(\*\*<a href="src/braintrust/types/acl_list_params.py">params</a>) -> <a href="./src/braintrust/types/acl.py">SyncListObjects[ACL]</a></code>
 - <code title="delete /v1/acl/{acl_id}">client.acl.<a href="./src/braintrust/resources/acl.py">delete</a>(acl_id) -> <a href="./src/braintrust/types/acl.py">ACL</a></code>
-- <code title="put /v1/acl">client.acl.<a href="./src/braintrust/resources/acl.py">replace</a>(\*\*<a href="src/braintrust/types/acl_replace_params.py">params</a>) -> <a href="./src/braintrust/types/acl.py">ACL</a></code>
 
 # User
 
@@ -178,3 +174,102 @@ Methods:
 
 - <code title="get /v1/user/{user_id}">client.user.<a href="./src/braintrust/resources/user.py">retrieve</a>(user_id) -> <a href="./src/braintrust/types/user.py">User</a></code>
 - <code title="get /v1/user">client.user.<a href="./src/braintrust/resources/user.py">list</a>(\*\*<a href="src/braintrust/types/user_list_params.py">params</a>) -> <a href="./src/braintrust/types/user.py">SyncListObjects[User]</a></code>
+
+# ProjectScore
+
+Types:
+
+```python
+from braintrust.types import ProjectScore
+```
+
+Methods:
+
+- <code title="post /v1/project_score">client.project_score.<a href="./src/braintrust/resources/project_score.py">create</a>(\*\*<a href="src/braintrust/types/project_score_create_params.py">params</a>) -> <a href="./src/braintrust/types/project_score.py">ProjectScore</a></code>
+- <code title="get /v1/project_score/{project_score_id}">client.project_score.<a href="./src/braintrust/resources/project_score.py">retrieve</a>(project_score_id) -> <a href="./src/braintrust/types/project_score.py">ProjectScore</a></code>
+- <code title="patch /v1/project_score/{project_score_id}">client.project_score.<a href="./src/braintrust/resources/project_score.py">update</a>(project_score_id, \*\*<a href="src/braintrust/types/project_score_update_params.py">params</a>) -> <a href="./src/braintrust/types/project_score.py">ProjectScore</a></code>
+- <code title="get /v1/project_score">client.project_score.<a href="./src/braintrust/resources/project_score.py">list</a>(\*\*<a href="src/braintrust/types/project_score_list_params.py">params</a>) -> <a href="./src/braintrust/types/project_score.py">SyncListObjects[ProjectScore]</a></code>
+- <code title="delete /v1/project_score/{project_score_id}">client.project_score.<a href="./src/braintrust/resources/project_score.py">delete</a>(project_score_id) -> <a href="./src/braintrust/types/project_score.py">ProjectScore</a></code>
+- <code title="put /v1/project_score">client.project_score.<a href="./src/braintrust/resources/project_score.py">replace</a>(\*\*<a href="src/braintrust/types/project_score_replace_params.py">params</a>) -> <a href="./src/braintrust/types/project_score.py">ProjectScore</a></code>
+
+# ProjectTag
+
+Types:
+
+```python
+from braintrust.types import ProjectTag
+```
+
+Methods:
+
+- <code title="post /v1/project_tag">client.project_tag.<a href="./src/braintrust/resources/project_tag.py">create</a>(\*\*<a href="src/braintrust/types/project_tag_create_params.py">params</a>) -> <a href="./src/braintrust/types/project_tag.py">ProjectTag</a></code>
+- <code title="get /v1/project_tag/{project_tag_id}">client.project_tag.<a href="./src/braintrust/resources/project_tag.py">retrieve</a>(project_tag_id) -> <a href="./src/braintrust/types/project_tag.py">ProjectTag</a></code>
+- <code title="patch /v1/project_tag/{project_tag_id}">client.project_tag.<a href="./src/braintrust/resources/project_tag.py">update</a>(project_tag_id, \*\*<a href="src/braintrust/types/project_tag_update_params.py">params</a>) -> <a href="./src/braintrust/types/project_tag.py">ProjectTag</a></code>
+- <code title="get /v1/project_tag">client.project_tag.<a href="./src/braintrust/resources/project_tag.py">list</a>(\*\*<a href="src/braintrust/types/project_tag_list_params.py">params</a>) -> <a href="./src/braintrust/types/project_tag.py">SyncListObjects[ProjectTag]</a></code>
+- <code title="delete /v1/project_tag/{project_tag_id}">client.project_tag.<a href="./src/braintrust/resources/project_tag.py">delete</a>(project_tag_id) -> <a href="./src/braintrust/types/project_tag.py">ProjectTag</a></code>
+- <code title="put /v1/project_tag">client.project_tag.<a href="./src/braintrust/resources/project_tag.py">replace</a>(\*\*<a href="src/braintrust/types/project_tag_replace_params.py">params</a>) -> <a href="./src/braintrust/types/project_tag.py">ProjectTag</a></code>
+
+# Function
+
+Types:
+
+```python
+from braintrust.types import Function
+```
+
+Methods:
+
+- <code title="post /v1/function">client.function.<a href="./src/braintrust/resources/function.py">create</a>(\*\*<a href="src/braintrust/types/function_create_params.py">params</a>) -> <a href="./src/braintrust/types/function.py">Function</a></code>
+- <code title="get /v1/function/{function_id}">client.function.<a href="./src/braintrust/resources/function.py">retrieve</a>(function_id) -> <a href="./src/braintrust/types/function.py">Function</a></code>
+- <code title="patch /v1/function/{function_id}">client.function.<a href="./src/braintrust/resources/function.py">update</a>(function_id, \*\*<a href="src/braintrust/types/function_update_params.py">params</a>) -> <a href="./src/braintrust/types/function.py">Function</a></code>
+- <code title="get /v1/function">client.function.<a href="./src/braintrust/resources/function.py">list</a>(\*\*<a href="src/braintrust/types/function_list_params.py">params</a>) -> <a href="./src/braintrust/types/function.py">SyncListObjects[Function]</a></code>
+- <code title="delete /v1/function/{function_id}">client.function.<a href="./src/braintrust/resources/function.py">delete</a>(function_id) -> <a href="./src/braintrust/types/function.py">Function</a></code>
+- <code title="post /v1/function/{function_id}/feedback">client.function.<a href="./src/braintrust/resources/function.py">feedback</a>(function_id, \*\*<a href="src/braintrust/types/function_feedback_params.py">params</a>) -> None</code>
+- <code title="put /v1/function">client.function.<a href="./src/braintrust/resources/function.py">replace</a>(\*\*<a href="src/braintrust/types/function_replace_params.py">params</a>) -> <a href="./src/braintrust/types/function.py">Function</a></code>
+
+# View
+
+Types:
+
+```python
+from braintrust.types import View
+```
+
+Methods:
+
+- <code title="post /v1/view">client.view.<a href="./src/braintrust/resources/view.py">create</a>(\*\*<a href="src/braintrust/types/view_create_params.py">params</a>) -> <a href="./src/braintrust/types/view.py">View</a></code>
+- <code title="get /v1/view/{view_id}">client.view.<a href="./src/braintrust/resources/view.py">retrieve</a>(view_id, \*\*<a href="src/braintrust/types/view_retrieve_params.py">params</a>) -> <a href="./src/braintrust/types/view.py">View</a></code>
+- <code title="patch /v1/view/{view_id}">client.view.<a href="./src/braintrust/resources/view.py">update</a>(view_id, \*\*<a href="src/braintrust/types/view_update_params.py">params</a>) -> <a href="./src/braintrust/types/view.py">View</a></code>
+- <code title="get /v1/view">client.view.<a href="./src/braintrust/resources/view.py">list</a>(\*\*<a href="src/braintrust/types/view_list_params.py">params</a>) -> <a href="./src/braintrust/types/view.py">SyncListObjects[View]</a></code>
+- <code title="delete /v1/view/{view_id}">client.view.<a href="./src/braintrust/resources/view.py">delete</a>(view_id, \*\*<a href="src/braintrust/types/view_delete_params.py">params</a>) -> <a href="./src/braintrust/types/view.py">View</a></code>
+- <code title="put /v1/view">client.view.<a href="./src/braintrust/resources/view.py">replace</a>(\*\*<a href="src/braintrust/types/view_replace_params.py">params</a>) -> <a href="./src/braintrust/types/view.py">View</a></code>
+
+# Organization
+
+Types:
+
+```python
+from braintrust.types import Organization
+```
+
+Methods:
+
+- <code title="get /v1/organization/{organization_id}">client.organization.<a href="./src/braintrust/resources/organization.py">retrieve</a>(organization_id) -> <a href="./src/braintrust/types/organization.py">Organization</a></code>
+- <code title="patch /v1/organization/{organization_id}">client.organization.<a href="./src/braintrust/resources/organization.py">update</a>(organization_id, \*\*<a href="src/braintrust/types/organization_update_params.py">params</a>) -> <a href="./src/braintrust/types/organization.py">Organization</a></code>
+- <code title="get /v1/organization">client.organization.<a href="./src/braintrust/resources/organization.py">list</a>(\*\*<a href="src/braintrust/types/organization_list_params.py">params</a>) -> <a href="./src/braintrust/types/organization.py">SyncListObjects[Organization]</a></code>
+- <code title="delete /v1/organization/{organization_id}">client.organization.<a href="./src/braintrust/resources/organization.py">delete</a>(organization_id) -> <a href="./src/braintrust/types/organization.py">Organization</a></code>
+
+# APIKey
+
+Types:
+
+```python
+from braintrust.types import APIKey, APIKeyCreateResponse
+```
+
+Methods:
+
+- <code title="post /v1/api_key">client.api_key.<a href="./src/braintrust/resources/api_key.py">create</a>(\*\*<a href="src/braintrust/types/api_key_create_params.py">params</a>) -> <a href="./src/braintrust/types/api_key_create_response.py">APIKeyCreateResponse</a></code>
+- <code title="get /v1/api_key/{api_key_id}">client.api_key.<a href="./src/braintrust/resources/api_key.py">retrieve</a>(api_key_id) -> <a href="./src/braintrust/types/api_key.py">APIKey</a></code>
+- <code title="get /v1/api_key">client.api_key.<a href="./src/braintrust/resources/api_key.py">list</a>(\*\*<a href="src/braintrust/types/api_key_list_params.py">params</a>) -> <a href="./src/braintrust/types/api_key.py">SyncListObjects[APIKey]</a></code>
+- <code title="delete /v1/api_key/{api_key_id}">client.api_key.<a href="./src/braintrust/resources/api_key.py">delete</a>(api_key_id) -> <a href="./src/braintrust/types/api_key.py">APIKey</a></code>

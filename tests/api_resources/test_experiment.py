@@ -459,63 +459,6 @@ class TestExperiment:
             )
 
     @parametrize
-    def test_method_replace(self, client: Braintrust) -> None:
-        experiment = client.experiment.replace(
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(Experiment, experiment, path=["response"])
-
-    @parametrize
-    def test_method_replace_with_all_params(self, client: Braintrust) -> None:
-        experiment = client.experiment.replace(
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            base_exp_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            dataset_version="string",
-            description="string",
-            ensure_new=True,
-            metadata={"foo": {}},
-            name="string",
-            public=True,
-            repo_info={
-                "commit": "string",
-                "branch": "string",
-                "tag": "string",
-                "dirty": True,
-                "author_name": "string",
-                "author_email": "string",
-                "commit_message": "string",
-                "commit_time": "string",
-                "git_diff": "string",
-            },
-        )
-        assert_matches_type(Experiment, experiment, path=["response"])
-
-    @parametrize
-    def test_raw_response_replace(self, client: Braintrust) -> None:
-        response = client.experiment.with_raw_response.replace(
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        experiment = response.parse()
-        assert_matches_type(Experiment, experiment, path=["response"])
-
-    @parametrize
-    def test_streaming_response_replace(self, client: Braintrust) -> None:
-        with client.experiment.with_streaming_response.replace(
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            experiment = response.parse()
-            assert_matches_type(Experiment, experiment, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
     def test_method_summarize(self, client: Braintrust) -> None:
         experiment = client.experiment.summarize(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -999,63 +942,6 @@ class TestAsyncExperiment:
                 "",
                 events=[{}, {}, {}],
             )
-
-    @parametrize
-    async def test_method_replace(self, async_client: AsyncBraintrust) -> None:
-        experiment = await async_client.experiment.replace(
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(Experiment, experiment, path=["response"])
-
-    @parametrize
-    async def test_method_replace_with_all_params(self, async_client: AsyncBraintrust) -> None:
-        experiment = await async_client.experiment.replace(
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            base_exp_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            dataset_version="string",
-            description="string",
-            ensure_new=True,
-            metadata={"foo": {}},
-            name="string",
-            public=True,
-            repo_info={
-                "commit": "string",
-                "branch": "string",
-                "tag": "string",
-                "dirty": True,
-                "author_name": "string",
-                "author_email": "string",
-                "commit_message": "string",
-                "commit_time": "string",
-                "git_diff": "string",
-            },
-        )
-        assert_matches_type(Experiment, experiment, path=["response"])
-
-    @parametrize
-    async def test_raw_response_replace(self, async_client: AsyncBraintrust) -> None:
-        response = await async_client.experiment.with_raw_response.replace(
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        experiment = await response.parse()
-        assert_matches_type(Experiment, experiment, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_replace(self, async_client: AsyncBraintrust) -> None:
-        async with async_client.experiment.with_streaming_response.replace(
-            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            experiment = await response.parse()
-            assert_matches_type(Experiment, experiment, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_method_summarize(self, async_client: AsyncBraintrust) -> None:

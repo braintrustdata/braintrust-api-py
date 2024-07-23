@@ -30,7 +30,20 @@ class TestRole:
         role = client.role.create(
             name="string",
             description="string",
-            member_permissions=["create", "read", "update"],
+            member_permissions=[
+                {
+                    "permission": "create",
+                    "restrict_object_type": "organization",
+                },
+                {
+                    "permission": "create",
+                    "restrict_object_type": "organization",
+                },
+                {
+                    "permission": "create",
+                    "restrict_object_type": "organization",
+                },
+            ],
             member_roles=[
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -113,14 +126,46 @@ class TestRole:
     def test_method_update_with_all_params(self, client: Braintrust) -> None:
         role = client.role.update(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            description="string",
-            member_permissions=["create", "read", "update"],
-            member_roles=[
+            add_member_permissions=[
+                {
+                    "permission": "create",
+                    "restrict_object_type": "organization",
+                },
+                {
+                    "permission": "create",
+                    "restrict_object_type": "organization",
+                },
+                {
+                    "permission": "create",
+                    "restrict_object_type": "organization",
+                },
+            ],
+            add_member_roles=[
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             ],
+            description="string",
             name="string",
+            remove_member_permissions=[
+                {
+                    "permission": "create",
+                    "restrict_object_type": "organization",
+                },
+                {
+                    "permission": "create",
+                    "restrict_object_type": "organization",
+                },
+                {
+                    "permission": "create",
+                    "restrict_object_type": "organization",
+                },
+            ],
+            remove_member_roles=[
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            ],
         )
         assert_matches_type(Role, role, path=["response"])
 
@@ -242,7 +287,20 @@ class TestRole:
         role = client.role.replace(
             name="string",
             description="string",
-            member_permissions=["create", "read", "update"],
+            member_permissions=[
+                {
+                    "permission": "create",
+                    "restrict_object_type": "organization",
+                },
+                {
+                    "permission": "create",
+                    "restrict_object_type": "organization",
+                },
+                {
+                    "permission": "create",
+                    "restrict_object_type": "organization",
+                },
+            ],
             member_roles=[
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -292,7 +350,20 @@ class TestAsyncRole:
         role = await async_client.role.create(
             name="string",
             description="string",
-            member_permissions=["create", "read", "update"],
+            member_permissions=[
+                {
+                    "permission": "create",
+                    "restrict_object_type": "organization",
+                },
+                {
+                    "permission": "create",
+                    "restrict_object_type": "organization",
+                },
+                {
+                    "permission": "create",
+                    "restrict_object_type": "organization",
+                },
+            ],
             member_roles=[
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -375,14 +446,46 @@ class TestAsyncRole:
     async def test_method_update_with_all_params(self, async_client: AsyncBraintrust) -> None:
         role = await async_client.role.update(
             "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            description="string",
-            member_permissions=["create", "read", "update"],
-            member_roles=[
+            add_member_permissions=[
+                {
+                    "permission": "create",
+                    "restrict_object_type": "organization",
+                },
+                {
+                    "permission": "create",
+                    "restrict_object_type": "organization",
+                },
+                {
+                    "permission": "create",
+                    "restrict_object_type": "organization",
+                },
+            ],
+            add_member_roles=[
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             ],
+            description="string",
             name="string",
+            remove_member_permissions=[
+                {
+                    "permission": "create",
+                    "restrict_object_type": "organization",
+                },
+                {
+                    "permission": "create",
+                    "restrict_object_type": "organization",
+                },
+                {
+                    "permission": "create",
+                    "restrict_object_type": "organization",
+                },
+            ],
+            remove_member_roles=[
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            ],
         )
         assert_matches_type(Role, role, path=["response"])
 
@@ -504,7 +607,20 @@ class TestAsyncRole:
         role = await async_client.role.replace(
             name="string",
             description="string",
-            member_permissions=["create", "read", "update"],
+            member_permissions=[
+                {
+                    "permission": "create",
+                    "restrict_object_type": "organization",
+                },
+                {
+                    "permission": "create",
+                    "restrict_object_type": "organization",
+                },
+                {
+                    "permission": "create",
+                    "restrict_object_type": "organization",
+                },
+            ],
             member_roles=[
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",

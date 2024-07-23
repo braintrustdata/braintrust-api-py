@@ -117,6 +117,7 @@ class TestACL:
             object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             object_type="organization",
             ending_before="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            ids="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             starting_after="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -185,53 +186,6 @@ class TestACL:
             client.acl.with_raw_response.delete(
                 "",
             )
-
-    @parametrize
-    def test_method_replace(self, client: Braintrust) -> None:
-        acl = client.acl.replace(
-            object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            object_type="organization",
-        )
-        assert_matches_type(ACL, acl, path=["response"])
-
-    @parametrize
-    def test_method_replace_with_all_params(self, client: Braintrust) -> None:
-        acl = client.acl.replace(
-            object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            object_type="organization",
-            group_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            permission="create",
-            restrict_object_type="organization",
-            role_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(ACL, acl, path=["response"])
-
-    @parametrize
-    def test_raw_response_replace(self, client: Braintrust) -> None:
-        response = client.acl.with_raw_response.replace(
-            object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            object_type="organization",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        acl = response.parse()
-        assert_matches_type(ACL, acl, path=["response"])
-
-    @parametrize
-    def test_streaming_response_replace(self, client: Braintrust) -> None:
-        with client.acl.with_streaming_response.replace(
-            object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            object_type="organization",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            acl = response.parse()
-            assert_matches_type(ACL, acl, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
 
 
 class TestAsyncACL:
@@ -336,6 +290,7 @@ class TestAsyncACL:
             object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             object_type="organization",
             ending_before="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            ids="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             starting_after="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -404,50 +359,3 @@ class TestAsyncACL:
             await async_client.acl.with_raw_response.delete(
                 "",
             )
-
-    @parametrize
-    async def test_method_replace(self, async_client: AsyncBraintrust) -> None:
-        acl = await async_client.acl.replace(
-            object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            object_type="organization",
-        )
-        assert_matches_type(ACL, acl, path=["response"])
-
-    @parametrize
-    async def test_method_replace_with_all_params(self, async_client: AsyncBraintrust) -> None:
-        acl = await async_client.acl.replace(
-            object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            object_type="organization",
-            group_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            permission="create",
-            restrict_object_type="organization",
-            role_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        )
-        assert_matches_type(ACL, acl, path=["response"])
-
-    @parametrize
-    async def test_raw_response_replace(self, async_client: AsyncBraintrust) -> None:
-        response = await async_client.acl.with_raw_response.replace(
-            object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            object_type="organization",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        acl = await response.parse()
-        assert_matches_type(ACL, acl, path=["response"])
-
-    @parametrize
-    async def test_streaming_response_replace(self, async_client: AsyncBraintrust) -> None:
-        async with async_client.acl.with_streaming_response.replace(
-            object_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            object_type="organization",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            acl = await response.parse()
-            assert_matches_type(ACL, acl, path=["response"])
-
-        assert cast(Any, response.is_closed) is True

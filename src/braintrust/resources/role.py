@@ -2,8 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
-from typing_extensions import Literal
+from typing import List, Union, Iterable, Optional
 
 import httpx
 
@@ -45,16 +44,7 @@ class RoleResource(SyncAPIResource):
         *,
         name: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        member_permissions: Optional[
-            List[
-                Optional[
-                    Literal[
-                        "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
-                    ]
-                ]
-            ]
-        ]
-        | NotGiven = NOT_GIVEN,
+        member_permissions: Optional[Iterable[role_create_params.MemberPermission]] | NotGiven = NOT_GIVEN,
         member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
         org_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -74,7 +64,7 @@ class RoleResource(SyncAPIResource):
 
           description: Textual description of the role
 
-          member_permissions: Permissions which belong to this role
+          member_permissions: (permission, restrict_object_type) tuples which belong to this role
 
           member_roles: Ids of the roles this role inherits from
 
@@ -150,19 +140,12 @@ class RoleResource(SyncAPIResource):
         self,
         role_id: str,
         *,
+        add_member_permissions: Optional[Iterable[role_update_params.AddMemberPermission]] | NotGiven = NOT_GIVEN,
+        add_member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        member_permissions: Optional[
-            List[
-                Optional[
-                    Literal[
-                        "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
-                    ]
-                ]
-            ]
-        ]
-        | NotGiven = NOT_GIVEN,
-        member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
+        remove_member_permissions: Optional[Iterable[role_update_params.RemoveMemberPermission]] | NotGiven = NOT_GIVEN,
+        remove_member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -179,16 +162,17 @@ class RoleResource(SyncAPIResource):
         Args:
           role_id: Role id
 
+          add_member_permissions: A list of permissions to add to the role
+
+          add_member_roles: A list of role IDs to add to the role's inheriting-from set
+
           description: Textual description of the role
 
-          member_permissions: Permissions which belong to this role
-
-          member_roles: Ids of the roles this role inherits from
-
-              An inheriting role has all the permissions contained in its member roles, as
-              well as all of their inherited permissions
-
           name: Name of the role
+
+          remove_member_permissions: A list of permissions to remove from the role
+
+          remove_member_roles: A list of role IDs to remove from the role's inheriting-from set
 
           extra_headers: Send extra headers
 
@@ -204,10 +188,12 @@ class RoleResource(SyncAPIResource):
             f"/v1/role/{role_id}",
             body=maybe_transform(
                 {
+                    "add_member_permissions": add_member_permissions,
+                    "add_member_roles": add_member_roles,
                     "description": description,
-                    "member_permissions": member_permissions,
-                    "member_roles": member_roles,
                     "name": name,
+                    "remove_member_permissions": remove_member_permissions,
+                    "remove_member_roles": remove_member_roles,
                 },
                 role_update_params.RoleUpdateParams,
             ),
@@ -331,16 +317,7 @@ class RoleResource(SyncAPIResource):
         *,
         name: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        member_permissions: Optional[
-            List[
-                Optional[
-                    Literal[
-                        "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
-                    ]
-                ]
-            ]
-        ]
-        | NotGiven = NOT_GIVEN,
+        member_permissions: Optional[Iterable[role_replace_params.MemberPermission]] | NotGiven = NOT_GIVEN,
         member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
         org_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -350,18 +327,18 @@ class RoleResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Role:
-        """
-        NOTE: This operation is deprecated and will be removed in a future revision of
-        the API. Create or replace a new role. If there is an existing role with the
-        same name as the one specified in the request, will return the existing role
-        unmodified, will replace the existing role with the provided fields
+        """Create or replace role.
+
+        If there is an existing role with the same name as the
+        one specified in the request, will replace the existing role with the provided
+        fields
 
         Args:
           name: Name of the role
 
           description: Textual description of the role
 
-          member_permissions: Permissions which belong to this role
+          member_permissions: (permission, restrict_object_type) tuples which belong to this role
 
           member_roles: Ids of the roles this role inherits from
 
@@ -413,16 +390,7 @@ class AsyncRoleResource(AsyncAPIResource):
         *,
         name: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        member_permissions: Optional[
-            List[
-                Optional[
-                    Literal[
-                        "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
-                    ]
-                ]
-            ]
-        ]
-        | NotGiven = NOT_GIVEN,
+        member_permissions: Optional[Iterable[role_create_params.MemberPermission]] | NotGiven = NOT_GIVEN,
         member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
         org_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -442,7 +410,7 @@ class AsyncRoleResource(AsyncAPIResource):
 
           description: Textual description of the role
 
-          member_permissions: Permissions which belong to this role
+          member_permissions: (permission, restrict_object_type) tuples which belong to this role
 
           member_roles: Ids of the roles this role inherits from
 
@@ -518,19 +486,12 @@ class AsyncRoleResource(AsyncAPIResource):
         self,
         role_id: str,
         *,
+        add_member_permissions: Optional[Iterable[role_update_params.AddMemberPermission]] | NotGiven = NOT_GIVEN,
+        add_member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        member_permissions: Optional[
-            List[
-                Optional[
-                    Literal[
-                        "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
-                    ]
-                ]
-            ]
-        ]
-        | NotGiven = NOT_GIVEN,
-        member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
+        remove_member_permissions: Optional[Iterable[role_update_params.RemoveMemberPermission]] | NotGiven = NOT_GIVEN,
+        remove_member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -547,16 +508,17 @@ class AsyncRoleResource(AsyncAPIResource):
         Args:
           role_id: Role id
 
+          add_member_permissions: A list of permissions to add to the role
+
+          add_member_roles: A list of role IDs to add to the role's inheriting-from set
+
           description: Textual description of the role
 
-          member_permissions: Permissions which belong to this role
-
-          member_roles: Ids of the roles this role inherits from
-
-              An inheriting role has all the permissions contained in its member roles, as
-              well as all of their inherited permissions
-
           name: Name of the role
+
+          remove_member_permissions: A list of permissions to remove from the role
+
+          remove_member_roles: A list of role IDs to remove from the role's inheriting-from set
 
           extra_headers: Send extra headers
 
@@ -572,10 +534,12 @@ class AsyncRoleResource(AsyncAPIResource):
             f"/v1/role/{role_id}",
             body=await async_maybe_transform(
                 {
+                    "add_member_permissions": add_member_permissions,
+                    "add_member_roles": add_member_roles,
                     "description": description,
-                    "member_permissions": member_permissions,
-                    "member_roles": member_roles,
                     "name": name,
+                    "remove_member_permissions": remove_member_permissions,
+                    "remove_member_roles": remove_member_roles,
                 },
                 role_update_params.RoleUpdateParams,
             ),
@@ -699,16 +663,7 @@ class AsyncRoleResource(AsyncAPIResource):
         *,
         name: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        member_permissions: Optional[
-            List[
-                Optional[
-                    Literal[
-                        "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
-                    ]
-                ]
-            ]
-        ]
-        | NotGiven = NOT_GIVEN,
+        member_permissions: Optional[Iterable[role_replace_params.MemberPermission]] | NotGiven = NOT_GIVEN,
         member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
         org_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -718,18 +673,18 @@ class AsyncRoleResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Role:
-        """
-        NOTE: This operation is deprecated and will be removed in a future revision of
-        the API. Create or replace a new role. If there is an existing role with the
-        same name as the one specified in the request, will return the existing role
-        unmodified, will replace the existing role with the provided fields
+        """Create or replace role.
+
+        If there is an existing role with the same name as the
+        one specified in the request, will replace the existing role with the provided
+        fields
 
         Args:
           name: Name of the role
 
           description: Textual description of the role
 
-          member_permissions: Permissions which belong to this role
+          member_permissions: (permission, restrict_object_type) tuples which belong to this role
 
           member_roles: Ids of the roles this role inherits from
 

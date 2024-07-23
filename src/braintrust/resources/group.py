@@ -140,10 +140,12 @@ class GroupResource(SyncAPIResource):
         self,
         group_id: str,
         *,
+        add_member_groups: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        add_member_users: Optional[List[str]] | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        member_groups: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        member_users: Optional[List[str]] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
+        remove_member_groups: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        remove_member_users: Optional[List[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -160,16 +162,17 @@ class GroupResource(SyncAPIResource):
         Args:
           group_id: Group id
 
+          add_member_groups: A list of group IDs to add to the group's inheriting-from set
+
+          add_member_users: A list of user IDs to add to the group
+
           description: Textual description of the group
 
-          member_groups: Ids of the groups this group inherits from
-
-              An inheriting group has all the users contained in its member groups, as well as
-              all of their inherited users
-
-          member_users: Ids of users which belong to this group
-
           name: Name of the group
+
+          remove_member_groups: A list of group IDs to remove from the group's inheriting-from set
+
+          remove_member_users: A list of user IDs to remove from the group
 
           extra_headers: Send extra headers
 
@@ -185,10 +188,12 @@ class GroupResource(SyncAPIResource):
             f"/v1/group/{group_id}",
             body=maybe_transform(
                 {
+                    "add_member_groups": add_member_groups,
+                    "add_member_users": add_member_users,
                     "description": description,
-                    "member_groups": member_groups,
-                    "member_users": member_users,
                     "name": name,
+                    "remove_member_groups": remove_member_groups,
+                    "remove_member_users": remove_member_users,
                 },
                 group_update_params.GroupUpdateParams,
             ),
@@ -322,11 +327,11 @@ class GroupResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Group:
-        """
-        NOTE: This operation is deprecated and will be removed in a future revision of
-        the API. Create or replace a new group. If there is an existing group with the
-        same name as the one specified in the request, will return the existing group
-        unmodified, will replace the existing group with the provided fields
+        """Create or replace group.
+
+        If there is an existing group with the same name as the
+        one specified in the request, will replace the existing group with the provided
+        fields
 
         Args:
           name: Name of the group
@@ -481,10 +486,12 @@ class AsyncGroupResource(AsyncAPIResource):
         self,
         group_id: str,
         *,
+        add_member_groups: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        add_member_users: Optional[List[str]] | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        member_groups: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        member_users: Optional[List[str]] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
+        remove_member_groups: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        remove_member_users: Optional[List[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -501,16 +508,17 @@ class AsyncGroupResource(AsyncAPIResource):
         Args:
           group_id: Group id
 
+          add_member_groups: A list of group IDs to add to the group's inheriting-from set
+
+          add_member_users: A list of user IDs to add to the group
+
           description: Textual description of the group
 
-          member_groups: Ids of the groups this group inherits from
-
-              An inheriting group has all the users contained in its member groups, as well as
-              all of their inherited users
-
-          member_users: Ids of users which belong to this group
-
           name: Name of the group
+
+          remove_member_groups: A list of group IDs to remove from the group's inheriting-from set
+
+          remove_member_users: A list of user IDs to remove from the group
 
           extra_headers: Send extra headers
 
@@ -526,10 +534,12 @@ class AsyncGroupResource(AsyncAPIResource):
             f"/v1/group/{group_id}",
             body=await async_maybe_transform(
                 {
+                    "add_member_groups": add_member_groups,
+                    "add_member_users": add_member_users,
                     "description": description,
-                    "member_groups": member_groups,
-                    "member_users": member_users,
                     "name": name,
+                    "remove_member_groups": remove_member_groups,
+                    "remove_member_users": remove_member_users,
                 },
                 group_update_params.GroupUpdateParams,
             ),
@@ -663,11 +673,11 @@ class AsyncGroupResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> Group:
-        """
-        NOTE: This operation is deprecated and will be removed in a future revision of
-        the API. Create or replace a new group. If there is an existing group with the
-        same name as the one specified in the request, will return the existing group
-        unmodified, will replace the existing group with the provided fields
+        """Create or replace group.
+
+        If there is an existing group with the same name as the
+        one specified in the request, will replace the existing group with the provided
+        fields
 
         Args:
           name: Name of the group

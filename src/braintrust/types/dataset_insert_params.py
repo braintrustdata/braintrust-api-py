@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 from typing import Dict, List, Union, Iterable, Optional
-from typing_extensions import Required, TypedDict
+from datetime import datetime
+from typing_extensions import Required, Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["DatasetInsertParams", "Event", "EventInsertDatasetEventReplace", "EventInsertDatasetEventMerge"]
 
@@ -46,7 +49,7 @@ class EventInsertDatasetEventReplace(TypedDict, total=False):
 
     It cannot be specified alongside `_is_merge=true`. Tracking hierarchical
     relationships are important for tracing (see the
-    [guide](https://www.braintrustdata.com/docs/guides/tracing) for full details).
+    [guide](https://www.braintrust.dev/docs/guides/tracing) for full details).
 
     For example, say we have logged a row
     `{"id": "abc", "input": "foo", "output": "bar", "expected": "boo", "scores": {"correctness": 0.33}}`.
@@ -56,6 +59,9 @@ class EventInsertDatasetEventReplace(TypedDict, total=False):
     You can view the full trace hierarchy (in this case, the `"llm_call"` row) by
     clicking on the "abc" row.
     """
+
+    created: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """The timestamp the dataset event was created"""
 
     expected: object
     """
@@ -126,6 +132,9 @@ class EventInsertDatasetEventMerge(TypedDict, total=False):
 
     Deleted events will not show up in subsequent fetches for this dataset
     """
+
+    created: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    """The timestamp the dataset event was created"""
 
     expected: object
     """

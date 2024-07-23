@@ -5,7 +5,12 @@ from datetime import datetime
 
 from ..._models import BaseModel
 
-__all__ = ["Project"]
+__all__ = ["Project", "Settings"]
+
+
+class Settings(BaseModel):
+    comparison_key: Optional[str] = None
+    """The key used to join two experiments (defaults to `input`)."""
 
 
 class Project(BaseModel):
@@ -23,6 +28,8 @@ class Project(BaseModel):
 
     deleted_at: Optional[datetime] = None
     """Date of project deletion, or null if the project is still active"""
+
+    settings: Optional[Settings] = None
 
     user_id: Optional[str] = None
     """Identifies the user who created the project"""

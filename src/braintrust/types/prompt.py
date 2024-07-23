@@ -22,6 +22,7 @@ __all__ = [
     "PromptDataOptionsParamsUnionMember0ToolChoiceUnionMember2Function",
     "PromptDataOptionsParamsUnionMember1",
     "PromptDataOptionsParamsUnionMember2",
+    "PromptDataOptionsParamsUnionMember3",
     "PromptDataOptionsParamsUseCache",
     "PromptDataOrigin",
     "PromptDataPrompt",
@@ -40,6 +41,7 @@ __all__ = [
     "PromptDataPromptUnionMember1MessageUnionMember2ToolCallFunction",
     "PromptDataPromptUnionMember1MessageUnionMember3",
     "PromptDataPromptUnionMember1MessageUnionMember4",
+    "PromptDataPromptUnionMember1MessageUnionMember5",
     "PromptDataPromptUnionMember2",
 ]
 
@@ -114,13 +116,21 @@ class PromptDataOptionsParamsUnionMember1(BaseModel):
 
 
 class PromptDataOptionsParamsUnionMember2(BaseModel):
-    temperature: float
-
     max_output_tokens: Optional[float] = FieldInfo(alias="maxOutputTokens", default=None)
+
+    temperature: Optional[float] = None
 
     top_k: Optional[float] = FieldInfo(alias="topK", default=None)
 
     top_p: Optional[float] = FieldInfo(alias="topP", default=None)
+
+    use_cache: Optional[bool] = None
+
+
+class PromptDataOptionsParamsUnionMember3(BaseModel):
+    temperature: Optional[float] = None
+
+    top_k: Optional[float] = FieldInfo(alias="topK", default=None)
 
     use_cache: Optional[bool] = None
 
@@ -133,6 +143,7 @@ PromptDataOptionsParams = Union[
     PromptDataOptionsParamsUnionMember0,
     PromptDataOptionsParamsUnionMember1,
     PromptDataOptionsParamsUnionMember2,
+    PromptDataOptionsParamsUnionMember3,
     PromptDataOptionsParamsUseCache,
 ]
 
@@ -234,9 +245,9 @@ class PromptDataPromptUnionMember1MessageUnionMember2(BaseModel):
 class PromptDataPromptUnionMember1MessageUnionMember3(BaseModel):
     role: Literal["tool"]
 
-    tool_call_id: str
-
     content: Optional[str] = None
+
+    tool_call_id: Optional[str] = None
 
 
 class PromptDataPromptUnionMember1MessageUnionMember4(BaseModel):
@@ -247,12 +258,19 @@ class PromptDataPromptUnionMember1MessageUnionMember4(BaseModel):
     content: Optional[str] = None
 
 
+class PromptDataPromptUnionMember1MessageUnionMember5(BaseModel):
+    role: Literal["model"]
+
+    content: Optional[str] = None
+
+
 PromptDataPromptUnionMember1Message = Union[
     PromptDataPromptUnionMember1MessageUnionMember0,
     PromptDataPromptUnionMember1MessageUnionMember1,
     PromptDataPromptUnionMember1MessageUnionMember2,
     PromptDataPromptUnionMember1MessageUnionMember3,
     PromptDataPromptUnionMember1MessageUnionMember4,
+    PromptDataPromptUnionMember1MessageUnionMember5,
 ]
 
 
