@@ -47,20 +47,20 @@ __all__ = [
 
 class Braintrust(SyncAPIClient):
     top_level: resources.TopLevelResource
-    project: resources.ProjectResource
-    experiment: resources.ExperimentResource
-    dataset: resources.DatasetResource
-    prompt: resources.PromptResource
-    role: resources.RoleResource
-    group: resources.GroupResource
-    acl: resources.ACLResource
-    user: resources.UserResource
-    project_score: resources.ProjectScoreResource
-    project_tag: resources.ProjectTagResource
-    function: resources.FunctionResource
-    view: resources.ViewResource
-    organization: resources.OrganizationResource
-    api_key: resources.APIKeyResource
+    projects: resources.ProjectsResource
+    experiments: resources.ExperimentsResource
+    datasets: resources.DatasetsResource
+    prompts: resources.PromptsResource
+    roles: resources.RolesResource
+    groups: resources.GroupsResource
+    acls: resources.ACLsResource
+    users: resources.UsersResource
+    project_scores: resources.ProjectScoresResource
+    project_tags: resources.ProjectTagsResource
+    functions: resources.FunctionsResource
+    views: resources.ViewsResource
+    organizations: resources.OrganizationsResource
+    api_keys: resources.APIKeysResource
     with_raw_response: BraintrustWithRawResponse
     with_streaming_response: BraintrustWithStreamedResponse
 
@@ -119,20 +119,20 @@ class Braintrust(SyncAPIClient):
         )
 
         self.top_level = resources.TopLevelResource(self)
-        self.project = resources.ProjectResource(self)
-        self.experiment = resources.ExperimentResource(self)
-        self.dataset = resources.DatasetResource(self)
-        self.prompt = resources.PromptResource(self)
-        self.role = resources.RoleResource(self)
-        self.group = resources.GroupResource(self)
-        self.acl = resources.ACLResource(self)
-        self.user = resources.UserResource(self)
-        self.project_score = resources.ProjectScoreResource(self)
-        self.project_tag = resources.ProjectTagResource(self)
-        self.function = resources.FunctionResource(self)
-        self.view = resources.ViewResource(self)
-        self.organization = resources.OrganizationResource(self)
-        self.api_key = resources.APIKeyResource(self)
+        self.projects = resources.ProjectsResource(self)
+        self.experiments = resources.ExperimentsResource(self)
+        self.datasets = resources.DatasetsResource(self)
+        self.prompts = resources.PromptsResource(self)
+        self.roles = resources.RolesResource(self)
+        self.groups = resources.GroupsResource(self)
+        self.acls = resources.ACLsResource(self)
+        self.users = resources.UsersResource(self)
+        self.project_scores = resources.ProjectScoresResource(self)
+        self.project_tags = resources.ProjectTagsResource(self)
+        self.functions = resources.FunctionsResource(self)
+        self.views = resources.ViewsResource(self)
+        self.organizations = resources.OrganizationsResource(self)
+        self.api_keys = resources.APIKeysResource(self)
         self.with_raw_response = BraintrustWithRawResponse(self)
         self.with_streaming_response = BraintrustWithStreamedResponse(self)
 
@@ -243,20 +243,20 @@ class Braintrust(SyncAPIClient):
 
 class AsyncBraintrust(AsyncAPIClient):
     top_level: resources.AsyncTopLevelResource
-    project: resources.AsyncProjectResource
-    experiment: resources.AsyncExperimentResource
-    dataset: resources.AsyncDatasetResource
-    prompt: resources.AsyncPromptResource
-    role: resources.AsyncRoleResource
-    group: resources.AsyncGroupResource
-    acl: resources.AsyncACLResource
-    user: resources.AsyncUserResource
-    project_score: resources.AsyncProjectScoreResource
-    project_tag: resources.AsyncProjectTagResource
-    function: resources.AsyncFunctionResource
-    view: resources.AsyncViewResource
-    organization: resources.AsyncOrganizationResource
-    api_key: resources.AsyncAPIKeyResource
+    projects: resources.AsyncProjectsResource
+    experiments: resources.AsyncExperimentsResource
+    datasets: resources.AsyncDatasetsResource
+    prompts: resources.AsyncPromptsResource
+    roles: resources.AsyncRolesResource
+    groups: resources.AsyncGroupsResource
+    acls: resources.AsyncACLsResource
+    users: resources.AsyncUsersResource
+    project_scores: resources.AsyncProjectScoresResource
+    project_tags: resources.AsyncProjectTagsResource
+    functions: resources.AsyncFunctionsResource
+    views: resources.AsyncViewsResource
+    organizations: resources.AsyncOrganizationsResource
+    api_keys: resources.AsyncAPIKeysResource
     with_raw_response: AsyncBraintrustWithRawResponse
     with_streaming_response: AsyncBraintrustWithStreamedResponse
 
@@ -315,20 +315,20 @@ class AsyncBraintrust(AsyncAPIClient):
         )
 
         self.top_level = resources.AsyncTopLevelResource(self)
-        self.project = resources.AsyncProjectResource(self)
-        self.experiment = resources.AsyncExperimentResource(self)
-        self.dataset = resources.AsyncDatasetResource(self)
-        self.prompt = resources.AsyncPromptResource(self)
-        self.role = resources.AsyncRoleResource(self)
-        self.group = resources.AsyncGroupResource(self)
-        self.acl = resources.AsyncACLResource(self)
-        self.user = resources.AsyncUserResource(self)
-        self.project_score = resources.AsyncProjectScoreResource(self)
-        self.project_tag = resources.AsyncProjectTagResource(self)
-        self.function = resources.AsyncFunctionResource(self)
-        self.view = resources.AsyncViewResource(self)
-        self.organization = resources.AsyncOrganizationResource(self)
-        self.api_key = resources.AsyncAPIKeyResource(self)
+        self.projects = resources.AsyncProjectsResource(self)
+        self.experiments = resources.AsyncExperimentsResource(self)
+        self.datasets = resources.AsyncDatasetsResource(self)
+        self.prompts = resources.AsyncPromptsResource(self)
+        self.roles = resources.AsyncRolesResource(self)
+        self.groups = resources.AsyncGroupsResource(self)
+        self.acls = resources.AsyncACLsResource(self)
+        self.users = resources.AsyncUsersResource(self)
+        self.project_scores = resources.AsyncProjectScoresResource(self)
+        self.project_tags = resources.AsyncProjectTagsResource(self)
+        self.functions = resources.AsyncFunctionsResource(self)
+        self.views = resources.AsyncViewsResource(self)
+        self.organizations = resources.AsyncOrganizationsResource(self)
+        self.api_keys = resources.AsyncAPIKeysResource(self)
         self.with_raw_response = AsyncBraintrustWithRawResponse(self)
         self.with_streaming_response = AsyncBraintrustWithStreamedResponse(self)
 
@@ -440,77 +440,77 @@ class AsyncBraintrust(AsyncAPIClient):
 class BraintrustWithRawResponse:
     def __init__(self, client: Braintrust) -> None:
         self.top_level = resources.TopLevelResourceWithRawResponse(client.top_level)
-        self.project = resources.ProjectResourceWithRawResponse(client.project)
-        self.experiment = resources.ExperimentResourceWithRawResponse(client.experiment)
-        self.dataset = resources.DatasetResourceWithRawResponse(client.dataset)
-        self.prompt = resources.PromptResourceWithRawResponse(client.prompt)
-        self.role = resources.RoleResourceWithRawResponse(client.role)
-        self.group = resources.GroupResourceWithRawResponse(client.group)
-        self.acl = resources.ACLResourceWithRawResponse(client.acl)
-        self.user = resources.UserResourceWithRawResponse(client.user)
-        self.project_score = resources.ProjectScoreResourceWithRawResponse(client.project_score)
-        self.project_tag = resources.ProjectTagResourceWithRawResponse(client.project_tag)
-        self.function = resources.FunctionResourceWithRawResponse(client.function)
-        self.view = resources.ViewResourceWithRawResponse(client.view)
-        self.organization = resources.OrganizationResourceWithRawResponse(client.organization)
-        self.api_key = resources.APIKeyResourceWithRawResponse(client.api_key)
+        self.projects = resources.ProjectsResourceWithRawResponse(client.projects)
+        self.experiments = resources.ExperimentsResourceWithRawResponse(client.experiments)
+        self.datasets = resources.DatasetsResourceWithRawResponse(client.datasets)
+        self.prompts = resources.PromptsResourceWithRawResponse(client.prompts)
+        self.roles = resources.RolesResourceWithRawResponse(client.roles)
+        self.groups = resources.GroupsResourceWithRawResponse(client.groups)
+        self.acls = resources.ACLsResourceWithRawResponse(client.acls)
+        self.users = resources.UsersResourceWithRawResponse(client.users)
+        self.project_scores = resources.ProjectScoresResourceWithRawResponse(client.project_scores)
+        self.project_tags = resources.ProjectTagsResourceWithRawResponse(client.project_tags)
+        self.functions = resources.FunctionsResourceWithRawResponse(client.functions)
+        self.views = resources.ViewsResourceWithRawResponse(client.views)
+        self.organizations = resources.OrganizationsResourceWithRawResponse(client.organizations)
+        self.api_keys = resources.APIKeysResourceWithRawResponse(client.api_keys)
 
 
 class AsyncBraintrustWithRawResponse:
     def __init__(self, client: AsyncBraintrust) -> None:
         self.top_level = resources.AsyncTopLevelResourceWithRawResponse(client.top_level)
-        self.project = resources.AsyncProjectResourceWithRawResponse(client.project)
-        self.experiment = resources.AsyncExperimentResourceWithRawResponse(client.experiment)
-        self.dataset = resources.AsyncDatasetResourceWithRawResponse(client.dataset)
-        self.prompt = resources.AsyncPromptResourceWithRawResponse(client.prompt)
-        self.role = resources.AsyncRoleResourceWithRawResponse(client.role)
-        self.group = resources.AsyncGroupResourceWithRawResponse(client.group)
-        self.acl = resources.AsyncACLResourceWithRawResponse(client.acl)
-        self.user = resources.AsyncUserResourceWithRawResponse(client.user)
-        self.project_score = resources.AsyncProjectScoreResourceWithRawResponse(client.project_score)
-        self.project_tag = resources.AsyncProjectTagResourceWithRawResponse(client.project_tag)
-        self.function = resources.AsyncFunctionResourceWithRawResponse(client.function)
-        self.view = resources.AsyncViewResourceWithRawResponse(client.view)
-        self.organization = resources.AsyncOrganizationResourceWithRawResponse(client.organization)
-        self.api_key = resources.AsyncAPIKeyResourceWithRawResponse(client.api_key)
+        self.projects = resources.AsyncProjectsResourceWithRawResponse(client.projects)
+        self.experiments = resources.AsyncExperimentsResourceWithRawResponse(client.experiments)
+        self.datasets = resources.AsyncDatasetsResourceWithRawResponse(client.datasets)
+        self.prompts = resources.AsyncPromptsResourceWithRawResponse(client.prompts)
+        self.roles = resources.AsyncRolesResourceWithRawResponse(client.roles)
+        self.groups = resources.AsyncGroupsResourceWithRawResponse(client.groups)
+        self.acls = resources.AsyncACLsResourceWithRawResponse(client.acls)
+        self.users = resources.AsyncUsersResourceWithRawResponse(client.users)
+        self.project_scores = resources.AsyncProjectScoresResourceWithRawResponse(client.project_scores)
+        self.project_tags = resources.AsyncProjectTagsResourceWithRawResponse(client.project_tags)
+        self.functions = resources.AsyncFunctionsResourceWithRawResponse(client.functions)
+        self.views = resources.AsyncViewsResourceWithRawResponse(client.views)
+        self.organizations = resources.AsyncOrganizationsResourceWithRawResponse(client.organizations)
+        self.api_keys = resources.AsyncAPIKeysResourceWithRawResponse(client.api_keys)
 
 
 class BraintrustWithStreamedResponse:
     def __init__(self, client: Braintrust) -> None:
         self.top_level = resources.TopLevelResourceWithStreamingResponse(client.top_level)
-        self.project = resources.ProjectResourceWithStreamingResponse(client.project)
-        self.experiment = resources.ExperimentResourceWithStreamingResponse(client.experiment)
-        self.dataset = resources.DatasetResourceWithStreamingResponse(client.dataset)
-        self.prompt = resources.PromptResourceWithStreamingResponse(client.prompt)
-        self.role = resources.RoleResourceWithStreamingResponse(client.role)
-        self.group = resources.GroupResourceWithStreamingResponse(client.group)
-        self.acl = resources.ACLResourceWithStreamingResponse(client.acl)
-        self.user = resources.UserResourceWithStreamingResponse(client.user)
-        self.project_score = resources.ProjectScoreResourceWithStreamingResponse(client.project_score)
-        self.project_tag = resources.ProjectTagResourceWithStreamingResponse(client.project_tag)
-        self.function = resources.FunctionResourceWithStreamingResponse(client.function)
-        self.view = resources.ViewResourceWithStreamingResponse(client.view)
-        self.organization = resources.OrganizationResourceWithStreamingResponse(client.organization)
-        self.api_key = resources.APIKeyResourceWithStreamingResponse(client.api_key)
+        self.projects = resources.ProjectsResourceWithStreamingResponse(client.projects)
+        self.experiments = resources.ExperimentsResourceWithStreamingResponse(client.experiments)
+        self.datasets = resources.DatasetsResourceWithStreamingResponse(client.datasets)
+        self.prompts = resources.PromptsResourceWithStreamingResponse(client.prompts)
+        self.roles = resources.RolesResourceWithStreamingResponse(client.roles)
+        self.groups = resources.GroupsResourceWithStreamingResponse(client.groups)
+        self.acls = resources.ACLsResourceWithStreamingResponse(client.acls)
+        self.users = resources.UsersResourceWithStreamingResponse(client.users)
+        self.project_scores = resources.ProjectScoresResourceWithStreamingResponse(client.project_scores)
+        self.project_tags = resources.ProjectTagsResourceWithStreamingResponse(client.project_tags)
+        self.functions = resources.FunctionsResourceWithStreamingResponse(client.functions)
+        self.views = resources.ViewsResourceWithStreamingResponse(client.views)
+        self.organizations = resources.OrganizationsResourceWithStreamingResponse(client.organizations)
+        self.api_keys = resources.APIKeysResourceWithStreamingResponse(client.api_keys)
 
 
 class AsyncBraintrustWithStreamedResponse:
     def __init__(self, client: AsyncBraintrust) -> None:
         self.top_level = resources.AsyncTopLevelResourceWithStreamingResponse(client.top_level)
-        self.project = resources.AsyncProjectResourceWithStreamingResponse(client.project)
-        self.experiment = resources.AsyncExperimentResourceWithStreamingResponse(client.experiment)
-        self.dataset = resources.AsyncDatasetResourceWithStreamingResponse(client.dataset)
-        self.prompt = resources.AsyncPromptResourceWithStreamingResponse(client.prompt)
-        self.role = resources.AsyncRoleResourceWithStreamingResponse(client.role)
-        self.group = resources.AsyncGroupResourceWithStreamingResponse(client.group)
-        self.acl = resources.AsyncACLResourceWithStreamingResponse(client.acl)
-        self.user = resources.AsyncUserResourceWithStreamingResponse(client.user)
-        self.project_score = resources.AsyncProjectScoreResourceWithStreamingResponse(client.project_score)
-        self.project_tag = resources.AsyncProjectTagResourceWithStreamingResponse(client.project_tag)
-        self.function = resources.AsyncFunctionResourceWithStreamingResponse(client.function)
-        self.view = resources.AsyncViewResourceWithStreamingResponse(client.view)
-        self.organization = resources.AsyncOrganizationResourceWithStreamingResponse(client.organization)
-        self.api_key = resources.AsyncAPIKeyResourceWithStreamingResponse(client.api_key)
+        self.projects = resources.AsyncProjectsResourceWithStreamingResponse(client.projects)
+        self.experiments = resources.AsyncExperimentsResourceWithStreamingResponse(client.experiments)
+        self.datasets = resources.AsyncDatasetsResourceWithStreamingResponse(client.datasets)
+        self.prompts = resources.AsyncPromptsResourceWithStreamingResponse(client.prompts)
+        self.roles = resources.AsyncRolesResourceWithStreamingResponse(client.roles)
+        self.groups = resources.AsyncGroupsResourceWithStreamingResponse(client.groups)
+        self.acls = resources.AsyncACLsResourceWithStreamingResponse(client.acls)
+        self.users = resources.AsyncUsersResourceWithStreamingResponse(client.users)
+        self.project_scores = resources.AsyncProjectScoresResourceWithStreamingResponse(client.project_scores)
+        self.project_tags = resources.AsyncProjectTagsResourceWithStreamingResponse(client.project_tags)
+        self.functions = resources.AsyncFunctionsResourceWithStreamingResponse(client.functions)
+        self.views = resources.AsyncViewsResourceWithStreamingResponse(client.views)
+        self.organizations = resources.AsyncOrganizationsResourceWithStreamingResponse(client.organizations)
+        self.api_keys = resources.AsyncAPIKeysResourceWithStreamingResponse(client.api_keys)
 
 
 Client = Braintrust
