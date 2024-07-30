@@ -26,21 +26,21 @@ __all__ = [
     "PromptDataOrigin",
     "PromptDataPrompt",
     "PromptDataPromptCompletion",
-    "PromptDataPromptUnionMember1",
-    "PromptDataPromptUnionMember1Message",
-    "PromptDataPromptUnionMember1MessageUnionMember0",
-    "PromptDataPromptUnionMember1MessageUnionMember1",
-    "PromptDataPromptUnionMember1MessageUnionMember1ContentUnionMember1",
-    "PromptDataPromptUnionMember1MessageUnionMember1ContentUnionMember1UnionMember0",
-    "PromptDataPromptUnionMember1MessageUnionMember1ContentUnionMember1UnionMember1",
-    "PromptDataPromptUnionMember1MessageUnionMember1ContentUnionMember1UnionMember1ImageURL",
-    "PromptDataPromptUnionMember1MessageUnionMember2",
-    "PromptDataPromptUnionMember1MessageUnionMember2FunctionCall",
-    "PromptDataPromptUnionMember1MessageUnionMember2ToolCall",
-    "PromptDataPromptUnionMember1MessageUnionMember2ToolCallFunction",
-    "PromptDataPromptUnionMember1MessageUnionMember3",
-    "PromptDataPromptUnionMember1MessageUnionMember4",
-    "PromptDataPromptUnionMember1MessageUnionMember5",
+    "PromptDataPromptChat",
+    "PromptDataPromptChatMessage",
+    "PromptDataPromptChatMessageUnionMember0",
+    "PromptDataPromptChatMessageUnionMember1",
+    "PromptDataPromptChatMessageUnionMember1ContentUnionMember1",
+    "PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember0",
+    "PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember1",
+    "PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember1ImageURL",
+    "PromptDataPromptChatMessageUnionMember2",
+    "PromptDataPromptChatMessageUnionMember2FunctionCall",
+    "PromptDataPromptChatMessageUnionMember2ToolCall",
+    "PromptDataPromptChatMessageUnionMember2ToolCallFunction",
+    "PromptDataPromptChatMessageUnionMember3",
+    "PromptDataPromptChatMessageUnionMember4",
+    "PromptDataPromptChatMessageUnionMember5",
     "PromptDataPromptUnionMember2",
 ]
 
@@ -189,7 +189,7 @@ class PromptDataPromptCompletion(TypedDict, total=False):
     type: Required[Literal["completion"]]
 
 
-class PromptDataPromptUnionMember1MessageUnionMember0(TypedDict, total=False):
+class PromptDataPromptChatMessageUnionMember0(TypedDict, total=False):
     role: Required[Literal["system"]]
 
     content: str
@@ -197,71 +197,71 @@ class PromptDataPromptUnionMember1MessageUnionMember0(TypedDict, total=False):
     name: str
 
 
-class PromptDataPromptUnionMember1MessageUnionMember1ContentUnionMember1UnionMember0(TypedDict, total=False):
+class PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember0(TypedDict, total=False):
     type: Required[Literal["text"]]
 
     text: str
 
 
-class PromptDataPromptUnionMember1MessageUnionMember1ContentUnionMember1UnionMember1ImageURL(TypedDict, total=False):
+class PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember1ImageURL(TypedDict, total=False):
     url: Required[str]
 
     detail: Literal["auto", "low", "high"]
 
 
-class PromptDataPromptUnionMember1MessageUnionMember1ContentUnionMember1UnionMember1(TypedDict, total=False):
-    image_url: Required[PromptDataPromptUnionMember1MessageUnionMember1ContentUnionMember1UnionMember1ImageURL]
+class PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember1(TypedDict, total=False):
+    image_url: Required[PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember1ImageURL]
 
     type: Required[Literal["image_url"]]
 
 
-PromptDataPromptUnionMember1MessageUnionMember1ContentUnionMember1 = Union[
-    PromptDataPromptUnionMember1MessageUnionMember1ContentUnionMember1UnionMember0,
-    PromptDataPromptUnionMember1MessageUnionMember1ContentUnionMember1UnionMember1,
+PromptDataPromptChatMessageUnionMember1ContentUnionMember1 = Union[
+    PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember0,
+    PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember1,
 ]
 
 
-class PromptDataPromptUnionMember1MessageUnionMember1(TypedDict, total=False):
+class PromptDataPromptChatMessageUnionMember1(TypedDict, total=False):
     role: Required[Literal["user"]]
 
-    content: Union[str, Iterable[PromptDataPromptUnionMember1MessageUnionMember1ContentUnionMember1]]
+    content: Union[str, Iterable[PromptDataPromptChatMessageUnionMember1ContentUnionMember1]]
 
     name: str
 
 
-class PromptDataPromptUnionMember1MessageUnionMember2FunctionCall(TypedDict, total=False):
+class PromptDataPromptChatMessageUnionMember2FunctionCall(TypedDict, total=False):
     arguments: Required[str]
 
     name: Required[str]
 
 
-class PromptDataPromptUnionMember1MessageUnionMember2ToolCallFunction(TypedDict, total=False):
+class PromptDataPromptChatMessageUnionMember2ToolCallFunction(TypedDict, total=False):
     arguments: Required[str]
 
     name: Required[str]
 
 
-class PromptDataPromptUnionMember1MessageUnionMember2ToolCall(TypedDict, total=False):
+class PromptDataPromptChatMessageUnionMember2ToolCall(TypedDict, total=False):
     id: Required[str]
 
-    function: Required[PromptDataPromptUnionMember1MessageUnionMember2ToolCallFunction]
+    function: Required[PromptDataPromptChatMessageUnionMember2ToolCallFunction]
 
     type: Required[Literal["function"]]
 
 
-class PromptDataPromptUnionMember1MessageUnionMember2(TypedDict, total=False):
+class PromptDataPromptChatMessageUnionMember2(TypedDict, total=False):
     role: Required[Literal["assistant"]]
 
     content: Optional[str]
 
-    function_call: PromptDataPromptUnionMember1MessageUnionMember2FunctionCall
+    function_call: PromptDataPromptChatMessageUnionMember2FunctionCall
 
     name: str
 
-    tool_calls: Iterable[PromptDataPromptUnionMember1MessageUnionMember2ToolCall]
+    tool_calls: Iterable[PromptDataPromptChatMessageUnionMember2ToolCall]
 
 
-class PromptDataPromptUnionMember1MessageUnionMember3(TypedDict, total=False):
+class PromptDataPromptChatMessageUnionMember3(TypedDict, total=False):
     role: Required[Literal["tool"]]
 
     content: str
@@ -269,7 +269,7 @@ class PromptDataPromptUnionMember1MessageUnionMember3(TypedDict, total=False):
     tool_call_id: str
 
 
-class PromptDataPromptUnionMember1MessageUnionMember4(TypedDict, total=False):
+class PromptDataPromptChatMessageUnionMember4(TypedDict, total=False):
     name: Required[str]
 
     role: Required[Literal["function"]]
@@ -277,24 +277,24 @@ class PromptDataPromptUnionMember1MessageUnionMember4(TypedDict, total=False):
     content: str
 
 
-class PromptDataPromptUnionMember1MessageUnionMember5(TypedDict, total=False):
+class PromptDataPromptChatMessageUnionMember5(TypedDict, total=False):
     role: Required[Literal["model"]]
 
     content: Optional[str]
 
 
-PromptDataPromptUnionMember1Message = Union[
-    PromptDataPromptUnionMember1MessageUnionMember0,
-    PromptDataPromptUnionMember1MessageUnionMember1,
-    PromptDataPromptUnionMember1MessageUnionMember2,
-    PromptDataPromptUnionMember1MessageUnionMember3,
-    PromptDataPromptUnionMember1MessageUnionMember4,
-    PromptDataPromptUnionMember1MessageUnionMember5,
+PromptDataPromptChatMessage = Union[
+    PromptDataPromptChatMessageUnionMember0,
+    PromptDataPromptChatMessageUnionMember1,
+    PromptDataPromptChatMessageUnionMember2,
+    PromptDataPromptChatMessageUnionMember3,
+    PromptDataPromptChatMessageUnionMember4,
+    PromptDataPromptChatMessageUnionMember5,
 ]
 
 
-class PromptDataPromptUnionMember1(TypedDict, total=False):
-    messages: Required[Iterable[PromptDataPromptUnionMember1Message]]
+class PromptDataPromptChat(TypedDict, total=False):
+    messages: Required[Iterable[PromptDataPromptChatMessage]]
 
     type: Required[Literal["chat"]]
 
@@ -305,9 +305,7 @@ class PromptDataPromptUnionMember2(TypedDict, total=False):
     pass
 
 
-PromptDataPrompt = Union[
-    PromptDataPromptCompletion, PromptDataPromptUnionMember1, Optional[PromptDataPromptUnionMember2]
-]
+PromptDataPrompt = Union[PromptDataPromptCompletion, PromptDataPromptChat, Optional[PromptDataPromptUnionMember2]]
 
 
 class PromptData(TypedDict, total=False):

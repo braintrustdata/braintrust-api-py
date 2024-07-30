@@ -36,21 +36,21 @@ __all__ = [
     "PromptDataOrigin",
     "PromptDataPrompt",
     "PromptDataPromptCompletion",
-    "PromptDataPromptUnionMember1",
-    "PromptDataPromptUnionMember1Message",
-    "PromptDataPromptUnionMember1MessageUnionMember0",
-    "PromptDataPromptUnionMember1MessageUnionMember1",
-    "PromptDataPromptUnionMember1MessageUnionMember1ContentUnionMember1",
-    "PromptDataPromptUnionMember1MessageUnionMember1ContentUnionMember1UnionMember0",
-    "PromptDataPromptUnionMember1MessageUnionMember1ContentUnionMember1UnionMember1",
-    "PromptDataPromptUnionMember1MessageUnionMember1ContentUnionMember1UnionMember1ImageURL",
-    "PromptDataPromptUnionMember1MessageUnionMember2",
-    "PromptDataPromptUnionMember1MessageUnionMember2FunctionCall",
-    "PromptDataPromptUnionMember1MessageUnionMember2ToolCall",
-    "PromptDataPromptUnionMember1MessageUnionMember2ToolCallFunction",
-    "PromptDataPromptUnionMember1MessageUnionMember3",
-    "PromptDataPromptUnionMember1MessageUnionMember4",
-    "PromptDataPromptUnionMember1MessageUnionMember5",
+    "PromptDataPromptChat",
+    "PromptDataPromptChatMessage",
+    "PromptDataPromptChatMessageUnionMember0",
+    "PromptDataPromptChatMessageUnionMember1",
+    "PromptDataPromptChatMessageUnionMember1ContentUnionMember1",
+    "PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember0",
+    "PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember1",
+    "PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember1ImageURL",
+    "PromptDataPromptChatMessageUnionMember2",
+    "PromptDataPromptChatMessageUnionMember2FunctionCall",
+    "PromptDataPromptChatMessageUnionMember2ToolCall",
+    "PromptDataPromptChatMessageUnionMember2ToolCallFunction",
+    "PromptDataPromptChatMessageUnionMember3",
+    "PromptDataPromptChatMessageUnionMember4",
+    "PromptDataPromptChatMessageUnionMember5",
     "PromptDataPromptUnionMember2",
 ]
 
@@ -227,7 +227,7 @@ class PromptDataPromptCompletion(BaseModel):
     type: Literal["completion"]
 
 
-class PromptDataPromptUnionMember1MessageUnionMember0(BaseModel):
+class PromptDataPromptChatMessageUnionMember0(BaseModel):
     role: Literal["system"]
 
     content: Optional[str] = None
@@ -235,71 +235,71 @@ class PromptDataPromptUnionMember1MessageUnionMember0(BaseModel):
     name: Optional[str] = None
 
 
-class PromptDataPromptUnionMember1MessageUnionMember1ContentUnionMember1UnionMember0(BaseModel):
+class PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember0(BaseModel):
     type: Literal["text"]
 
     text: Optional[str] = None
 
 
-class PromptDataPromptUnionMember1MessageUnionMember1ContentUnionMember1UnionMember1ImageURL(BaseModel):
+class PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember1ImageURL(BaseModel):
     url: str
 
     detail: Optional[Literal["auto", "low", "high"]] = None
 
 
-class PromptDataPromptUnionMember1MessageUnionMember1ContentUnionMember1UnionMember1(BaseModel):
-    image_url: PromptDataPromptUnionMember1MessageUnionMember1ContentUnionMember1UnionMember1ImageURL
+class PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember1(BaseModel):
+    image_url: PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember1ImageURL
 
     type: Literal["image_url"]
 
 
-PromptDataPromptUnionMember1MessageUnionMember1ContentUnionMember1 = Union[
-    PromptDataPromptUnionMember1MessageUnionMember1ContentUnionMember1UnionMember0,
-    PromptDataPromptUnionMember1MessageUnionMember1ContentUnionMember1UnionMember1,
+PromptDataPromptChatMessageUnionMember1ContentUnionMember1 = Union[
+    PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember0,
+    PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember1,
 ]
 
 
-class PromptDataPromptUnionMember1MessageUnionMember1(BaseModel):
+class PromptDataPromptChatMessageUnionMember1(BaseModel):
     role: Literal["user"]
 
-    content: Union[str, List[PromptDataPromptUnionMember1MessageUnionMember1ContentUnionMember1], None] = None
+    content: Union[str, List[PromptDataPromptChatMessageUnionMember1ContentUnionMember1], None] = None
 
     name: Optional[str] = None
 
 
-class PromptDataPromptUnionMember1MessageUnionMember2FunctionCall(BaseModel):
+class PromptDataPromptChatMessageUnionMember2FunctionCall(BaseModel):
     arguments: str
 
     name: str
 
 
-class PromptDataPromptUnionMember1MessageUnionMember2ToolCallFunction(BaseModel):
+class PromptDataPromptChatMessageUnionMember2ToolCallFunction(BaseModel):
     arguments: str
 
     name: str
 
 
-class PromptDataPromptUnionMember1MessageUnionMember2ToolCall(BaseModel):
+class PromptDataPromptChatMessageUnionMember2ToolCall(BaseModel):
     id: str
 
-    function: PromptDataPromptUnionMember1MessageUnionMember2ToolCallFunction
+    function: PromptDataPromptChatMessageUnionMember2ToolCallFunction
 
     type: Literal["function"]
 
 
-class PromptDataPromptUnionMember1MessageUnionMember2(BaseModel):
+class PromptDataPromptChatMessageUnionMember2(BaseModel):
     role: Literal["assistant"]
 
     content: Optional[str] = None
 
-    function_call: Optional[PromptDataPromptUnionMember1MessageUnionMember2FunctionCall] = None
+    function_call: Optional[PromptDataPromptChatMessageUnionMember2FunctionCall] = None
 
     name: Optional[str] = None
 
-    tool_calls: Optional[List[PromptDataPromptUnionMember1MessageUnionMember2ToolCall]] = None
+    tool_calls: Optional[List[PromptDataPromptChatMessageUnionMember2ToolCall]] = None
 
 
-class PromptDataPromptUnionMember1MessageUnionMember3(BaseModel):
+class PromptDataPromptChatMessageUnionMember3(BaseModel):
     role: Literal["tool"]
 
     content: Optional[str] = None
@@ -307,7 +307,7 @@ class PromptDataPromptUnionMember1MessageUnionMember3(BaseModel):
     tool_call_id: Optional[str] = None
 
 
-class PromptDataPromptUnionMember1MessageUnionMember4(BaseModel):
+class PromptDataPromptChatMessageUnionMember4(BaseModel):
     name: str
 
     role: Literal["function"]
@@ -315,24 +315,24 @@ class PromptDataPromptUnionMember1MessageUnionMember4(BaseModel):
     content: Optional[str] = None
 
 
-class PromptDataPromptUnionMember1MessageUnionMember5(BaseModel):
+class PromptDataPromptChatMessageUnionMember5(BaseModel):
     role: Literal["model"]
 
     content: Optional[str] = None
 
 
-PromptDataPromptUnionMember1Message = Union[
-    PromptDataPromptUnionMember1MessageUnionMember0,
-    PromptDataPromptUnionMember1MessageUnionMember1,
-    PromptDataPromptUnionMember1MessageUnionMember2,
-    PromptDataPromptUnionMember1MessageUnionMember3,
-    PromptDataPromptUnionMember1MessageUnionMember4,
-    PromptDataPromptUnionMember1MessageUnionMember5,
+PromptDataPromptChatMessage = Union[
+    PromptDataPromptChatMessageUnionMember0,
+    PromptDataPromptChatMessageUnionMember1,
+    PromptDataPromptChatMessageUnionMember2,
+    PromptDataPromptChatMessageUnionMember3,
+    PromptDataPromptChatMessageUnionMember4,
+    PromptDataPromptChatMessageUnionMember5,
 ]
 
 
-class PromptDataPromptUnionMember1(BaseModel):
-    messages: List[PromptDataPromptUnionMember1Message]
+class PromptDataPromptChat(BaseModel):
+    messages: List[PromptDataPromptChatMessage]
 
     type: Literal["chat"]
 
@@ -343,9 +343,7 @@ class PromptDataPromptUnionMember2(BaseModel):
     pass
 
 
-PromptDataPrompt = Union[
-    PromptDataPromptCompletion, PromptDataPromptUnionMember1, Optional[PromptDataPromptUnionMember2]
-]
+PromptDataPrompt = Union[PromptDataPromptCompletion, PromptDataPromptChat, Optional[PromptDataPromptUnionMember2]]
 
 
 class PromptData(BaseModel):
