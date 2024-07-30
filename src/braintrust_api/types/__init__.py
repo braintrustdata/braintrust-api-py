@@ -52,7 +52,6 @@ from .dataset_fetch_response import DatasetFetchResponse as DatasetFetchResponse
 from .experiment_list_params import ExperimentListParams as ExperimentListParams
 from .function_create_params import FunctionCreateParams as FunctionCreateParams
 from .function_update_params import FunctionUpdateParams as FunctionUpdateParams
-from .project_score_category import ProjectScoreCategory as ProjectScoreCategory
 from .api_key_create_response import APIKeyCreateResponse as APIKeyCreateResponse
 from .dataset_feedback_params import DatasetFeedbackParams as DatasetFeedbackParams
 from .dataset_insert_response import DatasetInsertResponse as DatasetInsertResponse
@@ -79,7 +78,6 @@ from .experiment_summarize_params import ExperimentSummarizeParams as Experiment
 from .project_score_create_params import ProjectScoreCreateParams as ProjectScoreCreateParams
 from .project_score_update_params import ProjectScoreUpdateParams as ProjectScoreUpdateParams
 from .experiment_fetch_post_params import ExperimentFetchPostParams as ExperimentFetchPostParams
-from .project_score_category_param import ProjectScoreCategoryParam as ProjectScoreCategoryParam
 from .project_score_replace_params import ProjectScoreReplaceParams as ProjectScoreReplaceParams
 from .experiment_summarize_response import ExperimentSummarizeResponse as ExperimentSummarizeResponse
 from .experiment_fetch_post_response import ExperimentFetchPostResponse as ExperimentFetchPostResponse

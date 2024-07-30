@@ -179,7 +179,7 @@ Methods:
 Types:
 
 ```python
-from braintrust_api.types import ProjectScore, ProjectScoreCategory
+from braintrust_api.types import ProjectScore
 ```
 
 Methods:
