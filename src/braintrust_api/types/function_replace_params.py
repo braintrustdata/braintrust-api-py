@@ -50,7 +50,7 @@ __all__ = [
     "PromptDataPromptChatMessageUnionMember3",
     "PromptDataPromptChatMessageUnionMember4",
     "PromptDataPromptChatMessageUnionMember5",
-    "PromptDataPromptUnionMember2",
+    "PromptDataPromptNullVariant",
 ]
 
 
@@ -360,11 +360,11 @@ class PromptDataPromptChat(TypedDict, total=False):
     tools: str
 
 
-class PromptDataPromptUnionMember2(TypedDict, total=False):
+class PromptDataPromptNullVariant(TypedDict, total=False):
     pass
 
 
-PromptDataPrompt = Union[PromptDataPromptCompletion, PromptDataPromptChat, Optional[PromptDataPromptUnionMember2]]
+PromptDataPrompt = Union[PromptDataPromptCompletion, PromptDataPromptChat, Optional[PromptDataPromptNullVariant]]
 
 
 class PromptData(TypedDict, total=False):
