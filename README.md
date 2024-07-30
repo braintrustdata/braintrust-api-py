@@ -24,9 +24,13 @@ pip install braintrust-api
 The full API of this library can be found in [api.md](api.md).
 
 ```python
+import os
 from braintrust_api import Braintrust
 
-client = Braintrust()
+client = Braintrust(
+    # This is the default and can be omitted
+    api_key=os.environ.get("BRAINTRUST_API_KEY"),
+)
 
 project = client.projects.create(
     name="foobar",
@@ -44,10 +48,14 @@ so that your API Key is not stored in source control.
 Simply import `AsyncBraintrust` instead of `Braintrust` and use `await` with each API call:
 
 ```python
+import os
 import asyncio
 from braintrust_api import AsyncBraintrust
 
-client = AsyncBraintrust()
+client = AsyncBraintrust(
+    # This is the default and can be omitted
+    api_key=os.environ.get("BRAINTRUST_API_KEY"),
+)
 
 
 async def main() -> None:
