@@ -5,7 +5,9 @@ from __future__ import annotations
 from typing import Dict, List, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["ProjectScoreReplaceParams", "Categories", "CategoriesUnionMember0", "CategoriesNullableVariant"]
+from .project_score_category_param import ProjectScoreCategoryParam
+
+__all__ = ["ProjectScoreReplaceParams", "Categories", "CategoriesProjectScoreCategoryInfoData3"]
 
 
 class ProjectScoreReplaceParams(TypedDict, total=False):
@@ -25,16 +27,10 @@ class ProjectScoreReplaceParams(TypedDict, total=False):
     """Textual description of the project score"""
 
 
-class CategoriesUnionMember0(TypedDict, total=False):
-    name: Required[str]
-    """Name of the category"""
-
-    value: Required[float]
-    """Numerical value of the category. Must be between 0 and 1, inclusive"""
-
-
-class CategoriesNullableVariant(TypedDict, total=False):
+class CategoriesProjectScoreCategoryInfoData3(TypedDict, total=False):
     pass
 
 
-Categories = Union[Iterable[CategoriesUnionMember0], Dict[str, float], List[str], Optional[CategoriesNullableVariant]]
+Categories = Union[
+    Iterable[ProjectScoreCategoryParam], Dict[str, float], List[str], Optional[CategoriesProjectScoreCategoryInfoData3]
+]
