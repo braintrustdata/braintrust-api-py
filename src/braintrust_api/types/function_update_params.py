@@ -35,7 +35,7 @@ __all__ = [
     "PromptDataOptionsParamsUseCache",
     "PromptDataOrigin",
     "PromptDataPrompt",
-    "PromptDataPromptUnionMember0",
+    "PromptDataPromptCompletion",
     "PromptDataPromptUnionMember1",
     "PromptDataPromptUnionMember1Message",
     "PromptDataPromptUnionMember1MessageUnionMember0",
@@ -243,7 +243,7 @@ class PromptDataOrigin(TypedDict, total=False):
     prompt_version: str
 
 
-class PromptDataPromptUnionMember0(TypedDict, total=False):
+class PromptDataPromptCompletion(TypedDict, total=False):
     content: Required[str]
 
     type: Required[Literal["completion"]]
@@ -366,7 +366,7 @@ class PromptDataPromptUnionMember2(TypedDict, total=False):
 
 
 PromptDataPrompt = Union[
-    PromptDataPromptUnionMember0, PromptDataPromptUnionMember1, Optional[PromptDataPromptUnionMember2]
+    PromptDataPromptCompletion, PromptDataPromptUnionMember1, Optional[PromptDataPromptUnionMember2]
 ]
 
 
