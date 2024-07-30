@@ -42,7 +42,7 @@ __all__ = [
     "PromptDataPromptChatMessageUnionMember3",
     "PromptDataPromptChatMessageUnionMember4",
     "PromptDataPromptChatMessageUnionMember5",
-    "PromptDataPromptUnionMember2",
+    "PromptDataPromptNullVariant",
 ]
 
 
@@ -282,11 +282,11 @@ class PromptDataPromptChat(BaseModel):
     tools: Optional[str] = None
 
 
-class PromptDataPromptUnionMember2(BaseModel):
+class PromptDataPromptNullVariant(BaseModel):
     pass
 
 
-PromptDataPrompt = Union[PromptDataPromptCompletion, PromptDataPromptChat, Optional[PromptDataPromptUnionMember2]]
+PromptDataPrompt = Union[PromptDataPromptCompletion, PromptDataPromptChat, Optional[PromptDataPromptNullVariant]]
 
 
 class PromptData(BaseModel):
