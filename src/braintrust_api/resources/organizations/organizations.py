@@ -6,28 +6,40 @@ from typing import List, Union, Optional
 
 import httpx
 
-from ..types import organization_list_params, organization_update_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from .._utils import (
+from ...types import organization_list_params, organization_update_params
+from .members import (
+    MembersResource,
+    AsyncMembersResource,
+    MembersResourceWithRawResponse,
+    AsyncMembersResourceWithRawResponse,
+    MembersResourceWithStreamingResponse,
+    AsyncMembersResourceWithStreamingResponse,
+)
+from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._utils import (
     maybe_transform,
     async_maybe_transform,
 )
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..pagination import SyncListObjects, AsyncListObjects
-from .._base_client import AsyncPaginator, make_request_options
-from ..types.organization import Organization
+from ...pagination import SyncListObjects, AsyncListObjects
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.organization import Organization
 
 __all__ = ["OrganizationsResource", "AsyncOrganizationsResource"]
 
 
 class OrganizationsResource(SyncAPIResource):
+    @cached_property
+    def members(self) -> MembersResource:
+        return MembersResource(self._client)
+
     @cached_property
     def with_raw_response(self) -> OrganizationsResourceWithRawResponse:
         return OrganizationsResourceWithRawResponse(self)
@@ -76,6 +88,7 @@ class OrganizationsResource(SyncAPIResource):
         organization_id: str,
         *,
         api_url: Optional[str] | NotGiven = NOT_GIVEN,
+        is_universal_api: Optional[bool] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         proxy_url: Optional[str] | NotGiven = NOT_GIVEN,
         realtime_url: Optional[str] | NotGiven = NOT_GIVEN,
@@ -112,6 +125,7 @@ class OrganizationsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "api_url": api_url,
+                    "is_universal_api": is_universal_api,
                     "name": name,
                     "proxy_url": proxy_url,
                     "realtime_url": realtime_url,
@@ -236,6 +250,10 @@ class OrganizationsResource(SyncAPIResource):
 
 class AsyncOrganizationsResource(AsyncAPIResource):
     @cached_property
+    def members(self) -> AsyncMembersResource:
+        return AsyncMembersResource(self._client)
+
+    @cached_property
     def with_raw_response(self) -> AsyncOrganizationsResourceWithRawResponse:
         return AsyncOrganizationsResourceWithRawResponse(self)
 
@@ -283,6 +301,7 @@ class AsyncOrganizationsResource(AsyncAPIResource):
         organization_id: str,
         *,
         api_url: Optional[str] | NotGiven = NOT_GIVEN,
+        is_universal_api: Optional[bool] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         proxy_url: Optional[str] | NotGiven = NOT_GIVEN,
         realtime_url: Optional[str] | NotGiven = NOT_GIVEN,
@@ -319,6 +338,7 @@ class AsyncOrganizationsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "api_url": api_url,
+                    "is_universal_api": is_universal_api,
                     "name": name,
                     "proxy_url": proxy_url,
                     "realtime_url": realtime_url,
@@ -458,6 +478,10 @@ class OrganizationsResourceWithRawResponse:
             organizations.delete,
         )
 
+    @cached_property
+    def members(self) -> MembersResourceWithRawResponse:
+        return MembersResourceWithRawResponse(self._organizations.members)
+
 
 class AsyncOrganizationsResourceWithRawResponse:
     def __init__(self, organizations: AsyncOrganizationsResource) -> None:
@@ -475,6 +499,10 @@ class AsyncOrganizationsResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             organizations.delete,
         )
+
+    @cached_property
+    def members(self) -> AsyncMembersResourceWithRawResponse:
+        return AsyncMembersResourceWithRawResponse(self._organizations.members)
 
 
 class OrganizationsResourceWithStreamingResponse:
@@ -494,6 +522,10 @@ class OrganizationsResourceWithStreamingResponse:
             organizations.delete,
         )
 
+    @cached_property
+    def members(self) -> MembersResourceWithStreamingResponse:
+        return MembersResourceWithStreamingResponse(self._organizations.members)
+
 
 class AsyncOrganizationsResourceWithStreamingResponse:
     def __init__(self, organizations: AsyncOrganizationsResource) -> None:
@@ -511,3 +543,7 @@ class AsyncOrganizationsResourceWithStreamingResponse:
         self.delete = async_to_streamed_response_wrapper(
             organizations.delete,
         )
+
+    @cached_property
+    def members(self) -> AsyncMembersResourceWithStreamingResponse:
+        return AsyncMembersResourceWithStreamingResponse(self._organizations.members)

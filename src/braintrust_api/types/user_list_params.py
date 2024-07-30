@@ -9,8 +9,11 @@ __all__ = ["UserListParams"]
 
 
 class UserListParams(TypedDict, total=False):
-    email: str
-    """Email of the user to search for"""
+    email: Union[str, List[str]]
+    """Email of the user to search for.
+
+    You may pass the param multiple times to filter for more than one email
+    """
 
     ending_before: str
     """Pagination cursor id.
@@ -20,11 +23,17 @@ class UserListParams(TypedDict, total=False):
     pass one of `starting_after` and `ending_before`
     """
 
-    family_name: str
-    """Family name of the user to search for"""
+    family_name: Union[str, List[str]]
+    """Family name of the user to search for.
 
-    given_name: str
-    """Given name of the user to search for"""
+    You may pass the param multiple times to filter for more than one family name
+    """
+
+    given_name: Union[str, List[str]]
+    """Given name of the user to search for.
+
+    You may pass the param multiple times to filter for more than one given name
+    """
 
     ids: Union[str, List[str]]
     """Filter search results to a particular set of object IDs.

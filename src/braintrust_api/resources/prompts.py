@@ -2,18 +2,12 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
+from typing import List, Union, Optional
 
 import httpx
 
-from ..types import (
-    prompt_list_params,
-    prompt_create_params,
-    prompt_update_params,
-    prompt_replace_params,
-    prompt_feedback_params,
-)
-from .._types import NOT_GIVEN, Body, Query, Headers, NoneType, NotGiven
+from ..types import prompt_list_params, prompt_create_params, prompt_update_params, prompt_replace_params
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
     async_maybe_transform,
@@ -320,46 +314,6 @@ class PromptsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Prompt,
-        )
-
-    def feedback(
-        self,
-        prompt_id: str,
-        *,
-        feedback: Iterable[prompt_feedback_params.Feedback],
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
-        """
-        Log feedback for a set of prompt events
-
-        Args:
-          prompt_id: Prompt id
-
-          feedback: A list of prompt feedback items
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not prompt_id:
-            raise ValueError(f"Expected a non-empty value for `prompt_id` but received {prompt_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        return self._post(
-            f"/v1/prompt/{prompt_id}/feedback",
-            body=maybe_transform({"feedback": feedback}, prompt_feedback_params.PromptFeedbackParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=NoneType,
         )
 
     def replace(
@@ -714,46 +668,6 @@ class AsyncPromptsResource(AsyncAPIResource):
             cast_to=Prompt,
         )
 
-    async def feedback(
-        self,
-        prompt_id: str,
-        *,
-        feedback: Iterable[prompt_feedback_params.Feedback],
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> None:
-        """
-        Log feedback for a set of prompt events
-
-        Args:
-          prompt_id: Prompt id
-
-          feedback: A list of prompt feedback items
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not prompt_id:
-            raise ValueError(f"Expected a non-empty value for `prompt_id` but received {prompt_id!r}")
-        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
-        return await self._post(
-            f"/v1/prompt/{prompt_id}/feedback",
-            body=await async_maybe_transform({"feedback": feedback}, prompt_feedback_params.PromptFeedbackParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=NoneType,
-        )
-
     async def replace(
         self,
         *,
@@ -836,9 +750,6 @@ class PromptsResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             prompts.delete,
         )
-        self.feedback = to_raw_response_wrapper(
-            prompts.feedback,
-        )
         self.replace = to_raw_response_wrapper(
             prompts.replace,
         )
@@ -862,9 +773,6 @@ class AsyncPromptsResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             prompts.delete,
-        )
-        self.feedback = async_to_raw_response_wrapper(
-            prompts.feedback,
         )
         self.replace = async_to_raw_response_wrapper(
             prompts.replace,
@@ -890,9 +798,6 @@ class PromptsResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             prompts.delete,
         )
-        self.feedback = to_streamed_response_wrapper(
-            prompts.feedback,
-        )
         self.replace = to_streamed_response_wrapper(
             prompts.replace,
         )
@@ -916,9 +821,6 @@ class AsyncPromptsResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             prompts.delete,
-        )
-        self.feedback = async_to_streamed_response_wrapper(
-            prompts.feedback,
         )
         self.replace = async_to_streamed_response_wrapper(
             prompts.replace,

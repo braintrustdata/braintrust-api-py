@@ -52,7 +52,6 @@ from .dataset_fetch_response import DatasetFetchResponse as DatasetFetchResponse
 from .experiment_list_params import ExperimentListParams as ExperimentListParams
 from .function_create_params import FunctionCreateParams as FunctionCreateParams
 from .function_update_params import FunctionUpdateParams as FunctionUpdateParams
-from .prompt_feedback_params import PromptFeedbackParams as PromptFeedbackParams
 from .api_key_create_response import APIKeyCreateResponse as APIKeyCreateResponse
 from .dataset_feedback_params import DatasetFeedbackParams as DatasetFeedbackParams
 from .dataset_insert_response import DatasetInsertResponse as DatasetInsertResponse
@@ -63,7 +62,6 @@ from .dataset_summarize_params import DatasetSummarizeParams as DatasetSummarize
 from .experiment_create_params import ExperimentCreateParams as ExperimentCreateParams
 from .experiment_insert_params import ExperimentInsertParams as ExperimentInsertParams
 from .experiment_update_params import ExperimentUpdateParams as ExperimentUpdateParams
-from .function_feedback_params import FunctionFeedbackParams as FunctionFeedbackParams
 from .organization_list_params import OrganizationListParams as OrganizationListParams
 from .dataset_fetch_post_params import DatasetFetchPostParams as DatasetFetchPostParams
 from .experiment_fetch_response import ExperimentFetchResponse as ExperimentFetchResponse

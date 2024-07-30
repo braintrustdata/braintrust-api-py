@@ -64,10 +64,10 @@ class TestUsers:
     @parametrize
     def test_method_list_with_all_params(self, client: Braintrust) -> None:
         user = client.users.list(
-            email="email",
+            email="string",
             ending_before="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            family_name="family_name",
-            given_name="given_name",
+            family_name="string",
+            given_name="string",
             ids="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             org_name="org_name",
@@ -145,10 +145,10 @@ class TestAsyncUsers:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncBraintrust) -> None:
         user = await async_client.users.list(
-            email="email",
+            email="string",
             ending_before="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            family_name="family_name",
-            given_name="given_name",
+            family_name="string",
+            given_name="string",
             ids="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             org_name="org_name",

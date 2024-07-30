@@ -20,6 +20,8 @@ class Organization(BaseModel):
     created: Optional[datetime] = None
     """Date of organization creation"""
 
+    is_universal_api: Optional[bool] = None
+
     proxy_url: Optional[str] = None
 
     realtime_url: Optional[str] = None
