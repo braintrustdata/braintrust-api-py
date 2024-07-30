@@ -19,7 +19,7 @@ from pydantic import ValidationError
 from braintrust_api import Braintrust, AsyncBraintrust, APIResponseValidationError
 from braintrust_api._models import BaseModel, FinalRequestOptions
 from braintrust_api._constants import RAW_RESPONSE_HEADER
-from braintrust_api._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
+from braintrust_api._exceptions import APIStatusError, APITimeoutError, BraintrustError, APIResponseValidationError
 from braintrust_api._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
@@ -327,6 +327,15 @@ class TestBraintrust:
         request = client2._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "stainless"
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
+
+    def test_validate_headers(self) -> None:
+        client = Braintrust(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
+        assert request.headers.get("Authorization") == f"Bearer {api_key}"
+
+        with pytest.raises(BraintrustError):
+            client2 = Braintrust(base_url=base_url, api_key=None, _strict_response_validation=True)
+            _ = client2
 
     def test_default_query_option(self) -> None:
         client = Braintrust(
@@ -1009,6 +1018,15 @@ class TestAsyncBraintrust:
         request = client2._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "stainless"
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
+
+    def test_validate_headers(self) -> None:
+        client = AsyncBraintrust(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
+        assert request.headers.get("Authorization") == f"Bearer {api_key}"
+
+        with pytest.raises(BraintrustError):
+            client2 = AsyncBraintrust(base_url=base_url, api_key=None, _strict_response_validation=True)
+            _ = client2
 
     def test_default_query_option(self) -> None:
         client = AsyncBraintrust(
