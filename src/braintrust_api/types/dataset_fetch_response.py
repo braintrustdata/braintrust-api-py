@@ -17,7 +17,7 @@ class Event(BaseModel):
     If you don't provide one, BrainTrust will generate one for you
     """
 
-    api_xact_id: str = FieldInfo(alias="_xact_id")
+    xact_id: str = FieldInfo(alias="_xact_id")
     """
     The transaction id of an event is unique to the network operation that processed
     the event insertion. Transaction ids are monotonically increasing over time and

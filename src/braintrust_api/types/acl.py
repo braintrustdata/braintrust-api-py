@@ -15,7 +15,7 @@ class ACL(BaseModel):
     id: str
     """Unique identifier for the acl"""
 
-    api_object_org_id: str = FieldInfo(alias="_object_org_id")
+    object_org_id: str = FieldInfo(alias="_object_org_id")
     """The organization the ACL's referred object belongs to"""
 
     object_id: str
