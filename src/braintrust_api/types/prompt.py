@@ -26,7 +26,7 @@ __all__ = [
     "PromptDataOptionsParamsUseCache",
     "PromptDataOrigin",
     "PromptDataPrompt",
-    "PromptDataPromptUnionMember0",
+    "PromptDataPromptCompletion",
     "PromptDataPromptUnionMember1",
     "PromptDataPromptUnionMember1Message",
     "PromptDataPromptUnionMember1MessageUnionMember0",
@@ -164,7 +164,7 @@ class PromptDataOrigin(BaseModel):
     prompt_version: Optional[str] = None
 
 
-class PromptDataPromptUnionMember0(BaseModel):
+class PromptDataPromptCompletion(BaseModel):
     content: str
 
     type: Literal["completion"]
@@ -287,7 +287,7 @@ class PromptDataPromptUnionMember2(BaseModel):
 
 
 PromptDataPrompt = Union[
-    PromptDataPromptUnionMember0, PromptDataPromptUnionMember1, Optional[PromptDataPromptUnionMember2]
+    PromptDataPromptCompletion, PromptDataPromptUnionMember1, Optional[PromptDataPromptUnionMember2]
 ]
 
 
