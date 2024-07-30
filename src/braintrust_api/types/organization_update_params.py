@@ -11,6 +11,8 @@ __all__ = ["OrganizationUpdateParams"]
 class OrganizationUpdateParams(TypedDict, total=False):
     api_url: Optional[str]
 
+    is_universal_api: Optional[bool]
+
     name: Optional[str]
     """Name of the organization"""
 

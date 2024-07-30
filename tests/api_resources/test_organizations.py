@@ -68,6 +68,7 @@ class TestOrganizations:
         organization = client.organizations.update(
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             api_url="api_url",
+            is_universal_api=True,
             name="name",
             proxy_url="proxy_url",
             realtime_url="realtime_url",
@@ -234,6 +235,7 @@ class TestAsyncOrganizations:
         organization = await async_client.organizations.update(
             organization_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             api_url="api_url",
+            is_universal_api=True,
             name="name",
             proxy_url="proxy_url",
             realtime_url="realtime_url",

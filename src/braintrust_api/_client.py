@@ -105,7 +105,7 @@ class Braintrust(SyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("BRAINTRUST_BASE_URL")
         if base_url is None:
-            base_url = f"https://api.braintrustdata.com"
+            base_url = f"https://api.braintrust.dev"
 
         super().__init__(
             version=__version__,
@@ -301,7 +301,7 @@ class AsyncBraintrust(AsyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("BRAINTRUST_BASE_URL")
         if base_url is None:
-            base_url = f"https://api.braintrustdata.com"
+            base_url = f"https://api.braintrust.dev"
 
         super().__init__(
             version=__version__,

@@ -11,130 +11,130 @@ from .._models import BaseModel
 __all__ = [
     "Function",
     "FunctionData",
-    "FunctionDataType",
-    "FunctionDataUnionMember1",
-    "FunctionDataUnionMember1Data",
-    "FunctionDataUnionMember1DataLocation",
-    "FunctionDataUnionMember1DataLocationPosition",
-    "FunctionDataUnionMember1DataLocationPositionScore",
-    "FunctionDataUnionMember1DataRuntimeContext",
-    "FunctionDataUnionMember2",
+    "FunctionDataPrompt",
+    "FunctionDataCode",
+    "FunctionDataCodeData",
+    "FunctionDataCodeDataLocation",
+    "FunctionDataCodeDataLocationPosition",
+    "FunctionDataCodeDataLocationPositionScore",
+    "FunctionDataCodeDataRuntimeContext",
+    "FunctionDataGlobal",
     "PromptData",
     "PromptDataOptions",
     "PromptDataOptionsParams",
-    "PromptDataOptionsParamsUnionMember0",
-    "PromptDataOptionsParamsUnionMember0FunctionCall",
-    "PromptDataOptionsParamsUnionMember0FunctionCallName",
-    "PromptDataOptionsParamsUnionMember0ResponseFormat",
-    "PromptDataOptionsParamsUnionMember0ToolChoice",
-    "PromptDataOptionsParamsUnionMember0ToolChoiceUnionMember2",
-    "PromptDataOptionsParamsUnionMember0ToolChoiceUnionMember2Function",
-    "PromptDataOptionsParamsUnionMember1",
-    "PromptDataOptionsParamsUnionMember2",
-    "PromptDataOptionsParamsUnionMember3",
-    "PromptDataOptionsParamsUseCache",
+    "PromptDataOptionsParamsOpenAIModelParams",
+    "PromptDataOptionsParamsOpenAIModelParamsFunctionCall",
+    "PromptDataOptionsParamsOpenAIModelParamsFunctionCallName",
+    "PromptDataOptionsParamsOpenAIModelParamsResponseFormat",
+    "PromptDataOptionsParamsOpenAIModelParamsToolChoice",
+    "PromptDataOptionsParamsOpenAIModelParamsToolChoiceUnionMember2",
+    "PromptDataOptionsParamsOpenAIModelParamsToolChoiceUnionMember2Function",
+    "PromptDataOptionsParamsAnthropicModelParams",
+    "PromptDataOptionsParamsGoogleModelParams",
+    "PromptDataOptionsParamsWindowAIModelParams",
+    "PromptDataOptionsParamsJsCompletionParams",
     "PromptDataOrigin",
     "PromptDataPrompt",
     "PromptDataPromptCompletion",
     "PromptDataPromptChat",
     "PromptDataPromptChatMessage",
-    "PromptDataPromptChatMessageUnionMember0",
-    "PromptDataPromptChatMessageUnionMember1",
-    "PromptDataPromptChatMessageUnionMember1ContentUnionMember1",
-    "PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember0",
-    "PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember1",
-    "PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember1ImageURL",
-    "PromptDataPromptChatMessageUnionMember2",
-    "PromptDataPromptChatMessageUnionMember2FunctionCall",
-    "PromptDataPromptChatMessageUnionMember2ToolCall",
-    "PromptDataPromptChatMessageUnionMember2ToolCallFunction",
-    "PromptDataPromptChatMessageUnionMember3",
-    "PromptDataPromptChatMessageUnionMember4",
-    "PromptDataPromptChatMessageUnionMember5",
-    "PromptDataPromptNullVariant",
+    "PromptDataPromptChatMessageSystem",
+    "PromptDataPromptChatMessageUser",
+    "PromptDataPromptChatMessageUserContentArray",
+    "PromptDataPromptChatMessageUserContentArrayText",
+    "PromptDataPromptChatMessageUserContentArrayImageURL",
+    "PromptDataPromptChatMessageUserContentArrayImageURLImageURL",
+    "PromptDataPromptChatMessageAssistant",
+    "PromptDataPromptChatMessageAssistantFunctionCall",
+    "PromptDataPromptChatMessageAssistantToolCall",
+    "PromptDataPromptChatMessageAssistantToolCallFunction",
+    "PromptDataPromptChatMessageTool",
+    "PromptDataPromptChatMessageFunction",
+    "PromptDataPromptChatMessageFallback",
+    "PromptDataPromptNullableVariant",
 ]
 
 
-class FunctionDataType(BaseModel):
+class FunctionDataPrompt(BaseModel):
     type: Literal["prompt"]
 
 
-class FunctionDataUnionMember1DataLocationPositionScore(BaseModel):
+class FunctionDataCodeDataLocationPositionScore(BaseModel):
     score: float
 
 
-FunctionDataUnionMember1DataLocationPosition = Union[Literal["task"], FunctionDataUnionMember1DataLocationPositionScore]
+FunctionDataCodeDataLocationPosition = Union[Literal["task"], FunctionDataCodeDataLocationPositionScore]
 
 
-class FunctionDataUnionMember1DataLocation(BaseModel):
+class FunctionDataCodeDataLocation(BaseModel):
     eval_name: str
 
-    position: FunctionDataUnionMember1DataLocationPosition
+    position: FunctionDataCodeDataLocationPosition
 
     type: Literal["experiment"]
 
 
-class FunctionDataUnionMember1DataRuntimeContext(BaseModel):
+class FunctionDataCodeDataRuntimeContext(BaseModel):
     runtime: Literal["node"]
 
     version: str
 
 
-class FunctionDataUnionMember1Data(BaseModel):
+class FunctionDataCodeData(BaseModel):
     bundle_id: str
 
-    location: FunctionDataUnionMember1DataLocation
+    location: FunctionDataCodeDataLocation
 
-    runtime_context: FunctionDataUnionMember1DataRuntimeContext
+    runtime_context: FunctionDataCodeDataRuntimeContext
 
 
-class FunctionDataUnionMember1(BaseModel):
-    data: FunctionDataUnionMember1Data
+class FunctionDataCode(BaseModel):
+    data: FunctionDataCodeData
 
     type: Literal["code"]
 
 
-class FunctionDataUnionMember2(BaseModel):
+class FunctionDataGlobal(BaseModel):
     name: str
 
     type: Literal["global"]
 
 
-FunctionData = Union[FunctionDataType, FunctionDataUnionMember1, FunctionDataUnionMember2]
+FunctionData = Union[FunctionDataPrompt, FunctionDataCode, FunctionDataGlobal]
 
 
-class PromptDataOptionsParamsUnionMember0FunctionCallName(BaseModel):
+class PromptDataOptionsParamsOpenAIModelParamsFunctionCallName(BaseModel):
     name: str
 
 
-PromptDataOptionsParamsUnionMember0FunctionCall = Union[
-    Literal["auto"], Literal["none"], PromptDataOptionsParamsUnionMember0FunctionCallName
+PromptDataOptionsParamsOpenAIModelParamsFunctionCall = Union[
+    Literal["auto"], Literal["none"], PromptDataOptionsParamsOpenAIModelParamsFunctionCallName
 ]
 
 
-class PromptDataOptionsParamsUnionMember0ResponseFormat(BaseModel):
+class PromptDataOptionsParamsOpenAIModelParamsResponseFormat(BaseModel):
     type: Literal["json_object"]
 
 
-class PromptDataOptionsParamsUnionMember0ToolChoiceUnionMember2Function(BaseModel):
+class PromptDataOptionsParamsOpenAIModelParamsToolChoiceUnionMember2Function(BaseModel):
     name: str
 
 
-class PromptDataOptionsParamsUnionMember0ToolChoiceUnionMember2(BaseModel):
-    function: PromptDataOptionsParamsUnionMember0ToolChoiceUnionMember2Function
+class PromptDataOptionsParamsOpenAIModelParamsToolChoiceUnionMember2(BaseModel):
+    function: PromptDataOptionsParamsOpenAIModelParamsToolChoiceUnionMember2Function
 
     type: Literal["function"]
 
 
-PromptDataOptionsParamsUnionMember0ToolChoice = Union[
-    Literal["auto"], Literal["none"], PromptDataOptionsParamsUnionMember0ToolChoiceUnionMember2
+PromptDataOptionsParamsOpenAIModelParamsToolChoice = Union[
+    Literal["auto"], Literal["none"], PromptDataOptionsParamsOpenAIModelParamsToolChoiceUnionMember2
 ]
 
 
-class PromptDataOptionsParamsUnionMember0(BaseModel):
+class PromptDataOptionsParamsOpenAIModelParams(BaseModel):
     frequency_penalty: Optional[float] = None
 
-    function_call: Optional[PromptDataOptionsParamsUnionMember0FunctionCall] = None
+    function_call: Optional[PromptDataOptionsParamsOpenAIModelParamsFunctionCall] = None
 
     max_tokens: Optional[float] = None
 
@@ -142,20 +142,20 @@ class PromptDataOptionsParamsUnionMember0(BaseModel):
 
     presence_penalty: Optional[float] = None
 
-    response_format: Optional[PromptDataOptionsParamsUnionMember0ResponseFormat] = None
+    response_format: Optional[PromptDataOptionsParamsOpenAIModelParamsResponseFormat] = None
 
     stop: Optional[List[str]] = None
 
     temperature: Optional[float] = None
 
-    tool_choice: Optional[PromptDataOptionsParamsUnionMember0ToolChoice] = None
+    tool_choice: Optional[PromptDataOptionsParamsOpenAIModelParamsToolChoice] = None
 
     top_p: Optional[float] = None
 
     use_cache: Optional[bool] = None
 
 
-class PromptDataOptionsParamsUnionMember1(BaseModel):
+class PromptDataOptionsParamsAnthropicModelParams(BaseModel):
     max_tokens: float
 
     temperature: float
@@ -172,7 +172,7 @@ class PromptDataOptionsParamsUnionMember1(BaseModel):
     use_cache: Optional[bool] = None
 
 
-class PromptDataOptionsParamsUnionMember2(BaseModel):
+class PromptDataOptionsParamsGoogleModelParams(BaseModel):
     max_output_tokens: Optional[float] = FieldInfo(alias="maxOutputTokens", default=None)
 
     temperature: Optional[float] = None
@@ -184,7 +184,7 @@ class PromptDataOptionsParamsUnionMember2(BaseModel):
     use_cache: Optional[bool] = None
 
 
-class PromptDataOptionsParamsUnionMember3(BaseModel):
+class PromptDataOptionsParamsWindowAIModelParams(BaseModel):
     temperature: Optional[float] = None
 
     top_k: Optional[float] = FieldInfo(alias="topK", default=None)
@@ -192,16 +192,16 @@ class PromptDataOptionsParamsUnionMember3(BaseModel):
     use_cache: Optional[bool] = None
 
 
-class PromptDataOptionsParamsUseCache(BaseModel):
+class PromptDataOptionsParamsJsCompletionParams(BaseModel):
     use_cache: Optional[bool] = None
 
 
 PromptDataOptionsParams = Union[
-    PromptDataOptionsParamsUnionMember0,
-    PromptDataOptionsParamsUnionMember1,
-    PromptDataOptionsParamsUnionMember2,
-    PromptDataOptionsParamsUnionMember3,
-    PromptDataOptionsParamsUseCache,
+    PromptDataOptionsParamsOpenAIModelParams,
+    PromptDataOptionsParamsAnthropicModelParams,
+    PromptDataOptionsParamsGoogleModelParams,
+    PromptDataOptionsParamsWindowAIModelParams,
+    PromptDataOptionsParamsJsCompletionParams,
 ]
 
 
@@ -227,7 +227,7 @@ class PromptDataPromptCompletion(BaseModel):
     type: Literal["completion"]
 
 
-class PromptDataPromptChatMessageUnionMember0(BaseModel):
+class PromptDataPromptChatMessageSystem(BaseModel):
     role: Literal["system"]
 
     content: Optional[str] = None
@@ -235,71 +235,70 @@ class PromptDataPromptChatMessageUnionMember0(BaseModel):
     name: Optional[str] = None
 
 
-class PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember0(BaseModel):
+class PromptDataPromptChatMessageUserContentArrayText(BaseModel):
     type: Literal["text"]
 
     text: Optional[str] = None
 
 
-class PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember1ImageURL(BaseModel):
+class PromptDataPromptChatMessageUserContentArrayImageURLImageURL(BaseModel):
     url: str
 
     detail: Optional[Literal["auto", "low", "high"]] = None
 
 
-class PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember1(BaseModel):
-    image_url: PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember1ImageURL
+class PromptDataPromptChatMessageUserContentArrayImageURL(BaseModel):
+    image_url: PromptDataPromptChatMessageUserContentArrayImageURLImageURL
 
     type: Literal["image_url"]
 
 
-PromptDataPromptChatMessageUnionMember1ContentUnionMember1 = Union[
-    PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember0,
-    PromptDataPromptChatMessageUnionMember1ContentUnionMember1UnionMember1,
+PromptDataPromptChatMessageUserContentArray = Union[
+    PromptDataPromptChatMessageUserContentArrayText, PromptDataPromptChatMessageUserContentArrayImageURL
 ]
 
 
-class PromptDataPromptChatMessageUnionMember1(BaseModel):
+class PromptDataPromptChatMessageUser(BaseModel):
     role: Literal["user"]
 
-    content: Union[str, List[PromptDataPromptChatMessageUnionMember1ContentUnionMember1], None] = None
+    content: Union[str, List[PromptDataPromptChatMessageUserContentArray], None] = None
 
     name: Optional[str] = None
 
 
-class PromptDataPromptChatMessageUnionMember2FunctionCall(BaseModel):
+class PromptDataPromptChatMessageAssistantFunctionCall(BaseModel):
     arguments: str
 
     name: str
 
 
-class PromptDataPromptChatMessageUnionMember2ToolCallFunction(BaseModel):
+class PromptDataPromptChatMessageAssistantToolCallFunction(BaseModel):
     arguments: str
 
     name: str
 
 
-class PromptDataPromptChatMessageUnionMember2ToolCall(BaseModel):
+class PromptDataPromptChatMessageAssistantToolCall(BaseModel):
     id: str
 
-    function: PromptDataPromptChatMessageUnionMember2ToolCallFunction
+    function: PromptDataPromptChatMessageAssistantToolCallFunction
 
     type: Literal["function"]
 
 
-class PromptDataPromptChatMessageUnionMember2(BaseModel):
+class PromptDataPromptChatMessageAssistant(BaseModel):
     role: Literal["assistant"]
 
     content: Optional[str] = None
 
-    function_call: Optional[PromptDataPromptChatMessageUnionMember2FunctionCall] = None
+    function_call: Optional[PromptDataPromptChatMessageAssistantFunctionCall] = None
 
     name: Optional[str] = None
 
-    tool_calls: Optional[List[PromptDataPromptChatMessageUnionMember2ToolCall]] = None
+    tool_calls: Optional[List[PromptDataPromptChatMessageAssistantToolCall]] = None
 
 
-class PromptDataPromptChatMessageUnionMember3(BaseModel):
+class PromptDataPromptChatMessageTool(BaseModel):
     role: Literal["tool"]
 
     content: Optional[str] = None
@@ -307,7 +306,7 @@ class PromptDataPromptChatMessageUnionMember3(BaseModel):
     tool_call_id: Optional[str] = None
 
 
-class PromptDataPromptChatMessageUnionMember4(BaseModel):
+class PromptDataPromptChatMessageFunction(BaseModel):
     name: str
 
     role: Literal["function"]
@@ -315,19 +314,19 @@ class PromptDataPromptChatMessageUnionMember4(BaseModel):
     content: Optional[str] = None
 
 
-class PromptDataPromptChatMessageUnionMember5(BaseModel):
+class PromptDataPromptChatMessageFallback(BaseModel):
     role: Literal["model"]
 
     content: Optional[str] = None
 
 
 PromptDataPromptChatMessage = Union[
-    PromptDataPromptChatMessageUnionMember0,
-    PromptDataPromptChatMessageUnionMember1,
-    PromptDataPromptChatMessageUnionMember2,
-    PromptDataPromptChatMessageUnionMember3,
-    PromptDataPromptChatMessageUnionMember4,
-    PromptDataPromptChatMessageUnionMember5,
+    PromptDataPromptChatMessageSystem,
+    PromptDataPromptChatMessageUser,
+    PromptDataPromptChatMessageAssistant,
+    PromptDataPromptChatMessageTool,
+    PromptDataPromptChatMessageFunction,
+    PromptDataPromptChatMessageFallback,
 ]
 
 
@@ -339,11 +338,11 @@ class PromptDataPromptChat(BaseModel):
     tools: Optional[str] = None
 
 
-class PromptDataPromptNullVariant(BaseModel):
+class PromptDataPromptNullableVariant(BaseModel):
     pass
 
 
-PromptDataPrompt = Union[PromptDataPromptCompletion, PromptDataPromptChat, Optional[PromptDataPromptNullVariant]]
+PromptDataPrompt = Union[PromptDataPromptCompletion, PromptDataPromptChat, Optional[PromptDataPromptNullableVariant]]
 
 
 class PromptData(BaseModel):

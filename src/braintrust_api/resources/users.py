@@ -71,10 +71,10 @@ class UsersResource(SyncAPIResource):
     def list(
         self,
         *,
-        email: str | NotGiven = NOT_GIVEN,
+        email: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         ending_before: str | NotGiven = NOT_GIVEN,
-        family_name: str | NotGiven = NOT_GIVEN,
-        given_name: str | NotGiven = NOT_GIVEN,
+        family_name: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        given_name: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         org_name: str | NotGiven = NOT_GIVEN,
@@ -92,7 +92,8 @@ class UsersResource(SyncAPIResource):
         recently-created users coming first
 
         Args:
-          email: Email of the user to search for
+          email: Email of the user to search for. You may pass the param multiple times to filter
+              for more than one email
 
           ending_before: Pagination cursor id.
 
@@ -100,9 +101,11 @@ class UsersResource(SyncAPIResource):
               `foo`, pass `ending_before=foo` to fetch the previous page. Note: you may only
               pass one of `starting_after` and `ending_before`
 
-          family_name: Family name of the user to search for
+          family_name: Family name of the user to search for. You may pass the param multiple times to
+              filter for more than one family name
 
-          given_name: Given name of the user to search for
+          given_name: Given name of the user to search for. You may pass the param multiple times to
+              filter for more than one given name
 
           ids: Filter search results to a particular set of object IDs. To specify a list of
               IDs, include the query param multiple times
@@ -198,10 +201,10 @@ class AsyncUsersResource(AsyncAPIResource):
     def list(
         self,
         *,
-        email: str | NotGiven = NOT_GIVEN,
+        email: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         ending_before: str | NotGiven = NOT_GIVEN,
-        family_name: str | NotGiven = NOT_GIVEN,
-        given_name: str | NotGiven = NOT_GIVEN,
+        family_name: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        given_name: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         org_name: str | NotGiven = NOT_GIVEN,
@@ -219,7 +222,8 @@ class AsyncUsersResource(AsyncAPIResource):
         recently-created users coming first
 
         Args:
-          email: Email of the user to search for
+          email: Email of the user to search for. You may pass the param multiple times to filter
+              for more than one email
 
           ending_before: Pagination cursor id.
 
@@ -227,9 +231,11 @@ class AsyncUsersResource(AsyncAPIResource):
               `foo`, pass `ending_before=foo` to fetch the previous page. Note: you may only
               pass one of `starting_after` and `ending_before`
 
-          family_name: Family name of the user to search for
+          family_name: Family name of the user to search for. You may pass the param multiple times to
+              filter for more than one family name
 
-          given_name: Given name of the user to search for
+          given_name: Given name of the user to search for. You may pass the param multiple times to
+              filter for more than one given name
 
           ids: Filter search results to a particular set of object IDs. To specify a list of
               IDs, include the query param multiple times

@@ -289,48 +289,6 @@ class TestPrompts:
             )
 
     @parametrize
-    def test_method_feedback(self, client: Braintrust) -> None:
-        prompt = client.prompts.feedback(
-            prompt_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
-        )
-        assert prompt is None
-
-    @parametrize
-    def test_raw_response_feedback(self, client: Braintrust) -> None:
-        response = client.prompts.with_raw_response.feedback(
-            prompt_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        prompt = response.parse()
-        assert prompt is None
-
-    @parametrize
-    def test_streaming_response_feedback(self, client: Braintrust) -> None:
-        with client.prompts.with_streaming_response.feedback(
-            prompt_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            prompt = response.parse()
-            assert prompt is None
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    def test_path_params_feedback(self, client: Braintrust) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `prompt_id` but received ''"):
-            client.prompts.with_raw_response.feedback(
-                prompt_id="",
-                feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
-            )
-
-    @parametrize
     def test_method_replace(self, client: Braintrust) -> None:
         prompt = client.prompts.replace(
             name="name",
@@ -676,48 +634,6 @@ class TestAsyncPrompts:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `prompt_id` but received ''"):
             await async_client.prompts.with_raw_response.delete(
                 "",
-            )
-
-    @parametrize
-    async def test_method_feedback(self, async_client: AsyncBraintrust) -> None:
-        prompt = await async_client.prompts.feedback(
-            prompt_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
-        )
-        assert prompt is None
-
-    @parametrize
-    async def test_raw_response_feedback(self, async_client: AsyncBraintrust) -> None:
-        response = await async_client.prompts.with_raw_response.feedback(
-            prompt_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        prompt = await response.parse()
-        assert prompt is None
-
-    @parametrize
-    async def test_streaming_response_feedback(self, async_client: AsyncBraintrust) -> None:
-        async with async_client.prompts.with_streaming_response.feedback(
-            prompt_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            prompt = await response.parse()
-            assert prompt is None
-
-        assert cast(Any, response.is_closed) is True
-
-    @parametrize
-    async def test_path_params_feedback(self, async_client: AsyncBraintrust) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `prompt_id` but received ''"):
-            await async_client.prompts.with_raw_response.feedback(
-                prompt_id="",
-                feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
             )
 
     @parametrize

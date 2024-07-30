@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["ProjectScore", "Categories", "CategoriesUnionMember0", "CategoriesUnionMember3", "Config"]
+__all__ = ["ProjectScore", "Categories", "CategoriesUnionMember0", "CategoriesNullableVariant", "Config"]
 
 
 class CategoriesUnionMember0(BaseModel):
@@ -17,11 +17,11 @@ class CategoriesUnionMember0(BaseModel):
     """Numerical value of the category. Must be between 0 and 1, inclusive"""
 
 
-class CategoriesUnionMember3(BaseModel):
+class CategoriesNullableVariant(BaseModel):
     pass
 
 
-Categories = Union[List[CategoriesUnionMember0], Dict[str, float], List[str], Optional[CategoriesUnionMember3]]
+Categories = Union[List[CategoriesUnionMember0], Dict[str, float], List[str], Optional[CategoriesNullableVariant]]
 
 
 class Config(BaseModel):

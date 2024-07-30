@@ -110,7 +110,6 @@ Methods:
 - <code title="patch /v1/prompt/{prompt_id}">client.prompts.<a href="./src/braintrust_api/resources/prompts.py">update</a>(prompt_id, \*\*<a href="src/braintrust_api/types/prompt_update_params.py">params</a>) -> <a href="./src/braintrust_api/types/prompt.py">Prompt</a></code>
 - <code title="get /v1/prompt">client.prompts.<a href="./src/braintrust_api/resources/prompts.py">list</a>(\*\*<a href="src/braintrust_api/types/prompt_list_params.py">params</a>) -> <a href="./src/braintrust_api/types/prompt.py">SyncListObjects[Prompt]</a></code>
 - <code title="delete /v1/prompt/{prompt_id}">client.prompts.<a href="./src/braintrust_api/resources/prompts.py">delete</a>(prompt_id) -> <a href="./src/braintrust_api/types/prompt.py">Prompt</a></code>
-- <code title="post /v1/prompt/{prompt_id}/feedback">client.prompts.<a href="./src/braintrust_api/resources/prompts.py">feedback</a>(prompt_id, \*\*<a href="src/braintrust_api/types/prompt_feedback_params.py">params</a>) -> None</code>
 - <code title="put /v1/prompt">client.prompts.<a href="./src/braintrust_api/resources/prompts.py">replace</a>(\*\*<a href="src/braintrust_api/types/prompt_replace_params.py">params</a>) -> <a href="./src/braintrust_api/types/prompt.py">Prompt</a></code>
 
 # Roles
@@ -224,7 +223,6 @@ Methods:
 - <code title="patch /v1/function/{function_id}">client.functions.<a href="./src/braintrust_api/resources/functions.py">update</a>(function_id, \*\*<a href="src/braintrust_api/types/function_update_params.py">params</a>) -> <a href="./src/braintrust_api/types/function.py">Function</a></code>
 - <code title="get /v1/function">client.functions.<a href="./src/braintrust_api/resources/functions.py">list</a>(\*\*<a href="src/braintrust_api/types/function_list_params.py">params</a>) -> <a href="./src/braintrust_api/types/function.py">SyncListObjects[Function]</a></code>
 - <code title="delete /v1/function/{function_id}">client.functions.<a href="./src/braintrust_api/resources/functions.py">delete</a>(function_id) -> <a href="./src/braintrust_api/types/function.py">Function</a></code>
-- <code title="post /v1/function/{function_id}/feedback">client.functions.<a href="./src/braintrust_api/resources/functions.py">feedback</a>(function_id, \*\*<a href="src/braintrust_api/types/function_feedback_params.py">params</a>) -> None</code>
 - <code title="put /v1/function">client.functions.<a href="./src/braintrust_api/resources/functions.py">replace</a>(\*\*<a href="src/braintrust_api/types/function_replace_params.py">params</a>) -> <a href="./src/braintrust_api/types/function.py">Function</a></code>
 
 # Views
@@ -254,10 +252,22 @@ from braintrust_api.types import Organization
 
 Methods:
 
-- <code title="get /v1/organization/{organization_id}">client.organizations.<a href="./src/braintrust_api/resources/organizations.py">retrieve</a>(organization_id) -> <a href="./src/braintrust_api/types/organization.py">Organization</a></code>
-- <code title="patch /v1/organization/{organization_id}">client.organizations.<a href="./src/braintrust_api/resources/organizations.py">update</a>(organization_id, \*\*<a href="src/braintrust_api/types/organization_update_params.py">params</a>) -> <a href="./src/braintrust_api/types/organization.py">Organization</a></code>
-- <code title="get /v1/organization">client.organizations.<a href="./src/braintrust_api/resources/organizations.py">list</a>(\*\*<a href="src/braintrust_api/types/organization_list_params.py">params</a>) -> <a href="./src/braintrust_api/types/organization.py">SyncListObjects[Organization]</a></code>
-- <code title="delete /v1/organization/{organization_id}">client.organizations.<a href="./src/braintrust_api/resources/organizations.py">delete</a>(organization_id) -> <a href="./src/braintrust_api/types/organization.py">Organization</a></code>
+- <code title="get /v1/organization/{organization_id}">client.organizations.<a href="./src/braintrust_api/resources/organizations/organizations.py">retrieve</a>(organization_id) -> <a href="./src/braintrust_api/types/organization.py">Organization</a></code>
+- <code title="patch /v1/organization/{organization_id}">client.organizations.<a href="./src/braintrust_api/resources/organizations/organizations.py">update</a>(organization_id, \*\*<a href="src/braintrust_api/types/organization_update_params.py">params</a>) -> <a href="./src/braintrust_api/types/organization.py">Organization</a></code>
+- <code title="get /v1/organization">client.organizations.<a href="./src/braintrust_api/resources/organizations/organizations.py">list</a>(\*\*<a href="src/braintrust_api/types/organization_list_params.py">params</a>) -> <a href="./src/braintrust_api/types/organization.py">SyncListObjects[Organization]</a></code>
+- <code title="delete /v1/organization/{organization_id}">client.organizations.<a href="./src/braintrust_api/resources/organizations/organizations.py">delete</a>(organization_id) -> <a href="./src/braintrust_api/types/organization.py">Organization</a></code>
+
+## Members
+
+Types:
+
+```python
+from braintrust_api.types.organizations import MemberUpdateResponse
+```
+
+Methods:
+
+- <code title="patch /v1/organization/members">client.organizations.members.<a href="./src/braintrust_api/resources/organizations/members.py">update</a>(\*\*<a href="src/braintrust_api/types/organizations/member_update_params.py">params</a>) -> <a href="./src/braintrust_api/types/organizations/member_update_response.py">MemberUpdateResponse</a></code>
 
 # APIKeys
 
