@@ -6,10 +6,10 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["ProjectScore", "Categories", "CategoriesUnionMember0", "CategoriesNullableVariant", "Config"]
+__all__ = ["ProjectScore", "Categories", "CategoriesCategorical", "CategoriesNullableVariant", "Config"]
 
 
-class CategoriesUnionMember0(BaseModel):
+class CategoriesCategorical(BaseModel):
     name: str
     """Name of the category"""
 
@@ -21,7 +21,7 @@ class CategoriesNullableVariant(BaseModel):
     pass
 
 
-Categories = Union[List[CategoriesUnionMember0], Dict[str, float], List[str], Optional[CategoriesNullableVariant]]
+Categories = Union[List[CategoriesCategorical], Dict[str, float], List[str], Optional[CategoriesNullableVariant]]
 
 
 class Config(BaseModel):

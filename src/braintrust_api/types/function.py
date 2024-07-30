@@ -24,11 +24,11 @@ __all__ = [
     "PromptDataOptionsParams",
     "PromptDataOptionsParamsOpenAIModelParams",
     "PromptDataOptionsParamsOpenAIModelParamsFunctionCall",
-    "PromptDataOptionsParamsOpenAIModelParamsFunctionCallName",
+    "PromptDataOptionsParamsOpenAIModelParamsFunctionCallFunction",
     "PromptDataOptionsParamsOpenAIModelParamsResponseFormat",
     "PromptDataOptionsParamsOpenAIModelParamsToolChoice",
-    "PromptDataOptionsParamsOpenAIModelParamsToolChoiceUnionMember2",
-    "PromptDataOptionsParamsOpenAIModelParamsToolChoiceUnionMember2Function",
+    "PromptDataOptionsParamsOpenAIModelParamsToolChoiceFunction",
+    "PromptDataOptionsParamsOpenAIModelParamsToolChoiceFunctionFunction",
     "PromptDataOptionsParamsAnthropicModelParams",
     "PromptDataOptionsParamsGoogleModelParams",
     "PromptDataOptionsParamsWindowAIModelParams",
@@ -38,19 +38,19 @@ __all__ = [
     "PromptDataPromptCompletion",
     "PromptDataPromptChat",
     "PromptDataPromptChatMessage",
-    "PromptDataPromptChatMessagePromptDataPromptMessage0",
-    "PromptDataPromptChatMessagePromptDataPromptMessage1",
-    "PromptDataPromptChatMessagePromptDataPromptMessage1ContentArray",
-    "PromptDataPromptChatMessagePromptDataPromptMessage1ContentArrayPromptDataPromptMessageContent",
-    "PromptDataPromptChatMessagePromptDataPromptMessage1ContentArrayPromptDataPromptMessageList",
-    "PromptDataPromptChatMessagePromptDataPromptMessage1ContentArrayPromptDataPromptMessageListImageURL",
-    "PromptDataPromptChatMessagePromptDataPromptMessage2",
-    "PromptDataPromptChatMessagePromptDataPromptMessage2FunctionCall",
-    "PromptDataPromptChatMessagePromptDataPromptMessage2ToolCall",
-    "PromptDataPromptChatMessagePromptDataPromptMessage2ToolCallFunction",
-    "PromptDataPromptChatMessagePromptDataPromptMessage3",
-    "PromptDataPromptChatMessagePromptDataPromptMessage4",
-    "PromptDataPromptChatMessagePromptDataPromptMessage5",
+    "PromptDataPromptChatMessageSystem",
+    "PromptDataPromptChatMessageUser",
+    "PromptDataPromptChatMessageUserContentArray",
+    "PromptDataPromptChatMessageUserContentArrayText",
+    "PromptDataPromptChatMessageUserContentArrayImageURL",
+    "PromptDataPromptChatMessageUserContentArrayImageURLImageURL",
+    "PromptDataPromptChatMessageAssistant",
+    "PromptDataPromptChatMessageAssistantFunctionCall",
+    "PromptDataPromptChatMessageAssistantToolCall",
+    "PromptDataPromptChatMessageAssistantToolCallFunction",
+    "PromptDataPromptChatMessageTool",
+    "PromptDataPromptChatMessageFunction",
+    "PromptDataPromptChatMessageFallback",
     "PromptDataPromptNullableVariant",
 ]
 
@@ -103,12 +103,12 @@ class FunctionDataGlobal(BaseModel):
 FunctionData = Union[FunctionDataPrompt, FunctionDataCode, FunctionDataGlobal]
 
 
-class PromptDataOptionsParamsOpenAIModelParamsFunctionCallName(BaseModel):
+class PromptDataOptionsParamsOpenAIModelParamsFunctionCallFunction(BaseModel):
     name: str
 
 
 PromptDataOptionsParamsOpenAIModelParamsFunctionCall = Union[
-    Literal["auto"], Literal["none"], PromptDataOptionsParamsOpenAIModelParamsFunctionCallName
+    Literal["auto"], Literal["none"], PromptDataOptionsParamsOpenAIModelParamsFunctionCallFunction
 ]
 
 
@@ -116,18 +116,18 @@ class PromptDataOptionsParamsOpenAIModelParamsResponseFormat(BaseModel):
     type: Literal["json_object"]
 
 
-class PromptDataOptionsParamsOpenAIModelParamsToolChoiceUnionMember2Function(BaseModel):
+class PromptDataOptionsParamsOpenAIModelParamsToolChoiceFunctionFunction(BaseModel):
     name: str
 
 
-class PromptDataOptionsParamsOpenAIModelParamsToolChoiceUnionMember2(BaseModel):
-    function: PromptDataOptionsParamsOpenAIModelParamsToolChoiceUnionMember2Function
+class PromptDataOptionsParamsOpenAIModelParamsToolChoiceFunction(BaseModel):
+    function: PromptDataOptionsParamsOpenAIModelParamsToolChoiceFunctionFunction
 
     type: Literal["function"]
 
 
 PromptDataOptionsParamsOpenAIModelParamsToolChoice = Union[
-    Literal["auto"], Literal["none"], PromptDataOptionsParamsOpenAIModelParamsToolChoiceUnionMember2
+    Literal["auto"], Literal["none"], PromptDataOptionsParamsOpenAIModelParamsToolChoiceFunction
 ]
 
 
@@ -227,7 +227,7 @@ class PromptDataPromptCompletion(BaseModel):
     type: Literal["completion"]
 
 
-class PromptDataPromptChatMessagePromptDataPromptMessage0(BaseModel):
+class PromptDataPromptChatMessageSystem(BaseModel):
     role: Literal["system"]
 
     content: Optional[str] = None
@@ -235,71 +235,70 @@ class PromptDataPromptChatMessagePromptDataPromptMessage0(BaseModel):
     name: Optional[str] = None
 
 
-class PromptDataPromptChatMessagePromptDataPromptMessage1ContentArrayPromptDataPromptMessageContent(BaseModel):
+class PromptDataPromptChatMessageUserContentArrayText(BaseModel):
     type: Literal["text"]
 
     text: Optional[str] = None
 
 
-class PromptDataPromptChatMessagePromptDataPromptMessage1ContentArrayPromptDataPromptMessageListImageURL(BaseModel):
+class PromptDataPromptChatMessageUserContentArrayImageURLImageURL(BaseModel):
     url: str
 
     detail: Optional[Literal["auto", "low", "high"]] = None
 
 
-class PromptDataPromptChatMessagePromptDataPromptMessage1ContentArrayPromptDataPromptMessageList(BaseModel):
-    image_url: PromptDataPromptChatMessagePromptDataPromptMessage1ContentArrayPromptDataPromptMessageListImageURL
+class PromptDataPromptChatMessageUserContentArrayImageURL(BaseModel):
+    image_url: PromptDataPromptChatMessageUserContentArrayImageURLImageURL
 
     type: Literal["image_url"]
 
 
-PromptDataPromptChatMessagePromptDataPromptMessage1ContentArray = Union[
-    PromptDataPromptChatMessagePromptDataPromptMessage1ContentArrayPromptDataPromptMessageContent,
-    PromptDataPromptChatMessagePromptDataPromptMessage1ContentArrayPromptDataPromptMessageList,
+PromptDataPromptChatMessageUserContentArray = Union[
+    PromptDataPromptChatMessageUserContentArrayText, PromptDataPromptChatMessageUserContentArrayImageURL
 ]
 
 
-class PromptDataPromptChatMessagePromptDataPromptMessage1(BaseModel):
+class PromptDataPromptChatMessageUser(BaseModel):
     role: Literal["user"]
 
-    content: Union[str, List[PromptDataPromptChatMessagePromptDataPromptMessage1ContentArray], None] = None
+    content: Union[str, List[PromptDataPromptChatMessageUserContentArray], None] = None
 
     name: Optional[str] = None
 
 
-class PromptDataPromptChatMessagePromptDataPromptMessage2FunctionCall(BaseModel):
+class PromptDataPromptChatMessageAssistantFunctionCall(BaseModel):
     arguments: str
 
     name: str
 
 
-class PromptDataPromptChatMessagePromptDataPromptMessage2ToolCallFunction(BaseModel):
+class PromptDataPromptChatMessageAssistantToolCallFunction(BaseModel):
     arguments: str
 
     name: str
 
 
-class PromptDataPromptChatMessagePromptDataPromptMessage2ToolCall(BaseModel):
+class PromptDataPromptChatMessageAssistantToolCall(BaseModel):
     id: str
 
-    function: PromptDataPromptChatMessagePromptDataPromptMessage2ToolCallFunction
+    function: PromptDataPromptChatMessageAssistantToolCallFunction
 
     type: Literal["function"]
 
 
-class PromptDataPromptChatMessagePromptDataPromptMessage2(BaseModel):
+class PromptDataPromptChatMessageAssistant(BaseModel):
     role: Literal["assistant"]
 
     content: Optional[str] = None
 
-    function_call: Optional[PromptDataPromptChatMessagePromptDataPromptMessage2FunctionCall] = None
+    function_call: Optional[PromptDataPromptChatMessageAssistantFunctionCall] = None
 
     name: Optional[str] = None
 
-    tool_calls: Optional[List[PromptDataPromptChatMessagePromptDataPromptMessage2ToolCall]] = None
+    tool_calls: Optional[List[PromptDataPromptChatMessageAssistantToolCall]] = None
 
 
-class PromptDataPromptChatMessagePromptDataPromptMessage3(BaseModel):
+class PromptDataPromptChatMessageTool(BaseModel):
     role: Literal["tool"]
 
     content: Optional[str] = None
@@ -307,7 +306,7 @@ class PromptDataPromptChatMessagePromptDataPromptMessage3(BaseModel):
     tool_call_id: Optional[str] = None
 
 
-class PromptDataPromptChatMessagePromptDataPromptMessage4(BaseModel):
+class PromptDataPromptChatMessageFunction(BaseModel):
     name: str
 
     role: Literal["function"]
@@ -315,19 +314,19 @@ class PromptDataPromptChatMessagePromptDataPromptMessage4(BaseModel):
     content: Optional[str] = None
 
 
-class PromptDataPromptChatMessagePromptDataPromptMessage5(BaseModel):
+class PromptDataPromptChatMessageFallback(BaseModel):
     role: Literal["model"]
 
     content: Optional[str] = None
 
 
 PromptDataPromptChatMessage = Union[
-    PromptDataPromptChatMessagePromptDataPromptMessage0,
-    PromptDataPromptChatMessagePromptDataPromptMessage1,
-    PromptDataPromptChatMessagePromptDataPromptMessage2,
-    PromptDataPromptChatMessagePromptDataPromptMessage3,
-    PromptDataPromptChatMessagePromptDataPromptMessage4,
-    PromptDataPromptChatMessagePromptDataPromptMessage5,
+    PromptDataPromptChatMessageSystem,
+    PromptDataPromptChatMessageUser,
+    PromptDataPromptChatMessageAssistant,
+    PromptDataPromptChatMessageTool,
+    PromptDataPromptChatMessageFunction,
+    PromptDataPromptChatMessageFallback,
 ]
 
 
