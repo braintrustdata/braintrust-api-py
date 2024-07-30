@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Dict, List, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["ProjectScoreUpdateParams", "Categories", "CategoriesUnionMember0", "CategoriesNullableVariant"]
+__all__ = ["ProjectScoreUpdateParams", "Categories", "CategoriesCategorical", "CategoriesNullableVariant"]
 
 
 class ProjectScoreUpdateParams(TypedDict, total=False):
@@ -22,7 +22,7 @@ class ProjectScoreUpdateParams(TypedDict, total=False):
     """The type of the configured score"""
 
 
-class CategoriesUnionMember0(TypedDict, total=False):
+class CategoriesCategorical(TypedDict, total=False):
     name: Required[str]
     """Name of the category"""
 
@@ -34,4 +34,4 @@ class CategoriesNullableVariant(TypedDict, total=False):
     pass
 
 
-Categories = Union[Iterable[CategoriesUnionMember0], Dict[str, float], List[str], Optional[CategoriesNullableVariant]]
+Categories = Union[Iterable[CategoriesCategorical], Dict[str, float], List[str], Optional[CategoriesNullableVariant]]
