@@ -5,18 +5,23 @@ from datetime import datetime
 from typing_extensions import Literal
 
 from .._models import BaseModel
-from .project_score_category import ProjectScoreCategory
 
-__all__ = ["ProjectScore", "Categories", "CategoriesProjectScoreCategoryInfoData3", "Config"]
+__all__ = ["ProjectScore", "Categories", "CategoriesUnionMember0", "CategoriesNullableVariant", "Config"]
 
 
-class CategoriesProjectScoreCategoryInfoData3(BaseModel):
+class CategoriesUnionMember0(BaseModel):
+    name: str
+    """Name of the category"""
+
+    value: float
+    """Numerical value of the category. Must be between 0 and 1, inclusive"""
+
+
+class CategoriesNullableVariant(BaseModel):
     pass
 
 
-Categories = Union[
-    List[ProjectScoreCategory], Dict[str, float], List[str], Optional[CategoriesProjectScoreCategoryInfoData3]
-]
+Categories = Union[List[CategoriesUnionMember0], Dict[str, float], List[str], Optional[CategoriesNullableVariant]]
 
 
 class Config(BaseModel):
