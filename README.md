@@ -29,7 +29,7 @@ from braintrust_api import Braintrust
 client = Braintrust()
 
 project = client.projects.create(
-    name="name",
+    name="foobar",
 )
 print(project.id)
 ```
@@ -52,7 +52,7 @@ client = AsyncBraintrust()
 
 async def main() -> None:
     project = await client.projects.create(
-        name="name",
+        name="foobar",
     )
     print(project.id)
 
@@ -151,7 +151,7 @@ client = Braintrust()
 
 try:
     client.projects.create(
-        name="name",
+        name="foobar",
     )
 except braintrust_api.APIConnectionError as e:
     print("The server could not be reached")
@@ -196,7 +196,7 @@ client = Braintrust(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).projects.create(
-    name="name",
+    name="foobar",
 )
 ```
 
@@ -221,7 +221,7 @@ client = Braintrust(
 
 # Override per-request:
 client.with_options(timeout=5.0).projects.create(
-    name="name",
+    name="foobar",
 )
 ```
 
@@ -262,7 +262,7 @@ from braintrust_api import Braintrust
 
 client = Braintrust()
 response = client.projects.with_raw_response.create(
-    name="name",
+    name="foobar",
 )
 print(response.headers.get('X-My-Header'))
 
@@ -282,7 +282,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.projects.with_streaming_response.create(
-    name="name",
+    name="foobar",
 ) as response:
     print(response.headers.get("X-My-Header"))
 
