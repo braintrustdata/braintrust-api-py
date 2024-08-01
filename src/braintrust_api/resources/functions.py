@@ -7,6 +7,7 @@ from typing import List, Union, Optional
 import httpx
 
 from ..types import (
+    shared_params,
     function_list_params,
     function_create_params,
     function_update_params,
@@ -49,7 +50,7 @@ class FunctionsResource(SyncAPIResource):
         project_id: str,
         slug: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        prompt_data: Optional[function_create_params.PromptData] | NotGiven = NOT_GIVEN,
+        prompt_data: Optional[shared_params.PromptData] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -147,7 +148,7 @@ class FunctionsResource(SyncAPIResource):
         description: Optional[str] | NotGiven = NOT_GIVEN,
         function_data: function_update_params.FunctionData | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
-        prompt_data: Optional[function_update_params.PromptData] | NotGiven = NOT_GIVEN,
+        prompt_data: Optional[shared_params.PromptData] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -333,7 +334,7 @@ class FunctionsResource(SyncAPIResource):
         project_id: str,
         slug: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        prompt_data: Optional[function_replace_params.PromptData] | NotGiven = NOT_GIVEN,
+        prompt_data: Optional[shared_params.PromptData] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -407,7 +408,7 @@ class AsyncFunctionsResource(AsyncAPIResource):
         project_id: str,
         slug: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        prompt_data: Optional[function_create_params.PromptData] | NotGiven = NOT_GIVEN,
+        prompt_data: Optional[shared_params.PromptData] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -505,7 +506,7 @@ class AsyncFunctionsResource(AsyncAPIResource):
         description: Optional[str] | NotGiven = NOT_GIVEN,
         function_data: function_update_params.FunctionData | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
-        prompt_data: Optional[function_update_params.PromptData] | NotGiven = NOT_GIVEN,
+        prompt_data: Optional[shared_params.PromptData] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -691,7 +692,7 @@ class AsyncFunctionsResource(AsyncAPIResource):
         project_id: str,
         slug: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        prompt_data: Optional[function_replace_params.PromptData] | NotGiven = NOT_GIVEN,
+        prompt_data: Optional[shared_params.PromptData] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
