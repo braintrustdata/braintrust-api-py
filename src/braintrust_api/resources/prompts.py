@@ -6,12 +6,7 @@ from typing import List, Union, Optional
 
 import httpx
 
-from ..types import (
-    prompt_list_params,
-    prompt_create_params,
-    prompt_update_params,
-    prompt_replace_params,
-)
+from ..types import prompt_list_params, prompt_create_params, prompt_update_params, prompt_replace_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -28,7 +23,6 @@ from .._response import (
 from ..pagination import SyncListObjects, AsyncListObjects
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.prompt import Prompt
-from ..types.prompt_data_param import PromptDataParam
 
 __all__ = ["PromptsResource", "AsyncPromptsResource"]
 
@@ -49,7 +43,7 @@ class PromptsResource(SyncAPIResource):
         project_id: str,
         slug: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        prompt_data: Optional[PromptDataParam] | NotGiven = NOT_GIVEN,
+        prompt_data: Optional[prompt_create_params.PromptData] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -145,7 +139,7 @@ class PromptsResource(SyncAPIResource):
         *,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
-        prompt_data: Optional[PromptDataParam] | NotGiven = NOT_GIVEN,
+        prompt_data: Optional[prompt_update_params.PromptData] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -329,7 +323,7 @@ class PromptsResource(SyncAPIResource):
         project_id: str,
         slug: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        prompt_data: Optional[PromptDataParam] | NotGiven = NOT_GIVEN,
+        prompt_data: Optional[prompt_replace_params.PromptData] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -401,7 +395,7 @@ class AsyncPromptsResource(AsyncAPIResource):
         project_id: str,
         slug: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        prompt_data: Optional[PromptDataParam] | NotGiven = NOT_GIVEN,
+        prompt_data: Optional[prompt_create_params.PromptData] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -497,7 +491,7 @@ class AsyncPromptsResource(AsyncAPIResource):
         *,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
-        prompt_data: Optional[PromptDataParam] | NotGiven = NOT_GIVEN,
+        prompt_data: Optional[prompt_update_params.PromptData] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -681,7 +675,7 @@ class AsyncPromptsResource(AsyncAPIResource):
         project_id: str,
         slug: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        prompt_data: Optional[PromptDataParam] | NotGiven = NOT_GIVEN,
+        prompt_data: Optional[prompt_replace_params.PromptData] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
