@@ -2,12 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Iterable, Optional
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing import Optional
+from typing_extensions import Literal, Required, TypedDict
 
-from .._utils import PropertyInfo
+from .view_data_param import ViewDataParam
+from .view_options_param import ViewOptionsParam
 
-__all__ = ["ViewUpdateParams", "Options", "ViewData", "ViewDataSearch"]
+__all__ = ["ViewUpdateParams"]
 
 
 class ViewUpdateParams(TypedDict, total=False):
@@ -36,38 +37,16 @@ class ViewUpdateParams(TypedDict, total=False):
     name: Optional[str]
     """Name of the view"""
 
-    options: Optional[Options]
+    options: Optional[ViewOptionsParam]
     """Options for the view in the app"""
 
     user_id: Optional[str]
     """Identifies the user who created the view"""
 
-    view_data: Optional[ViewData]
+    view_data: Optional[ViewDataParam]
     """The view definition"""
 
     view_type: Optional[
         Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
     ]
     """Type of table that the view corresponds to."""
-
-
-class Options(TypedDict, total=False):
-    column_order: Annotated[Optional[List[str]], PropertyInfo(alias="columnOrder")]
-
-    column_sizing: Annotated[Optional[Dict[str, float]], PropertyInfo(alias="columnSizing")]
-
-    column_visibility: Annotated[Optional[Dict[str, bool]], PropertyInfo(alias="columnVisibility")]
-
-
-class ViewDataSearch(TypedDict, total=False):
-    filter: Optional[Iterable[object]]
-
-    match: Optional[Iterable[object]]
-
-    sort: Optional[Iterable[object]]
-
-    tag: Optional[Iterable[object]]
-
-
-class ViewData(TypedDict, total=False):
-    search: Optional[ViewDataSearch]

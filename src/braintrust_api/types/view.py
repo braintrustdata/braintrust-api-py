@@ -1,36 +1,14 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
+from typing import Optional
 from datetime import datetime
 from typing_extensions import Literal
 
-from pydantic import Field as FieldInfo
-
 from .._models import BaseModel
+from .view_data import ViewData
+from .view_options import ViewOptions
 
-__all__ = ["View", "Options", "ViewData", "ViewDataSearch"]
-
-
-class Options(BaseModel):
-    column_order: Optional[List[str]] = FieldInfo(alias="columnOrder", default=None)
-
-    column_sizing: Optional[Dict[str, float]] = FieldInfo(alias="columnSizing", default=None)
-
-    column_visibility: Optional[Dict[str, bool]] = FieldInfo(alias="columnVisibility", default=None)
-
-
-class ViewDataSearch(BaseModel):
-    filter: Optional[List[object]] = None
-
-    match: Optional[List[object]] = None
-
-    sort: Optional[List[object]] = None
-
-    tag: Optional[List[object]] = None
-
-
-class ViewData(BaseModel):
-    search: Optional[ViewDataSearch] = None
+__all__ = ["View"]
 
 
 class View(BaseModel):
@@ -71,7 +49,7 @@ class View(BaseModel):
     deleted_at: Optional[datetime] = None
     """Date of role deletion, or null if the role is still active"""
 
-    options: Optional[Options] = None
+    options: Optional[ViewOptions] = None
     """Options for the view in the app"""
 
     user_id: Optional[str] = None

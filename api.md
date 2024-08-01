@@ -1,3 +1,9 @@
+# Shared Types
+
+```python
+from braintrust_api.types import PromptData
+```
+
 # TopLevel
 
 Types:
@@ -48,6 +54,7 @@ Types:
 ```python
 from braintrust_api.types import (
     Experiment,
+    RepoInfo,
     ExperimentFetchResponse,
     ExperimentFetchPostResponse,
     ExperimentInsertResponse,
@@ -230,7 +237,7 @@ Methods:
 Types:
 
 ```python
-from braintrust_api.types import View
+from braintrust_api.types import View, ViewData, ViewDataSearch, ViewOptions
 ```
 
 Methods:

@@ -32,6 +32,8 @@ from .._response import (
 from ..pagination import SyncListObjects, AsyncListObjects
 from ..types.view import View
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.view_data_param import ViewDataParam
+from ..types.view_options_param import ViewOptionsParam
 
 __all__ = ["ViewsResource", "AsyncViewsResource"]
 
@@ -69,9 +71,9 @@ class ViewsResource(SyncAPIResource):
             Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
         ],
         deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        options: Optional[view_create_params.Options] | NotGiven = NOT_GIVEN,
+        options: Optional[ViewOptionsParam] | NotGiven = NOT_GIVEN,
         user_id: Optional[str] | NotGiven = NOT_GIVEN,
-        view_data: Optional[view_create_params.ViewData] | NotGiven = NOT_GIVEN,
+        view_data: Optional[ViewDataParam] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -217,9 +219,9 @@ class ViewsResource(SyncAPIResource):
             ]
         ],
         name: Optional[str] | NotGiven = NOT_GIVEN,
-        options: Optional[view_update_params.Options] | NotGiven = NOT_GIVEN,
+        options: Optional[ViewOptionsParam] | NotGiven = NOT_GIVEN,
         user_id: Optional[str] | NotGiven = NOT_GIVEN,
-        view_data: Optional[view_update_params.ViewData] | NotGiven = NOT_GIVEN,
+        view_data: Optional[ViewDataParam] | NotGiven = NOT_GIVEN,
         view_type: Optional[
             Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
         ]
@@ -473,9 +475,9 @@ class ViewsResource(SyncAPIResource):
             Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
         ],
         deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        options: Optional[view_replace_params.Options] | NotGiven = NOT_GIVEN,
+        options: Optional[ViewOptionsParam] | NotGiven = NOT_GIVEN,
         user_id: Optional[str] | NotGiven = NOT_GIVEN,
-        view_data: Optional[view_replace_params.ViewData] | NotGiven = NOT_GIVEN,
+        view_data: Optional[ViewDataParam] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -569,9 +571,9 @@ class AsyncViewsResource(AsyncAPIResource):
             Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
         ],
         deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        options: Optional[view_create_params.Options] | NotGiven = NOT_GIVEN,
+        options: Optional[ViewOptionsParam] | NotGiven = NOT_GIVEN,
         user_id: Optional[str] | NotGiven = NOT_GIVEN,
-        view_data: Optional[view_create_params.ViewData] | NotGiven = NOT_GIVEN,
+        view_data: Optional[ViewDataParam] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -717,9 +719,9 @@ class AsyncViewsResource(AsyncAPIResource):
             ]
         ],
         name: Optional[str] | NotGiven = NOT_GIVEN,
-        options: Optional[view_update_params.Options] | NotGiven = NOT_GIVEN,
+        options: Optional[ViewOptionsParam] | NotGiven = NOT_GIVEN,
         user_id: Optional[str] | NotGiven = NOT_GIVEN,
-        view_data: Optional[view_update_params.ViewData] | NotGiven = NOT_GIVEN,
+        view_data: Optional[ViewDataParam] | NotGiven = NOT_GIVEN,
         view_type: Optional[
             Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
         ]
@@ -973,9 +975,9 @@ class AsyncViewsResource(AsyncAPIResource):
             Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
         ],
         deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        options: Optional[view_replace_params.Options] | NotGiven = NOT_GIVEN,
+        options: Optional[ViewOptionsParam] | NotGiven = NOT_GIVEN,
         user_id: Optional[str] | NotGiven = NOT_GIVEN,
-        view_data: Optional[view_replace_params.ViewData] | NotGiven = NOT_GIVEN,
+        view_data: Optional[ViewDataParam] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
