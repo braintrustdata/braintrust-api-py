@@ -100,7 +100,7 @@ Methods:
 Types:
 
 ```python
-from braintrust_api.types import Prompt, PromptData
+from braintrust_api.types import Prompt
 ```
 
 Methods:

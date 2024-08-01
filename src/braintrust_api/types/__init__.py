@@ -14,7 +14,6 @@ from .project import Project as Project
 from .function import Function as Function
 from .experiment import Experiment as Experiment
 from .project_tag import ProjectTag as ProjectTag
-from .prompt_data import PromptData as PromptData
 from .organization import Organization as Organization
 from .project_score import ProjectScore as ProjectScore
 from .acl_list_params import ACLListParams as ACLListParams
@@ -23,7 +22,6 @@ from .user_list_params import UserListParams as UserListParams
 from .view_list_params import ViewListParams as ViewListParams
 from .acl_create_params import ACLCreateParams as ACLCreateParams
 from .group_list_params import GroupListParams as GroupListParams
-from .prompt_data_param import PromptDataParam as PromptDataParam
 from .prompt_list_params import PromptListParams as PromptListParams
 from .role_create_params import RoleCreateParams as RoleCreateParams
 from .role_update_params import RoleUpdateParams as RoleUpdateParams
