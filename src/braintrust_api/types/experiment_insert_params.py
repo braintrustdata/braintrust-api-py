@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Dict, List, Union, Iterable, Optional
 from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
 
@@ -38,7 +38,9 @@ class EventInsertExperimentEventReplaceContextTyped(TypedDict, total=False):
     """Line of code where the experiment event was created"""
 
 
-EventInsertExperimentEventReplaceContext = Union[EventInsertExperimentEventReplaceContextTyped, Dict[str, object]]
+EventInsertExperimentEventReplaceContext: TypeAlias = Union[
+    EventInsertExperimentEventReplaceContextTyped, Dict[str, object]
+]
 
 
 class EventInsertExperimentEventReplaceMetricsTyped(TypedDict, total=False):
@@ -70,7 +72,9 @@ class EventInsertExperimentEventReplaceMetricsTyped(TypedDict, total=False):
     """The total number of tokens in the input and output of the experiment event."""
 
 
-EventInsertExperimentEventReplaceMetrics = Union[EventInsertExperimentEventReplaceMetricsTyped, Dict[str, object]]
+EventInsertExperimentEventReplaceMetrics: TypeAlias = Union[
+    EventInsertExperimentEventReplaceMetricsTyped, Dict[str, object]
+]
 
 
 class EventInsertExperimentEventReplaceSpanAttributesTyped(TypedDict, total=False):
@@ -81,7 +85,7 @@ class EventInsertExperimentEventReplaceSpanAttributesTyped(TypedDict, total=Fals
     """Type of the span, for display purposes only"""
 
 
-EventInsertExperimentEventReplaceSpanAttributes = Union[
+EventInsertExperimentEventReplaceSpanAttributes: TypeAlias = Union[
     EventInsertExperimentEventReplaceSpanAttributesTyped, Dict[str, object]
 ]
 
@@ -222,7 +226,9 @@ class EventInsertExperimentEventMergeContextTyped(TypedDict, total=False):
     """Line of code where the experiment event was created"""
 
 
-EventInsertExperimentEventMergeContext = Union[EventInsertExperimentEventMergeContextTyped, Dict[str, object]]
+EventInsertExperimentEventMergeContext: TypeAlias = Union[
+    EventInsertExperimentEventMergeContextTyped, Dict[str, object]
+]
 
 
 class EventInsertExperimentEventMergeMetricsTyped(TypedDict, total=False):
@@ -254,7 +260,9 @@ class EventInsertExperimentEventMergeMetricsTyped(TypedDict, total=False):
     """The total number of tokens in the input and output of the experiment event."""
 
 
-EventInsertExperimentEventMergeMetrics = Union[EventInsertExperimentEventMergeMetricsTyped, Dict[str, object]]
+EventInsertExperimentEventMergeMetrics: TypeAlias = Union[
+    EventInsertExperimentEventMergeMetricsTyped, Dict[str, object]
+]
 
 
 class EventInsertExperimentEventMergeSpanAttributesTyped(TypedDict, total=False):
@@ -265,7 +273,7 @@ class EventInsertExperimentEventMergeSpanAttributesTyped(TypedDict, total=False)
     """Type of the span, for display purposes only"""
 
 
-EventInsertExperimentEventMergeSpanAttributes = Union[
+EventInsertExperimentEventMergeSpanAttributes: TypeAlias = Union[
     EventInsertExperimentEventMergeSpanAttributesTyped, Dict[str, object]
 ]
 
@@ -396,4 +404,4 @@ class EventInsertExperimentEventMerge(TypedDict, total=False):
     """A list of tags to log"""
 
 
-Event = Union[EventInsertExperimentEventReplace, EventInsertExperimentEventMerge]
+Event: TypeAlias = Union[EventInsertExperimentEventReplace, EventInsertExperimentEventMerge]

@@ -37,14 +37,14 @@ class SyncListObjects(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
 
         if is_forwards:
             item = cast(Any, objects[-1])
-            if not isinstance(item, ListObjectsItem) or item.id is None:
+            if not isinstance(item, ListObjectsItem) or item.id is None:  # pyright: ignore[reportUnnecessaryComparison]
                 # TODO emit warning log
                 return None
 
             return PageInfo(params={"starting_after": item.id})
         else:
             item = cast(Any, self.objects[0])
-            if not isinstance(item, ListObjectsItem) or item.id is None:
+            if not isinstance(item, ListObjectsItem) or item.id is None:  # pyright: ignore[reportUnnecessaryComparison]
                 # TODO emit warning log
                 return None
 
@@ -73,14 +73,14 @@ class AsyncListObjects(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
 
         if is_forwards:
             item = cast(Any, objects[-1])
-            if not isinstance(item, ListObjectsItem) or item.id is None:
+            if not isinstance(item, ListObjectsItem) or item.id is None:  # pyright: ignore[reportUnnecessaryComparison]
                 # TODO emit warning log
                 return None
 
             return PageInfo(params={"starting_after": item.id})
         else:
             item = cast(Any, self.objects[0])
-            if not isinstance(item, ListObjectsItem) or item.id is None:
+            if not isinstance(item, ListObjectsItem) or item.id is None:  # pyright: ignore[reportUnnecessaryComparison]
                 # TODO emit warning log
                 return None
 

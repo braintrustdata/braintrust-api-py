@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Dict, List, Union, Iterable, Optional
 from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
 
@@ -38,7 +38,9 @@ class EventInsertProjectLogsEventReplaceContextTyped(TypedDict, total=False):
     """Line of code where the project logs event was created"""
 
 
-EventInsertProjectLogsEventReplaceContext = Union[EventInsertProjectLogsEventReplaceContextTyped, Dict[str, object]]
+EventInsertProjectLogsEventReplaceContext: TypeAlias = Union[
+    EventInsertProjectLogsEventReplaceContextTyped, Dict[str, object]
+]
 
 
 class EventInsertProjectLogsEventReplaceMetricsTyped(TypedDict, total=False):
@@ -70,7 +72,9 @@ class EventInsertProjectLogsEventReplaceMetricsTyped(TypedDict, total=False):
     """The total number of tokens in the input and output of the project logs event."""
 
 
-EventInsertProjectLogsEventReplaceMetrics = Union[EventInsertProjectLogsEventReplaceMetricsTyped, Dict[str, object]]
+EventInsertProjectLogsEventReplaceMetrics: TypeAlias = Union[
+    EventInsertProjectLogsEventReplaceMetricsTyped, Dict[str, object]
+]
 
 
 class EventInsertProjectLogsEventReplaceSpanAttributesTyped(TypedDict, total=False):
@@ -81,7 +85,7 @@ class EventInsertProjectLogsEventReplaceSpanAttributesTyped(TypedDict, total=Fal
     """Type of the span, for display purposes only"""
 
 
-EventInsertProjectLogsEventReplaceSpanAttributes = Union[
+EventInsertProjectLogsEventReplaceSpanAttributes: TypeAlias = Union[
     EventInsertProjectLogsEventReplaceSpanAttributesTyped, Dict[str, object]
 ]
 
@@ -212,7 +216,9 @@ class EventInsertProjectLogsEventMergeContextTyped(TypedDict, total=False):
     """Line of code where the project logs event was created"""
 
 
-EventInsertProjectLogsEventMergeContext = Union[EventInsertProjectLogsEventMergeContextTyped, Dict[str, object]]
+EventInsertProjectLogsEventMergeContext: TypeAlias = Union[
+    EventInsertProjectLogsEventMergeContextTyped, Dict[str, object]
+]
 
 
 class EventInsertProjectLogsEventMergeMetricsTyped(TypedDict, total=False):
@@ -244,7 +250,9 @@ class EventInsertProjectLogsEventMergeMetricsTyped(TypedDict, total=False):
     """The total number of tokens in the input and output of the project logs event."""
 
 
-EventInsertProjectLogsEventMergeMetrics = Union[EventInsertProjectLogsEventMergeMetricsTyped, Dict[str, object]]
+EventInsertProjectLogsEventMergeMetrics: TypeAlias = Union[
+    EventInsertProjectLogsEventMergeMetricsTyped, Dict[str, object]
+]
 
 
 class EventInsertProjectLogsEventMergeSpanAttributesTyped(TypedDict, total=False):
@@ -255,7 +263,7 @@ class EventInsertProjectLogsEventMergeSpanAttributesTyped(TypedDict, total=False
     """Type of the span, for display purposes only"""
 
 
-EventInsertProjectLogsEventMergeSpanAttributes = Union[
+EventInsertProjectLogsEventMergeSpanAttributes: TypeAlias = Union[
     EventInsertProjectLogsEventMergeSpanAttributesTyped, Dict[str, object]
 ]
 
@@ -376,4 +384,4 @@ class EventInsertProjectLogsEventMerge(TypedDict, total=False):
     """A list of tags to log"""
 
 
-Event = Union[EventInsertProjectLogsEventReplace, EventInsertProjectLogsEventMerge]
+Event: TypeAlias = Union[EventInsertProjectLogsEventReplace, EventInsertProjectLogsEventMerge]

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import List, Union, Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from ..types import shared_params
 
@@ -51,7 +51,7 @@ class FunctionDataCodeDataLocationPositionScore(TypedDict, total=False):
     score: Required[float]
 
 
-FunctionDataCodeDataLocationPosition = Union[Literal["task"], FunctionDataCodeDataLocationPositionScore]
+FunctionDataCodeDataLocationPosition: TypeAlias = Union[Literal["task"], FunctionDataCodeDataLocationPositionScore]
 
 
 class FunctionDataCodeDataLocation(TypedDict, total=False):
@@ -88,4 +88,4 @@ class FunctionDataGlobal(TypedDict, total=False):
     type: Required[Literal["global"]]
 
 
-FunctionData = Union[FunctionDataPrompt, FunctionDataCode, FunctionDataGlobal]
+FunctionData: TypeAlias = Union[FunctionDataPrompt, FunctionDataCode, FunctionDataGlobal]

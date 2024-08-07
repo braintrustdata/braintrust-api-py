@@ -1,7 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Union, Optional
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
@@ -48,7 +48,7 @@ class OptionsParamsOpenAIModelParamsFunctionCallFunction(BaseModel):
     name: str
 
 
-OptionsParamsOpenAIModelParamsFunctionCall = Union[
+OptionsParamsOpenAIModelParamsFunctionCall: TypeAlias = Union[
     Literal["auto"], Literal["none"], OptionsParamsOpenAIModelParamsFunctionCallFunction
 ]
 
@@ -67,7 +67,7 @@ class OptionsParamsOpenAIModelParamsToolChoiceFunction(BaseModel):
     type: Literal["function"]
 
 
-OptionsParamsOpenAIModelParamsToolChoice = Union[
+OptionsParamsOpenAIModelParamsToolChoice: TypeAlias = Union[
     Literal["auto"], Literal["none"], OptionsParamsOpenAIModelParamsToolChoiceFunction
 ]
 
@@ -137,7 +137,7 @@ class OptionsParamsJsCompletionParams(BaseModel):
     use_cache: Optional[bool] = None
 
 
-OptionsParams = Union[
+OptionsParams: TypeAlias = Union[
     OptionsParamsOpenAIModelParams,
     OptionsParamsAnthropicModelParams,
     OptionsParamsGoogleModelParams,
@@ -194,7 +194,7 @@ class PromptChatMessageUserContentArrayImageURL(BaseModel):
     type: Literal["image_url"]
 
 
-PromptChatMessageUserContentArray = Union[
+PromptChatMessageUserContentArray: TypeAlias = Union[
     PromptChatMessageUserContentArrayText, PromptChatMessageUserContentArrayImageURL
 ]
 
@@ -261,7 +261,7 @@ class PromptChatMessageFallback(BaseModel):
     content: Optional[str] = None
 
 
-PromptChatMessage = Union[
+PromptChatMessage: TypeAlias = Union[
     PromptChatMessageSystem,
     PromptChatMessageUser,
     PromptChatMessageAssistant,
@@ -283,7 +283,7 @@ class PromptNullableVariant(BaseModel):
     pass
 
 
-Prompt = Union[PromptCompletion, PromptChat, Optional[PromptNullableVariant]]
+Prompt: TypeAlias = Union[PromptCompletion, PromptChat, Optional[PromptNullableVariant]]
 
 
 class PromptData(BaseModel):
