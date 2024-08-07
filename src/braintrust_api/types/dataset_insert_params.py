@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Dict, List, Union, Iterable, Optional
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
+from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
 
@@ -161,4 +161,4 @@ class EventInsertDatasetEventMerge(TypedDict, total=False):
     """A list of tags to log"""
 
 
-Event = Union[EventInsertDatasetEventReplace, EventInsertDatasetEventMerge]
+Event: TypeAlias = Union[EventInsertDatasetEventReplace, EventInsertDatasetEventMerge]

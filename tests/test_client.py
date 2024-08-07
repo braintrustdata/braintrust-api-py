@@ -17,6 +17,7 @@ from respx import MockRouter
 from pydantic import ValidationError
 
 from braintrust_api import Braintrust, AsyncBraintrust, APIResponseValidationError
+from braintrust_api._types import Omit
 from braintrust_api._models import BaseModel, FinalRequestOptions
 from braintrust_api._constants import RAW_RESPONSE_HEADER
 from braintrust_api._exceptions import APIStatusError, APITimeoutError, BraintrustError, APIResponseValidationError
@@ -334,7 +335,8 @@ class TestBraintrust:
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
         with pytest.raises(BraintrustError):
-            client2 = Braintrust(base_url=base_url, api_key=None, _strict_response_validation=True)
+            with update_env(**{"BRAINTRUST_API_KEY": Omit()}):
+                client2 = Braintrust(base_url=base_url, api_key=None, _strict_response_validation=True)
             _ = client2
 
     def test_default_query_option(self) -> None:
@@ -739,6 +741,27 @@ class TestBraintrust:
 
         assert _get_open_connections(self.client) == 0
 
+    @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
+    @mock.patch("braintrust_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @pytest.mark.respx(base_url=base_url)
+    def test_retries_taken(self, client: Braintrust, failures_before_success: int, respx_mock: MockRouter) -> None:
+        client = client.with_options(max_retries=4)
+
+        nb_retries = 0
+
+        def retry_handler(_request: httpx.Request) -> httpx.Response:
+            nonlocal nb_retries
+            if nb_retries < failures_before_success:
+                nb_retries += 1
+                return httpx.Response(500)
+            return httpx.Response(200)
+
+        respx_mock.post("/v1/project").mock(side_effect=retry_handler)
+
+        response = client.projects.with_raw_response.create(name="name")
+
+        assert response.retries_taken == failures_before_success
+
 
 class TestAsyncBraintrust:
     client = AsyncBraintrust(base_url=base_url, api_key=api_key, _strict_response_validation=True)
@@ -1025,7 +1048,8 @@ class TestAsyncBraintrust:
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
         with pytest.raises(BraintrustError):
-            client2 = AsyncBraintrust(base_url=base_url, api_key=None, _strict_response_validation=True)
+            with update_env(**{"BRAINTRUST_API_KEY": Omit()}):
+                client2 = AsyncBraintrust(base_url=base_url, api_key=None, _strict_response_validation=True)
             _ = client2
 
     def test_default_query_option(self) -> None:
@@ -1435,3 +1459,27 @@ class TestAsyncBraintrust:
             )
 
         assert _get_open_connections(self.client) == 0
+
+    @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
+    @mock.patch("braintrust_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @pytest.mark.respx(base_url=base_url)
+    @pytest.mark.asyncio
+    async def test_retries_taken(
+        self, async_client: AsyncBraintrust, failures_before_success: int, respx_mock: MockRouter
+    ) -> None:
+        client = async_client.with_options(max_retries=4)
+
+        nb_retries = 0
+
+        def retry_handler(_request: httpx.Request) -> httpx.Response:
+            nonlocal nb_retries
+            if nb_retries < failures_before_success:
+                nb_retries += 1
+                return httpx.Response(500)
+            return httpx.Response(200)
+
+        respx_mock.post("/v1/project").mock(side_effect=retry_handler)
+
+        response = await client.projects.with_raw_response.create(name="name")
+
+        assert response.retries_taken == failures_before_success

@@ -2,7 +2,7 @@
 
 from typing import Dict, List, Union, Optional
 from datetime import datetime
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
@@ -31,7 +31,7 @@ class FunctionDataCodeDataLocationPositionScore(BaseModel):
     score: float
 
 
-FunctionDataCodeDataLocationPosition = Union[Literal["task"], FunctionDataCodeDataLocationPositionScore]
+FunctionDataCodeDataLocationPosition: TypeAlias = Union[Literal["task"], FunctionDataCodeDataLocationPositionScore]
 
 
 class FunctionDataCodeDataLocation(BaseModel):
@@ -68,7 +68,7 @@ class FunctionDataGlobal(BaseModel):
     type: Literal["global"]
 
 
-FunctionData = Union[FunctionDataPrompt, FunctionDataCode, FunctionDataGlobal]
+FunctionData: TypeAlias = Union[FunctionDataPrompt, FunctionDataCode, FunctionDataGlobal]
 
 
 class Function(BaseModel):

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import List, Union, Iterable, Optional
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
 
@@ -48,7 +48,7 @@ class OptionsParamsOpenAIModelParamsFunctionCallFunction(TypedDict, total=False)
     name: Required[str]
 
 
-OptionsParamsOpenAIModelParamsFunctionCall = Union[
+OptionsParamsOpenAIModelParamsFunctionCall: TypeAlias = Union[
     Literal["auto"], Literal["none"], OptionsParamsOpenAIModelParamsFunctionCallFunction
 ]
 
@@ -67,7 +67,7 @@ class OptionsParamsOpenAIModelParamsToolChoiceFunction(TypedDict, total=False):
     type: Required[Literal["function"]]
 
 
-OptionsParamsOpenAIModelParamsToolChoice = Union[
+OptionsParamsOpenAIModelParamsToolChoice: TypeAlias = Union[
     Literal["auto"], Literal["none"], OptionsParamsOpenAIModelParamsToolChoiceFunction
 ]
 
@@ -137,7 +137,7 @@ class OptionsParamsJsCompletionParams(TypedDict, total=False):
     use_cache: bool
 
 
-OptionsParams = Union[
+OptionsParams: TypeAlias = Union[
     OptionsParamsOpenAIModelParams,
     OptionsParamsAnthropicModelParams,
     OptionsParamsGoogleModelParams,
@@ -194,7 +194,7 @@ class PromptChatMessageUserContentArrayImageURL(TypedDict, total=False):
     type: Required[Literal["image_url"]]
 
 
-PromptChatMessageUserContentArray = Union[
+PromptChatMessageUserContentArray: TypeAlias = Union[
     PromptChatMessageUserContentArrayText, PromptChatMessageUserContentArrayImageURL
 ]
 
@@ -261,7 +261,7 @@ class PromptChatMessageFallback(TypedDict, total=False):
     content: Optional[str]
 
 
-PromptChatMessage = Union[
+PromptChatMessage: TypeAlias = Union[
     PromptChatMessageSystem,
     PromptChatMessageUser,
     PromptChatMessageAssistant,
@@ -283,7 +283,7 @@ class PromptNullableVariant(TypedDict, total=False):
     pass
 
 
-Prompt = Union[PromptCompletion, PromptChat, Optional[PromptNullableVariant]]
+Prompt: TypeAlias = Union[PromptCompletion, PromptChat, Optional[PromptNullableVariant]]
 
 
 class PromptData(TypedDict, total=False):

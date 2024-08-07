@@ -2,26 +2,21 @@
 
 from typing import Dict, List, Union, Optional
 from datetime import datetime
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from .._models import BaseModel
+from .project_score_category import ProjectScoreCategory
 
-__all__ = ["ProjectScore", "Categories", "CategoriesCategorical", "CategoriesNullableVariant", "Config"]
-
-
-class CategoriesCategorical(BaseModel):
-    name: str
-    """Name of the category"""
-
-    value: float
-    """Numerical value of the category. Must be between 0 and 1, inclusive"""
+__all__ = ["ProjectScore", "Categories", "CategoriesNullableVariant", "Config"]
 
 
 class CategoriesNullableVariant(BaseModel):
     pass
 
 
-Categories = Union[List[CategoriesCategorical], Dict[str, float], List[str], Optional[CategoriesNullableVariant]]
+Categories: TypeAlias = Union[
+    List[ProjectScoreCategory], Dict[str, float], List[str], Optional[CategoriesNullableVariant]
+]
 
 
 class Config(BaseModel):

@@ -25,8 +25,7 @@ class EventContext(BaseModel):
         # Stub to indicate that arbitrary properties are accepted.
         # To access properties that are not valid identifiers you can use `getattr`, e.g.
         # `getattr(obj, '$type')`
-        def __getattr__(self, attr: str) -> object:
-            ...
+        def __getattr__(self, attr: str) -> object: ...
 
 
 class EventMetrics(BaseModel):
@@ -61,8 +60,7 @@ class EventMetrics(BaseModel):
         # Stub to indicate that arbitrary properties are accepted.
         # To access properties that are not valid identifiers you can use `getattr`, e.g.
         # `getattr(obj, '$type')`
-        def __getattr__(self, attr: str) -> object:
-            ...
+        def __getattr__(self, attr: str) -> object: ...
 
 
 class EventSpanAttributes(BaseModel):
@@ -76,8 +74,7 @@ class EventSpanAttributes(BaseModel):
         # Stub to indicate that arbitrary properties are accepted.
         # To access properties that are not valid identifiers you can use `getattr`, e.g.
         # `getattr(obj, '$type')`
-        def __getattr__(self, attr: str) -> object:
-            ...
+        def __getattr__(self, attr: str) -> object: ...
 
 
 class Event(BaseModel):
