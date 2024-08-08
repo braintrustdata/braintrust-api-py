@@ -5,8 +5,7 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Literal, Required, TypedDict
 
-from .view_data_param import ViewDataParam
-from .view_options_param import ViewOptionsParam
+from ..types import shared_params
 
 __all__ = ["ViewUpdateParams"]
 
@@ -37,13 +36,13 @@ class ViewUpdateParams(TypedDict, total=False):
     name: Optional[str]
     """Name of the view"""
 
-    options: Optional[ViewOptionsParam]
+    options: Optional[shared_params.ViewOptions]
     """Options for the view in the app"""
 
     user_id: Optional[str]
     """Identifies the user who created the view"""
 
-    view_data: Optional[ViewDataParam]
+    view_data: Optional[shared_params.ViewData]
     """The view definition"""
 
     view_type: Optional[

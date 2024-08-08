@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Dict, List, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from .project_score_category_param import ProjectScoreCategoryParam
+from ..types import shared_params
 
 __all__ = ["ProjectScoreReplaceParams", "Categories", "CategoriesNullableVariant"]
 
@@ -32,5 +32,5 @@ class CategoriesNullableVariant(TypedDict, total=False):
 
 
 Categories: TypeAlias = Union[
-    Iterable[ProjectScoreCategoryParam], Dict[str, float], List[str], Optional[CategoriesNullableVariant]
+    Iterable[shared_params.ProjectScoreCategory], Dict[str, float], List[str], Optional[CategoriesNullableVariant]
 ]

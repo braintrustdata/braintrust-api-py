@@ -9,11 +9,9 @@ import pytest
 
 from tests.utils import assert_matches_type
 from braintrust_api import Braintrust, AsyncBraintrust
-from braintrust_api.types import (
-    View,
-)
 from braintrust_api._utils import parse_datetime
 from braintrust_api.pagination import SyncListObjects, AsyncListObjects
+from braintrust_api.types.shared import View
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -219,7 +217,6 @@ class TestViews:
             ending_before="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             ids="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
-            project_name="project_name",
             starting_after="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_name="view_name",
             view_type="projects",
@@ -565,7 +562,6 @@ class TestAsyncViews:
             ending_before="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             ids="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
-            project_name="project_name",
             starting_after="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_name="view_name",
             view_type="projects",

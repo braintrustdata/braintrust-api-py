@@ -4,11 +4,14 @@ from __future__ import annotations
 
 from typing_extensions import TypedDict
 
+from .shared.summarize_scores import SummarizeScores
+from .shared.comparison_experiment_id import ComparisonExperimentID
+
 __all__ = ["ExperimentSummarizeParams"]
 
 
 class ExperimentSummarizeParams(TypedDict, total=False):
-    comparison_experiment_id: str
+    comparison_experiment_id: ComparisonExperimentID
     """The experiment to compare against, if summarizing scores and metrics.
 
     If omitted, will fall back to the `base_exp_id` stored in the experiment
@@ -16,7 +19,7 @@ class ExperimentSummarizeParams(TypedDict, total=False):
     pass `summarize_scores=true` for this id to be used
     """
 
-    summarize_scores: bool
+    summarize_scores: SummarizeScores
     """Whether to summarize the scores and metrics.
 
     If false (or omitted), only the metadata will be returned.

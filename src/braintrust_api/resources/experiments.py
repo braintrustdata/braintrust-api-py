@@ -2,11 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
+from typing import Dict, Iterable, Optional
 
 import httpx
 
 from ..types import (
+    shared_params,
     experiment_list_params,
     experiment_fetch_params,
     experiment_create_params,
@@ -31,12 +32,24 @@ from .._response import (
 )
 from ..pagination import SyncListObjects, AsyncListObjects
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.experiment import Experiment
-from ..types.repo_info_param import RepoInfoParam
-from ..types.experiment_fetch_response import ExperimentFetchResponse
-from ..types.experiment_insert_response import ExperimentInsertResponse
-from ..types.experiment_summarize_response import ExperimentSummarizeResponse
-from ..types.experiment_fetch_post_response import ExperimentFetchPostResponse
+from ..types.shared.version import Version
+from ..types.shared.org_name import OrgName
+from ..types.shared.experiment import Experiment
+from ..types.shared.max_xact_id import MaxXactID
+from ..types.shared.project_name import ProjectName
+from ..types.shared.ending_before import EndingBefore
+from ..types.shared.experiment_id import ExperimentID
+from ..types.shared.starting_after import StartingAfter
+from ..types.shared.app_limit_param import AppLimitParam
+from ..types.shared.experiment_name import ExperimentName
+from ..types.shared.max_root_span_id import MaxRootSpanID
+from ..types.shared.project_id_query import ProjectIDQuery
+from ..types.shared.summarize_scores import SummarizeScores
+from ..types.shared.fetch_limit_param import FetchLimitParam
+from ..types.shared.insert_events_response import InsertEventsResponse
+from ..types.shared.comparison_experiment_id import ComparisonExperimentID
+from ..types.shared.summarize_experiment_response import SummarizeExperimentResponse
+from ..types.shared.fetch_experiment_events_response import FetchExperimentEventsResponse
 
 __all__ = ["ExperimentsResource", "AsyncExperimentsResource"]
 
@@ -62,7 +75,7 @@ class ExperimentsResource(SyncAPIResource):
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         public: Optional[bool] | NotGiven = NOT_GIVEN,
-        repo_info: Optional[RepoInfoParam] | NotGiven = NOT_GIVEN,
+        repo_info: Optional[shared_params.RepoInfo] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -136,7 +149,7 @@ class ExperimentsResource(SyncAPIResource):
 
     def retrieve(
         self,
-        experiment_id: str,
+        experiment_id: ExperimentID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -171,7 +184,7 @@ class ExperimentsResource(SyncAPIResource):
 
     def update(
         self,
-        experiment_id: str,
+        experiment_id: ExperimentID,
         *,
         base_exp_id: Optional[str] | NotGiven = NOT_GIVEN,
         dataset_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -180,7 +193,7 @@ class ExperimentsResource(SyncAPIResource):
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         public: Optional[bool] | NotGiven = NOT_GIVEN,
-        repo_info: Optional[RepoInfoParam] | NotGiven = NOT_GIVEN,
+        repo_info: Optional[shared_params.RepoInfo] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -250,13 +263,14 @@ class ExperimentsResource(SyncAPIResource):
     def list(
         self,
         *,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        experiment_name: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        project_name: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
+        experiment_name: ExperimentName | NotGiven = NOT_GIVEN,
+        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
+        limit: AppLimitParam | NotGiven = NOT_GIVEN,
+        org_name: OrgName | NotGiven = NOT_GIVEN,
+        project_id: ProjectIDQuery | NotGiven = NOT_GIVEN,
+        project_name: ProjectName | NotGiven = NOT_GIVEN,
+        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -284,6 +298,8 @@ class ExperimentsResource(SyncAPIResource):
           limit: Limit the number of objects to return
 
           org_name: Filter search results to within a particular organization
+
+          project_id: Project id
 
           project_name: Name of the project to search for
 
@@ -316,6 +332,7 @@ class ExperimentsResource(SyncAPIResource):
                         "ids": ids,
                         "limit": limit,
                         "org_name": org_name,
+                        "project_id": project_id,
                         "project_name": project_name,
                         "starting_after": starting_after,
                     },
@@ -327,7 +344,7 @@ class ExperimentsResource(SyncAPIResource):
 
     def delete(
         self,
-        experiment_id: str,
+        experiment_id: ExperimentID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -362,9 +379,9 @@ class ExperimentsResource(SyncAPIResource):
 
     def feedback(
         self,
-        experiment_id: str,
+        experiment_id: ExperimentID,
         *,
-        feedback: Iterable[experiment_feedback_params.Feedback],
+        feedback: Iterable[shared_params.FeedbackExperimentItem],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -402,19 +419,19 @@ class ExperimentsResource(SyncAPIResource):
 
     def fetch(
         self,
-        experiment_id: str,
+        experiment_id: ExperimentID,
         *,
-        limit: int | NotGiven = NOT_GIVEN,
-        max_root_span_id: str | NotGiven = NOT_GIVEN,
-        max_xact_id: str | NotGiven = NOT_GIVEN,
-        version: str | NotGiven = NOT_GIVEN,
+        limit: FetchLimitParam | NotGiven = NOT_GIVEN,
+        max_root_span_id: MaxRootSpanID | NotGiven = NOT_GIVEN,
+        max_xact_id: MaxXactID | NotGiven = NOT_GIVEN,
+        version: Version | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ExperimentFetchResponse:
+    ) -> FetchExperimentEventsResponse:
         """Fetch the events in an experiment.
 
         Equivalent to the POST form of the same path,
@@ -493,15 +510,15 @@ class ExperimentsResource(SyncAPIResource):
                     experiment_fetch_params.ExperimentFetchParams,
                 ),
             ),
-            cast_to=ExperimentFetchResponse,
+            cast_to=FetchExperimentEventsResponse,
         )
 
     def fetch_post(
         self,
-        experiment_id: str,
+        experiment_id: ExperimentID,
         *,
         cursor: Optional[str] | NotGiven = NOT_GIVEN,
-        filters: Optional[Iterable[experiment_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
+        filters: Optional[shared_params.FetchEventsFilters] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
         max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -512,7 +529,7 @@ class ExperimentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ExperimentFetchPostResponse:
+    ) -> FetchExperimentEventsResponse:
         """Fetch the events in an experiment.
 
         Equivalent to the GET form of the same path,
@@ -599,21 +616,21 @@ class ExperimentsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ExperimentFetchPostResponse,
+            cast_to=FetchExperimentEventsResponse,
         )
 
     def insert(
         self,
-        experiment_id: str,
+        experiment_id: ExperimentID,
         *,
-        events: Iterable[experiment_insert_params.Event],
+        events: Iterable[shared_params.InsertExperimentEvent],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ExperimentInsertResponse:
+    ) -> InsertEventsResponse:
         """
         Insert a set of events into the experiment
 
@@ -638,22 +655,22 @@ class ExperimentsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ExperimentInsertResponse,
+            cast_to=InsertEventsResponse,
         )
 
     def summarize(
         self,
-        experiment_id: str,
+        experiment_id: ExperimentID,
         *,
-        comparison_experiment_id: str | NotGiven = NOT_GIVEN,
-        summarize_scores: bool | NotGiven = NOT_GIVEN,
+        comparison_experiment_id: ComparisonExperimentID | NotGiven = NOT_GIVEN,
+        summarize_scores: SummarizeScores | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ExperimentSummarizeResponse:
+    ) -> SummarizeExperimentResponse:
         """
         Summarize experiment
 
@@ -693,7 +710,7 @@ class ExperimentsResource(SyncAPIResource):
                     experiment_summarize_params.ExperimentSummarizeParams,
                 ),
             ),
-            cast_to=ExperimentSummarizeResponse,
+            cast_to=SummarizeExperimentResponse,
         )
 
 
@@ -718,7 +735,7 @@ class AsyncExperimentsResource(AsyncAPIResource):
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         public: Optional[bool] | NotGiven = NOT_GIVEN,
-        repo_info: Optional[RepoInfoParam] | NotGiven = NOT_GIVEN,
+        repo_info: Optional[shared_params.RepoInfo] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -792,7 +809,7 @@ class AsyncExperimentsResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        experiment_id: str,
+        experiment_id: ExperimentID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -827,7 +844,7 @@ class AsyncExperimentsResource(AsyncAPIResource):
 
     async def update(
         self,
-        experiment_id: str,
+        experiment_id: ExperimentID,
         *,
         base_exp_id: Optional[str] | NotGiven = NOT_GIVEN,
         dataset_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -836,7 +853,7 @@ class AsyncExperimentsResource(AsyncAPIResource):
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         public: Optional[bool] | NotGiven = NOT_GIVEN,
-        repo_info: Optional[RepoInfoParam] | NotGiven = NOT_GIVEN,
+        repo_info: Optional[shared_params.RepoInfo] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -906,13 +923,14 @@ class AsyncExperimentsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        experiment_name: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        project_name: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
+        experiment_name: ExperimentName | NotGiven = NOT_GIVEN,
+        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
+        limit: AppLimitParam | NotGiven = NOT_GIVEN,
+        org_name: OrgName | NotGiven = NOT_GIVEN,
+        project_id: ProjectIDQuery | NotGiven = NOT_GIVEN,
+        project_name: ProjectName | NotGiven = NOT_GIVEN,
+        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -940,6 +958,8 @@ class AsyncExperimentsResource(AsyncAPIResource):
           limit: Limit the number of objects to return
 
           org_name: Filter search results to within a particular organization
+
+          project_id: Project id
 
           project_name: Name of the project to search for
 
@@ -972,6 +992,7 @@ class AsyncExperimentsResource(AsyncAPIResource):
                         "ids": ids,
                         "limit": limit,
                         "org_name": org_name,
+                        "project_id": project_id,
                         "project_name": project_name,
                         "starting_after": starting_after,
                     },
@@ -983,7 +1004,7 @@ class AsyncExperimentsResource(AsyncAPIResource):
 
     async def delete(
         self,
-        experiment_id: str,
+        experiment_id: ExperimentID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1018,9 +1039,9 @@ class AsyncExperimentsResource(AsyncAPIResource):
 
     async def feedback(
         self,
-        experiment_id: str,
+        experiment_id: ExperimentID,
         *,
-        feedback: Iterable[experiment_feedback_params.Feedback],
+        feedback: Iterable[shared_params.FeedbackExperimentItem],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1060,19 +1081,19 @@ class AsyncExperimentsResource(AsyncAPIResource):
 
     async def fetch(
         self,
-        experiment_id: str,
+        experiment_id: ExperimentID,
         *,
-        limit: int | NotGiven = NOT_GIVEN,
-        max_root_span_id: str | NotGiven = NOT_GIVEN,
-        max_xact_id: str | NotGiven = NOT_GIVEN,
-        version: str | NotGiven = NOT_GIVEN,
+        limit: FetchLimitParam | NotGiven = NOT_GIVEN,
+        max_root_span_id: MaxRootSpanID | NotGiven = NOT_GIVEN,
+        max_xact_id: MaxXactID | NotGiven = NOT_GIVEN,
+        version: Version | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ExperimentFetchResponse:
+    ) -> FetchExperimentEventsResponse:
         """Fetch the events in an experiment.
 
         Equivalent to the POST form of the same path,
@@ -1151,15 +1172,15 @@ class AsyncExperimentsResource(AsyncAPIResource):
                     experiment_fetch_params.ExperimentFetchParams,
                 ),
             ),
-            cast_to=ExperimentFetchResponse,
+            cast_to=FetchExperimentEventsResponse,
         )
 
     async def fetch_post(
         self,
-        experiment_id: str,
+        experiment_id: ExperimentID,
         *,
         cursor: Optional[str] | NotGiven = NOT_GIVEN,
-        filters: Optional[Iterable[experiment_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
+        filters: Optional[shared_params.FetchEventsFilters] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
         max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -1170,7 +1191,7 @@ class AsyncExperimentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ExperimentFetchPostResponse:
+    ) -> FetchExperimentEventsResponse:
         """Fetch the events in an experiment.
 
         Equivalent to the GET form of the same path,
@@ -1257,21 +1278,21 @@ class AsyncExperimentsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ExperimentFetchPostResponse,
+            cast_to=FetchExperimentEventsResponse,
         )
 
     async def insert(
         self,
-        experiment_id: str,
+        experiment_id: ExperimentID,
         *,
-        events: Iterable[experiment_insert_params.Event],
+        events: Iterable[shared_params.InsertExperimentEvent],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ExperimentInsertResponse:
+    ) -> InsertEventsResponse:
         """
         Insert a set of events into the experiment
 
@@ -1296,22 +1317,22 @@ class AsyncExperimentsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ExperimentInsertResponse,
+            cast_to=InsertEventsResponse,
         )
 
     async def summarize(
         self,
-        experiment_id: str,
+        experiment_id: ExperimentID,
         *,
-        comparison_experiment_id: str | NotGiven = NOT_GIVEN,
-        summarize_scores: bool | NotGiven = NOT_GIVEN,
+        comparison_experiment_id: ComparisonExperimentID | NotGiven = NOT_GIVEN,
+        summarize_scores: SummarizeScores | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ExperimentSummarizeResponse:
+    ) -> SummarizeExperimentResponse:
         """
         Summarize experiment
 
@@ -1351,7 +1372,7 @@ class AsyncExperimentsResource(AsyncAPIResource):
                     experiment_summarize_params.ExperimentSummarizeParams,
                 ),
             ),
-            cast_to=ExperimentSummarizeResponse,
+            cast_to=SummarizeExperimentResponse,
         )
 
 

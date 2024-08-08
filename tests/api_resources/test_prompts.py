@@ -9,10 +9,8 @@ import pytest
 
 from tests.utils import assert_matches_type
 from braintrust_api import Braintrust, AsyncBraintrust
-from braintrust_api.types import (
-    Prompt,
-)
 from braintrust_api.pagination import SyncListObjects, AsyncListObjects
+from braintrust_api.types.shared import Prompt
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -222,6 +220,7 @@ class TestPrompts:
             ids="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             org_name="org_name",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_name="project_name",
             prompt_name="prompt_name",
             slug="slug",
@@ -570,6 +569,7 @@ class TestAsyncPrompts:
             ids="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             org_name="org_name",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_name="project_name",
             prompt_name="prompt_name",
             slug="slug",
