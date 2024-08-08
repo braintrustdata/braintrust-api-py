@@ -232,11 +232,11 @@ class PromptChatMessageAssistant(TypedDict, total=False):
 
     content: Optional[str]
 
-    function_call: PromptChatMessageAssistantFunctionCall
+    function_call: Optional[PromptChatMessageAssistantFunctionCall]
 
-    name: str
+    name: Optional[str]
 
-    tool_calls: Iterable[PromptChatMessageAssistantToolCall]
+    tool_calls: Optional[Iterable[PromptChatMessageAssistantToolCall]]
 
 
 class PromptChatMessageTool(TypedDict, total=False):

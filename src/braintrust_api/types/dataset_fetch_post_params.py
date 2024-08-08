@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
-from typing import List, Iterable, Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing import Optional
+from typing_extensions import TypedDict
 
-__all__ = ["DatasetFetchPostParams", "Filter"]
+from ..types import shared_params
+
+__all__ = ["DatasetFetchPostParams"]
 
 
 class DatasetFetchPostParams(TypedDict, total=False):
@@ -18,7 +20,7 @@ class DatasetFetchPostParams(TypedDict, total=False):
     fetch query
     """
 
-    filters: Optional[Iterable[Filter]]
+    filters: Optional[shared_params.FetchEventsFilters]
     """A list of filters on the events to fetch.
 
     Currently, only path-lookup type filters are supported, but we may add more in
@@ -76,25 +78,4 @@ class DatasetFetchPostParams(TypedDict, total=False):
     The version id is essentially a filter on the latest event transaction id. You
     can use the `max_xact_id` returned by a past fetch as the version to reproduce
     that exact fetch.
-    """
-
-
-class Filter(TypedDict, total=False):
-    path: Required[List[str]]
-    """List of fields describing the path to the value to be checked against.
-
-    For instance, if you wish to filter on the value of `c` in
-    `{"input": {"a": {"b": {"c": "hello"}}}}`, pass `path=["input", "a", "b", "c"]`
-    """
-
-    type: Required[Literal["path_lookup"]]
-    """Denotes the type of filter as a path-lookup filter"""
-
-    value: object
-    """
-    The value to compare equality-wise against the event value at the specified
-    `path`. The value must be a "primitive", that is, any JSON-serializable object
-    except for objects and arrays. For instance, if you wish to filter on the value
-    of "input.a.b.c" in the object `{"input": {"a": {"b": {"c": "hello"}}}}`, pass
-    `value="hello"`
     """

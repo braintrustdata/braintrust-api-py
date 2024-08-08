@@ -9,10 +9,8 @@ import pytest
 
 from tests.utils import assert_matches_type
 from braintrust_api import Braintrust, AsyncBraintrust
-from braintrust_api.types import (
-    ProjectScore,
-)
 from braintrust_api.pagination import SyncListObjects, AsyncListObjects
+from braintrust_api.types.shared import ProjectScore
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -193,6 +191,7 @@ class TestProjectScores:
             ids="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             org_name="org_name",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_name="project_name",
             project_score_name="project_score_name",
             starting_after="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -495,6 +494,7 @@ class TestAsyncProjectScores:
             ids="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             org_name="org_name",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_name="project_name",
             project_score_name="project_score_name",
             starting_after="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",

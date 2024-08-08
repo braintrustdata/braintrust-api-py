@@ -2,11 +2,17 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import List, Optional
 
 import httpx
 
-from ..types import group_list_params, group_create_params, group_update_params, group_replace_params
+from ..types import (
+    shared_params,
+    group_list_params,
+    group_create_params,
+    group_update_params,
+    group_replace_params,
+)
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -21,8 +27,14 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from ..pagination import SyncListObjects, AsyncListObjects
-from ..types.group import Group
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.shared.group import Group
+from ..types.shared.group_id import GroupID
+from ..types.shared.org_name import OrgName
+from ..types.shared.group_name import GroupName
+from ..types.shared.ending_before import EndingBefore
+from ..types.shared.starting_after import StartingAfter
+from ..types.shared.app_limit_param import AppLimitParam
 
 __all__ = ["GroupsResource", "AsyncGroupsResource"]
 
@@ -100,7 +112,7 @@ class GroupsResource(SyncAPIResource):
 
     def retrieve(
         self,
-        group_id: str,
+        group_id: GroupID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -135,7 +147,7 @@ class GroupsResource(SyncAPIResource):
 
     def update(
         self,
-        group_id: str,
+        group_id: GroupID,
         *,
         add_member_groups: Optional[List[str]] | NotGiven = NOT_GIVEN,
         add_member_users: Optional[List[str]] | NotGiven = NOT_GIVEN,
@@ -203,12 +215,12 @@ class GroupsResource(SyncAPIResource):
     def list(
         self,
         *,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        group_name: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
+        group_name: GroupName | NotGiven = NOT_GIVEN,
+        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
+        limit: AppLimitParam | NotGiven = NOT_GIVEN,
+        org_name: OrgName | NotGiven = NOT_GIVEN,
+        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -276,7 +288,7 @@ class GroupsResource(SyncAPIResource):
 
     def delete(
         self,
-        group_id: str,
+        group_id: GroupID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -446,7 +458,7 @@ class AsyncGroupsResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        group_id: str,
+        group_id: GroupID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -481,7 +493,7 @@ class AsyncGroupsResource(AsyncAPIResource):
 
     async def update(
         self,
-        group_id: str,
+        group_id: GroupID,
         *,
         add_member_groups: Optional[List[str]] | NotGiven = NOT_GIVEN,
         add_member_users: Optional[List[str]] | NotGiven = NOT_GIVEN,
@@ -549,12 +561,12 @@ class AsyncGroupsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        group_name: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
+        group_name: GroupName | NotGiven = NOT_GIVEN,
+        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
+        limit: AppLimitParam | NotGiven = NOT_GIVEN,
+        org_name: OrgName | NotGiven = NOT_GIVEN,
+        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -622,7 +634,7 @@ class AsyncGroupsResource(AsyncAPIResource):
 
     async def delete(
         self,
-        group_id: str,
+        group_id: GroupID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

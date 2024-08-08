@@ -25,7 +25,7 @@ from ._utils import (
 )
 from ._version import __version__
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import APIStatusError, BraintrustError
+from ._exceptions import APIStatusError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
@@ -65,7 +65,7 @@ class Braintrust(SyncAPIClient):
     with_streaming_response: BraintrustWithStreamedResponse
 
     # client options
-    api_key: str
+    api_key: str | None
 
     def __init__(
         self,
@@ -96,10 +96,6 @@ class Braintrust(SyncAPIClient):
         """
         if api_key is None:
             api_key = os.environ.get("BRAINTRUST_API_KEY")
-        if api_key is None:
-            raise BraintrustError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the BRAINTRUST_API_KEY environment variable"
-            )
         self.api_key = api_key
 
         if base_url is None:
@@ -145,6 +141,8 @@ class Braintrust(SyncAPIClient):
     @override
     def auth_headers(self) -> dict[str, str]:
         api_key = self.api_key
+        if api_key is None:
+            return {}
         return {"Authorization": f"Bearer {api_key}"}
 
     @property
@@ -261,7 +259,7 @@ class AsyncBraintrust(AsyncAPIClient):
     with_streaming_response: AsyncBraintrustWithStreamedResponse
 
     # client options
-    api_key: str
+    api_key: str | None
 
     def __init__(
         self,
@@ -292,10 +290,6 @@ class AsyncBraintrust(AsyncAPIClient):
         """
         if api_key is None:
             api_key = os.environ.get("BRAINTRUST_API_KEY")
-        if api_key is None:
-            raise BraintrustError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the BRAINTRUST_API_KEY environment variable"
-            )
         self.api_key = api_key
 
         if base_url is None:
@@ -341,6 +335,8 @@ class AsyncBraintrust(AsyncAPIClient):
     @override
     def auth_headers(self) -> dict[str, str]:
         api_key = self.api_key
+        if api_key is None:
+            return {}
         return {"Authorization": f"Bearer {api_key}"}
 
     @property

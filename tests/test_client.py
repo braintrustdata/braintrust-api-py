@@ -20,7 +20,7 @@ from braintrust_api import Braintrust, AsyncBraintrust, APIResponseValidationErr
 from braintrust_api._types import Omit
 from braintrust_api._models import BaseModel, FinalRequestOptions
 from braintrust_api._constants import RAW_RESPONSE_HEADER
-from braintrust_api._exceptions import APIStatusError, APITimeoutError, BraintrustError, APIResponseValidationError
+from braintrust_api._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
 from braintrust_api._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
@@ -334,10 +334,10 @@ class TestBraintrust:
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
-        with pytest.raises(BraintrustError):
-            with update_env(**{"BRAINTRUST_API_KEY": Omit()}):
-                client2 = Braintrust(base_url=base_url, api_key=None, _strict_response_validation=True)
-            _ = client2
+        with update_env(**{"BRAINTRUST_API_KEY": Omit()}):
+            client2 = Braintrust(base_url=base_url, api_key=None, _strict_response_validation=True)
+
+        client2._build_request(FinalRequestOptions(method="get", url="/foo"))
 
     def test_default_query_option(self) -> None:
         client = Braintrust(
@@ -1047,10 +1047,10 @@ class TestAsyncBraintrust:
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
-        with pytest.raises(BraintrustError):
-            with update_env(**{"BRAINTRUST_API_KEY": Omit()}):
-                client2 = AsyncBraintrust(base_url=base_url, api_key=None, _strict_response_validation=True)
-            _ = client2
+        with update_env(**{"BRAINTRUST_API_KEY": Omit()}):
+            client2 = AsyncBraintrust(base_url=base_url, api_key=None, _strict_response_validation=True)
+
+        client2._build_request(FinalRequestOptions(method="get", url="/foo"))
 
     def test_default_query_option(self) -> None:
         client = AsyncBraintrust(

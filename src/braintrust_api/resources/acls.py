@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Optional
 from typing_extensions import Literal
 
 import httpx
 
-from ..types import acl_list_params, acl_create_params
+from ..types import shared_params, acl_list_params, acl_create_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -21,9 +21,15 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..types.acl import ACL
 from ..pagination import SyncListObjects, AsyncListObjects
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.shared.acl import ACL
+from ..types.shared.acl_id import ACLID
+from ..types.shared.acl_object_id import ACLObjectID
+from ..types.shared.ending_before import EndingBefore
+from ..types.shared.starting_after import StartingAfter
+from ..types.shared.acl_object_type import ACLObjectType
+from ..types.shared.app_limit_param import AppLimitParam
 
 __all__ = ["ACLsResource", "AsyncACLsResource"]
 
@@ -141,7 +147,7 @@ class ACLsResource(SyncAPIResource):
 
     def retrieve(
         self,
-        acl_id: str,
+        acl_id: ACLID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -177,26 +183,12 @@ class ACLsResource(SyncAPIResource):
     def list(
         self,
         *,
-        object_id: str,
-        object_type: Optional[
-            Literal[
-                "organization",
-                "project",
-                "experiment",
-                "dataset",
-                "prompt",
-                "prompt_session",
-                "group",
-                "role",
-                "org_member",
-                "project_log",
-                "org_project",
-            ]
-        ],
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        object_id: ACLObjectID,
+        object_type: Optional[ACLObjectType],
+        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
+        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
+        limit: AppLimitParam | NotGiven = NOT_GIVEN,
+        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -264,7 +256,7 @@ class ACLsResource(SyncAPIResource):
 
     def delete(
         self,
-        acl_id: str,
+        acl_id: ACLID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -411,7 +403,7 @@ class AsyncACLsResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        acl_id: str,
+        acl_id: ACLID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -447,26 +439,12 @@ class AsyncACLsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        object_id: str,
-        object_type: Optional[
-            Literal[
-                "organization",
-                "project",
-                "experiment",
-                "dataset",
-                "prompt",
-                "prompt_session",
-                "group",
-                "role",
-                "org_member",
-                "project_log",
-                "org_project",
-            ]
-        ],
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        object_id: ACLObjectID,
+        object_type: Optional[ACLObjectType],
+        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
+        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
+        limit: AppLimitParam | NotGiven = NOT_GIVEN,
+        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -534,7 +512,7 @@ class AsyncACLsResource(AsyncAPIResource):
 
     async def delete(
         self,
-        acl_id: str,
+        acl_id: ACLID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

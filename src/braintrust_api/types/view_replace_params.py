@@ -6,9 +6,8 @@ from typing import Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
+from ..types import shared_params
 from .._utils import PropertyInfo
-from .view_data_param import ViewDataParam
-from .view_options_param import ViewOptionsParam
 
 __all__ = ["ViewReplaceParams"]
 
@@ -49,11 +48,11 @@ class ViewReplaceParams(TypedDict, total=False):
     deleted_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Date of role deletion, or null if the role is still active"""
 
-    options: Optional[ViewOptionsParam]
+    options: Optional[shared_params.ViewOptions]
     """Options for the view in the app"""
 
     user_id: Optional[str]
     """Identifies the user who created the view"""
 
-    view_data: Optional[ViewDataParam]
+    view_data: Optional[shared_params.ViewData]
     """The view definition"""

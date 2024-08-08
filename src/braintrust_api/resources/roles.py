@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
+from typing import List, Iterable, Optional
 
 import httpx
 
-from ..types import role_list_params, role_create_params, role_update_params, role_replace_params
+from ..types import shared_params, role_list_params, role_create_params, role_update_params, role_replace_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -21,8 +21,14 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from ..pagination import SyncListObjects, AsyncListObjects
-from ..types.role import Role
 from .._base_client import AsyncPaginator, make_request_options
+from ..types.shared.role import Role
+from ..types.shared.role_id import RoleID
+from ..types.shared.org_name import OrgName
+from ..types.shared.role_name import RoleName
+from ..types.shared.ending_before import EndingBefore
+from ..types.shared.starting_after import StartingAfter
+from ..types.shared.app_limit_param import AppLimitParam
 
 __all__ = ["RolesResource", "AsyncRolesResource"]
 
@@ -100,7 +106,7 @@ class RolesResource(SyncAPIResource):
 
     def retrieve(
         self,
-        role_id: str,
+        role_id: RoleID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -135,7 +141,7 @@ class RolesResource(SyncAPIResource):
 
     def update(
         self,
-        role_id: str,
+        role_id: RoleID,
         *,
         add_member_permissions: Optional[Iterable[role_update_params.AddMemberPermission]] | NotGiven = NOT_GIVEN,
         add_member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
@@ -203,12 +209,12 @@ class RolesResource(SyncAPIResource):
     def list(
         self,
         *,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        role_name: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
+        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
+        limit: AppLimitParam | NotGiven = NOT_GIVEN,
+        org_name: OrgName | NotGiven = NOT_GIVEN,
+        role_name: RoleName | NotGiven = NOT_GIVEN,
+        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -276,7 +282,7 @@ class RolesResource(SyncAPIResource):
 
     def delete(
         self,
-        role_id: str,
+        role_id: RoleID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -446,7 +452,7 @@ class AsyncRolesResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        role_id: str,
+        role_id: RoleID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -481,7 +487,7 @@ class AsyncRolesResource(AsyncAPIResource):
 
     async def update(
         self,
-        role_id: str,
+        role_id: RoleID,
         *,
         add_member_permissions: Optional[Iterable[role_update_params.AddMemberPermission]] | NotGiven = NOT_GIVEN,
         add_member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
@@ -549,12 +555,12 @@ class AsyncRolesResource(AsyncAPIResource):
     def list(
         self,
         *,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        role_name: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
+        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
+        limit: AppLimitParam | NotGiven = NOT_GIVEN,
+        org_name: OrgName | NotGiven = NOT_GIVEN,
+        role_name: RoleName | NotGiven = NOT_GIVEN,
+        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -622,7 +628,7 @@ class AsyncRolesResource(AsyncAPIResource):
 
     async def delete(
         self,
-        role_id: str,
+        role_id: RoleID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

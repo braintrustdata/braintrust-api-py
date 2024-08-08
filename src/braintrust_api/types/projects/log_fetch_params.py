@@ -4,11 +4,16 @@ from __future__ import annotations
 
 from typing_extensions import TypedDict
 
+from ..shared.version import Version
+from ..shared.max_xact_id import MaxXactID
+from ..shared.max_root_span_id import MaxRootSpanID
+from ..shared.fetch_limit_param import FetchLimitParam
+
 __all__ = ["LogFetchParams"]
 
 
 class LogFetchParams(TypedDict, total=False):
-    limit: int
+    limit: FetchLimitParam
     """limit the number of traces fetched
 
     Fetch queries may be paginated if the total result size is expected to be large
@@ -25,7 +30,7 @@ class LogFetchParams(TypedDict, total=False):
     events containing traces.
     """
 
-    max_root_span_id: str
+    max_root_span_id: MaxRootSpanID
     """
     DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
     favor of the explicit 'cursor' returned by object fetch requests. Please prefer
@@ -39,7 +44,7 @@ class LogFetchParams(TypedDict, total=False):
     for an overview of paginating fetch queries.
     """
 
-    max_xact_id: str
+    max_xact_id: MaxXactID
     """
     DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
     favor of the explicit 'cursor' returned by object fetch requests. Please prefer
@@ -53,7 +58,7 @@ class LogFetchParams(TypedDict, total=False):
     for an overview of paginating fetch queries.
     """
 
-    version: str
+    version: Version
     """Retrieve a snapshot of events from a past time
 
     The version id is essentially a filter on the latest event transaction id. You
