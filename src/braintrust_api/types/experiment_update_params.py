@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Dict, Optional
 from typing_extensions import TypedDict
 
-from .repo_info_param import RepoInfoParam
+from ..types import shared_params
 
 __all__ = ["ExperimentUpdateParams"]
 
@@ -42,5 +42,5 @@ class ExperimentUpdateParams(TypedDict, total=False):
     Public experiments can be viewed by anybody inside or outside the organization
     """
 
-    repo_info: Optional[RepoInfoParam]
+    repo_info: Optional[shared_params.RepoInfo]
     """Metadata about the state of the repo when the experiment was created"""

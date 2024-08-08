@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import List, Optional
 
 import httpx
 
@@ -28,7 +28,17 @@ from .._response import (
 )
 from ..pagination import SyncListObjects, AsyncListObjects
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.function import Function
+from ..types.shared.slug import Slug
+from ..types.shared.function import Function
+from ..types.shared.org_name import OrgName
+from ..types.shared.function_id import FunctionID
+from ..types.shared.project_name import ProjectName
+from ..types.shared.ending_before import EndingBefore
+from ..types.shared.function_name import FunctionName
+from ..types.shared.prompt_version import PromptVersion
+from ..types.shared.starting_after import StartingAfter
+from ..types.shared.app_limit_param import AppLimitParam
+from ..types.shared.project_id_query import ProjectIDQuery
 
 __all__ = ["FunctionsResource", "AsyncFunctionsResource"]
 
@@ -108,7 +118,7 @@ class FunctionsResource(SyncAPIResource):
 
     def retrieve(
         self,
-        function_id: str,
+        function_id: FunctionID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -143,7 +153,7 @@ class FunctionsResource(SyncAPIResource):
 
     def update(
         self,
-        function_id: str,
+        function_id: FunctionID,
         *,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         function_data: function_update_params.FunctionData | NotGiven = NOT_GIVEN,
@@ -205,15 +215,16 @@ class FunctionsResource(SyncAPIResource):
     def list(
         self,
         *,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        function_name: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        project_name: str | NotGiven = NOT_GIVEN,
-        slug: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
-        version: str | NotGiven = NOT_GIVEN,
+        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
+        function_name: FunctionName | NotGiven = NOT_GIVEN,
+        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
+        limit: AppLimitParam | NotGiven = NOT_GIVEN,
+        org_name: OrgName | NotGiven = NOT_GIVEN,
+        project_id: ProjectIDQuery | NotGiven = NOT_GIVEN,
+        project_name: ProjectName | NotGiven = NOT_GIVEN,
+        slug: Slug | NotGiven = NOT_GIVEN,
+        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
+        version: PromptVersion | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -241,6 +252,8 @@ class FunctionsResource(SyncAPIResource):
           limit: Limit the number of objects to return
 
           org_name: Filter search results to within a particular organization
+
+          project_id: Project id
 
           project_name: Name of the project to search for
 
@@ -280,6 +293,7 @@ class FunctionsResource(SyncAPIResource):
                         "ids": ids,
                         "limit": limit,
                         "org_name": org_name,
+                        "project_id": project_id,
                         "project_name": project_name,
                         "slug": slug,
                         "starting_after": starting_after,
@@ -293,7 +307,7 @@ class FunctionsResource(SyncAPIResource):
 
     def delete(
         self,
-        function_id: str,
+        function_id: FunctionID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -466,7 +480,7 @@ class AsyncFunctionsResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        function_id: str,
+        function_id: FunctionID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -501,7 +515,7 @@ class AsyncFunctionsResource(AsyncAPIResource):
 
     async def update(
         self,
-        function_id: str,
+        function_id: FunctionID,
         *,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         function_data: function_update_params.FunctionData | NotGiven = NOT_GIVEN,
@@ -563,15 +577,16 @@ class AsyncFunctionsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        function_name: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        project_name: str | NotGiven = NOT_GIVEN,
-        slug: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
-        version: str | NotGiven = NOT_GIVEN,
+        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
+        function_name: FunctionName | NotGiven = NOT_GIVEN,
+        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
+        limit: AppLimitParam | NotGiven = NOT_GIVEN,
+        org_name: OrgName | NotGiven = NOT_GIVEN,
+        project_id: ProjectIDQuery | NotGiven = NOT_GIVEN,
+        project_name: ProjectName | NotGiven = NOT_GIVEN,
+        slug: Slug | NotGiven = NOT_GIVEN,
+        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
+        version: PromptVersion | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -599,6 +614,8 @@ class AsyncFunctionsResource(AsyncAPIResource):
           limit: Limit the number of objects to return
 
           org_name: Filter search results to within a particular organization
+
+          project_id: Project id
 
           project_name: Name of the project to search for
 
@@ -638,6 +655,7 @@ class AsyncFunctionsResource(AsyncAPIResource):
                         "ids": ids,
                         "limit": limit,
                         "org_name": org_name,
+                        "project_id": project_id,
                         "project_name": project_name,
                         "slug": slug,
                         "starting_after": starting_after,
@@ -651,7 +669,7 @@ class AsyncFunctionsResource(AsyncAPIResource):
 
     async def delete(
         self,
-        function_id: str,
+        function_id: FunctionID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

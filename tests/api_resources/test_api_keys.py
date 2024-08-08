@@ -9,8 +9,8 @@ import pytest
 
 from tests.utils import assert_matches_type
 from braintrust_api import Braintrust, AsyncBraintrust
-from braintrust_api.types import APIKey, APIKeyCreateResponse
 from braintrust_api.pagination import SyncListObjects, AsyncListObjects
+from braintrust_api.types.shared import APIKey, CreateAPIKeyOutput
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -23,7 +23,7 @@ class TestAPIKeys:
         api_key = client.api_keys.create(
             name="name",
         )
-        assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
+        assert_matches_type(CreateAPIKeyOutput, api_key, path=["response"])
 
     @parametrize
     def test_method_create_with_all_params(self, client: Braintrust) -> None:
@@ -31,7 +31,7 @@ class TestAPIKeys:
             name="name",
             org_name="org_name",
         )
-        assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
+        assert_matches_type(CreateAPIKeyOutput, api_key, path=["response"])
 
     @parametrize
     def test_raw_response_create(self, client: Braintrust) -> None:
@@ -42,7 +42,7 @@ class TestAPIKeys:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         api_key = response.parse()
-        assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
+        assert_matches_type(CreateAPIKeyOutput, api_key, path=["response"])
 
     @parametrize
     def test_streaming_response_create(self, client: Braintrust) -> None:
@@ -53,7 +53,7 @@ class TestAPIKeys:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             api_key = response.parse()
-            assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
+            assert_matches_type(CreateAPIKeyOutput, api_key, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -179,7 +179,7 @@ class TestAsyncAPIKeys:
         api_key = await async_client.api_keys.create(
             name="name",
         )
-        assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
+        assert_matches_type(CreateAPIKeyOutput, api_key, path=["response"])
 
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncBraintrust) -> None:
@@ -187,7 +187,7 @@ class TestAsyncAPIKeys:
             name="name",
             org_name="org_name",
         )
-        assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
+        assert_matches_type(CreateAPIKeyOutput, api_key, path=["response"])
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncBraintrust) -> None:
@@ -198,7 +198,7 @@ class TestAsyncAPIKeys:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         api_key = await response.parse()
-        assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
+        assert_matches_type(CreateAPIKeyOutput, api_key, path=["response"])
 
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncBraintrust) -> None:
@@ -209,7 +209,7 @@ class TestAsyncAPIKeys:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             api_key = await response.parse()
-            assert_matches_type(APIKeyCreateResponse, api_key, path=["response"])
+            assert_matches_type(CreateAPIKeyOutput, api_key, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

@@ -9,14 +9,13 @@ import pytest
 
 from tests.utils import assert_matches_type
 from braintrust_api import Braintrust, AsyncBraintrust
-from braintrust_api.types import (
-    Dataset,
-    DatasetFetchResponse,
-    DatasetInsertResponse,
-    DatasetFetchPostResponse,
-    DatasetSummarizeResponse,
-)
 from braintrust_api.pagination import SyncListObjects, AsyncListObjects
+from braintrust_api.types.shared import (
+    Dataset,
+    InsertEventsResponse,
+    SummarizeDatasetResponse,
+    FetchDatasetEventsResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -163,6 +162,7 @@ class TestDatasets:
             ids="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             org_name="org_name",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_name="project_name",
             starting_after="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -273,7 +273,7 @@ class TestDatasets:
         dataset = client.datasets.fetch(
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(DatasetFetchResponse, dataset, path=["response"])
+        assert_matches_type(FetchDatasetEventsResponse, dataset, path=["response"])
 
     @parametrize
     def test_method_fetch_with_all_params(self, client: Braintrust) -> None:
@@ -284,7 +284,7 @@ class TestDatasets:
             max_xact_id="max_xact_id",
             version="version",
         )
-        assert_matches_type(DatasetFetchResponse, dataset, path=["response"])
+        assert_matches_type(FetchDatasetEventsResponse, dataset, path=["response"])
 
     @parametrize
     def test_raw_response_fetch(self, client: Braintrust) -> None:
@@ -295,7 +295,7 @@ class TestDatasets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dataset = response.parse()
-        assert_matches_type(DatasetFetchResponse, dataset, path=["response"])
+        assert_matches_type(FetchDatasetEventsResponse, dataset, path=["response"])
 
     @parametrize
     def test_streaming_response_fetch(self, client: Braintrust) -> None:
@@ -306,7 +306,7 @@ class TestDatasets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dataset = response.parse()
-            assert_matches_type(DatasetFetchResponse, dataset, path=["response"])
+            assert_matches_type(FetchDatasetEventsResponse, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -322,7 +322,7 @@ class TestDatasets:
         dataset = client.datasets.fetch_post(
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(DatasetFetchPostResponse, dataset, path=["response"])
+        assert_matches_type(FetchDatasetEventsResponse, dataset, path=["response"])
 
     @parametrize
     def test_method_fetch_post_with_all_params(self, client: Braintrust) -> None:
@@ -351,7 +351,7 @@ class TestDatasets:
             max_xact_id="max_xact_id",
             version="version",
         )
-        assert_matches_type(DatasetFetchPostResponse, dataset, path=["response"])
+        assert_matches_type(FetchDatasetEventsResponse, dataset, path=["response"])
 
     @parametrize
     def test_raw_response_fetch_post(self, client: Braintrust) -> None:
@@ -362,7 +362,7 @@ class TestDatasets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dataset = response.parse()
-        assert_matches_type(DatasetFetchPostResponse, dataset, path=["response"])
+        assert_matches_type(FetchDatasetEventsResponse, dataset, path=["response"])
 
     @parametrize
     def test_streaming_response_fetch_post(self, client: Braintrust) -> None:
@@ -373,7 +373,7 @@ class TestDatasets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dataset = response.parse()
-            assert_matches_type(DatasetFetchPostResponse, dataset, path=["response"])
+            assert_matches_type(FetchDatasetEventsResponse, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -390,7 +390,7 @@ class TestDatasets:
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             events=[{}, {}, {}],
         )
-        assert_matches_type(DatasetInsertResponse, dataset, path=["response"])
+        assert_matches_type(InsertEventsResponse, dataset, path=["response"])
 
     @parametrize
     def test_raw_response_insert(self, client: Braintrust) -> None:
@@ -402,7 +402,7 @@ class TestDatasets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dataset = response.parse()
-        assert_matches_type(DatasetInsertResponse, dataset, path=["response"])
+        assert_matches_type(InsertEventsResponse, dataset, path=["response"])
 
     @parametrize
     def test_streaming_response_insert(self, client: Braintrust) -> None:
@@ -414,7 +414,7 @@ class TestDatasets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dataset = response.parse()
-            assert_matches_type(DatasetInsertResponse, dataset, path=["response"])
+            assert_matches_type(InsertEventsResponse, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -431,7 +431,7 @@ class TestDatasets:
         dataset = client.datasets.summarize(
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(DatasetSummarizeResponse, dataset, path=["response"])
+        assert_matches_type(SummarizeDatasetResponse, dataset, path=["response"])
 
     @parametrize
     def test_method_summarize_with_all_params(self, client: Braintrust) -> None:
@@ -439,7 +439,7 @@ class TestDatasets:
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             summarize_data=True,
         )
-        assert_matches_type(DatasetSummarizeResponse, dataset, path=["response"])
+        assert_matches_type(SummarizeDatasetResponse, dataset, path=["response"])
 
     @parametrize
     def test_raw_response_summarize(self, client: Braintrust) -> None:
@@ -450,7 +450,7 @@ class TestDatasets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dataset = response.parse()
-        assert_matches_type(DatasetSummarizeResponse, dataset, path=["response"])
+        assert_matches_type(SummarizeDatasetResponse, dataset, path=["response"])
 
     @parametrize
     def test_streaming_response_summarize(self, client: Braintrust) -> None:
@@ -461,7 +461,7 @@ class TestDatasets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dataset = response.parse()
-            assert_matches_type(DatasetSummarizeResponse, dataset, path=["response"])
+            assert_matches_type(SummarizeDatasetResponse, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -615,6 +615,7 @@ class TestAsyncDatasets:
             ids="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             limit=0,
             org_name="org_name",
+            project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             project_name="project_name",
             starting_after="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
@@ -725,7 +726,7 @@ class TestAsyncDatasets:
         dataset = await async_client.datasets.fetch(
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(DatasetFetchResponse, dataset, path=["response"])
+        assert_matches_type(FetchDatasetEventsResponse, dataset, path=["response"])
 
     @parametrize
     async def test_method_fetch_with_all_params(self, async_client: AsyncBraintrust) -> None:
@@ -736,7 +737,7 @@ class TestAsyncDatasets:
             max_xact_id="max_xact_id",
             version="version",
         )
-        assert_matches_type(DatasetFetchResponse, dataset, path=["response"])
+        assert_matches_type(FetchDatasetEventsResponse, dataset, path=["response"])
 
     @parametrize
     async def test_raw_response_fetch(self, async_client: AsyncBraintrust) -> None:
@@ -747,7 +748,7 @@ class TestAsyncDatasets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dataset = await response.parse()
-        assert_matches_type(DatasetFetchResponse, dataset, path=["response"])
+        assert_matches_type(FetchDatasetEventsResponse, dataset, path=["response"])
 
     @parametrize
     async def test_streaming_response_fetch(self, async_client: AsyncBraintrust) -> None:
@@ -758,7 +759,7 @@ class TestAsyncDatasets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dataset = await response.parse()
-            assert_matches_type(DatasetFetchResponse, dataset, path=["response"])
+            assert_matches_type(FetchDatasetEventsResponse, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -774,7 +775,7 @@ class TestAsyncDatasets:
         dataset = await async_client.datasets.fetch_post(
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(DatasetFetchPostResponse, dataset, path=["response"])
+        assert_matches_type(FetchDatasetEventsResponse, dataset, path=["response"])
 
     @parametrize
     async def test_method_fetch_post_with_all_params(self, async_client: AsyncBraintrust) -> None:
@@ -803,7 +804,7 @@ class TestAsyncDatasets:
             max_xact_id="max_xact_id",
             version="version",
         )
-        assert_matches_type(DatasetFetchPostResponse, dataset, path=["response"])
+        assert_matches_type(FetchDatasetEventsResponse, dataset, path=["response"])
 
     @parametrize
     async def test_raw_response_fetch_post(self, async_client: AsyncBraintrust) -> None:
@@ -814,7 +815,7 @@ class TestAsyncDatasets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dataset = await response.parse()
-        assert_matches_type(DatasetFetchPostResponse, dataset, path=["response"])
+        assert_matches_type(FetchDatasetEventsResponse, dataset, path=["response"])
 
     @parametrize
     async def test_streaming_response_fetch_post(self, async_client: AsyncBraintrust) -> None:
@@ -825,7 +826,7 @@ class TestAsyncDatasets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dataset = await response.parse()
-            assert_matches_type(DatasetFetchPostResponse, dataset, path=["response"])
+            assert_matches_type(FetchDatasetEventsResponse, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -842,7 +843,7 @@ class TestAsyncDatasets:
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             events=[{}, {}, {}],
         )
-        assert_matches_type(DatasetInsertResponse, dataset, path=["response"])
+        assert_matches_type(InsertEventsResponse, dataset, path=["response"])
 
     @parametrize
     async def test_raw_response_insert(self, async_client: AsyncBraintrust) -> None:
@@ -854,7 +855,7 @@ class TestAsyncDatasets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dataset = await response.parse()
-        assert_matches_type(DatasetInsertResponse, dataset, path=["response"])
+        assert_matches_type(InsertEventsResponse, dataset, path=["response"])
 
     @parametrize
     async def test_streaming_response_insert(self, async_client: AsyncBraintrust) -> None:
@@ -866,7 +867,7 @@ class TestAsyncDatasets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dataset = await response.parse()
-            assert_matches_type(DatasetInsertResponse, dataset, path=["response"])
+            assert_matches_type(InsertEventsResponse, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -883,7 +884,7 @@ class TestAsyncDatasets:
         dataset = await async_client.datasets.summarize(
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
-        assert_matches_type(DatasetSummarizeResponse, dataset, path=["response"])
+        assert_matches_type(SummarizeDatasetResponse, dataset, path=["response"])
 
     @parametrize
     async def test_method_summarize_with_all_params(self, async_client: AsyncBraintrust) -> None:
@@ -891,7 +892,7 @@ class TestAsyncDatasets:
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             summarize_data=True,
         )
-        assert_matches_type(DatasetSummarizeResponse, dataset, path=["response"])
+        assert_matches_type(SummarizeDatasetResponse, dataset, path=["response"])
 
     @parametrize
     async def test_raw_response_summarize(self, async_client: AsyncBraintrust) -> None:
@@ -902,7 +903,7 @@ class TestAsyncDatasets:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         dataset = await response.parse()
-        assert_matches_type(DatasetSummarizeResponse, dataset, path=["response"])
+        assert_matches_type(SummarizeDatasetResponse, dataset, path=["response"])
 
     @parametrize
     async def test_streaming_response_summarize(self, async_client: AsyncBraintrust) -> None:
@@ -913,7 +914,7 @@ class TestAsyncDatasets:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             dataset = await response.parse()
-            assert_matches_type(DatasetSummarizeResponse, dataset, path=["response"])
+            assert_matches_type(SummarizeDatasetResponse, dataset, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
