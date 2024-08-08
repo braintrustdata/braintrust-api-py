@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Optional
 
 import httpx
 
-from ..types import api_key_list_params, api_key_create_params
+from ..types import shared_params, api_key_list_params, api_key_create_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -22,8 +22,14 @@ from .._response import (
 )
 from ..pagination import SyncListObjects, AsyncListObjects
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.api_key import APIKey
-from ..types.api_key_create_response import APIKeyCreateResponse
+from ..types.shared.api_key import APIKey
+from ..types.shared.org_name import OrgName
+from ..types.shared.api_key_id import APIKeyID
+from ..types.shared.api_key_name import APIKeyName
+from ..types.shared.ending_before import EndingBefore
+from ..types.shared.starting_after import StartingAfter
+from ..types.shared.app_limit_param import AppLimitParam
+from ..types.shared.create_api_key_output import CreateAPIKeyOutput
 
 __all__ = ["APIKeysResource", "AsyncAPIKeysResource"]
 
@@ -48,7 +54,7 @@ class APIKeysResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> APIKeyCreateResponse:
+    ) -> CreateAPIKeyOutput:
         """Create a new api_key.
 
         It is possible to have multiple API keys with the same
@@ -81,12 +87,12 @@ class APIKeysResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=APIKeyCreateResponse,
+            cast_to=CreateAPIKeyOutput,
         )
 
     def retrieve(
         self,
-        api_key_id: str,
+        api_key_id: APIKeyID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -122,12 +128,12 @@ class APIKeysResource(SyncAPIResource):
     def list(
         self,
         *,
-        api_key_name: str | NotGiven = NOT_GIVEN,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        api_key_name: APIKeyName | NotGiven = NOT_GIVEN,
+        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
+        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
+        limit: AppLimitParam | NotGiven = NOT_GIVEN,
+        org_name: OrgName | NotGiven = NOT_GIVEN,
+        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -195,7 +201,7 @@ class APIKeysResource(SyncAPIResource):
 
     def delete(
         self,
-        api_key_id: str,
+        api_key_id: APIKeyID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -249,7 +255,7 @@ class AsyncAPIKeysResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> APIKeyCreateResponse:
+    ) -> CreateAPIKeyOutput:
         """Create a new api_key.
 
         It is possible to have multiple API keys with the same
@@ -282,12 +288,12 @@ class AsyncAPIKeysResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=APIKeyCreateResponse,
+            cast_to=CreateAPIKeyOutput,
         )
 
     async def retrieve(
         self,
-        api_key_id: str,
+        api_key_id: APIKeyID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -323,12 +329,12 @@ class AsyncAPIKeysResource(AsyncAPIResource):
     def list(
         self,
         *,
-        api_key_name: str | NotGiven = NOT_GIVEN,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        api_key_name: APIKeyName | NotGiven = NOT_GIVEN,
+        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
+        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
+        limit: AppLimitParam | NotGiven = NOT_GIVEN,
+        org_name: OrgName | NotGiven = NOT_GIVEN,
+        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -396,7 +402,7 @@ class AsyncAPIKeysResource(AsyncAPIResource):
 
     async def delete(
         self,
-        api_key_id: str,
+        api_key_id: APIKeyID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

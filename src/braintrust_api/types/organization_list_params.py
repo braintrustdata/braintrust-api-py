@@ -2,14 +2,20 @@
 
 from __future__ import annotations
 
-from typing import List, Union
 from typing_extensions import TypedDict
+
+from ..types import shared_params
+from .shared.org_name import OrgName
+from .shared.ending_before import EndingBefore
+from .shared.starting_after import StartingAfter
+from .shared.app_limit_param import AppLimitParam
+from .shared.organization_name import OrganizationName
 
 __all__ = ["OrganizationListParams"]
 
 
 class OrganizationListParams(TypedDict, total=False):
-    ending_before: str
+    ending_before: EndingBefore
     """Pagination cursor id.
 
     For example, if the initial item in the last page you fetched had an id of
@@ -17,22 +23,22 @@ class OrganizationListParams(TypedDict, total=False):
     pass one of `starting_after` and `ending_before`
     """
 
-    ids: Union[str, List[str]]
+    ids: shared_params.IDs
     """Filter search results to a particular set of object IDs.
 
     To specify a list of IDs, include the query param multiple times
     """
 
-    limit: int
+    limit: AppLimitParam
     """Limit the number of objects to return"""
 
-    org_name: str
+    org_name: OrgName
     """Filter search results to within a particular organization"""
 
-    organization_name: str
+    organization_name: OrganizationName
     """Name of the organization to search for"""
 
-    starting_after: str
+    starting_after: StartingAfter
     """Pagination cursor id.
 
     For example, if the final item in the last page you fetched had an id of `foo`,

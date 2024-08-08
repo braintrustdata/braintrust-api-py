@@ -2,11 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
+from typing import Dict, Iterable, Optional
 
 import httpx
 
 from ..types import (
+    shared_params,
     dataset_list_params,
     dataset_fetch_params,
     dataset_create_params,
@@ -31,11 +32,23 @@ from .._response import (
 )
 from ..pagination import SyncListObjects, AsyncListObjects
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.dataset import Dataset
-from ..types.dataset_fetch_response import DatasetFetchResponse
-from ..types.dataset_insert_response import DatasetInsertResponse
-from ..types.dataset_summarize_response import DatasetSummarizeResponse
-from ..types.dataset_fetch_post_response import DatasetFetchPostResponse
+from ..types.shared.dataset import Dataset
+from ..types.shared.version import Version
+from ..types.shared.org_name import OrgName
+from ..types.shared.dataset_id import DatasetID
+from ..types.shared.max_xact_id import MaxXactID
+from ..types.shared.dataset_name import DatasetName
+from ..types.shared.project_name import ProjectName
+from ..types.shared.ending_before import EndingBefore
+from ..types.shared.starting_after import StartingAfter
+from ..types.shared.summarize_data import SummarizeData
+from ..types.shared.app_limit_param import AppLimitParam
+from ..types.shared.max_root_span_id import MaxRootSpanID
+from ..types.shared.project_id_query import ProjectIDQuery
+from ..types.shared.fetch_limit_param import FetchLimitParam
+from ..types.shared.insert_events_response import InsertEventsResponse
+from ..types.shared.summarize_dataset_response import SummarizeDatasetResponse
+from ..types.shared.fetch_dataset_events_response import FetchDatasetEventsResponse
 
 __all__ = ["DatasetsResource", "AsyncDatasetsResource"]
 
@@ -101,7 +114,7 @@ class DatasetsResource(SyncAPIResource):
 
     def retrieve(
         self,
-        dataset_id: str,
+        dataset_id: DatasetID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -136,7 +149,7 @@ class DatasetsResource(SyncAPIResource):
 
     def update(
         self,
-        dataset_id: str,
+        dataset_id: DatasetID,
         *,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
@@ -192,13 +205,14 @@ class DatasetsResource(SyncAPIResource):
     def list(
         self,
         *,
-        dataset_name: str | NotGiven = NOT_GIVEN,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        project_name: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        dataset_name: DatasetName | NotGiven = NOT_GIVEN,
+        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
+        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
+        limit: AppLimitParam | NotGiven = NOT_GIVEN,
+        org_name: OrgName | NotGiven = NOT_GIVEN,
+        project_id: ProjectIDQuery | NotGiven = NOT_GIVEN,
+        project_name: ProjectName | NotGiven = NOT_GIVEN,
+        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -226,6 +240,8 @@ class DatasetsResource(SyncAPIResource):
           limit: Limit the number of objects to return
 
           org_name: Filter search results to within a particular organization
+
+          project_id: Project id
 
           project_name: Name of the project to search for
 
@@ -258,6 +274,7 @@ class DatasetsResource(SyncAPIResource):
                         "ids": ids,
                         "limit": limit,
                         "org_name": org_name,
+                        "project_id": project_id,
                         "project_name": project_name,
                         "starting_after": starting_after,
                     },
@@ -269,7 +286,7 @@ class DatasetsResource(SyncAPIResource):
 
     def delete(
         self,
-        dataset_id: str,
+        dataset_id: DatasetID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -304,9 +321,9 @@ class DatasetsResource(SyncAPIResource):
 
     def feedback(
         self,
-        dataset_id: str,
+        dataset_id: DatasetID,
         *,
-        feedback: Iterable[dataset_feedback_params.Feedback],
+        feedback: Iterable[shared_params.FeedbackDatasetItem],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -344,19 +361,19 @@ class DatasetsResource(SyncAPIResource):
 
     def fetch(
         self,
-        dataset_id: str,
+        dataset_id: DatasetID,
         *,
-        limit: int | NotGiven = NOT_GIVEN,
-        max_root_span_id: str | NotGiven = NOT_GIVEN,
-        max_xact_id: str | NotGiven = NOT_GIVEN,
-        version: str | NotGiven = NOT_GIVEN,
+        limit: FetchLimitParam | NotGiven = NOT_GIVEN,
+        max_root_span_id: MaxRootSpanID | NotGiven = NOT_GIVEN,
+        max_xact_id: MaxXactID | NotGiven = NOT_GIVEN,
+        version: Version | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> DatasetFetchResponse:
+    ) -> FetchDatasetEventsResponse:
         """Fetch the events in a dataset.
 
         Equivalent to the POST form of the same path, but
@@ -435,15 +452,15 @@ class DatasetsResource(SyncAPIResource):
                     dataset_fetch_params.DatasetFetchParams,
                 ),
             ),
-            cast_to=DatasetFetchResponse,
+            cast_to=FetchDatasetEventsResponse,
         )
 
     def fetch_post(
         self,
-        dataset_id: str,
+        dataset_id: DatasetID,
         *,
         cursor: Optional[str] | NotGiven = NOT_GIVEN,
-        filters: Optional[Iterable[dataset_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
+        filters: Optional[shared_params.FetchEventsFilters] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
         max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -454,7 +471,7 @@ class DatasetsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> DatasetFetchPostResponse:
+    ) -> FetchDatasetEventsResponse:
         """Fetch the events in a dataset.
 
         Equivalent to the GET form of the same path, but
@@ -541,21 +558,21 @@ class DatasetsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=DatasetFetchPostResponse,
+            cast_to=FetchDatasetEventsResponse,
         )
 
     def insert(
         self,
-        dataset_id: str,
+        dataset_id: DatasetID,
         *,
-        events: Iterable[dataset_insert_params.Event],
+        events: Iterable[shared_params.InsertDatasetEvent],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> DatasetInsertResponse:
+    ) -> InsertEventsResponse:
         """
         Insert a set of events into the dataset
 
@@ -580,21 +597,21 @@ class DatasetsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=DatasetInsertResponse,
+            cast_to=InsertEventsResponse,
         )
 
     def summarize(
         self,
-        dataset_id: str,
+        dataset_id: DatasetID,
         *,
-        summarize_data: bool | NotGiven = NOT_GIVEN,
+        summarize_data: SummarizeData | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> DatasetSummarizeResponse:
+    ) -> SummarizeDatasetResponse:
         """
         Summarize dataset
 
@@ -625,7 +642,7 @@ class DatasetsResource(SyncAPIResource):
                     {"summarize_data": summarize_data}, dataset_summarize_params.DatasetSummarizeParams
                 ),
             ),
-            cast_to=DatasetSummarizeResponse,
+            cast_to=SummarizeDatasetResponse,
         )
 
 
@@ -690,7 +707,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        dataset_id: str,
+        dataset_id: DatasetID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -725,7 +742,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
 
     async def update(
         self,
-        dataset_id: str,
+        dataset_id: DatasetID,
         *,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
@@ -781,13 +798,14 @@ class AsyncDatasetsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        dataset_name: str | NotGiven = NOT_GIVEN,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        project_name: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        dataset_name: DatasetName | NotGiven = NOT_GIVEN,
+        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
+        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
+        limit: AppLimitParam | NotGiven = NOT_GIVEN,
+        org_name: OrgName | NotGiven = NOT_GIVEN,
+        project_id: ProjectIDQuery | NotGiven = NOT_GIVEN,
+        project_name: ProjectName | NotGiven = NOT_GIVEN,
+        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -815,6 +833,8 @@ class AsyncDatasetsResource(AsyncAPIResource):
           limit: Limit the number of objects to return
 
           org_name: Filter search results to within a particular organization
+
+          project_id: Project id
 
           project_name: Name of the project to search for
 
@@ -847,6 +867,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
                         "ids": ids,
                         "limit": limit,
                         "org_name": org_name,
+                        "project_id": project_id,
                         "project_name": project_name,
                         "starting_after": starting_after,
                     },
@@ -858,7 +879,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
 
     async def delete(
         self,
-        dataset_id: str,
+        dataset_id: DatasetID,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -893,9 +914,9 @@ class AsyncDatasetsResource(AsyncAPIResource):
 
     async def feedback(
         self,
-        dataset_id: str,
+        dataset_id: DatasetID,
         *,
-        feedback: Iterable[dataset_feedback_params.Feedback],
+        feedback: Iterable[shared_params.FeedbackDatasetItem],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -933,19 +954,19 @@ class AsyncDatasetsResource(AsyncAPIResource):
 
     async def fetch(
         self,
-        dataset_id: str,
+        dataset_id: DatasetID,
         *,
-        limit: int | NotGiven = NOT_GIVEN,
-        max_root_span_id: str | NotGiven = NOT_GIVEN,
-        max_xact_id: str | NotGiven = NOT_GIVEN,
-        version: str | NotGiven = NOT_GIVEN,
+        limit: FetchLimitParam | NotGiven = NOT_GIVEN,
+        max_root_span_id: MaxRootSpanID | NotGiven = NOT_GIVEN,
+        max_xact_id: MaxXactID | NotGiven = NOT_GIVEN,
+        version: Version | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> DatasetFetchResponse:
+    ) -> FetchDatasetEventsResponse:
         """Fetch the events in a dataset.
 
         Equivalent to the POST form of the same path, but
@@ -1024,15 +1045,15 @@ class AsyncDatasetsResource(AsyncAPIResource):
                     dataset_fetch_params.DatasetFetchParams,
                 ),
             ),
-            cast_to=DatasetFetchResponse,
+            cast_to=FetchDatasetEventsResponse,
         )
 
     async def fetch_post(
         self,
-        dataset_id: str,
+        dataset_id: DatasetID,
         *,
         cursor: Optional[str] | NotGiven = NOT_GIVEN,
-        filters: Optional[Iterable[dataset_fetch_post_params.Filter]] | NotGiven = NOT_GIVEN,
+        filters: Optional[shared_params.FetchEventsFilters] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
         max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -1043,7 +1064,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> DatasetFetchPostResponse:
+    ) -> FetchDatasetEventsResponse:
         """Fetch the events in a dataset.
 
         Equivalent to the GET form of the same path, but
@@ -1130,21 +1151,21 @@ class AsyncDatasetsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=DatasetFetchPostResponse,
+            cast_to=FetchDatasetEventsResponse,
         )
 
     async def insert(
         self,
-        dataset_id: str,
+        dataset_id: DatasetID,
         *,
-        events: Iterable[dataset_insert_params.Event],
+        events: Iterable[shared_params.InsertDatasetEvent],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> DatasetInsertResponse:
+    ) -> InsertEventsResponse:
         """
         Insert a set of events into the dataset
 
@@ -1169,21 +1190,21 @@ class AsyncDatasetsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=DatasetInsertResponse,
+            cast_to=InsertEventsResponse,
         )
 
     async def summarize(
         self,
-        dataset_id: str,
+        dataset_id: DatasetID,
         *,
-        summarize_data: bool | NotGiven = NOT_GIVEN,
+        summarize_data: SummarizeData | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> DatasetSummarizeResponse:
+    ) -> SummarizeDatasetResponse:
         """
         Summarize dataset
 
@@ -1214,7 +1235,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
                     {"summarize_data": summarize_data}, dataset_summarize_params.DatasetSummarizeParams
                 ),
             ),
-            cast_to=DatasetSummarizeResponse,
+            cast_to=SummarizeDatasetResponse,
         )
 
 

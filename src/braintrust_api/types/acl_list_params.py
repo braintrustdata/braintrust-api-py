@@ -2,36 +2,27 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing import Optional
+from typing_extensions import Required, TypedDict
+
+from ..types import shared_params
+from .shared.acl_object_id import ACLObjectID
+from .shared.ending_before import EndingBefore
+from .shared.starting_after import StartingAfter
+from .shared.acl_object_type import ACLObjectType
+from .shared.app_limit_param import AppLimitParam
 
 __all__ = ["ACLListParams"]
 
 
 class ACLListParams(TypedDict, total=False):
-    object_id: Required[str]
+    object_id: Required[ACLObjectID]
     """The id of the object the ACL applies to"""
 
-    object_type: Required[
-        Optional[
-            Literal[
-                "organization",
-                "project",
-                "experiment",
-                "dataset",
-                "prompt",
-                "prompt_session",
-                "group",
-                "role",
-                "org_member",
-                "project_log",
-                "org_project",
-            ]
-        ]
-    ]
+    object_type: Required[Optional[ACLObjectType]]
     """The object type that the ACL applies to"""
 
-    ending_before: str
+    ending_before: EndingBefore
     """Pagination cursor id.
 
     For example, if the initial item in the last page you fetched had an id of
@@ -39,16 +30,16 @@ class ACLListParams(TypedDict, total=False):
     pass one of `starting_after` and `ending_before`
     """
 
-    ids: Union[str, List[str]]
+    ids: shared_params.IDs
     """Filter search results to a particular set of object IDs.
 
     To specify a list of IDs, include the query param multiple times
     """
 
-    limit: int
+    limit: AppLimitParam
     """Limit the number of objects to return"""
 
-    starting_after: str
+    starting_after: StartingAfter
     """Pagination cursor id.
 
     For example, if the final item in the last page you fetched had an id of `foo`,
