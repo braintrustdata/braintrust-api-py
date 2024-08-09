@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -33,14 +33,6 @@ from .._response import (
 from ..pagination import SyncListObjects, AsyncListObjects
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.view import View
-from ..types.shared.view_id import ViewID
-from ..types.shared.view_name import ViewName
-from ..types.shared.view_type import ViewType
-from ..types.shared.acl_object_id import ACLObjectID
-from ..types.shared.ending_before import EndingBefore
-from ..types.shared.starting_after import StartingAfter
-from ..types.shared.acl_object_type import ACLObjectType
-from ..types.shared.app_limit_param import AppLimitParam
 
 __all__ = ["ViewsResource", "AsyncViewsResource"]
 
@@ -141,10 +133,24 @@ class ViewsResource(SyncAPIResource):
 
     def retrieve(
         self,
-        view_id: ViewID,
+        view_id: str,
         *,
-        object_id: ACLObjectID,
-        object_type: Optional[ACLObjectType],
+        object_id: str,
+        object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -192,7 +198,7 @@ class ViewsResource(SyncAPIResource):
 
     def update(
         self,
-        view_id: ViewID,
+        view_id: str,
         *,
         object_id: str,
         object_type: Optional[
@@ -281,14 +287,31 @@ class ViewsResource(SyncAPIResource):
     def list(
         self,
         *,
-        object_id: ACLObjectID,
-        object_type: Optional[ACLObjectType],
-        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
-        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
-        limit: AppLimitParam | NotGiven = NOT_GIVEN,
-        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
-        view_name: ViewName | NotGiven = NOT_GIVEN,
-        view_type: Optional[ViewType] | NotGiven = NOT_GIVEN,
+        object_id: str,
+        object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ],
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
+        view_name: str | NotGiven = NOT_GIVEN,
+        view_type: Optional[
+            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+        ]
+        | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -362,7 +385,7 @@ class ViewsResource(SyncAPIResource):
 
     def delete(
         self,
-        view_id: ViewID,
+        view_id: str,
         *,
         object_id: str,
         object_type: Optional[
@@ -605,10 +628,24 @@ class AsyncViewsResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        view_id: ViewID,
+        view_id: str,
         *,
-        object_id: ACLObjectID,
-        object_type: Optional[ACLObjectType],
+        object_id: str,
+        object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -656,7 +693,7 @@ class AsyncViewsResource(AsyncAPIResource):
 
     async def update(
         self,
-        view_id: ViewID,
+        view_id: str,
         *,
         object_id: str,
         object_type: Optional[
@@ -745,14 +782,31 @@ class AsyncViewsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        object_id: ACLObjectID,
-        object_type: Optional[ACLObjectType],
-        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
-        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
-        limit: AppLimitParam | NotGiven = NOT_GIVEN,
-        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
-        view_name: ViewName | NotGiven = NOT_GIVEN,
-        view_type: Optional[ViewType] | NotGiven = NOT_GIVEN,
+        object_id: str,
+        object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ],
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
+        view_name: str | NotGiven = NOT_GIVEN,
+        view_type: Optional[
+            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+        ]
+        | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -826,7 +880,7 @@ class AsyncViewsResource(AsyncAPIResource):
 
     async def delete(
         self,
-        view_id: ViewID,
+        view_id: str,
         *,
         object_id: str,
         object_type: Optional[

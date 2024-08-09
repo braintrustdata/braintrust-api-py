@@ -2,13 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import List, Union, Optional
 from typing_extensions import Literal
 
 import httpx
 
 from ..types import (
-    shared_params,
     project_score_list_params,
     project_score_create_params,
     project_score_update_params,
@@ -29,15 +28,7 @@ from .._response import (
 )
 from ..pagination import SyncListObjects, AsyncListObjects
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.shared.org_name import OrgName
-from ..types.shared.project_name import ProjectName
-from ..types.shared.ending_before import EndingBefore
 from ..types.shared.project_score import ProjectScore
-from ..types.shared.starting_after import StartingAfter
-from ..types.shared.app_limit_param import AppLimitParam
-from ..types.shared.project_id_query import ProjectIDQuery
-from ..types.shared.project_score_id import ProjectScoreID
-from ..types.shared.project_score_name import ProjectScoreName
 
 __all__ = ["ProjectScoresResource", "AsyncProjectScoresResource"]
 
@@ -111,7 +102,7 @@ class ProjectScoresResource(SyncAPIResource):
 
     def retrieve(
         self,
-        project_score_id: ProjectScoreID,
+        project_score_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -146,7 +137,7 @@ class ProjectScoresResource(SyncAPIResource):
 
     def update(
         self,
-        project_score_id: ProjectScoreID,
+        project_score_id: str,
         *,
         categories: project_score_update_params.Categories | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
@@ -206,14 +197,14 @@ class ProjectScoresResource(SyncAPIResource):
     def list(
         self,
         *,
-        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
-        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
-        limit: AppLimitParam | NotGiven = NOT_GIVEN,
-        org_name: OrgName | NotGiven = NOT_GIVEN,
-        project_id: ProjectIDQuery | NotGiven = NOT_GIVEN,
-        project_name: ProjectName | NotGiven = NOT_GIVEN,
-        project_score_name: ProjectScoreName | NotGiven = NOT_GIVEN,
-        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        project_id: str | NotGiven = NOT_GIVEN,
+        project_name: str | NotGiven = NOT_GIVEN,
+        project_score_name: str | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -287,7 +278,7 @@ class ProjectScoresResource(SyncAPIResource):
 
     def delete(
         self,
-        project_score_id: ProjectScoreID,
+        project_score_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -448,7 +439,7 @@ class AsyncProjectScoresResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        project_score_id: ProjectScoreID,
+        project_score_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -483,7 +474,7 @@ class AsyncProjectScoresResource(AsyncAPIResource):
 
     async def update(
         self,
-        project_score_id: ProjectScoreID,
+        project_score_id: str,
         *,
         categories: project_score_update_params.Categories | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
@@ -543,14 +534,14 @@ class AsyncProjectScoresResource(AsyncAPIResource):
     def list(
         self,
         *,
-        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
-        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
-        limit: AppLimitParam | NotGiven = NOT_GIVEN,
-        org_name: OrgName | NotGiven = NOT_GIVEN,
-        project_id: ProjectIDQuery | NotGiven = NOT_GIVEN,
-        project_name: ProjectName | NotGiven = NOT_GIVEN,
-        project_score_name: ProjectScoreName | NotGiven = NOT_GIVEN,
-        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        project_id: str | NotGiven = NOT_GIVEN,
+        project_name: str | NotGiven = NOT_GIVEN,
+        project_score_name: str | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -624,7 +615,7 @@ class AsyncProjectScoresResource(AsyncAPIResource):
 
     async def delete(
         self,
-        project_score_id: ProjectScoreID,
+        project_score_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

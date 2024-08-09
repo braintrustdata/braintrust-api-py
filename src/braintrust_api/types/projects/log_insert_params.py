@@ -2,14 +2,17 @@
 
 from __future__ import annotations
 
-from typing import Iterable
-from typing_extensions import Required, TypedDict
+from typing import Union, Iterable
+from typing_extensions import Required, TypeAlias, TypedDict
 
 from ...types import shared_params
 
-__all__ = ["LogInsertParams"]
+__all__ = ["LogInsertParams", "Event"]
 
 
 class LogInsertParams(TypedDict, total=False):
-    events: Required[Iterable[shared_params.InsertProjectLogsEvent]]
+    events: Required[Iterable[Event]]
     """A list of project logs events to insert"""
+
+
+Event: TypeAlias = Union[shared_params.InsertProjectLogsEventReplace, shared_params.InsertProjectLogsEventMerge]

@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import List, Union, Optional
 
 import httpx
 
 from ..types import (
-    shared_params,
     project_tag_list_params,
     project_tag_create_params,
     project_tag_update_params,
@@ -28,15 +27,7 @@ from .._response import (
 )
 from ..pagination import SyncListObjects, AsyncListObjects
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.shared.org_name import OrgName
 from ..types.shared.project_tag import ProjectTag
-from ..types.shared.project_name import ProjectName
-from ..types.shared.ending_before import EndingBefore
-from ..types.shared.project_tag_id import ProjectTagID
-from ..types.shared.starting_after import StartingAfter
-from ..types.shared.app_limit_param import AppLimitParam
-from ..types.shared.project_id_query import ProjectIDQuery
-from ..types.shared.project_tag_name import ProjectTagName
 
 __all__ = ["ProjectTagsResource", "AsyncProjectTagsResource"]
 
@@ -106,7 +97,7 @@ class ProjectTagsResource(SyncAPIResource):
 
     def retrieve(
         self,
-        project_tag_id: ProjectTagID,
+        project_tag_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -141,7 +132,7 @@ class ProjectTagsResource(SyncAPIResource):
 
     def update(
         self,
-        project_tag_id: ProjectTagID,
+        project_tag_id: str,
         *,
         color: Optional[str] | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
@@ -197,14 +188,14 @@ class ProjectTagsResource(SyncAPIResource):
     def list(
         self,
         *,
-        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
-        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
-        limit: AppLimitParam | NotGiven = NOT_GIVEN,
-        org_name: OrgName | NotGiven = NOT_GIVEN,
-        project_id: ProjectIDQuery | NotGiven = NOT_GIVEN,
-        project_name: ProjectName | NotGiven = NOT_GIVEN,
-        project_tag_name: ProjectTagName | NotGiven = NOT_GIVEN,
-        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        project_id: str | NotGiven = NOT_GIVEN,
+        project_name: str | NotGiven = NOT_GIVEN,
+        project_tag_name: str | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -278,7 +269,7 @@ class ProjectTagsResource(SyncAPIResource):
 
     def delete(
         self,
-        project_tag_id: ProjectTagID,
+        project_tag_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -431,7 +422,7 @@ class AsyncProjectTagsResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        project_tag_id: ProjectTagID,
+        project_tag_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -466,7 +457,7 @@ class AsyncProjectTagsResource(AsyncAPIResource):
 
     async def update(
         self,
-        project_tag_id: ProjectTagID,
+        project_tag_id: str,
         *,
         color: Optional[str] | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
@@ -522,14 +513,14 @@ class AsyncProjectTagsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
-        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
-        limit: AppLimitParam | NotGiven = NOT_GIVEN,
-        org_name: OrgName | NotGiven = NOT_GIVEN,
-        project_id: ProjectIDQuery | NotGiven = NOT_GIVEN,
-        project_name: ProjectName | NotGiven = NOT_GIVEN,
-        project_tag_name: ProjectTagName | NotGiven = NOT_GIVEN,
-        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        project_id: str | NotGiven = NOT_GIVEN,
+        project_name: str | NotGiven = NOT_GIVEN,
+        project_tag_name: str | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -603,7 +594,7 @@ class AsyncProjectTagsResource(AsyncAPIResource):
 
     async def delete(
         self,
-        project_tag_id: ProjectTagID,
+        project_tag_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

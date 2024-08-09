@@ -1,9 +1,9 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
 
 from ..._models import BaseModel
-from .fetch_events_filters import FetchEventsFilters
+from .path_lookup_filter import PathLookupFilter
 
 __all__ = ["FetchEventsRequest"]
 
@@ -18,7 +18,7 @@ class FetchEventsRequest(BaseModel):
     fetch query
     """
 
-    filters: Optional[FetchEventsFilters] = None
+    filters: Optional[List[PathLookupFilter]] = None
     """A list of filters on the events to fetch.
 
     Currently, only path-lookup type filters are supported, but we may add more in

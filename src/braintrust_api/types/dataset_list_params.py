@@ -2,25 +2,17 @@
 
 from __future__ import annotations
 
+from typing import List, Union
 from typing_extensions import TypedDict
-
-from ..types import shared_params
-from .shared.org_name import OrgName
-from .shared.dataset_name import DatasetName
-from .shared.project_name import ProjectName
-from .shared.ending_before import EndingBefore
-from .shared.starting_after import StartingAfter
-from .shared.app_limit_param import AppLimitParam
-from .shared.project_id_query import ProjectIDQuery
 
 __all__ = ["DatasetListParams"]
 
 
 class DatasetListParams(TypedDict, total=False):
-    dataset_name: DatasetName
+    dataset_name: str
     """Name of the dataset to search for"""
 
-    ending_before: EndingBefore
+    ending_before: str
     """Pagination cursor id.
 
     For example, if the initial item in the last page you fetched had an id of
@@ -28,25 +20,25 @@ class DatasetListParams(TypedDict, total=False):
     pass one of `starting_after` and `ending_before`
     """
 
-    ids: shared_params.IDs
+    ids: Union[str, List[str]]
     """Filter search results to a particular set of object IDs.
 
     To specify a list of IDs, include the query param multiple times
     """
 
-    limit: AppLimitParam
+    limit: int
     """Limit the number of objects to return"""
 
-    org_name: OrgName
+    org_name: str
     """Filter search results to within a particular organization"""
 
-    project_id: ProjectIDQuery
+    project_id: str
     """Project id"""
 
-    project_name: ProjectName
+    project_name: str
     """Name of the project to search for"""
 
-    starting_after: StartingAfter
+    starting_after: str
     """Pagination cursor id.
 
     For example, if the final item in the last page you fetched had an id of `foo`,
