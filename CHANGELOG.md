@@ -1,5 +1,49 @@
 # Changelog
 
+## 0.3.0 (2024-08-09)
+
+Full Changelog: [v0.2.0...v0.3.0](https://github.com/braintrustdata/braintrust-api-py/compare/v0.2.0...v0.3.0)
+
+### Features
+
+* add model ProjectScoreCategory ([a8ddd18](https://github.com/braintrustdata/braintrust-api-py/commit/a8ddd18431e1d3a8748eb6820fa187f81c82fba9))
+* **api:** manual updates ([076b4a3](https://github.com/braintrustdata/braintrust-api-py/commit/076b4a3ad138748fe2381ef2bafd66dd7c2e7b73))
+* **api:** manual updates ([8e55dde](https://github.com/braintrustdata/braintrust-api-py/commit/8e55dde4fe05cbe49c1d6ec7eabd27ece7ec9671))
+* **api:** manual updates ([#18](https://github.com/braintrustdata/braintrust-api-py/issues/18)) ([13677d2](https://github.com/braintrustdata/braintrust-api-py/commit/13677d242f620550baf6fe84d6f21dd8af0018d7))
+* **api:** update via SDK Studio ([eb42e62](https://github.com/braintrustdata/braintrust-api-py/commit/eb42e62d44a3ea5db5a573972815e261ffa88edc))
+* **api:** update via SDK Studio ([eea4b43](https://github.com/braintrustdata/braintrust-api-py/commit/eea4b432933accf85e6fcfb40f971a33a84019e7))
+* **api:** update via SDK Studio ([ab63fec](https://github.com/braintrustdata/braintrust-api-py/commit/ab63fec431b330f786cc4a5f7464075c5b6c90af))
+* **api:** update via SDK Studio ([9d9a2db](https://github.com/braintrustdata/braintrust-api-py/commit/9d9a2db5be33fc09f6d1a2dbffd3d966cab57749))
+* **api:** update via SDK Studio ([9f56d25](https://github.com/braintrustdata/braintrust-api-py/commit/9f56d254037853cb05825d1007c48b50637d7b3e))
+* **api:** update via SDK Studio ([3ec6506](https://github.com/braintrustdata/braintrust-api-py/commit/3ec6506e382a040e7cbefd2510523b5ba3cc541d))
+* **api:** update via SDK Studio ([65e3db9](https://github.com/braintrustdata/braintrust-api-py/commit/65e3db9c9a4357fa8c7b3248c8bec057c9748168))
+* **api:** update via SDK Studio ([7e2a816](https://github.com/braintrustdata/braintrust-api-py/commit/7e2a81671fccceaf44fd2b9d61f9d1245cf9d432))
+* **api:** update via SDK Studio ([330baff](https://github.com/braintrustdata/braintrust-api-py/commit/330baff4f40f77d45b8552eade6be8c340639535))
+* **api:** update via SDK Studio ([1d0b089](https://github.com/braintrustdata/braintrust-api-py/commit/1d0b0896570047542254809db0aec3b5dbc7e6cb))
+* **api:** update via SDK Studio ([f32858c](https://github.com/braintrustdata/braintrust-api-py/commit/f32858cd4711888e4366a1b0bbe4db08ed4f4e25))
+* **api:** update via SDK Studio ([c33f5d9](https://github.com/braintrustdata/braintrust-api-py/commit/c33f5d99474311ed0cd6b12f3abd3429d1a61eb5))
+* **api:** update via SDK Studio ([4248329](https://github.com/braintrustdata/braintrust-api-py/commit/4248329824ea7a71a1d77ae4e1939542e1826685))
+* **api:** update via SDK Studio ([7247c14](https://github.com/braintrustdata/braintrust-api-py/commit/7247c14cf9451ce8d881cba66e44e637bcbac524))
+* **api:** update via SDK Studio ([faaec09](https://github.com/braintrustdata/braintrust-api-py/commit/faaec096ee7d529375b4a43f6ebd952cb6c53d98))
+* **api:** update via SDK Studio ([76b05ec](https://github.com/braintrustdata/braintrust-api-py/commit/76b05ec43710202cd4f53c47d531a9339faffa6e))
+* **api:** update via SDK Studio ([cc0a581](https://github.com/braintrustdata/braintrust-api-py/commit/cc0a581410ed9ec1f0e7fbe057dc7f49ab1adc3c))
+* **api:** update via SDK Studio ([#10](https://github.com/braintrustdata/braintrust-api-py/issues/10)) ([99953df](https://github.com/braintrustdata/braintrust-api-py/commit/99953df954e08e897505149853c419576fb87f5e))
+* **api:** update via SDK Studio ([#16](https://github.com/braintrustdata/braintrust-api-py/issues/16)) ([2a6ff71](https://github.com/braintrustdata/braintrust-api-py/commit/2a6ff7147783f0f54c6beb1cd51d209be1077776))
+
+
+### Chores
+
+* **ci:** bump prism mock server version ([77ae948](https://github.com/braintrustdata/braintrust-api-py/commit/77ae948770c73753f51ae84b9ea6691792dd2123))
+* fix error message import example ([#8](https://github.com/braintrustdata/braintrust-api-py/issues/8)) ([d896038](https://github.com/braintrustdata/braintrust-api-py/commit/d89603821db91e98295bf10021b04ae09fbeffbe))
+* go live ([#15](https://github.com/braintrustdata/braintrust-api-py/issues/15)) ([f58d9a4](https://github.com/braintrustdata/braintrust-api-py/commit/f58d9a40de5985b1c134b91b0ef94365ee0e057e))
+* go live ([#17](https://github.com/braintrustdata/braintrust-api-py/issues/17)) ([02c13c9](https://github.com/braintrustdata/braintrust-api-py/commit/02c13c9bdd057cb4cc8b944ecfb396e46ebc78de))
+* go live ([#19](https://github.com/braintrustdata/braintrust-api-py/issues/19)) ([e53c510](https://github.com/braintrustdata/braintrust-api-py/commit/e53c510a038cfeb071c9aa24756ea08e9dcfe8f9))
+* **internal:** add type construction helper ([#13](https://github.com/braintrustdata/braintrust-api-py/issues/13)) ([a2c4cb4](https://github.com/braintrustdata/braintrust-api-py/commit/a2c4cb448228e8ef18bfaa0978fcc1c933871626))
+* **internal:** codegen related update ([#11](https://github.com/braintrustdata/braintrust-api-py/issues/11)) ([a60c6ca](https://github.com/braintrustdata/braintrust-api-py/commit/a60c6cab9a4a009ff0b9c51e0d9c73ee6e6e8366))
+* **internal:** codegen related update ([#12](https://github.com/braintrustdata/braintrust-api-py/issues/12)) ([7777daa](https://github.com/braintrustdata/braintrust-api-py/commit/7777daaad919f595c2d5277636446f9514824a93))
+* **internal:** codegen related update ([#14](https://github.com/braintrustdata/braintrust-api-py/issues/14)) ([7a16bc0](https://github.com/braintrustdata/braintrust-api-py/commit/7a16bc0420213e34f36bfe124ac65a5f4656f810))
+* **internal:** remove deprecated ruff config ([da2e77e](https://github.com/braintrustdata/braintrust-api-py/commit/da2e77e84b2353d240b95637a3596450bf0c234e))
+
 ## 0.2.0 (2024-07-23)
 
 Full Changelog: [v0.1.0...v0.2.0](https://github.com/braintrustdata/braintrust-api-py/compare/v0.1.0...v0.2.0)
