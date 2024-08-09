@@ -2,25 +2,20 @@
 
 from __future__ import annotations
 
+from typing import List, Union
 from typing_extensions import TypedDict
-
-from ..types import shared_params
-from .shared.org_name import OrgName
-from .shared.ending_before import EndingBefore
-from .shared.starting_after import StartingAfter
-from .shared.app_limit_param import AppLimitParam
 
 __all__ = ["UserListParams"]
 
 
 class UserListParams(TypedDict, total=False):
-    email: shared_params.UserEmail
+    email: Union[str, List[str]]
     """Email of the user to search for.
 
     You may pass the param multiple times to filter for more than one email
     """
 
-    ending_before: EndingBefore
+    ending_before: str
     """Pagination cursor id.
 
     For example, if the initial item in the last page you fetched had an id of
@@ -28,31 +23,31 @@ class UserListParams(TypedDict, total=False):
     pass one of `starting_after` and `ending_before`
     """
 
-    family_name: shared_params.UserFamilyName
+    family_name: Union[str, List[str]]
     """Family name of the user to search for.
 
     You may pass the param multiple times to filter for more than one family name
     """
 
-    given_name: shared_params.UserGivenName
+    given_name: Union[str, List[str]]
     """Given name of the user to search for.
 
     You may pass the param multiple times to filter for more than one given name
     """
 
-    ids: shared_params.IDs
+    ids: Union[str, List[str]]
     """Filter search results to a particular set of object IDs.
 
     To specify a list of IDs, include the query param multiple times
     """
 
-    limit: AppLimitParam
+    limit: int
     """Limit the number of objects to return"""
 
-    org_name: OrgName
+    org_name: str
     """Filter search results to within a particular organization"""
 
-    starting_after: StartingAfter
+    starting_after: str
     """Pagination cursor id.
 
     For example, if the final item in the last page you fetched had an id of `foo`,

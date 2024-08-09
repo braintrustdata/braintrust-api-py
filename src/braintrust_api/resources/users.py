@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+from typing import List, Union
+
 import httpx
 
-from ..types import shared_params, user_list_params
+from ..types import user_list_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import maybe_transform
 from .._compat import cached_property
@@ -18,11 +20,6 @@ from .._response import (
 from ..pagination import SyncListObjects, AsyncListObjects
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.user import User
-from ..types.shared.user_id import UserID
-from ..types.shared.org_name import OrgName
-from ..types.shared.ending_before import EndingBefore
-from ..types.shared.starting_after import StartingAfter
-from ..types.shared.app_limit_param import AppLimitParam
 
 __all__ = ["UsersResource", "AsyncUsersResource"]
 
@@ -38,7 +35,7 @@ class UsersResource(SyncAPIResource):
 
     def retrieve(
         self,
-        user_id: UserID,
+        user_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -74,14 +71,14 @@ class UsersResource(SyncAPIResource):
     def list(
         self,
         *,
-        email: shared_params.UserEmail | NotGiven = NOT_GIVEN,
-        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
-        family_name: shared_params.UserFamilyName | NotGiven = NOT_GIVEN,
-        given_name: shared_params.UserGivenName | NotGiven = NOT_GIVEN,
-        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
-        limit: AppLimitParam | NotGiven = NOT_GIVEN,
-        org_name: OrgName | NotGiven = NOT_GIVEN,
-        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
+        email: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        family_name: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        given_name: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -168,7 +165,7 @@ class AsyncUsersResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        user_id: UserID,
+        user_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -204,14 +201,14 @@ class AsyncUsersResource(AsyncAPIResource):
     def list(
         self,
         *,
-        email: shared_params.UserEmail | NotGiven = NOT_GIVEN,
-        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
-        family_name: shared_params.UserFamilyName | NotGiven = NOT_GIVEN,
-        given_name: shared_params.UserGivenName | NotGiven = NOT_GIVEN,
-        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
-        limit: AppLimitParam | NotGiven = NOT_GIVEN,
-        org_name: OrgName | NotGiven = NOT_GIVEN,
-        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
+        email: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        family_name: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        given_name: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

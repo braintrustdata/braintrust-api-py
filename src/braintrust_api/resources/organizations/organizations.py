@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import List, Union, Optional
 
 import httpx
 
-from ...types import shared_params, organization_list_params, organization_update_params
+from ...types import organization_list_params, organization_update_params
 from .members import (
     MembersResource,
     AsyncMembersResource,
@@ -30,13 +30,7 @@ from ..._response import (
 )
 from ...pagination import SyncListObjects, AsyncListObjects
 from ..._base_client import AsyncPaginator, make_request_options
-from ...types.shared.org_name import OrgName
 from ...types.shared.organization import Organization
-from ...types.shared.ending_before import EndingBefore
-from ...types.shared.starting_after import StartingAfter
-from ...types.shared.app_limit_param import AppLimitParam
-from ...types.shared.organization_id import OrganizationID
-from ...types.shared.organization_name import OrganizationName
 
 __all__ = ["OrganizationsResource", "AsyncOrganizationsResource"]
 
@@ -56,7 +50,7 @@ class OrganizationsResource(SyncAPIResource):
 
     def retrieve(
         self,
-        organization_id: OrganizationID,
+        organization_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -91,7 +85,7 @@ class OrganizationsResource(SyncAPIResource):
 
     def update(
         self,
-        organization_id: OrganizationID,
+        organization_id: str,
         *,
         api_url: Optional[str] | NotGiven = NOT_GIVEN,
         is_universal_api: Optional[bool] | NotGiven = NOT_GIVEN,
@@ -147,12 +141,12 @@ class OrganizationsResource(SyncAPIResource):
     def list(
         self,
         *,
-        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
-        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
-        limit: AppLimitParam | NotGiven = NOT_GIVEN,
-        org_name: OrgName | NotGiven = NOT_GIVEN,
-        organization_name: OrganizationName | NotGiven = NOT_GIVEN,
-        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        organization_name: str | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -220,7 +214,7 @@ class OrganizationsResource(SyncAPIResource):
 
     def delete(
         self,
-        organization_id: OrganizationID,
+        organization_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -269,7 +263,7 @@ class AsyncOrganizationsResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        organization_id: OrganizationID,
+        organization_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -304,7 +298,7 @@ class AsyncOrganizationsResource(AsyncAPIResource):
 
     async def update(
         self,
-        organization_id: OrganizationID,
+        organization_id: str,
         *,
         api_url: Optional[str] | NotGiven = NOT_GIVEN,
         is_universal_api: Optional[bool] | NotGiven = NOT_GIVEN,
@@ -360,12 +354,12 @@ class AsyncOrganizationsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
-        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
-        limit: AppLimitParam | NotGiven = NOT_GIVEN,
-        org_name: OrgName | NotGiven = NOT_GIVEN,
-        organization_name: OrganizationName | NotGiven = NOT_GIVEN,
-        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        organization_name: str | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -433,7 +427,7 @@ class AsyncOrganizationsResource(AsyncAPIResource):
 
     async def delete(
         self,
-        organization_id: OrganizationID,
+        organization_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import List, Union, Optional
 
 import httpx
 
-from ..types import shared_params, api_key_list_params, api_key_create_params
+from ..types import api_key_list_params, api_key_create_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -23,12 +23,6 @@ from .._response import (
 from ..pagination import SyncListObjects, AsyncListObjects
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.api_key import APIKey
-from ..types.shared.org_name import OrgName
-from ..types.shared.api_key_id import APIKeyID
-from ..types.shared.api_key_name import APIKeyName
-from ..types.shared.ending_before import EndingBefore
-from ..types.shared.starting_after import StartingAfter
-from ..types.shared.app_limit_param import AppLimitParam
 from ..types.shared.create_api_key_output import CreateAPIKeyOutput
 
 __all__ = ["APIKeysResource", "AsyncAPIKeysResource"]
@@ -92,7 +86,7 @@ class APIKeysResource(SyncAPIResource):
 
     def retrieve(
         self,
-        api_key_id: APIKeyID,
+        api_key_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -128,12 +122,12 @@ class APIKeysResource(SyncAPIResource):
     def list(
         self,
         *,
-        api_key_name: APIKeyName | NotGiven = NOT_GIVEN,
-        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
-        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
-        limit: AppLimitParam | NotGiven = NOT_GIVEN,
-        org_name: OrgName | NotGiven = NOT_GIVEN,
-        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
+        api_key_name: str | NotGiven = NOT_GIVEN,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -201,7 +195,7 @@ class APIKeysResource(SyncAPIResource):
 
     def delete(
         self,
-        api_key_id: APIKeyID,
+        api_key_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -293,7 +287,7 @@ class AsyncAPIKeysResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        api_key_id: APIKeyID,
+        api_key_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -329,12 +323,12 @@ class AsyncAPIKeysResource(AsyncAPIResource):
     def list(
         self,
         *,
-        api_key_name: APIKeyName | NotGiven = NOT_GIVEN,
-        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
-        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
-        limit: AppLimitParam | NotGiven = NOT_GIVEN,
-        org_name: OrgName | NotGiven = NOT_GIVEN,
-        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
+        api_key_name: str | NotGiven = NOT_GIVEN,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -402,7 +396,7 @@ class AsyncAPIKeysResource(AsyncAPIResource):
 
     async def delete(
         self,
-        api_key_id: APIKeyID,
+        api_key_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

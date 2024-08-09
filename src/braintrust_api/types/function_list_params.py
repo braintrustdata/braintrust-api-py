@@ -2,24 +2,14 @@
 
 from __future__ import annotations
 
+from typing import List, Union
 from typing_extensions import TypedDict
-
-from ..types import shared_params
-from .shared.slug import Slug
-from .shared.org_name import OrgName
-from .shared.project_name import ProjectName
-from .shared.ending_before import EndingBefore
-from .shared.function_name import FunctionName
-from .shared.prompt_version import PromptVersion
-from .shared.starting_after import StartingAfter
-from .shared.app_limit_param import AppLimitParam
-from .shared.project_id_query import ProjectIDQuery
 
 __all__ = ["FunctionListParams"]
 
 
 class FunctionListParams(TypedDict, total=False):
-    ending_before: EndingBefore
+    ending_before: str
     """Pagination cursor id.
 
     For example, if the initial item in the last page you fetched had an id of
@@ -27,31 +17,31 @@ class FunctionListParams(TypedDict, total=False):
     pass one of `starting_after` and `ending_before`
     """
 
-    function_name: FunctionName
+    function_name: str
     """Name of the function to search for"""
 
-    ids: shared_params.IDs
+    ids: Union[str, List[str]]
     """Filter search results to a particular set of object IDs.
 
     To specify a list of IDs, include the query param multiple times
     """
 
-    limit: AppLimitParam
+    limit: int
     """Limit the number of objects to return"""
 
-    org_name: OrgName
+    org_name: str
     """Filter search results to within a particular organization"""
 
-    project_id: ProjectIDQuery
+    project_id: str
     """Project id"""
 
-    project_name: ProjectName
+    project_name: str
     """Name of the project to search for"""
 
-    slug: Slug
+    slug: str
     """Retrieve prompt with a specific slug"""
 
-    starting_after: StartingAfter
+    starting_after: str
     """Pagination cursor id.
 
     For example, if the final item in the last page you fetched had an id of `foo`,
@@ -59,7 +49,7 @@ class FunctionListParams(TypedDict, total=False):
     `starting_after` and `ending_before`
     """
 
-    version: PromptVersion
+    version: str
     """Retrieve prompt at a specific version.
 
     The version id can either be a transaction id (e.g. '1000192656880881099') or a

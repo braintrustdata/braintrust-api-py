@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Iterable, Optional
+from typing import Dict, List, Union, Iterable, Optional
 
 import httpx
 
@@ -32,22 +32,8 @@ from .._response import (
 )
 from ..pagination import SyncListObjects, AsyncListObjects
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.shared.version import Version
-from ..types.shared.org_name import OrgName
 from ..types.shared.experiment import Experiment
-from ..types.shared.max_xact_id import MaxXactID
-from ..types.shared.project_name import ProjectName
-from ..types.shared.ending_before import EndingBefore
-from ..types.shared.experiment_id import ExperimentID
-from ..types.shared.starting_after import StartingAfter
-from ..types.shared.app_limit_param import AppLimitParam
-from ..types.shared.experiment_name import ExperimentName
-from ..types.shared.max_root_span_id import MaxRootSpanID
-from ..types.shared.project_id_query import ProjectIDQuery
-from ..types.shared.summarize_scores import SummarizeScores
-from ..types.shared.fetch_limit_param import FetchLimitParam
 from ..types.shared.insert_events_response import InsertEventsResponse
-from ..types.shared.comparison_experiment_id import ComparisonExperimentID
 from ..types.shared.summarize_experiment_response import SummarizeExperimentResponse
 from ..types.shared.fetch_experiment_events_response import FetchExperimentEventsResponse
 
@@ -149,7 +135,7 @@ class ExperimentsResource(SyncAPIResource):
 
     def retrieve(
         self,
-        experiment_id: ExperimentID,
+        experiment_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -184,7 +170,7 @@ class ExperimentsResource(SyncAPIResource):
 
     def update(
         self,
-        experiment_id: ExperimentID,
+        experiment_id: str,
         *,
         base_exp_id: Optional[str] | NotGiven = NOT_GIVEN,
         dataset_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -263,14 +249,14 @@ class ExperimentsResource(SyncAPIResource):
     def list(
         self,
         *,
-        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
-        experiment_name: ExperimentName | NotGiven = NOT_GIVEN,
-        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
-        limit: AppLimitParam | NotGiven = NOT_GIVEN,
-        org_name: OrgName | NotGiven = NOT_GIVEN,
-        project_id: ProjectIDQuery | NotGiven = NOT_GIVEN,
-        project_name: ProjectName | NotGiven = NOT_GIVEN,
-        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        experiment_name: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        project_id: str | NotGiven = NOT_GIVEN,
+        project_name: str | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -344,7 +330,7 @@ class ExperimentsResource(SyncAPIResource):
 
     def delete(
         self,
-        experiment_id: ExperimentID,
+        experiment_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -379,7 +365,7 @@ class ExperimentsResource(SyncAPIResource):
 
     def feedback(
         self,
-        experiment_id: ExperimentID,
+        experiment_id: str,
         *,
         feedback: Iterable[shared_params.FeedbackExperimentItem],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -419,12 +405,12 @@ class ExperimentsResource(SyncAPIResource):
 
     def fetch(
         self,
-        experiment_id: ExperimentID,
+        experiment_id: str,
         *,
-        limit: FetchLimitParam | NotGiven = NOT_GIVEN,
-        max_root_span_id: MaxRootSpanID | NotGiven = NOT_GIVEN,
-        max_xact_id: MaxXactID | NotGiven = NOT_GIVEN,
-        version: Version | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        max_root_span_id: str | NotGiven = NOT_GIVEN,
+        max_xact_id: str | NotGiven = NOT_GIVEN,
+        version: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -515,10 +501,10 @@ class ExperimentsResource(SyncAPIResource):
 
     def fetch_post(
         self,
-        experiment_id: ExperimentID,
+        experiment_id: str,
         *,
         cursor: Optional[str] | NotGiven = NOT_GIVEN,
-        filters: Optional[shared_params.FetchEventsFilters] | NotGiven = NOT_GIVEN,
+        filters: Optional[Iterable[shared_params.PathLookupFilter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
         max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -621,9 +607,9 @@ class ExperimentsResource(SyncAPIResource):
 
     def insert(
         self,
-        experiment_id: ExperimentID,
+        experiment_id: str,
         *,
-        events: Iterable[shared_params.InsertExperimentEvent],
+        events: Iterable[experiment_insert_params.Event],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -660,10 +646,10 @@ class ExperimentsResource(SyncAPIResource):
 
     def summarize(
         self,
-        experiment_id: ExperimentID,
+        experiment_id: str,
         *,
-        comparison_experiment_id: ComparisonExperimentID | NotGiven = NOT_GIVEN,
-        summarize_scores: SummarizeScores | NotGiven = NOT_GIVEN,
+        comparison_experiment_id: str | NotGiven = NOT_GIVEN,
+        summarize_scores: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -809,7 +795,7 @@ class AsyncExperimentsResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        experiment_id: ExperimentID,
+        experiment_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -844,7 +830,7 @@ class AsyncExperimentsResource(AsyncAPIResource):
 
     async def update(
         self,
-        experiment_id: ExperimentID,
+        experiment_id: str,
         *,
         base_exp_id: Optional[str] | NotGiven = NOT_GIVEN,
         dataset_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -923,14 +909,14 @@ class AsyncExperimentsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
-        experiment_name: ExperimentName | NotGiven = NOT_GIVEN,
-        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
-        limit: AppLimitParam | NotGiven = NOT_GIVEN,
-        org_name: OrgName | NotGiven = NOT_GIVEN,
-        project_id: ProjectIDQuery | NotGiven = NOT_GIVEN,
-        project_name: ProjectName | NotGiven = NOT_GIVEN,
-        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        experiment_name: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        project_id: str | NotGiven = NOT_GIVEN,
+        project_name: str | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1004,7 +990,7 @@ class AsyncExperimentsResource(AsyncAPIResource):
 
     async def delete(
         self,
-        experiment_id: ExperimentID,
+        experiment_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1039,7 +1025,7 @@ class AsyncExperimentsResource(AsyncAPIResource):
 
     async def feedback(
         self,
-        experiment_id: ExperimentID,
+        experiment_id: str,
         *,
         feedback: Iterable[shared_params.FeedbackExperimentItem],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1081,12 +1067,12 @@ class AsyncExperimentsResource(AsyncAPIResource):
 
     async def fetch(
         self,
-        experiment_id: ExperimentID,
+        experiment_id: str,
         *,
-        limit: FetchLimitParam | NotGiven = NOT_GIVEN,
-        max_root_span_id: MaxRootSpanID | NotGiven = NOT_GIVEN,
-        max_xact_id: MaxXactID | NotGiven = NOT_GIVEN,
-        version: Version | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        max_root_span_id: str | NotGiven = NOT_GIVEN,
+        max_xact_id: str | NotGiven = NOT_GIVEN,
+        version: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1177,10 +1163,10 @@ class AsyncExperimentsResource(AsyncAPIResource):
 
     async def fetch_post(
         self,
-        experiment_id: ExperimentID,
+        experiment_id: str,
         *,
         cursor: Optional[str] | NotGiven = NOT_GIVEN,
-        filters: Optional[shared_params.FetchEventsFilters] | NotGiven = NOT_GIVEN,
+        filters: Optional[Iterable[shared_params.PathLookupFilter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
         max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -1283,9 +1269,9 @@ class AsyncExperimentsResource(AsyncAPIResource):
 
     async def insert(
         self,
-        experiment_id: ExperimentID,
+        experiment_id: str,
         *,
-        events: Iterable[shared_params.InsertExperimentEvent],
+        events: Iterable[experiment_insert_params.Event],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1322,10 +1308,10 @@ class AsyncExperimentsResource(AsyncAPIResource):
 
     async def summarize(
         self,
-        experiment_id: ExperimentID,
+        experiment_id: str,
         *,
-        comparison_experiment_id: ComparisonExperimentID | NotGiven = NOT_GIVEN,
-        summarize_scores: SummarizeScores | NotGiven = NOT_GIVEN,
+        comparison_experiment_id: str | NotGiven = NOT_GIVEN,
+        summarize_scores: bool | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

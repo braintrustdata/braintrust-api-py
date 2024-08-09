@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import List, Union, Optional
 
 import httpx
 
@@ -28,17 +28,7 @@ from .._response import (
 )
 from ..pagination import SyncListObjects, AsyncListObjects
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.shared.slug import Slug
 from ..types.shared.prompt import Prompt
-from ..types.shared.org_name import OrgName
-from ..types.shared.prompt_id import PromptID
-from ..types.shared.prompt_name import PromptName
-from ..types.shared.project_name import ProjectName
-from ..types.shared.ending_before import EndingBefore
-from ..types.shared.prompt_version import PromptVersion
-from ..types.shared.starting_after import StartingAfter
-from ..types.shared.app_limit_param import AppLimitParam
-from ..types.shared.project_id_query import ProjectIDQuery
 
 __all__ = ["PromptsResource", "AsyncPromptsResource"]
 
@@ -116,7 +106,7 @@ class PromptsResource(SyncAPIResource):
 
     def retrieve(
         self,
-        prompt_id: PromptID,
+        prompt_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -151,7 +141,7 @@ class PromptsResource(SyncAPIResource):
 
     def update(
         self,
-        prompt_id: PromptID,
+        prompt_id: str,
         *,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
@@ -211,16 +201,16 @@ class PromptsResource(SyncAPIResource):
     def list(
         self,
         *,
-        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
-        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
-        limit: AppLimitParam | NotGiven = NOT_GIVEN,
-        org_name: OrgName | NotGiven = NOT_GIVEN,
-        project_id: ProjectIDQuery | NotGiven = NOT_GIVEN,
-        project_name: ProjectName | NotGiven = NOT_GIVEN,
-        prompt_name: PromptName | NotGiven = NOT_GIVEN,
-        slug: Slug | NotGiven = NOT_GIVEN,
-        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
-        version: PromptVersion | NotGiven = NOT_GIVEN,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        project_id: str | NotGiven = NOT_GIVEN,
+        project_name: str | NotGiven = NOT_GIVEN,
+        prompt_name: str | NotGiven = NOT_GIVEN,
+        slug: str | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
+        version: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -303,7 +293,7 @@ class PromptsResource(SyncAPIResource):
 
     def delete(
         self,
-        prompt_id: PromptID,
+        prompt_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -472,7 +462,7 @@ class AsyncPromptsResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        prompt_id: PromptID,
+        prompt_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -507,7 +497,7 @@ class AsyncPromptsResource(AsyncAPIResource):
 
     async def update(
         self,
-        prompt_id: PromptID,
+        prompt_id: str,
         *,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
@@ -567,16 +557,16 @@ class AsyncPromptsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        ending_before: EndingBefore | NotGiven = NOT_GIVEN,
-        ids: shared_params.IDs | NotGiven = NOT_GIVEN,
-        limit: AppLimitParam | NotGiven = NOT_GIVEN,
-        org_name: OrgName | NotGiven = NOT_GIVEN,
-        project_id: ProjectIDQuery | NotGiven = NOT_GIVEN,
-        project_name: ProjectName | NotGiven = NOT_GIVEN,
-        prompt_name: PromptName | NotGiven = NOT_GIVEN,
-        slug: Slug | NotGiven = NOT_GIVEN,
-        starting_after: StartingAfter | NotGiven = NOT_GIVEN,
-        version: PromptVersion | NotGiven = NOT_GIVEN,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        project_id: str | NotGiven = NOT_GIVEN,
+        project_name: str | NotGiven = NOT_GIVEN,
+        prompt_name: str | NotGiven = NOT_GIVEN,
+        slug: str | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
+        version: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -659,7 +649,7 @@ class AsyncPromptsResource(AsyncAPIResource):
 
     async def delete(
         self,
-        prompt_id: PromptID,
+        prompt_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.

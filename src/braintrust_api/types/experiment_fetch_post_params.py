@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Iterable, Optional
 from typing_extensions import TypedDict
 
 from ..types import shared_params
@@ -20,7 +20,7 @@ class ExperimentFetchPostParams(TypedDict, total=False):
     fetch query
     """
 
-    filters: Optional[shared_params.FetchEventsFilters]
+    filters: Optional[Iterable[shared_params.PathLookupFilter]]
     """A list of filters on the events to fetch.
 
     Currently, only path-lookup type filters are supported, but we may add more in

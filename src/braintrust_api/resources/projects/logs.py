@@ -22,11 +22,6 @@ from ..._response import (
 )
 from ..._base_client import make_request_options
 from ...types.projects import log_fetch_params, log_insert_params, log_feedback_params, log_fetch_post_params
-from ...types.shared.version import Version
-from ...types.shared.project_id import ProjectID
-from ...types.shared.max_xact_id import MaxXactID
-from ...types.shared.max_root_span_id import MaxRootSpanID
-from ...types.shared.fetch_limit_param import FetchLimitParam
 from ...types.shared.insert_events_response import InsertEventsResponse
 from ...types.shared.fetch_project_logs_events_response import FetchProjectLogsEventsResponse
 
@@ -44,7 +39,7 @@ class LogsResource(SyncAPIResource):
 
     def feedback(
         self,
-        project_id: ProjectID,
+        project_id: str,
         *,
         feedback: Iterable[shared_params.FeedbackProjectLogsItem],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -84,12 +79,12 @@ class LogsResource(SyncAPIResource):
 
     def fetch(
         self,
-        project_id: ProjectID,
+        project_id: str,
         *,
-        limit: FetchLimitParam | NotGiven = NOT_GIVEN,
-        max_root_span_id: MaxRootSpanID | NotGiven = NOT_GIVEN,
-        max_xact_id: MaxXactID | NotGiven = NOT_GIVEN,
-        version: Version | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        max_root_span_id: str | NotGiven = NOT_GIVEN,
+        max_xact_id: str | NotGiven = NOT_GIVEN,
+        version: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -180,10 +175,10 @@ class LogsResource(SyncAPIResource):
 
     def fetch_post(
         self,
-        project_id: ProjectID,
+        project_id: str,
         *,
         cursor: Optional[str] | NotGiven = NOT_GIVEN,
-        filters: Optional[shared_params.FetchEventsFilters] | NotGiven = NOT_GIVEN,
+        filters: Optional[Iterable[shared_params.PathLookupFilter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
         max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -286,9 +281,9 @@ class LogsResource(SyncAPIResource):
 
     def insert(
         self,
-        project_id: ProjectID,
+        project_id: str,
         *,
-        events: Iterable[shared_params.InsertProjectLogsEvent],
+        events: Iterable[log_insert_params.Event],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -335,7 +330,7 @@ class AsyncLogsResource(AsyncAPIResource):
 
     async def feedback(
         self,
-        project_id: ProjectID,
+        project_id: str,
         *,
         feedback: Iterable[shared_params.FeedbackProjectLogsItem],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -375,12 +370,12 @@ class AsyncLogsResource(AsyncAPIResource):
 
     async def fetch(
         self,
-        project_id: ProjectID,
+        project_id: str,
         *,
-        limit: FetchLimitParam | NotGiven = NOT_GIVEN,
-        max_root_span_id: MaxRootSpanID | NotGiven = NOT_GIVEN,
-        max_xact_id: MaxXactID | NotGiven = NOT_GIVEN,
-        version: Version | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        max_root_span_id: str | NotGiven = NOT_GIVEN,
+        max_xact_id: str | NotGiven = NOT_GIVEN,
+        version: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -471,10 +466,10 @@ class AsyncLogsResource(AsyncAPIResource):
 
     async def fetch_post(
         self,
-        project_id: ProjectID,
+        project_id: str,
         *,
         cursor: Optional[str] | NotGiven = NOT_GIVEN,
-        filters: Optional[shared_params.FetchEventsFilters] | NotGiven = NOT_GIVEN,
+        filters: Optional[Iterable[shared_params.PathLookupFilter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
         max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -577,9 +572,9 @@ class AsyncLogsResource(AsyncAPIResource):
 
     async def insert(
         self,
-        project_id: ProjectID,
+        project_id: str,
         *,
-        events: Iterable[shared_params.InsertProjectLogsEvent],
+        events: Iterable[log_insert_params.Event],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
