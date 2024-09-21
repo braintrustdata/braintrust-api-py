@@ -695,6 +695,7 @@ class TestBraintrust:
         response = client.project.with_raw_response.create(name="name")
 
         assert response.retries_taken == failures_before_success
+        assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 class TestAsyncBraintrust:
     client = AsyncBraintrust(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
@@ -1341,3 +1342,4 @@ class TestAsyncBraintrust:
         response = await client.project.with_raw_response.create(name="name")
 
         assert response.retries_taken == failures_before_success
+        assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
