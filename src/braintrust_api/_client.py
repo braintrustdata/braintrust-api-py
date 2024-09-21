@@ -21,14 +21,13 @@ from . import _exceptions
 import os
 import asyncio
 import warnings
-from typing import Optional, Union, Dict, Any, Mapping, overload, cast
+from typing import TYPE_CHECKING, Optional, Union, Dict, Any, Mapping, overload, cast
 from typing_extensions import Literal
 
 import httpx
 
 from ._version import __version__
 from ._qs import Querystring
-from .types import shared_params
 from ._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, maybe_coerce_integer, maybe_coerce_float, maybe_coerce_boolean, is_given
 from ._types import Omit, NotGiven, Timeout, Transport, ProxiesTypes, RequestOptions, Headers, NoneType, Query, Body, NOT_GIVEN
 from ._base_client import (

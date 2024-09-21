@@ -10,13 +10,14 @@ from datetime import datetime
 
 from .._utils import PropertyInfo
 
-from ..types import shared_params
+from .shared_params.view_options import ViewOptions
+
+from .shared_params.view_data import ViewData
 
 from typing import List, Union, Dict, Optional
 from typing_extensions import Literal, TypedDict, Required, Annotated
 from .._types import FileTypes
 from .._utils import PropertyInfo
-from ..types import shared_params
 
 __all__ = ["ViewCreateParams"]
 
@@ -36,11 +37,11 @@ class ViewCreateParams(TypedDict, total=False):
     deleted_at: Annotated[Union[str, datetime, None], PropertyInfo(format = "iso8601")]
     """Date of role deletion, or null if the role is still active"""
 
-    options: Optional[shared_params.ViewOptions]
+    options: Optional[ViewOptions]
     """Options for the view in the app"""
 
     user_id: Optional[str]
     """Identifies the user who created the view"""
 
-    view_data: Optional[shared_params.ViewData]
+    view_data: Optional[ViewData]
     """The view definition"""

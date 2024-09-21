@@ -56,45 +56,45 @@ class TestFunction:
             description="description",
             function_type="task",
             origin={
-                "object_type": "organization",
                 "object_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "object_type": "organization",
                 "internal": True,
             },
             prompt_data={
-                "prompt": {
-                    "type": "completion",
-                    "content": "content",
-                },
                 "options": {
                     "model": "model",
                     "params": {
-                        "use_cache": True,
-                        "temperature": 0,
-                        "top_p": 0,
-                        "max_tokens": 0,
                         "frequency_penalty": 0,
+                        "function_call": "auto",
+                        "max_tokens": 0,
+                        "n": 0,
                         "presence_penalty": 0,
                         "response_format": {
                             "type": "json_object"
                         },
-                        "tool_choice": "auto",
-                        "function_call": "auto",
-                        "n": 0,
                         "stop": ["string", "string", "string"],
+                        "temperature": 0,
+                        "tool_choice": "auto",
+                        "top_p": 0,
+                        "use_cache": True,
                     },
                     "position": "position",
                 },
+                "origin": {
+                    "project_id": "project_id",
+                    "prompt_id": "prompt_id",
+                    "prompt_version": "prompt_version",
+                },
                 "parser": {
-                    "type": "llm_classifier",
-                    "use_cot": True,
                     "choice_scores": {
                         "foo": 0
                     },
+                    "type": "llm_classifier",
+                    "use_cot": True,
                 },
-                "origin": {
-                    "prompt_id": "prompt_id",
-                    "project_id": "project_id",
-                    "prompt_version": "prompt_version",
+                "prompt": {
+                    "content": "content",
+                    "type": "completion",
                 },
             },
             tags=["string", "string", "string"],
@@ -192,40 +192,40 @@ class TestFunction:
             },
             name="name",
             prompt_data={
-                "prompt": {
-                    "type": "completion",
-                    "content": "content",
-                },
                 "options": {
                     "model": "model",
                     "params": {
-                        "use_cache": True,
-                        "temperature": 0,
-                        "top_p": 0,
-                        "max_tokens": 0,
                         "frequency_penalty": 0,
+                        "function_call": "auto",
+                        "max_tokens": 0,
+                        "n": 0,
                         "presence_penalty": 0,
                         "response_format": {
                             "type": "json_object"
                         },
-                        "tool_choice": "auto",
-                        "function_call": "auto",
-                        "n": 0,
                         "stop": ["string", "string", "string"],
+                        "temperature": 0,
+                        "tool_choice": "auto",
+                        "top_p": 0,
+                        "use_cache": True,
                     },
                     "position": "position",
                 },
+                "origin": {
+                    "project_id": "project_id",
+                    "prompt_id": "prompt_id",
+                    "prompt_version": "prompt_version",
+                },
                 "parser": {
-                    "type": "llm_classifier",
-                    "use_cot": True,
                     "choice_scores": {
                         "foo": 0
                     },
+                    "type": "llm_classifier",
+                    "use_cot": True,
                 },
-                "origin": {
-                    "prompt_id": "prompt_id",
-                    "project_id": "project_id",
-                    "prompt_version": "prompt_version",
+                "prompt": {
+                    "content": "content",
+                    "type": "completion",
                 },
             },
             tags=["string", "string", "string"],
@@ -369,45 +369,45 @@ class TestFunction:
             description="description",
             function_type="task",
             origin={
-                "object_type": "organization",
                 "object_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "object_type": "organization",
                 "internal": True,
             },
             prompt_data={
-                "prompt": {
-                    "type": "completion",
-                    "content": "content",
-                },
                 "options": {
                     "model": "model",
                     "params": {
-                        "use_cache": True,
-                        "temperature": 0,
-                        "top_p": 0,
-                        "max_tokens": 0,
                         "frequency_penalty": 0,
+                        "function_call": "auto",
+                        "max_tokens": 0,
+                        "n": 0,
                         "presence_penalty": 0,
                         "response_format": {
                             "type": "json_object"
                         },
-                        "tool_choice": "auto",
-                        "function_call": "auto",
-                        "n": 0,
                         "stop": ["string", "string", "string"],
+                        "temperature": 0,
+                        "tool_choice": "auto",
+                        "top_p": 0,
+                        "use_cache": True,
                     },
                     "position": "position",
                 },
+                "origin": {
+                    "project_id": "project_id",
+                    "prompt_id": "prompt_id",
+                    "prompt_version": "prompt_version",
+                },
                 "parser": {
-                    "type": "llm_classifier",
-                    "use_cot": True,
                     "choice_scores": {
                         "foo": 0
                     },
+                    "type": "llm_classifier",
+                    "use_cot": True,
                 },
-                "origin": {
-                    "prompt_id": "prompt_id",
-                    "project_id": "project_id",
-                    "prompt_version": "prompt_version",
+                "prompt": {
+                    "content": "content",
+                    "type": "completion",
                 },
             },
             tags=["string", "string", "string"],
@@ -476,45 +476,45 @@ class TestAsyncFunction:
             description="description",
             function_type="task",
             origin={
-                "object_type": "organization",
                 "object_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "object_type": "organization",
                 "internal": True,
             },
             prompt_data={
-                "prompt": {
-                    "type": "completion",
-                    "content": "content",
-                },
                 "options": {
                     "model": "model",
                     "params": {
-                        "use_cache": True,
-                        "temperature": 0,
-                        "top_p": 0,
-                        "max_tokens": 0,
                         "frequency_penalty": 0,
+                        "function_call": "auto",
+                        "max_tokens": 0,
+                        "n": 0,
                         "presence_penalty": 0,
                         "response_format": {
                             "type": "json_object"
                         },
-                        "tool_choice": "auto",
-                        "function_call": "auto",
-                        "n": 0,
                         "stop": ["string", "string", "string"],
+                        "temperature": 0,
+                        "tool_choice": "auto",
+                        "top_p": 0,
+                        "use_cache": True,
                     },
                     "position": "position",
                 },
+                "origin": {
+                    "project_id": "project_id",
+                    "prompt_id": "prompt_id",
+                    "prompt_version": "prompt_version",
+                },
                 "parser": {
-                    "type": "llm_classifier",
-                    "use_cot": True,
                     "choice_scores": {
                         "foo": 0
                     },
+                    "type": "llm_classifier",
+                    "use_cot": True,
                 },
-                "origin": {
-                    "prompt_id": "prompt_id",
-                    "project_id": "project_id",
-                    "prompt_version": "prompt_version",
+                "prompt": {
+                    "content": "content",
+                    "type": "completion",
                 },
             },
             tags=["string", "string", "string"],
@@ -612,40 +612,40 @@ class TestAsyncFunction:
             },
             name="name",
             prompt_data={
-                "prompt": {
-                    "type": "completion",
-                    "content": "content",
-                },
                 "options": {
                     "model": "model",
                     "params": {
-                        "use_cache": True,
-                        "temperature": 0,
-                        "top_p": 0,
-                        "max_tokens": 0,
                         "frequency_penalty": 0,
+                        "function_call": "auto",
+                        "max_tokens": 0,
+                        "n": 0,
                         "presence_penalty": 0,
                         "response_format": {
                             "type": "json_object"
                         },
-                        "tool_choice": "auto",
-                        "function_call": "auto",
-                        "n": 0,
                         "stop": ["string", "string", "string"],
+                        "temperature": 0,
+                        "tool_choice": "auto",
+                        "top_p": 0,
+                        "use_cache": True,
                     },
                     "position": "position",
                 },
+                "origin": {
+                    "project_id": "project_id",
+                    "prompt_id": "prompt_id",
+                    "prompt_version": "prompt_version",
+                },
                 "parser": {
-                    "type": "llm_classifier",
-                    "use_cot": True,
                     "choice_scores": {
                         "foo": 0
                     },
+                    "type": "llm_classifier",
+                    "use_cot": True,
                 },
-                "origin": {
-                    "prompt_id": "prompt_id",
-                    "project_id": "project_id",
-                    "prompt_version": "prompt_version",
+                "prompt": {
+                    "content": "content",
+                    "type": "completion",
                 },
             },
             tags=["string", "string", "string"],
@@ -789,45 +789,45 @@ class TestAsyncFunction:
             description="description",
             function_type="task",
             origin={
-                "object_type": "organization",
                 "object_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "object_type": "organization",
                 "internal": True,
             },
             prompt_data={
-                "prompt": {
-                    "type": "completion",
-                    "content": "content",
-                },
                 "options": {
                     "model": "model",
                     "params": {
-                        "use_cache": True,
-                        "temperature": 0,
-                        "top_p": 0,
-                        "max_tokens": 0,
                         "frequency_penalty": 0,
+                        "function_call": "auto",
+                        "max_tokens": 0,
+                        "n": 0,
                         "presence_penalty": 0,
                         "response_format": {
                             "type": "json_object"
                         },
-                        "tool_choice": "auto",
-                        "function_call": "auto",
-                        "n": 0,
                         "stop": ["string", "string", "string"],
+                        "temperature": 0,
+                        "tool_choice": "auto",
+                        "top_p": 0,
+                        "use_cache": True,
                     },
                     "position": "position",
                 },
+                "origin": {
+                    "project_id": "project_id",
+                    "prompt_id": "prompt_id",
+                    "prompt_version": "prompt_version",
+                },
                 "parser": {
-                    "type": "llm_classifier",
-                    "use_cot": True,
                     "choice_scores": {
                         "foo": 0
                     },
+                    "type": "llm_classifier",
+                    "use_cot": True,
                 },
-                "origin": {
-                    "prompt_id": "prompt_id",
-                    "project_id": "project_id",
-                    "prompt_version": "prompt_version",
+                "prompt": {
+                    "content": "content",
+                    "type": "completion",
                 },
             },
             tags=["string", "string", "string"],

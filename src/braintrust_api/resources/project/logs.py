@@ -14,13 +14,15 @@ from ..._base_client import make_request_options
 
 from typing import Iterable, Optional
 
+from ...types.shared_params.feedback_project_logs_item import FeedbackProjectLogsItem
+
 from ...types.shared.fetch_project_logs_events_response import FetchProjectLogsEventsResponse
+
+from ...types.shared_params.path_lookup_filter import PathLookupFilter
 
 from ...types.shared.insert_events_response import InsertEventsResponse
 
 from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from ...types import shared_params
 
 from ...types.project import log_insert_params
 
@@ -41,16 +43,27 @@ __all__ = ["LogsResource", "AsyncLogsResource"]
 class LogsResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> LogsResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
+        """
         return LogsResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> LogsResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#with_streaming_response
+        """
         return LogsResourceWithStreamingResponse(self)
 
     def feedback(self,
     project_id: str,
     *,
-    feedback: Iterable[shared_params.FeedbackProjectLogsItem],
+    feedback: Iterable[FeedbackProjectLogsItem],
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
     # The extra values given here take precedence over values defined on the client or passed to this method.
     extra_headers: Headers | None = None,
@@ -177,7 +190,7 @@ class LogsResource(SyncAPIResource):
     project_id: str,
     *,
     cursor: Optional[str] | NotGiven = NOT_GIVEN,
-    filters: Optional[Iterable[shared_params.PathLookupFilter]] | NotGiven = NOT_GIVEN,
+    filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
     limit: Optional[int] | NotGiven = NOT_GIVEN,
     max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
     max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -320,16 +333,27 @@ class LogsResource(SyncAPIResource):
 class AsyncLogsResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncLogsResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
+        """
         return AsyncLogsResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncLogsResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#with_streaming_response
+        """
         return AsyncLogsResourceWithStreamingResponse(self)
 
     async def feedback(self,
     project_id: str,
     *,
-    feedback: Iterable[shared_params.FeedbackProjectLogsItem],
+    feedback: Iterable[FeedbackProjectLogsItem],
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
     # The extra values given here take precedence over values defined on the client or passed to this method.
     extra_headers: Headers | None = None,
@@ -456,7 +480,7 @@ class AsyncLogsResource(AsyncAPIResource):
     project_id: str,
     *,
     cursor: Optional[str] | NotGiven = NOT_GIVEN,
-    filters: Optional[Iterable[shared_params.PathLookupFilter]] | NotGiven = NOT_GIVEN,
+    filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
     limit: Optional[int] | NotGiven = NOT_GIVEN,
     max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
     max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,

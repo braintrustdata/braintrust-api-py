@@ -6,13 +6,12 @@ from typing_extensions import TypedDict, Required
 
 from typing import Optional, Dict
 
-from ..types import shared_params
+from .shared_params.repo_info import RepoInfo
 
 from typing import List, Union, Dict, Optional
 from typing_extensions import Literal, TypedDict, Required, Annotated
 from .._types import FileTypes
 from .._utils import PropertyInfo
-from ..types import shared_params
 
 __all__ = ["ExperimentCreateParams"]
 
@@ -59,5 +58,5 @@ class ExperimentCreateParams(TypedDict, total=False):
     Public experiments can be viewed by anybody inside or outside the organization
     """
 
-    repo_info: Optional[shared_params.RepoInfo]
+    repo_info: Optional[RepoInfo]
     """Metadata about the state of the repo when the experiment was created"""
