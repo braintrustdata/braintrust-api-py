@@ -2,13 +2,19 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
 from typing_extensions import TypedDict
+
+from typing import Optional, List
 
 from ..types import shared_params
 
-__all__ = ["PromptUpdateParams"]
+from typing import List, Union, Dict, Optional
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from .._types import FileTypes
+from .._utils import PropertyInfo
+from ..types import shared_params
 
+__all__ = ["PromptUpdateParams"]
 
 class PromptUpdateParams(TypedDict, total=False):
     description: Optional[str]
@@ -19,6 +25,9 @@ class PromptUpdateParams(TypedDict, total=False):
 
     prompt_data: Optional[shared_params.PromptData]
     """The prompt, model, and its parameters"""
+
+    slug: Optional[str]
+    """Unique identifier for the prompt"""
 
     tags: Optional[List[str]]
     """A list of tags for the prompt"""

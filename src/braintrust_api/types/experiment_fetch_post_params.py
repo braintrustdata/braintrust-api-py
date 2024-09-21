@@ -2,13 +2,19 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
 from typing_extensions import TypedDict
+
+from typing import Optional, Iterable
 
 from ..types import shared_params
 
-__all__ = ["ExperimentFetchPostParams"]
+from typing import List, Union, Dict, Optional
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from .._types import FileTypes
+from .._utils import PropertyInfo
+from ..types import shared_params
 
+__all__ = ["ExperimentFetchPostParams"]
 
 class ExperimentFetchPostParams(TypedDict, total=False):
     cursor: Optional[str]
@@ -21,10 +27,13 @@ class ExperimentFetchPostParams(TypedDict, total=False):
     """
 
     filters: Optional[Iterable[shared_params.PathLookupFilter]]
-    """A list of filters on the events to fetch.
+    """NOTE: This parameter is deprecated and will be removed in a future revision.
 
-    Currently, only path-lookup type filters are supported, but we may add more in
-    the future
+    Consider using the `/btql` endpoint
+    (https://www.braintrust.dev/docs/reference/btql) for more advanced filtering.
+
+    A list of filters on the events to fetch. Currently, only path-lookup type
+    filters are supported.
     """
 
     limit: Optional[int]

@@ -2,13 +2,19 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
-from typing_extensions import Required, TypedDict
+from typing_extensions import TypedDict, Required, Literal
+
+from typing import Optional, List
 
 from ..types import shared_params
 
-__all__ = ["PromptReplaceParams"]
+from typing import List, Union, Dict, Optional
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from .._types import FileTypes
+from .._utils import PropertyInfo
+from ..types import shared_params
 
+__all__ = ["PromptReplaceParams"]
 
 class PromptReplaceParams(TypedDict, total=False):
     name: Required[str]
@@ -22,6 +28,8 @@ class PromptReplaceParams(TypedDict, total=False):
 
     description: Optional[str]
     """Textual description of the prompt"""
+
+    function_type: Optional[Literal["task", "llm", "scorer"]]
 
     prompt_data: Optional[shared_params.PromptData]
     """The prompt, model, and its parameters"""
