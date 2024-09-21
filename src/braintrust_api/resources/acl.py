@@ -35,10 +35,21 @@ __all__ = ["ACLResource", "AsyncACLResource"]
 class ACLResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> ACLResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
+        """
         return ACLResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> ACLResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#with_streaming_response
+        """
         return ACLResourceWithStreamingResponse(self)
 
     def create(self,
@@ -236,10 +247,21 @@ class ACLResource(SyncAPIResource):
 class AsyncACLResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncACLResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
+        """
         return AsyncACLResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncACLResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#with_streaming_response
+        """
         return AsyncACLResourceWithStreamingResponse(self)
 
     async def create(self,

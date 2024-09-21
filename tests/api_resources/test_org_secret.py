@@ -41,7 +41,7 @@ class TestOrgSecret:
         org_secret = client.org_secret.create(
             name="name",
             metadata={
-                "foo": {}
+                "foo": "bar"
             },
             org_name="org_name",
             secret="secret",
@@ -125,7 +125,7 @@ class TestOrgSecret:
         org_secret = client.org_secret.update(
             org_secret_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             metadata={
-                "foo": {}
+                "foo": "bar"
             },
             name="name",
             secret="secret",
@@ -255,7 +255,7 @@ class TestOrgSecret:
         org_secret = client.org_secret.replace(
             name="name",
             metadata={
-                "foo": {}
+                "foo": "bar"
             },
             org_name="org_name",
             secret="secret",
@@ -303,7 +303,7 @@ class TestAsyncOrgSecret:
         org_secret = await async_client.org_secret.create(
             name="name",
             metadata={
-                "foo": {}
+                "foo": "bar"
             },
             org_name="org_name",
             secret="secret",
@@ -387,7 +387,7 @@ class TestAsyncOrgSecret:
         org_secret = await async_client.org_secret.update(
             org_secret_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             metadata={
-                "foo": {}
+                "foo": "bar"
             },
             name="name",
             secret="secret",
@@ -517,7 +517,7 @@ class TestAsyncOrgSecret:
         org_secret = await async_client.org_secret.replace(
             name="name",
             metadata={
-                "foo": {}
+                "foo": "bar"
             },
             org_name="org_name",
             secret="secret",

@@ -157,16 +157,16 @@ class TestLogs:
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             cursor="cursor",
             filters=[{
-                "type": "path_lookup",
                 "path": ["string", "string", "string"],
+                "type": "path_lookup",
                 "value": {},
             }, {
-                "type": "path_lookup",
                 "path": ["string", "string", "string"],
+                "type": "path_lookup",
                 "value": {},
             }, {
-                "type": "path_lookup",
                 "path": ["string", "string", "string"],
+                "type": "path_lookup",
                 "value": {},
             }],
             limit=0,
@@ -384,16 +384,16 @@ class TestAsyncLogs:
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             cursor="cursor",
             filters=[{
-                "type": "path_lookup",
                 "path": ["string", "string", "string"],
+                "type": "path_lookup",
                 "value": {},
             }, {
-                "type": "path_lookup",
                 "path": ["string", "string", "string"],
+                "type": "path_lookup",
                 "value": {},
             }, {
-                "type": "path_lookup",
                 "path": ["string", "string", "string"],
+                "type": "path_lookup",
                 "value": {},
             }],
             limit=0,

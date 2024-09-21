@@ -35,10 +35,21 @@ __all__ = ["APIKeyResourceResource", "AsyncAPIKeyResourceResource"]
 class APIKeyResourceResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> APIKeyResourceResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
+        """
         return APIKeyResourceResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> APIKeyResourceResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#with_streaming_response
+        """
         return APIKeyResourceResourceWithStreamingResponse(self)
 
     def create(self,
@@ -213,10 +224,21 @@ class APIKeyResourceResource(SyncAPIResource):
 class AsyncAPIKeyResourceResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncAPIKeyResourceResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
+        """
         return AsyncAPIKeyResourceResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncAPIKeyResourceResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#with_streaming_response
+        """
         return AsyncAPIKeyResourceResourceWithStreamingResponse(self)
 
     async def create(self,

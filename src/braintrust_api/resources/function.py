@@ -16,11 +16,13 @@ from typing import Optional, List, Union
 
 from typing_extensions import Literal
 
+from ..types.shared_params.prompt_data import PromptData
+
 from ..pagination import SyncListObjects, AsyncListObjects
 
 from .._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
 
-from ..types import function_create_params, shared_params, function_update_params, function_replace_params
+from ..types import function_create_params, function_update_params, function_replace_params
 
 import warnings
 from typing import TYPE_CHECKING, Optional, Union, List, Dict, Any, Mapping, cast, overload
@@ -42,10 +44,21 @@ __all__ = ["FunctionResource", "AsyncFunctionResource"]
 class FunctionResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> FunctionResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
+        """
         return FunctionResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> FunctionResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#with_streaming_response
+        """
         return FunctionResourceWithStreamingResponse(self)
 
     def create(self,
@@ -57,7 +70,7 @@ class FunctionResource(SyncAPIResource):
     description: Optional[str] | NotGiven = NOT_GIVEN,
     function_type: Optional[Literal["task", "llm", "scorer"]] | NotGiven = NOT_GIVEN,
     origin: Optional[function_create_params.Origin] | NotGiven = NOT_GIVEN,
-    prompt_data: Optional[shared_params.PromptData] | NotGiven = NOT_GIVEN,
+    prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
     tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
     # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -148,7 +161,7 @@ class FunctionResource(SyncAPIResource):
     description: Optional[str] | NotGiven = NOT_GIVEN,
     function_data: function_update_params.FunctionData | NotGiven = NOT_GIVEN,
     name: Optional[str] | NotGiven = NOT_GIVEN,
-    prompt_data: Optional[shared_params.PromptData] | NotGiven = NOT_GIVEN,
+    prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
     tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
     # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -322,7 +335,7 @@ class FunctionResource(SyncAPIResource):
     description: Optional[str] | NotGiven = NOT_GIVEN,
     function_type: Optional[Literal["task", "llm", "scorer"]] | NotGiven = NOT_GIVEN,
     origin: Optional[function_replace_params.Origin] | NotGiven = NOT_GIVEN,
-    prompt_data: Optional[shared_params.PromptData] | NotGiven = NOT_GIVEN,
+    prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
     tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
     # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -377,10 +390,21 @@ class FunctionResource(SyncAPIResource):
 class AsyncFunctionResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncFunctionResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
+        """
         return AsyncFunctionResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncFunctionResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#with_streaming_response
+        """
         return AsyncFunctionResourceWithStreamingResponse(self)
 
     async def create(self,
@@ -392,7 +416,7 @@ class AsyncFunctionResource(AsyncAPIResource):
     description: Optional[str] | NotGiven = NOT_GIVEN,
     function_type: Optional[Literal["task", "llm", "scorer"]] | NotGiven = NOT_GIVEN,
     origin: Optional[function_create_params.Origin] | NotGiven = NOT_GIVEN,
-    prompt_data: Optional[shared_params.PromptData] | NotGiven = NOT_GIVEN,
+    prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
     tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
     # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -483,7 +507,7 @@ class AsyncFunctionResource(AsyncAPIResource):
     description: Optional[str] | NotGiven = NOT_GIVEN,
     function_data: function_update_params.FunctionData | NotGiven = NOT_GIVEN,
     name: Optional[str] | NotGiven = NOT_GIVEN,
-    prompt_data: Optional[shared_params.PromptData] | NotGiven = NOT_GIVEN,
+    prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
     tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
     # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -657,7 +681,7 @@ class AsyncFunctionResource(AsyncAPIResource):
     description: Optional[str] | NotGiven = NOT_GIVEN,
     function_type: Optional[Literal["task", "llm", "scorer"]] | NotGiven = NOT_GIVEN,
     origin: Optional[function_replace_params.Origin] | NotGiven = NOT_GIVEN,
-    prompt_data: Optional[shared_params.PromptData] | NotGiven = NOT_GIVEN,
+    prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
     tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
     # The extra values given here take precedence over values defined on the client or passed to this method.

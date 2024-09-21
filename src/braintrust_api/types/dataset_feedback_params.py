@@ -6,16 +6,15 @@ from typing_extensions import TypedDict, Required
 
 from typing import Iterable
 
-from ..types import shared_params
+from .shared_params.feedback_dataset_item import FeedbackDatasetItem
 
 from typing import List, Union, Dict, Optional
 from typing_extensions import Literal, TypedDict, Required, Annotated
 from .._types import FileTypes
 from .._utils import PropertyInfo
-from ..types import shared_params
 
 __all__ = ["DatasetFeedbackParams"]
 
 class DatasetFeedbackParams(TypedDict, total=False):
-    feedback: Required[Iterable[shared_params.FeedbackDatasetItem]]
+    feedback: Required[Iterable[FeedbackDatasetItem]]
     """A list of dataset feedback items"""
