@@ -43,10 +43,21 @@ class ProjectResource(SyncAPIResource):
 
     @cached_property
     def with_raw_response(self) -> ProjectResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
+        """
         return ProjectResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> ProjectResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#with_streaming_response
+        """
         return ProjectResourceWithStreamingResponse(self)
 
     def create(self,
@@ -272,10 +283,21 @@ class AsyncProjectResource(AsyncAPIResource):
 
     @cached_property
     def with_raw_response(self) -> AsyncProjectResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
+        """
         return AsyncProjectResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncProjectResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#with_streaming_response
+        """
         return AsyncProjectResourceWithStreamingResponse(self)
 
     async def create(self,

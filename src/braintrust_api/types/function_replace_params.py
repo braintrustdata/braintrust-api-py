@@ -6,13 +6,12 @@ from typing_extensions import TypedDict, Required, Literal, TypeAlias
 
 from typing import Optional, List, Union
 
-from ..types import shared_params
+from .shared_params.prompt_data import PromptData
 
 from typing import List, Union, Dict, Optional
 from typing_extensions import Literal, TypedDict, Required, Annotated
 from .._types import FileTypes
 from .._utils import PropertyInfo
-from ..types import shared_params
 
 __all__ = ["FunctionReplaceParams", "FunctionData", "FunctionDataPrompt", "FunctionDataCode", "FunctionDataCodeData", "FunctionDataCodeDataBundle", "FunctionDataCodeDataBundleLocation", "FunctionDataCodeDataBundleLocationPosition", "FunctionDataCodeDataBundleLocationPositionType", "FunctionDataCodeDataBundleLocationPositionScorer", "FunctionDataCodeDataBundleRuntimeContext", "FunctionDataCodeDataInline", "FunctionDataCodeDataInlineRuntimeContext", "FunctionDataGlobal", "Origin"]
 
@@ -35,7 +34,7 @@ class FunctionReplaceParams(TypedDict, total=False):
 
     origin: Optional[Origin]
 
-    prompt_data: Optional[shared_params.PromptData]
+    prompt_data: Optional[PromptData]
     """The prompt, model, and its parameters"""
 
     tags: Optional[List[str]]

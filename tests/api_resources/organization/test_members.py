@@ -33,19 +33,19 @@ class TestMembers:
     def test_method_update_with_all_params(self, client: Braintrust) -> None:
         member = client.organization.members.update(
             invite_users={
-                "ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                 "emails": ["string", "string", "string"],
-                "send_invite_emails": True,
-                "group_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
-                "group_names": ["string", "string", "string"],
                 "group_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "group_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                 "group_name": "group_name",
+                "group_names": ["string", "string", "string"],
+                "ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                "send_invite_emails": True,
             },
             org_id="org_id",
             org_name="org_name",
             remove_users={
-                "ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                 "emails": ["string", "string", "string"],
+                "ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             },
         )
         assert_matches_type(MemberUpdateResponse, member, path=['response'])
@@ -83,19 +83,19 @@ class TestAsyncMembers:
     async def test_method_update_with_all_params(self, async_client: AsyncBraintrust) -> None:
         member = await async_client.organization.members.update(
             invite_users={
-                "ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                 "emails": ["string", "string", "string"],
-                "send_invite_emails": True,
-                "group_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
-                "group_names": ["string", "string", "string"],
                 "group_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "group_ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                 "group_name": "group_name",
+                "group_names": ["string", "string", "string"],
+                "ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+                "send_invite_emails": True,
             },
             org_id="org_id",
             org_name="org_name",
             remove_users={
-                "ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
                 "emails": ["string", "string", "string"],
+                "ids": ["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e", "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             },
         )
         assert_matches_type(MemberUpdateResponse, member, path=['response'])

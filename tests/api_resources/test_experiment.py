@@ -52,20 +52,20 @@ class TestExperiment:
             description="description",
             ensure_new=True,
             metadata={
-                "foo": {}
+                "foo": "bar"
             },
             name="name",
             public=True,
             repo_info={
-                "commit": "commit",
-                "branch": "branch",
-                "tag": "tag",
-                "dirty": True,
-                "author_name": "author_name",
                 "author_email": "author_email",
+                "author_name": "author_name",
+                "branch": "branch",
+                "commit": "commit",
                 "commit_message": "commit_message",
                 "commit_time": "commit_time",
+                "dirty": True,
                 "git_diff": "git_diff",
+                "tag": "tag",
             },
         )
         assert_matches_type(Experiment, experiment, path=['response'])
@@ -150,20 +150,20 @@ class TestExperiment:
             dataset_version="dataset_version",
             description="description",
             metadata={
-                "foo": {}
+                "foo": "bar"
             },
             name="name",
             public=True,
             repo_info={
-                "commit": "commit",
-                "branch": "branch",
-                "tag": "tag",
-                "dirty": True,
-                "author_name": "author_name",
                 "author_email": "author_email",
+                "author_name": "author_name",
+                "branch": "branch",
+                "commit": "commit",
                 "commit_message": "commit_message",
                 "commit_time": "commit_time",
+                "dirty": True,
                 "git_diff": "git_diff",
+                "tag": "tag",
             },
         )
         assert_matches_type(Experiment, experiment, path=['response'])
@@ -409,16 +409,16 @@ class TestExperiment:
             experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             cursor="cursor",
             filters=[{
-                "type": "path_lookup",
                 "path": ["string", "string", "string"],
+                "type": "path_lookup",
                 "value": {},
             }, {
-                "type": "path_lookup",
                 "path": ["string", "string", "string"],
+                "type": "path_lookup",
                 "value": {},
             }, {
-                "type": "path_lookup",
                 "path": ["string", "string", "string"],
+                "type": "path_lookup",
                 "value": {},
             }],
             limit=0,
@@ -571,20 +571,20 @@ class TestAsyncExperiment:
             description="description",
             ensure_new=True,
             metadata={
-                "foo": {}
+                "foo": "bar"
             },
             name="name",
             public=True,
             repo_info={
-                "commit": "commit",
-                "branch": "branch",
-                "tag": "tag",
-                "dirty": True,
-                "author_name": "author_name",
                 "author_email": "author_email",
+                "author_name": "author_name",
+                "branch": "branch",
+                "commit": "commit",
                 "commit_message": "commit_message",
                 "commit_time": "commit_time",
+                "dirty": True,
                 "git_diff": "git_diff",
+                "tag": "tag",
             },
         )
         assert_matches_type(Experiment, experiment, path=['response'])
@@ -669,20 +669,20 @@ class TestAsyncExperiment:
             dataset_version="dataset_version",
             description="description",
             metadata={
-                "foo": {}
+                "foo": "bar"
             },
             name="name",
             public=True,
             repo_info={
-                "commit": "commit",
-                "branch": "branch",
-                "tag": "tag",
-                "dirty": True,
-                "author_name": "author_name",
                 "author_email": "author_email",
+                "author_name": "author_name",
+                "branch": "branch",
+                "commit": "commit",
                 "commit_message": "commit_message",
                 "commit_time": "commit_time",
+                "dirty": True,
                 "git_diff": "git_diff",
+                "tag": "tag",
             },
         )
         assert_matches_type(Experiment, experiment, path=['response'])
@@ -928,16 +928,16 @@ class TestAsyncExperiment:
             experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             cursor="cursor",
             filters=[{
-                "type": "path_lookup",
                 "path": ["string", "string", "string"],
+                "type": "path_lookup",
                 "value": {},
             }, {
-                "type": "path_lookup",
                 "path": ["string", "string", "string"],
+                "type": "path_lookup",
                 "value": {},
             }, {
-                "type": "path_lookup",
                 "path": ["string", "string", "string"],
+                "type": "path_lookup",
                 "value": {},
             }],
             limit=0,

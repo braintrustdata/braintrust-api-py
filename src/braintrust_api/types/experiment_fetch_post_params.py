@@ -6,13 +6,12 @@ from typing_extensions import TypedDict
 
 from typing import Optional, Iterable
 
-from ..types import shared_params
+from .shared_params.path_lookup_filter import PathLookupFilter
 
 from typing import List, Union, Dict, Optional
 from typing_extensions import Literal, TypedDict, Required, Annotated
 from .._types import FileTypes
 from .._utils import PropertyInfo
-from ..types import shared_params
 
 __all__ = ["ExperimentFetchPostParams"]
 
@@ -26,7 +25,7 @@ class ExperimentFetchPostParams(TypedDict, total=False):
     fetch query
     """
 
-    filters: Optional[Iterable[shared_params.PathLookupFilter]]
+    filters: Optional[Iterable[PathLookupFilter]]
     """NOTE: This parameter is deprecated and will be removed in a future revision.
 
     Consider using the `/btql` endpoint

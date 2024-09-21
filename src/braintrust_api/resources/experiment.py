@@ -14,11 +14,17 @@ from .._base_client import make_request_options, AsyncPaginator
 
 from typing import Optional, Dict, Union, List, Iterable
 
+from ..types.shared_params.repo_info import RepoInfo
+
 from ..pagination import SyncListObjects, AsyncListObjects
 
 from ..types.shared.feedback_response_schema import FeedbackResponseSchema
 
+from ..types.shared_params.feedback_experiment_item import FeedbackExperimentItem
+
 from ..types.shared.fetch_experiment_events_response import FetchExperimentEventsResponse
+
+from ..types.shared_params.path_lookup_filter import PathLookupFilter
 
 from ..types.shared.insert_events_response import InsertEventsResponse
 
@@ -26,7 +32,7 @@ from ..types.shared.summarize_experiment_response import SummarizeExperimentResp
 
 from .._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
 
-from ..types import shared_params, experiment_insert_params
+from ..types import experiment_insert_params
 
 import warnings
 from typing import TYPE_CHECKING, Optional, Union, List, Dict, Any, Mapping, cast, overload
@@ -51,10 +57,21 @@ __all__ = ["ExperimentResource", "AsyncExperimentResource"]
 class ExperimentResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> ExperimentResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
+        """
         return ExperimentResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> ExperimentResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#with_streaming_response
+        """
         return ExperimentResourceWithStreamingResponse(self)
 
     def create(self,
@@ -68,7 +85,7 @@ class ExperimentResource(SyncAPIResource):
     metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
     name: Optional[str] | NotGiven = NOT_GIVEN,
     public: Optional[bool] | NotGiven = NOT_GIVEN,
-    repo_info: Optional[shared_params.RepoInfo] | NotGiven = NOT_GIVEN,
+    repo_info: Optional[RepoInfo] | NotGiven = NOT_GIVEN,
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
     # The extra values given here take precedence over values defined on the client or passed to this method.
     extra_headers: Headers | None = None,
@@ -177,7 +194,7 @@ class ExperimentResource(SyncAPIResource):
     metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
     name: Optional[str] | NotGiven = NOT_GIVEN,
     public: Optional[bool] | NotGiven = NOT_GIVEN,
-    repo_info: Optional[shared_params.RepoInfo] | NotGiven = NOT_GIVEN,
+    repo_info: Optional[RepoInfo] | NotGiven = NOT_GIVEN,
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
     # The extra values given here take precedence over values defined on the client or passed to this method.
     extra_headers: Headers | None = None,
@@ -347,7 +364,7 @@ class ExperimentResource(SyncAPIResource):
     def feedback(self,
     experiment_id: str,
     *,
-    feedback: Iterable[shared_params.FeedbackExperimentItem],
+    feedback: Iterable[FeedbackExperimentItem],
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
     # The extra values given here take precedence over values defined on the client or passed to this method.
     extra_headers: Headers | None = None,
@@ -474,7 +491,7 @@ class ExperimentResource(SyncAPIResource):
     experiment_id: str,
     *,
     cursor: Optional[str] | NotGiven = NOT_GIVEN,
-    filters: Optional[Iterable[shared_params.PathLookupFilter]] | NotGiven = NOT_GIVEN,
+    filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
     limit: Optional[int] | NotGiven = NOT_GIVEN,
     max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
     max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -663,10 +680,21 @@ class ExperimentResource(SyncAPIResource):
 class AsyncExperimentResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncExperimentResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
+        """
         return AsyncExperimentResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncExperimentResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#with_streaming_response
+        """
         return AsyncExperimentResourceWithStreamingResponse(self)
 
     async def create(self,
@@ -680,7 +708,7 @@ class AsyncExperimentResource(AsyncAPIResource):
     metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
     name: Optional[str] | NotGiven = NOT_GIVEN,
     public: Optional[bool] | NotGiven = NOT_GIVEN,
-    repo_info: Optional[shared_params.RepoInfo] | NotGiven = NOT_GIVEN,
+    repo_info: Optional[RepoInfo] | NotGiven = NOT_GIVEN,
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
     # The extra values given here take precedence over values defined on the client or passed to this method.
     extra_headers: Headers | None = None,
@@ -789,7 +817,7 @@ class AsyncExperimentResource(AsyncAPIResource):
     metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
     name: Optional[str] | NotGiven = NOT_GIVEN,
     public: Optional[bool] | NotGiven = NOT_GIVEN,
-    repo_info: Optional[shared_params.RepoInfo] | NotGiven = NOT_GIVEN,
+    repo_info: Optional[RepoInfo] | NotGiven = NOT_GIVEN,
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
     # The extra values given here take precedence over values defined on the client or passed to this method.
     extra_headers: Headers | None = None,
@@ -959,7 +987,7 @@ class AsyncExperimentResource(AsyncAPIResource):
     async def feedback(self,
     experiment_id: str,
     *,
-    feedback: Iterable[shared_params.FeedbackExperimentItem],
+    feedback: Iterable[FeedbackExperimentItem],
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
     # The extra values given here take precedence over values defined on the client or passed to this method.
     extra_headers: Headers | None = None,
@@ -1086,7 +1114,7 @@ class AsyncExperimentResource(AsyncAPIResource):
     experiment_id: str,
     *,
     cursor: Optional[str] | NotGiven = NOT_GIVEN,
-    filters: Optional[Iterable[shared_params.PathLookupFilter]] | NotGiven = NOT_GIVEN,
+    filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
     limit: Optional[int] | NotGiven = NOT_GIVEN,
     max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
     max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,

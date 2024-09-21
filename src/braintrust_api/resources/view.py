@@ -18,11 +18,13 @@ from typing_extensions import Literal
 
 from datetime import datetime
 
+from ..types.shared_params.view_options import ViewOptions
+
+from ..types.shared_params.view_data import ViewData
+
 from ..pagination import SyncListObjects, AsyncListObjects
 
 from .._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from ..types import shared_params
 
 import warnings
 from typing import TYPE_CHECKING, Optional, Union, List, Dict, Any, Mapping, cast, overload
@@ -49,10 +51,21 @@ __all__ = ["ViewResource", "AsyncViewResource"]
 class ViewResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> ViewResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
+        """
         return ViewResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> ViewResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#with_streaming_response
+        """
         return ViewResourceWithStreamingResponse(self)
 
     def create(self,
@@ -62,9 +75,9 @@ class ViewResource(SyncAPIResource):
     object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]],
     view_type: Optional[Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]],
     deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-    options: Optional[shared_params.ViewOptions] | NotGiven = NOT_GIVEN,
+    options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
     user_id: Optional[str] | NotGiven = NOT_GIVEN,
-    view_data: Optional[shared_params.ViewData] | NotGiven = NOT_GIVEN,
+    view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
     # The extra values given here take precedence over values defined on the client or passed to this method.
     extra_headers: Headers | None = None,
@@ -165,9 +178,9 @@ class ViewResource(SyncAPIResource):
     object_id: str,
     object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]],
     name: Optional[str] | NotGiven = NOT_GIVEN,
-    options: Optional[shared_params.ViewOptions] | NotGiven = NOT_GIVEN,
+    options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
     user_id: Optional[str] | NotGiven = NOT_GIVEN,
-    view_data: Optional[shared_params.ViewData] | NotGiven = NOT_GIVEN,
+    view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
     view_type: Optional[Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]] | NotGiven = NOT_GIVEN,
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
     # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -346,9 +359,9 @@ class ViewResource(SyncAPIResource):
     object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]],
     view_type: Optional[Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]],
     deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-    options: Optional[shared_params.ViewOptions] | NotGiven = NOT_GIVEN,
+    options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
     user_id: Optional[str] | NotGiven = NOT_GIVEN,
-    view_data: Optional[shared_params.ViewData] | NotGiven = NOT_GIVEN,
+    view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
     # The extra values given here take precedence over values defined on the client or passed to this method.
     extra_headers: Headers | None = None,
@@ -405,10 +418,21 @@ class ViewResource(SyncAPIResource):
 class AsyncViewResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncViewResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
+        """
         return AsyncViewResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncViewResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#with_streaming_response
+        """
         return AsyncViewResourceWithStreamingResponse(self)
 
     async def create(self,
@@ -418,9 +442,9 @@ class AsyncViewResource(AsyncAPIResource):
     object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]],
     view_type: Optional[Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]],
     deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-    options: Optional[shared_params.ViewOptions] | NotGiven = NOT_GIVEN,
+    options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
     user_id: Optional[str] | NotGiven = NOT_GIVEN,
-    view_data: Optional[shared_params.ViewData] | NotGiven = NOT_GIVEN,
+    view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
     # The extra values given here take precedence over values defined on the client or passed to this method.
     extra_headers: Headers | None = None,
@@ -521,9 +545,9 @@ class AsyncViewResource(AsyncAPIResource):
     object_id: str,
     object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]],
     name: Optional[str] | NotGiven = NOT_GIVEN,
-    options: Optional[shared_params.ViewOptions] | NotGiven = NOT_GIVEN,
+    options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
     user_id: Optional[str] | NotGiven = NOT_GIVEN,
-    view_data: Optional[shared_params.ViewData] | NotGiven = NOT_GIVEN,
+    view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
     view_type: Optional[Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]] | NotGiven = NOT_GIVEN,
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
     # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -702,9 +726,9 @@ class AsyncViewResource(AsyncAPIResource):
     object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]],
     view_type: Optional[Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]],
     deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-    options: Optional[shared_params.ViewOptions] | NotGiven = NOT_GIVEN,
+    options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
     user_id: Optional[str] | NotGiven = NOT_GIVEN,
-    view_data: Optional[shared_params.ViewData] | NotGiven = NOT_GIVEN,
+    view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
     # The extra values given here take precedence over values defined on the client or passed to this method.
     extra_headers: Headers | None = None,

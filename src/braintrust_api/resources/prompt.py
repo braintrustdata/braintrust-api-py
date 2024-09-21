@@ -16,11 +16,11 @@ from typing import Optional, List, Union
 
 from typing_extensions import Literal
 
+from ..types.shared_params.prompt_data import PromptData
+
 from ..pagination import SyncListObjects, AsyncListObjects
 
 from .._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from ..types import shared_params
 
 import warnings
 from typing import TYPE_CHECKING, Optional, Union, List, Dict, Any, Mapping, cast, overload
@@ -42,10 +42,21 @@ __all__ = ["PromptResource", "AsyncPromptResource"]
 class PromptResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> PromptResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
+        """
         return PromptResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> PromptResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#with_streaming_response
+        """
         return PromptResourceWithStreamingResponse(self)
 
     def create(self,
@@ -55,7 +66,7 @@ class PromptResource(SyncAPIResource):
     slug: str,
     description: Optional[str] | NotGiven = NOT_GIVEN,
     function_type: Optional[Literal["task", "llm", "scorer"]] | NotGiven = NOT_GIVEN,
-    prompt_data: Optional[shared_params.PromptData] | NotGiven = NOT_GIVEN,
+    prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
     tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
     # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -143,7 +154,7 @@ class PromptResource(SyncAPIResource):
     *,
     description: Optional[str] | NotGiven = NOT_GIVEN,
     name: Optional[str] | NotGiven = NOT_GIVEN,
-    prompt_data: Optional[shared_params.PromptData] | NotGiven = NOT_GIVEN,
+    prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
     slug: Optional[str] | NotGiven = NOT_GIVEN,
     tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -318,7 +329,7 @@ class PromptResource(SyncAPIResource):
     slug: str,
     description: Optional[str] | NotGiven = NOT_GIVEN,
     function_type: Optional[Literal["task", "llm", "scorer"]] | NotGiven = NOT_GIVEN,
-    prompt_data: Optional[shared_params.PromptData] | NotGiven = NOT_GIVEN,
+    prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
     tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
     # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -371,10 +382,21 @@ class PromptResource(SyncAPIResource):
 class AsyncPromptResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncPromptResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
+        """
         return AsyncPromptResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncPromptResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#with_streaming_response
+        """
         return AsyncPromptResourceWithStreamingResponse(self)
 
     async def create(self,
@@ -384,7 +406,7 @@ class AsyncPromptResource(AsyncAPIResource):
     slug: str,
     description: Optional[str] | NotGiven = NOT_GIVEN,
     function_type: Optional[Literal["task", "llm", "scorer"]] | NotGiven = NOT_GIVEN,
-    prompt_data: Optional[shared_params.PromptData] | NotGiven = NOT_GIVEN,
+    prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
     tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
     # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -472,7 +494,7 @@ class AsyncPromptResource(AsyncAPIResource):
     *,
     description: Optional[str] | NotGiven = NOT_GIVEN,
     name: Optional[str] | NotGiven = NOT_GIVEN,
-    prompt_data: Optional[shared_params.PromptData] | NotGiven = NOT_GIVEN,
+    prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
     slug: Optional[str] | NotGiven = NOT_GIVEN,
     tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -647,7 +669,7 @@ class AsyncPromptResource(AsyncAPIResource):
     slug: str,
     description: Optional[str] | NotGiven = NOT_GIVEN,
     function_type: Optional[Literal["task", "llm", "scorer"]] | NotGiven = NOT_GIVEN,
-    prompt_data: Optional[shared_params.PromptData] | NotGiven = NOT_GIVEN,
+    prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
     tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
     # The extra values given here take precedence over values defined on the client or passed to this method.

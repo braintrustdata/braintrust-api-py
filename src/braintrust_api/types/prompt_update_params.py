@@ -6,13 +6,12 @@ from typing_extensions import TypedDict
 
 from typing import Optional, List
 
-from ..types import shared_params
+from .shared_params.prompt_data import PromptData
 
 from typing import List, Union, Dict, Optional
 from typing_extensions import Literal, TypedDict, Required, Annotated
 from .._types import FileTypes
 from .._utils import PropertyInfo
-from ..types import shared_params
 
 __all__ = ["PromptUpdateParams"]
 
@@ -23,7 +22,7 @@ class PromptUpdateParams(TypedDict, total=False):
     name: Optional[str]
     """Name of the prompt"""
 
-    prompt_data: Optional[shared_params.PromptData]
+    prompt_data: Optional[PromptData]
     """The prompt, model, and its parameters"""
 
     slug: Optional[str]

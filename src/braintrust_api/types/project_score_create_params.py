@@ -6,13 +6,12 @@ from typing_extensions import TypedDict, Required, Literal, TypeAlias
 
 from typing import Optional, Iterable, Dict, List, Union
 
-from ..types import shared_params
+from .shared_params.project_score_category import ProjectScoreCategory
 
 from typing import List, Union, Dict, Optional
 from typing_extensions import Literal, TypedDict, Required, Annotated
 from .._types import FileTypes
 from .._utils import PropertyInfo
-from ..types import shared_params
 
 __all__ = ["ProjectScoreCreateParams", "Categories", "CategoriesNullableVariant"]
 
@@ -35,4 +34,4 @@ class ProjectScoreCreateParams(TypedDict, total=False):
 class CategoriesNullableVariant(TypedDict, total=False):
     pass
 
-Categories: TypeAlias = Union[Iterable[shared_params.ProjectScoreCategory], Dict[str, float], List[str], Optional[CategoriesNullableVariant]]
+Categories: TypeAlias = Union[Iterable[ProjectScoreCategory], Dict[str, float], List[str], Optional[CategoriesNullableVariant]]
