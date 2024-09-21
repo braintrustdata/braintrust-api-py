@@ -6,16 +6,15 @@ from typing_extensions import TypedDict, Required
 
 from typing import Iterable
 
-from ..types import shared_params
+from .shared_params.feedback_experiment_item import FeedbackExperimentItem
 
 from typing import List, Union, Dict, Optional
 from typing_extensions import Literal, TypedDict, Required, Annotated
 from .._types import FileTypes
 from .._utils import PropertyInfo
-from ..types import shared_params
 
 __all__ = ["ExperimentFeedbackParams"]
 
 class ExperimentFeedbackParams(TypedDict, total=False):
-    feedback: Required[Iterable[shared_params.FeedbackExperimentItem]]
+    feedback: Required[Iterable[FeedbackExperimentItem]]
     """A list of experiment feedback items"""

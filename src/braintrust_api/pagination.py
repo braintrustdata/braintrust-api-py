@@ -36,7 +36,7 @@ class SyncListObjects(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
 
     @override
     def next_page_info(self) -> Optional[PageInfo]:
-        is_forwards = not self._options.params.get('ending_before', False)
+        is_forwards = not self._options.params.get("ending_before", False)
 
         objects = self.objects
         if not objects:
@@ -74,7 +74,7 @@ class AsyncListObjects(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
 
     @override
     def next_page_info(self) -> Optional[PageInfo]:
-        is_forwards = not self._options.params.get('ending_before', False)
+        is_forwards = not self._options.params.get("ending_before", False)
 
         objects = self.objects
         if not objects:

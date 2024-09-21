@@ -18,7 +18,11 @@ from ..pagination import SyncListObjects, AsyncListObjects
 
 from ..types.shared.feedback_response_schema import FeedbackResponseSchema
 
+from ..types.shared_params.feedback_dataset_item import FeedbackDatasetItem
+
 from ..types.shared.fetch_dataset_events_response import FetchDatasetEventsResponse
+
+from ..types.shared_params.path_lookup_filter import PathLookupFilter
 
 from ..types.shared.insert_events_response import InsertEventsResponse
 
@@ -26,7 +30,7 @@ from ..types.shared.summarize_dataset_response import SummarizeDatasetResponse
 
 from .._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
 
-from ..types import shared_params, dataset_insert_params
+from ..types import dataset_insert_params
 
 import warnings
 from typing import TYPE_CHECKING, Optional, Union, List, Dict, Any, Mapping, cast, overload
@@ -49,10 +53,21 @@ __all__ = ["DatasetResource", "AsyncDatasetResource"]
 class DatasetResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> DatasetResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
+        """
         return DatasetResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> DatasetResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#with_streaming_response
+        """
         return DatasetResourceWithStreamingResponse(self)
 
     def create(self,
@@ -288,7 +303,7 @@ class DatasetResource(SyncAPIResource):
     def feedback(self,
     dataset_id: str,
     *,
-    feedback: Iterable[shared_params.FeedbackDatasetItem],
+    feedback: Iterable[FeedbackDatasetItem],
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
     # The extra values given here take precedence over values defined on the client or passed to this method.
     extra_headers: Headers | None = None,
@@ -415,7 +430,7 @@ class DatasetResource(SyncAPIResource):
     dataset_id: str,
     *,
     cursor: Optional[str] | NotGiven = NOT_GIVEN,
-    filters: Optional[Iterable[shared_params.PathLookupFilter]] | NotGiven = NOT_GIVEN,
+    filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
     limit: Optional[int] | NotGiven = NOT_GIVEN,
     max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
     max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -597,10 +612,21 @@ class DatasetResource(SyncAPIResource):
 class AsyncDatasetResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncDatasetResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
+        """
         return AsyncDatasetResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncDatasetResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#with_streaming_response
+        """
         return AsyncDatasetResourceWithStreamingResponse(self)
 
     async def create(self,
@@ -836,7 +862,7 @@ class AsyncDatasetResource(AsyncAPIResource):
     async def feedback(self,
     dataset_id: str,
     *,
-    feedback: Iterable[shared_params.FeedbackDatasetItem],
+    feedback: Iterable[FeedbackDatasetItem],
     # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
     # The extra values given here take precedence over values defined on the client or passed to this method.
     extra_headers: Headers | None = None,
@@ -963,7 +989,7 @@ class AsyncDatasetResource(AsyncAPIResource):
     dataset_id: str,
     *,
     cursor: Optional[str] | NotGiven = NOT_GIVEN,
-    filters: Optional[Iterable[shared_params.PathLookupFilter]] | NotGiven = NOT_GIVEN,
+    filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
     limit: Optional[int] | NotGiven = NOT_GIVEN,
     max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
     max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,

@@ -126,7 +126,7 @@ class TestDataset:
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             description="description",
             metadata={
-                "foo": {}
+                "foo": "bar"
             },
             name="name",
         )
@@ -373,16 +373,16 @@ class TestDataset:
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             cursor="cursor",
             filters=[{
-                "type": "path_lookup",
                 "path": ["string", "string", "string"],
+                "type": "path_lookup",
                 "value": {},
             }, {
-                "type": "path_lookup",
                 "path": ["string", "string", "string"],
+                "type": "path_lookup",
                 "value": {},
             }, {
-                "type": "path_lookup",
                 "path": ["string", "string", "string"],
+                "type": "path_lookup",
                 "value": {},
             }],
             limit=0,
@@ -610,7 +610,7 @@ class TestAsyncDataset:
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             description="description",
             metadata={
-                "foo": {}
+                "foo": "bar"
             },
             name="name",
         )
@@ -857,16 +857,16 @@ class TestAsyncDataset:
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             cursor="cursor",
             filters=[{
-                "type": "path_lookup",
                 "path": ["string", "string", "string"],
+                "type": "path_lookup",
                 "value": {},
             }, {
-                "type": "path_lookup",
                 "path": ["string", "string", "string"],
+                "type": "path_lookup",
                 "value": {},
             }, {
-                "type": "path_lookup",
                 "path": ["string", "string", "string"],
+                "type": "path_lookup",
                 "value": {},
             }],
             limit=0,

@@ -35,10 +35,21 @@ __all__ = ["OrgSecretResource", "AsyncOrgSecretResource"]
 class OrgSecretResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> OrgSecretResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
+        """
         return OrgSecretResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> OrgSecretResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#with_streaming_response
+        """
         return OrgSecretResourceWithStreamingResponse(self)
 
     def create(self,
@@ -323,10 +334,21 @@ class OrgSecretResource(SyncAPIResource):
 class AsyncOrgSecretResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncOrgSecretResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return the
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
+        """
         return AsyncOrgSecretResourceWithRawResponse(self)
 
     @cached_property
     def with_streaming_response(self) -> AsyncOrgSecretResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/braintrustdata/braintrust-api-py#with_streaming_response
+        """
         return AsyncOrgSecretResourceWithStreamingResponse(self)
 
     async def create(self,
