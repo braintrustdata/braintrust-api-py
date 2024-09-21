@@ -2,33 +2,23 @@
 
 from __future__ import annotations
 
+from typing_extensions import TypedDict, Required, Literal
+
 from typing import Optional
-from typing_extensions import Literal, Required, TypedDict
+
+from typing import List, Union, Dict, Optional
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from .._types import FileTypes
+from .._utils import PropertyInfo
+from ..types import shared_params
 
 __all__ = ["ACLCreateParams"]
-
 
 class ACLCreateParams(TypedDict, total=False):
     object_id: Required[str]
     """The id of the object the ACL applies to"""
 
-    object_type: Required[
-        Optional[
-            Literal[
-                "organization",
-                "project",
-                "experiment",
-                "dataset",
-                "prompt",
-                "prompt_session",
-                "group",
-                "role",
-                "org_member",
-                "project_log",
-                "org_project",
-            ]
-        ]
-    ]
+    object_type: Required[Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]]]
     """The object type that the ACL applies to"""
 
     group_id: Optional[str]
@@ -37,29 +27,13 @@ class ACLCreateParams(TypedDict, total=False):
     Exactly one of `user_id` and `group_id` will be provided
     """
 
-    permission: Optional[
-        Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
-    ]
+    permission: Optional[Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]]
     """Permission the ACL grants.
 
     Exactly one of `permission` and `role_id` will be provided
     """
 
-    restrict_object_type: Optional[
-        Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ]
-    ]
+    restrict_object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]]
     """
     When setting a permission directly, optionally restricts the permission grant to
     just the specified object type. Cannot be set alongside a `role_id`.

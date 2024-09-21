@@ -1,7 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
+from ..._models import BaseModel
+
+from typing import Optional, List, Dict
+
 from datetime import datetime
+
+from typing import Optional, Union, List, Dict, Any
+from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
@@ -9,9 +15,8 @@ from ..._models import BaseModel
 
 __all__ = ["InsertDatasetEventMerge"]
 
-
 class InsertDatasetEventMerge(BaseModel):
-    is_merge: bool = FieldInfo(alias="_is_merge")
+    is_merge: bool = FieldInfo(alias = "_is_merge")
     """
     The `_is_merge` field controls how the row is merged with any existing row with
     the same id in the DB. By default (or when set to `false`), the existing row is
@@ -32,7 +37,7 @@ class InsertDatasetEventMerge(BaseModel):
     If you don't provide one, BrainTrust will generate one for you
     """
 
-    merge_paths: Optional[List[List[str]]] = FieldInfo(alias="_merge_paths", default=None)
+    merge_paths: Optional[List[List[str]]] = FieldInfo(alias = "_merge_paths", default = None)
     """The `_merge_paths` field allows controlling the depth of the merge.
 
     It can only be specified alongside `_is_merge=true`. `_merge_paths` is a list of
@@ -49,7 +54,7 @@ class InsertDatasetEventMerge(BaseModel):
     but have still deep-merged `input` and `input.c`.
     """
 
-    object_delete: Optional[bool] = FieldInfo(alias="_object_delete", default=None)
+    object_delete: Optional[bool] = FieldInfo(alias = "_object_delete", default = None)
     """Pass `_object_delete=true` to mark the dataset event deleted.
 
     Deleted events will not show up in subsequent fetches for this dataset

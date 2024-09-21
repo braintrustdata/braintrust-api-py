@@ -32,7 +32,7 @@ client = Braintrust(
     api_key=os.environ.get("BRAINTRUST_API_KEY"),
 )
 
-project = client.projects.create(
+project = client.project.create(
     name="foobar",
 )
 print(project.id)
@@ -57,13 +57,11 @@ client = AsyncBraintrust(
     api_key=os.environ.get("BRAINTRUST_API_KEY"),
 )
 
-
 async def main() -> None:
-    project = await client.projects.create(
-        name="foobar",
-    )
-    print(project.id)
-
+  project = await client.project.create(
+      name="foobar",
+  )
+  print(project.id)
 
 asyncio.run(main())
 ```
@@ -92,7 +90,7 @@ client = Braintrust()
 
 all_projects = []
 # Automatically fetches more pages as needed.
-for project in client.projects.list():
+for project in client.project.list():
     # Do something with project here
     all_projects.append(project)
 print(all_projects)
@@ -106,14 +104,12 @@ from braintrust_api import AsyncBraintrust
 
 client = AsyncBraintrust()
 
-
 async def main() -> None:
     all_projects = []
     # Iterate through items across all pages, issuing requests as needed.
-    async for project in client.projects.list():
+    async for project in client.project.list():
         all_projects.append(project)
     print(all_projects)
-
 
 asyncio.run(main())
 ```
@@ -121,7 +117,7 @@ asyncio.run(main())
 Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get_next_page()` methods for more granular control working with pages:
 
 ```python
-first_page = await client.projects.list()
+first_page = await client.project.list()
 if first_page.has_next_page():
     print(f"will fetch next page using these details: {first_page.next_page_info()}")
     next_page = await first_page.get_next_page()
@@ -133,9 +129,9 @@ if first_page.has_next_page():
 Or just work directly with the returned data:
 
 ```python
-first_page = await client.projects.list()
+first_page = await client.project.list()
 
-print(f"next page cursor: {first_page.starting_after}")  # => "next page cursor: ..."
+print(f"next page cursor: {first_page.starting_after}") # => "next page cursor: ..."
 for project in first_page.objects:
     print(project.id)
 
@@ -158,12 +154,12 @@ from braintrust_api import Braintrust
 client = Braintrust()
 
 try:
-    client.projects.create(
+    client.project.create(
         name="foobar",
     )
 except braintrust_api.APIConnectionError as e:
     print("The server could not be reached")
-    print(e.__cause__)  # an underlying Exception, likely raised within httpx.
+    print(e.__cause__) # an underlying Exception, likely raised within httpx.
 except braintrust_api.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
 except braintrust_api.APIStatusError as e:
@@ -203,7 +199,7 @@ client = Braintrust(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).projects.create(
+client.with_options(max_retries = 5).project.create(
     name="foobar",
 )
 ```
@@ -228,7 +224,7 @@ client = Braintrust(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).projects.create(
+client.with_options(timeout = 5.0).project.create(
     name="foobar",
 )
 ```
@@ -269,12 +265,12 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from braintrust_api import Braintrust
 
 client = Braintrust()
-response = client.projects.with_raw_response.create(
+response = client.project.with_raw_response.create(
     name="foobar",
 )
 print(response.headers.get('X-My-Header'))
 
-project = response.parse()  # get the object that `projects.create()` would have returned
+project = response.parse()  # get the object that `project.create()` would have returned
 print(project.id)
 ```
 
@@ -289,13 +285,13 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.projects.with_streaming_response.create(
+with client.project.with_streaming_response.create(
     name="foobar",
-) as response:
-    print(response.headers.get("X-My-Header"))
+) as response :
+    print(response.headers.get('X-My-Header'))
 
     for line in response.iter_lines():
-        print(line)
+      print(line)
 ```
 
 The context manager is required so that the response will reliably be closed.
@@ -349,10 +345,7 @@ from braintrust_api import Braintrust, DefaultHttpxClient
 client = Braintrust(
     # Or use the `BRAINTRUST_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
-    http_client=DefaultHttpxClient(
-        proxies="http://my.test.proxy.example.com",
-        transport=httpx.HTTPTransport(local_address="0.0.0.0"),
-    ),
+    http_client=DefaultHttpxClient(proxies="http://my.test.proxy.example.com", transport=httpx.HTTPTransport(local_address="0.0.0.0")),
 )
 ```
 

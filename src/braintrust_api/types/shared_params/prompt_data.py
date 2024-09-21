@@ -2,75 +2,31 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
-from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+from typing import Optional, List, Union, Dict, Iterable
+
+from typing_extensions import TypedDict, Required, Literal, TypeAlias, Annotated
 
 from ..._utils import PropertyInfo
 
-__all__ = [
-    "PromptData",
-    "Options",
-    "OptionsParams",
-    "OptionsParamsOpenAIModelParams",
-    "OptionsParamsOpenAIModelParamsFunctionCall",
-    "OptionsParamsOpenAIModelParamsFunctionCallFunction",
-    "OptionsParamsOpenAIModelParamsResponseFormat",
-    "OptionsParamsOpenAIModelParamsToolChoice",
-    "OptionsParamsOpenAIModelParamsToolChoiceFunction",
-    "OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction",
-    "OptionsParamsAnthropicModelParams",
-    "OptionsParamsGoogleModelParams",
-    "OptionsParamsWindowAIModelParams",
-    "OptionsParamsJsCompletionParams",
-    "Origin",
-    "Prompt",
-    "PromptCompletion",
-    "PromptChat",
-    "PromptChatMessage",
-    "PromptChatMessageSystem",
-    "PromptChatMessageUser",
-    "PromptChatMessageUserContentArray",
-    "PromptChatMessageUserContentArrayText",
-    "PromptChatMessageUserContentArrayImageURL",
-    "PromptChatMessageUserContentArrayImageURLImageURL",
-    "PromptChatMessageAssistant",
-    "PromptChatMessageAssistantFunctionCall",
-    "PromptChatMessageAssistantToolCall",
-    "PromptChatMessageAssistantToolCallFunction",
-    "PromptChatMessageTool",
-    "PromptChatMessageFunction",
-    "PromptChatMessageFallback",
-    "PromptNullableVariant",
-]
-
+__all__ = ["PromptData", "Options", "OptionsParams", "OptionsParamsOpenAIModelParams", "OptionsParamsOpenAIModelParamsFunctionCall", "OptionsParamsOpenAIModelParamsFunctionCallFunction", "OptionsParamsOpenAIModelParamsResponseFormat", "OptionsParamsOpenAIModelParamsToolChoice", "OptionsParamsOpenAIModelParamsToolChoiceFunction", "OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction", "OptionsParamsAnthropicModelParams", "OptionsParamsGoogleModelParams", "OptionsParamsWindowAIModelParams", "OptionsParamsJsCompletionParams", "Origin", "Parser", "Prompt", "PromptCompletion", "PromptChat", "PromptChatMessage", "PromptChatMessageSystem", "PromptChatMessageUser", "PromptChatMessageUserContentArray", "PromptChatMessageUserContentArrayText", "PromptChatMessageUserContentArrayImageURL", "PromptChatMessageUserContentArrayImageURLImageURL", "PromptChatMessageAssistant", "PromptChatMessageAssistantFunctionCall", "PromptChatMessageAssistantToolCall", "PromptChatMessageAssistantToolCallFunction", "PromptChatMessageTool", "PromptChatMessageFunction", "PromptChatMessageFallback", "PromptNullableVariant"]
 
 class OptionsParamsOpenAIModelParamsFunctionCallFunction(TypedDict, total=False):
     name: Required[str]
 
-
-OptionsParamsOpenAIModelParamsFunctionCall: TypeAlias = Union[
-    Literal["auto"], Literal["none"], OptionsParamsOpenAIModelParamsFunctionCallFunction
-]
-
+OptionsParamsOpenAIModelParamsFunctionCall: TypeAlias = Union[Literal["auto"], Literal["none"], OptionsParamsOpenAIModelParamsFunctionCallFunction]
 
 class OptionsParamsOpenAIModelParamsResponseFormat(TypedDict, total=False):
     type: Required[Literal["json_object"]]
 
-
 class OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction(TypedDict, total=False):
     name: Required[str]
-
 
 class OptionsParamsOpenAIModelParamsToolChoiceFunction(TypedDict, total=False):
     function: Required[OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction]
 
     type: Required[Literal["function"]]
 
-
-OptionsParamsOpenAIModelParamsToolChoice: TypeAlias = Union[
-    Literal["auto"], Literal["none"], OptionsParamsOpenAIModelParamsToolChoiceFunction
-]
-
+OptionsParamsOpenAIModelParamsToolChoice: TypeAlias = Union[Literal["auto"], Literal["none"], OptionsParamsOpenAIModelParamsToolChoiceFunction]
 
 class OptionsParamsOpenAIModelParams(TypedDict, total=False):
     frequency_penalty: float
@@ -95,7 +51,6 @@ class OptionsParamsOpenAIModelParams(TypedDict, total=False):
 
     use_cache: bool
 
-
 class OptionsParamsAnthropicModelParams(TypedDict, total=False):
     max_tokens: Required[float]
 
@@ -112,7 +67,6 @@ class OptionsParamsAnthropicModelParams(TypedDict, total=False):
 
     use_cache: bool
 
-
 class OptionsParamsGoogleModelParams(TypedDict, total=False):
     max_output_tokens: Annotated[float, PropertyInfo(alias="maxOutputTokens")]
 
@@ -124,7 +78,6 @@ class OptionsParamsGoogleModelParams(TypedDict, total=False):
 
     use_cache: bool
 
-
 class OptionsParamsWindowAIModelParams(TypedDict, total=False):
     temperature: float
 
@@ -132,19 +85,10 @@ class OptionsParamsWindowAIModelParams(TypedDict, total=False):
 
     use_cache: bool
 
-
 class OptionsParamsJsCompletionParams(TypedDict, total=False):
     use_cache: bool
 
-
-OptionsParams: TypeAlias = Union[
-    OptionsParamsOpenAIModelParams,
-    OptionsParamsAnthropicModelParams,
-    OptionsParamsGoogleModelParams,
-    OptionsParamsWindowAIModelParams,
-    OptionsParamsJsCompletionParams,
-]
-
+OptionsParams: TypeAlias = Union[OptionsParamsOpenAIModelParams, OptionsParamsAnthropicModelParams, OptionsParamsGoogleModelParams, OptionsParamsWindowAIModelParams, OptionsParamsJsCompletionParams]
 
 class Options(TypedDict, total=False):
     model: str
@@ -153,7 +97,6 @@ class Options(TypedDict, total=False):
 
     position: str
 
-
 class Origin(TypedDict, total=False):
     project_id: str
 
@@ -161,12 +104,17 @@ class Origin(TypedDict, total=False):
 
     prompt_version: str
 
+class Parser(TypedDict, total=False):
+    choice_scores: Required[Dict[str, float]]
+
+    type: Required[Literal["llm_classifier"]]
+
+    use_cot: Required[bool]
 
 class PromptCompletion(TypedDict, total=False):
     content: Required[str]
 
     type: Required[Literal["completion"]]
-
 
 class PromptChatMessageSystem(TypedDict, total=False):
     role: Required[Literal["system"]]
@@ -175,29 +123,22 @@ class PromptChatMessageSystem(TypedDict, total=False):
 
     name: str
 
-
 class PromptChatMessageUserContentArrayText(TypedDict, total=False):
     type: Required[Literal["text"]]
 
     text: str
-
 
 class PromptChatMessageUserContentArrayImageURLImageURL(TypedDict, total=False):
     url: Required[str]
 
     detail: Literal["auto", "low", "high"]
 
-
 class PromptChatMessageUserContentArrayImageURL(TypedDict, total=False):
     image_url: Required[PromptChatMessageUserContentArrayImageURLImageURL]
 
     type: Required[Literal["image_url"]]
 
-
-PromptChatMessageUserContentArray: TypeAlias = Union[
-    PromptChatMessageUserContentArrayText, PromptChatMessageUserContentArrayImageURL
-]
-
+PromptChatMessageUserContentArray: TypeAlias = Union[PromptChatMessageUserContentArrayText, PromptChatMessageUserContentArrayImageURL]
 
 class PromptChatMessageUser(TypedDict, total=False):
     role: Required[Literal["user"]]
@@ -206,18 +147,15 @@ class PromptChatMessageUser(TypedDict, total=False):
 
     name: str
 
-
 class PromptChatMessageAssistantFunctionCall(TypedDict, total=False):
     arguments: Required[str]
 
     name: Required[str]
 
-
 class PromptChatMessageAssistantToolCallFunction(TypedDict, total=False):
     arguments: Required[str]
 
     name: Required[str]
-
 
 class PromptChatMessageAssistantToolCall(TypedDict, total=False):
     id: Required[str]
@@ -225,7 +163,6 @@ class PromptChatMessageAssistantToolCall(TypedDict, total=False):
     function: Required[PromptChatMessageAssistantToolCallFunction]
 
     type: Required[Literal["function"]]
-
 
 class PromptChatMessageAssistant(TypedDict, total=False):
     role: Required[Literal["assistant"]]
@@ -238,14 +175,12 @@ class PromptChatMessageAssistant(TypedDict, total=False):
 
     tool_calls: Optional[Iterable[PromptChatMessageAssistantToolCall]]
 
-
 class PromptChatMessageTool(TypedDict, total=False):
     role: Required[Literal["tool"]]
 
     content: str
 
     tool_call_id: str
-
 
 class PromptChatMessageFunction(TypedDict, total=False):
     name: Required[str]
@@ -254,22 +189,12 @@ class PromptChatMessageFunction(TypedDict, total=False):
 
     content: str
 
-
 class PromptChatMessageFallback(TypedDict, total=False):
     role: Required[Literal["model"]]
 
     content: Optional[str]
 
-
-PromptChatMessage: TypeAlias = Union[
-    PromptChatMessageSystem,
-    PromptChatMessageUser,
-    PromptChatMessageAssistant,
-    PromptChatMessageTool,
-    PromptChatMessageFunction,
-    PromptChatMessageFallback,
-]
-
+PromptChatMessage: TypeAlias = Union[PromptChatMessageSystem, PromptChatMessageUser, PromptChatMessageAssistant, PromptChatMessageTool, PromptChatMessageFunction, PromptChatMessageFallback]
 
 class PromptChat(TypedDict, total=False):
     messages: Required[Iterable[PromptChatMessage]]
@@ -278,17 +203,16 @@ class PromptChat(TypedDict, total=False):
 
     tools: str
 
-
 class PromptNullableVariant(TypedDict, total=False):
     pass
 
-
 Prompt: TypeAlias = Union[PromptCompletion, PromptChat, Optional[PromptNullableVariant]]
-
 
 class PromptData(TypedDict, total=False):
     options: Optional[Options]
 
     origin: Optional[Origin]
+
+    parser: Optional[Parser]
 
     prompt: Prompt

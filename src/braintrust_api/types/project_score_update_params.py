@@ -2,13 +2,19 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
-from typing_extensions import Literal, TypeAlias, TypedDict
+from typing_extensions import TypedDict, Literal, TypeAlias
+
+from typing import Optional, Iterable, Dict, List, Union
 
 from ..types import shared_params
 
-__all__ = ["ProjectScoreUpdateParams", "Categories", "CategoriesNullableVariant"]
+from typing import List, Union, Dict, Optional
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from .._types import FileTypes
+from .._utils import PropertyInfo
+from ..types import shared_params
 
+__all__ = ["ProjectScoreUpdateParams", "Categories", "CategoriesNullableVariant"]
 
 class ProjectScoreUpdateParams(TypedDict, total=False):
     categories: Categories
@@ -20,14 +26,10 @@ class ProjectScoreUpdateParams(TypedDict, total=False):
     name: Optional[str]
     """Name of the project score"""
 
-    score_type: Optional[Literal["slider", "categorical", "weighted", "minimum"]]
+    score_type: Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]]
     """The type of the configured score"""
-
 
 class CategoriesNullableVariant(TypedDict, total=False):
     pass
 
-
-Categories: TypeAlias = Union[
-    Iterable[shared_params.ProjectScoreCategory], Dict[str, float], List[str], Optional[CategoriesNullableVariant]
-]
+Categories: TypeAlias = Union[Iterable[shared_params.ProjectScoreCategory], Dict[str, float], List[str], Optional[CategoriesNullableVariant]]

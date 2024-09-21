@@ -2,11 +2,17 @@
 
 from __future__ import annotations
 
-from typing import Optional
 from typing_extensions import TypedDict
 
-__all__ = ["ProjectUpdateParams", "Settings"]
+from typing import Optional
 
+from typing import List, Union, Dict, Optional
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from .._types import FileTypes
+from .._utils import PropertyInfo
+from ..types import shared_params
+
+__all__ = ["ProjectUpdateParams", "Settings"]
 
 class ProjectUpdateParams(TypedDict, total=False):
     name: Optional[str]
@@ -18,7 +24,6 @@ class ProjectUpdateParams(TypedDict, total=False):
     Patch operations replace all settings, so make sure you include all settings you
     want to keep.
     """
-
 
 class Settings(TypedDict, total=False):
     comparison_key: Optional[str]
