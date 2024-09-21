@@ -1,13 +1,21 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Optional
+from ..._models import BaseModel
+
+from typing import Optional, Dict
+
 from datetime import datetime
 
-from ..._models import BaseModel
 from .repo_info import RepoInfo
 
-__all__ = ["Experiment"]
+from typing import Optional, Union, List, Dict, Any
+from typing_extensions import Literal
 
+from pydantic import Field as FieldInfo
+
+from ..._models import BaseModel
+
+__all__ = ["Experiment"]
 
 class Experiment(BaseModel):
     id: str

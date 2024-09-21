@@ -1,81 +1,105 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union, Optional
-from datetime import datetime
+from ..._models import BaseModel
+
 from typing_extensions import Literal, TypeAlias
+
+from typing import Optional, Dict, List
+
+from datetime import datetime
+
+from .prompt_data import PromptData
+
+from typing import Optional, Union, List, Dict, Any
+from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
-from .prompt_data import PromptData
 
-__all__ = [
-    "Function",
-    "FunctionData",
-    "FunctionDataPrompt",
-    "FunctionDataCode",
-    "FunctionDataCodeData",
-    "FunctionDataCodeDataLocation",
-    "FunctionDataCodeDataLocationPosition",
-    "FunctionDataCodeDataLocationPositionScore",
-    "FunctionDataCodeDataRuntimeContext",
-    "FunctionDataGlobal",
-]
-
+__all__ = ["Function", "FunctionData", "FunctionDataPrompt", "FunctionDataCode", "FunctionDataCodeData", "FunctionDataCodeDataBundle", "FunctionDataCodeDataBundleLocation", "FunctionDataCodeDataBundleLocationPosition", "FunctionDataCodeDataBundleLocationPositionType", "FunctionDataCodeDataBundleLocationPositionScorer", "FunctionDataCodeDataBundleRuntimeContext", "FunctionDataCodeDataInline", "FunctionDataCodeDataInlineRuntimeContext", "FunctionDataGlobal", "Origin"]
 
 class FunctionDataPrompt(BaseModel):
     type: Literal["prompt"]
 
+class FunctionDataCodeDataBundleLocationPositionType(BaseModel):
+    type: Literal["task"]
 
-class FunctionDataCodeDataLocationPositionScore(BaseModel):
-    score: float
+class FunctionDataCodeDataBundleLocationPositionScorer(BaseModel):
+    index: float
 
+    type: Literal["scorer"]
 
-FunctionDataCodeDataLocationPosition: TypeAlias = Union[Literal["task"], FunctionDataCodeDataLocationPositionScore]
+FunctionDataCodeDataBundleLocationPosition: TypeAlias = Union[FunctionDataCodeDataBundleLocationPositionType, FunctionDataCodeDataBundleLocationPositionScorer]
 
-
-class FunctionDataCodeDataLocation(BaseModel):
+class FunctionDataCodeDataBundleLocation(BaseModel):
     eval_name: str
 
-    position: FunctionDataCodeDataLocationPosition
+    position: FunctionDataCodeDataBundleLocationPosition
 
     type: Literal["experiment"]
 
-
-class FunctionDataCodeDataRuntimeContext(BaseModel):
-    runtime: Literal["node"]
+class FunctionDataCodeDataBundleRuntimeContext(BaseModel):
+    runtime: Literal["node", "python"]
 
     version: str
 
-
-class FunctionDataCodeData(BaseModel):
+class FunctionDataCodeDataBundle(BaseModel):
     bundle_id: str
 
-    location: FunctionDataCodeDataLocation
+    location: FunctionDataCodeDataBundleLocation
 
-    runtime_context: FunctionDataCodeDataRuntimeContext
+    runtime_context: FunctionDataCodeDataBundleRuntimeContext
 
+    type: Literal["bundle"]
+
+    preview: Optional[str] = None
+    """A preview of the code"""
+
+class FunctionDataCodeDataInlineRuntimeContext(BaseModel):
+    runtime: Literal["node", "python"]
+
+    version: str
+
+class FunctionDataCodeDataInline(BaseModel):
+    code: str
+
+    runtime_context: FunctionDataCodeDataInlineRuntimeContext
+
+    type: Literal["inline"]
+
+FunctionDataCodeData: TypeAlias = Union[FunctionDataCodeDataBundle, FunctionDataCodeDataInline]
 
 class FunctionDataCode(BaseModel):
     data: FunctionDataCodeData
 
     type: Literal["code"]
 
-
 class FunctionDataGlobal(BaseModel):
     name: str
 
     type: Literal["global"]
 
-
 FunctionData: TypeAlias = Union[FunctionDataPrompt, FunctionDataCode, FunctionDataGlobal]
 
+class Origin(BaseModel):
+    object_id: str
+    """Id of the object the function is originating from"""
+
+    object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]] = None
+    """The object type that the ACL applies to"""
+
+    internal: Optional[bool] = None
+    """
+    The function exists for internal purposes and should not be displayed in the
+    list of functions.
+    """
 
 class Function(BaseModel):
     id: str
     """Unique identifier for the prompt"""
 
-    xact_id: str = FieldInfo(alias="_xact_id")
+    xact_id: str = FieldInfo(alias = "_xact_id")
     """
     The transaction id of an event is unique to the network operation that processed
     the event insertion. Transaction ids are monotonically increasing over time and
@@ -106,8 +130,12 @@ class Function(BaseModel):
     description: Optional[str] = None
     """Textual description of the prompt"""
 
+    function_type: Optional[Literal["task", "llm", "scorer"]] = None
+
     metadata: Optional[Dict[str, object]] = None
     """User-controlled metadata about the prompt"""
+
+    origin: Optional[Origin] = None
 
     prompt_data: Optional[PromptData] = None
     """The prompt, model, and its parameters"""

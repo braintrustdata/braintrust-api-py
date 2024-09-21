@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
+from typing import Optional, Iterable, List, Union, Dict
+
 from datetime import datetime
-from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+
+from typing_extensions import TypedDict, TypeAlias, Literal, Required, Annotated
 
 from ..._utils import PropertyInfo
 
 __all__ = ["InsertProjectLogsEventMerge", "Context", "Metrics", "SpanAttributes"]
-
 
 class ContextTyped(TypedDict, total=False):
     caller_filename: Optional[str]
@@ -21,9 +22,7 @@ class ContextTyped(TypedDict, total=False):
     caller_lineno: Optional[int]
     """Line of code where the project logs event was created"""
 
-
 Context: TypeAlias = Union[ContextTyped, Dict[str, object]]
-
 
 class MetricsTyped(TypedDict, total=False):
     completion_tokens: Optional[int]
@@ -53,9 +52,7 @@ class MetricsTyped(TypedDict, total=False):
     tokens: Optional[int]
     """The total number of tokens in the input and output of the project logs event."""
 
-
 Metrics: TypeAlias = Union[MetricsTyped, Dict[str, object]]
-
 
 class SpanAttributesTyped(TypedDict, total=False):
     name: Optional[str]
@@ -64,9 +61,7 @@ class SpanAttributesTyped(TypedDict, total=False):
     type: Optional[Literal["llm", "score", "function", "eval", "task", "tool"]]
     """Type of the span, for display purposes only"""
 
-
 SpanAttributes: TypeAlias = Union[SpanAttributesTyped, Dict[str, object]]
-
 
 class InsertProjectLogsEventMerge(TypedDict, total=False):
     _is_merge: Required[bool]
@@ -121,7 +116,7 @@ class InsertProjectLogsEventMerge(TypedDict, total=False):
     logs event
     """
 
-    created: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    created: Annotated[Union[str, datetime, None], PropertyInfo(format = "iso8601")]
     """The timestamp the project logs event was created"""
 
     error: object

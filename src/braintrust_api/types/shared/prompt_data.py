@@ -1,76 +1,37 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union, Optional
 from typing_extensions import Literal, TypeAlias
+
+from ..._models import BaseModel
+
+from typing import Optional, List, Dict, Union
+
+from typing import Optional, Union, List, Dict, Any
+from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
 
-__all__ = [
-    "PromptData",
-    "Options",
-    "OptionsParams",
-    "OptionsParamsOpenAIModelParams",
-    "OptionsParamsOpenAIModelParamsFunctionCall",
-    "OptionsParamsOpenAIModelParamsFunctionCallFunction",
-    "OptionsParamsOpenAIModelParamsResponseFormat",
-    "OptionsParamsOpenAIModelParamsToolChoice",
-    "OptionsParamsOpenAIModelParamsToolChoiceFunction",
-    "OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction",
-    "OptionsParamsAnthropicModelParams",
-    "OptionsParamsGoogleModelParams",
-    "OptionsParamsWindowAIModelParams",
-    "OptionsParamsJsCompletionParams",
-    "Origin",
-    "Prompt",
-    "PromptCompletion",
-    "PromptChat",
-    "PromptChatMessage",
-    "PromptChatMessageSystem",
-    "PromptChatMessageUser",
-    "PromptChatMessageUserContentArray",
-    "PromptChatMessageUserContentArrayText",
-    "PromptChatMessageUserContentArrayImageURL",
-    "PromptChatMessageUserContentArrayImageURLImageURL",
-    "PromptChatMessageAssistant",
-    "PromptChatMessageAssistantFunctionCall",
-    "PromptChatMessageAssistantToolCall",
-    "PromptChatMessageAssistantToolCallFunction",
-    "PromptChatMessageTool",
-    "PromptChatMessageFunction",
-    "PromptChatMessageFallback",
-    "PromptNullableVariant",
-]
-
+__all__ = ["PromptData", "Options", "OptionsParams", "OptionsParamsOpenAIModelParams", "OptionsParamsOpenAIModelParamsFunctionCall", "OptionsParamsOpenAIModelParamsFunctionCallFunction", "OptionsParamsOpenAIModelParamsResponseFormat", "OptionsParamsOpenAIModelParamsToolChoice", "OptionsParamsOpenAIModelParamsToolChoiceFunction", "OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction", "OptionsParamsAnthropicModelParams", "OptionsParamsGoogleModelParams", "OptionsParamsWindowAIModelParams", "OptionsParamsJsCompletionParams", "Origin", "Parser", "Prompt", "PromptCompletion", "PromptChat", "PromptChatMessage", "PromptChatMessageSystem", "PromptChatMessageUser", "PromptChatMessageUserContentArray", "PromptChatMessageUserContentArrayText", "PromptChatMessageUserContentArrayImageURL", "PromptChatMessageUserContentArrayImageURLImageURL", "PromptChatMessageAssistant", "PromptChatMessageAssistantFunctionCall", "PromptChatMessageAssistantToolCall", "PromptChatMessageAssistantToolCallFunction", "PromptChatMessageTool", "PromptChatMessageFunction", "PromptChatMessageFallback", "PromptNullableVariant"]
 
 class OptionsParamsOpenAIModelParamsFunctionCallFunction(BaseModel):
     name: str
 
-
-OptionsParamsOpenAIModelParamsFunctionCall: TypeAlias = Union[
-    Literal["auto"], Literal["none"], OptionsParamsOpenAIModelParamsFunctionCallFunction
-]
-
+OptionsParamsOpenAIModelParamsFunctionCall: TypeAlias = Union[Literal["auto"], Literal["none"], OptionsParamsOpenAIModelParamsFunctionCallFunction]
 
 class OptionsParamsOpenAIModelParamsResponseFormat(BaseModel):
     type: Literal["json_object"]
 
-
 class OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction(BaseModel):
     name: str
-
 
 class OptionsParamsOpenAIModelParamsToolChoiceFunction(BaseModel):
     function: OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction
 
     type: Literal["function"]
 
-
-OptionsParamsOpenAIModelParamsToolChoice: TypeAlias = Union[
-    Literal["auto"], Literal["none"], OptionsParamsOpenAIModelParamsToolChoiceFunction
-]
-
+OptionsParamsOpenAIModelParamsToolChoice: TypeAlias = Union[Literal["auto"], Literal["none"], OptionsParamsOpenAIModelParamsToolChoiceFunction]
 
 class OptionsParamsOpenAIModelParams(BaseModel):
     frequency_penalty: Optional[float] = None
@@ -95,7 +56,6 @@ class OptionsParamsOpenAIModelParams(BaseModel):
 
     use_cache: Optional[bool] = None
 
-
 class OptionsParamsAnthropicModelParams(BaseModel):
     max_tokens: float
 
@@ -112,39 +72,28 @@ class OptionsParamsAnthropicModelParams(BaseModel):
 
     use_cache: Optional[bool] = None
 
-
 class OptionsParamsGoogleModelParams(BaseModel):
-    max_output_tokens: Optional[float] = FieldInfo(alias="maxOutputTokens", default=None)
+    max_output_tokens: Optional[float] = FieldInfo(alias = "maxOutputTokens", default = None)
 
     temperature: Optional[float] = None
 
-    top_k: Optional[float] = FieldInfo(alias="topK", default=None)
+    top_k: Optional[float] = FieldInfo(alias = "topK", default = None)
 
-    top_p: Optional[float] = FieldInfo(alias="topP", default=None)
+    top_p: Optional[float] = FieldInfo(alias = "topP", default = None)
 
     use_cache: Optional[bool] = None
-
 
 class OptionsParamsWindowAIModelParams(BaseModel):
     temperature: Optional[float] = None
 
-    top_k: Optional[float] = FieldInfo(alias="topK", default=None)
+    top_k: Optional[float] = FieldInfo(alias = "topK", default = None)
 
     use_cache: Optional[bool] = None
-
 
 class OptionsParamsJsCompletionParams(BaseModel):
     use_cache: Optional[bool] = None
 
-
-OptionsParams: TypeAlias = Union[
-    OptionsParamsOpenAIModelParams,
-    OptionsParamsAnthropicModelParams,
-    OptionsParamsGoogleModelParams,
-    OptionsParamsWindowAIModelParams,
-    OptionsParamsJsCompletionParams,
-]
-
+OptionsParams: TypeAlias = Union[OptionsParamsOpenAIModelParams, OptionsParamsAnthropicModelParams, OptionsParamsGoogleModelParams, OptionsParamsWindowAIModelParams, OptionsParamsJsCompletionParams]
 
 class Options(BaseModel):
     model: Optional[str] = None
@@ -153,7 +102,6 @@ class Options(BaseModel):
 
     position: Optional[str] = None
 
-
 class Origin(BaseModel):
     project_id: Optional[str] = None
 
@@ -161,12 +109,17 @@ class Origin(BaseModel):
 
     prompt_version: Optional[str] = None
 
+class Parser(BaseModel):
+    choice_scores: Dict[str, float]
+
+    type: Literal["llm_classifier"]
+
+    use_cot: bool
 
 class PromptCompletion(BaseModel):
     content: str
 
     type: Literal["completion"]
-
 
 class PromptChatMessageSystem(BaseModel):
     role: Literal["system"]
@@ -175,29 +128,22 @@ class PromptChatMessageSystem(BaseModel):
 
     name: Optional[str] = None
 
-
 class PromptChatMessageUserContentArrayText(BaseModel):
     type: Literal["text"]
 
     text: Optional[str] = None
-
 
 class PromptChatMessageUserContentArrayImageURLImageURL(BaseModel):
     url: str
 
     detail: Optional[Literal["auto", "low", "high"]] = None
 
-
 class PromptChatMessageUserContentArrayImageURL(BaseModel):
     image_url: PromptChatMessageUserContentArrayImageURLImageURL
 
     type: Literal["image_url"]
 
-
-PromptChatMessageUserContentArray: TypeAlias = Union[
-    PromptChatMessageUserContentArrayText, PromptChatMessageUserContentArrayImageURL
-]
-
+PromptChatMessageUserContentArray: TypeAlias = Union[PromptChatMessageUserContentArrayText, PromptChatMessageUserContentArrayImageURL]
 
 class PromptChatMessageUser(BaseModel):
     role: Literal["user"]
@@ -206,18 +152,15 @@ class PromptChatMessageUser(BaseModel):
 
     name: Optional[str] = None
 
-
 class PromptChatMessageAssistantFunctionCall(BaseModel):
     arguments: str
 
     name: str
 
-
 class PromptChatMessageAssistantToolCallFunction(BaseModel):
     arguments: str
 
     name: str
-
 
 class PromptChatMessageAssistantToolCall(BaseModel):
     id: str
@@ -225,7 +168,6 @@ class PromptChatMessageAssistantToolCall(BaseModel):
     function: PromptChatMessageAssistantToolCallFunction
 
     type: Literal["function"]
-
 
 class PromptChatMessageAssistant(BaseModel):
     role: Literal["assistant"]
@@ -238,14 +180,12 @@ class PromptChatMessageAssistant(BaseModel):
 
     tool_calls: Optional[List[PromptChatMessageAssistantToolCall]] = None
 
-
 class PromptChatMessageTool(BaseModel):
     role: Literal["tool"]
 
     content: Optional[str] = None
 
     tool_call_id: Optional[str] = None
-
 
 class PromptChatMessageFunction(BaseModel):
     name: str
@@ -254,22 +194,12 @@ class PromptChatMessageFunction(BaseModel):
 
     content: Optional[str] = None
 
-
 class PromptChatMessageFallback(BaseModel):
     role: Literal["model"]
 
     content: Optional[str] = None
 
-
-PromptChatMessage: TypeAlias = Union[
-    PromptChatMessageSystem,
-    PromptChatMessageUser,
-    PromptChatMessageAssistant,
-    PromptChatMessageTool,
-    PromptChatMessageFunction,
-    PromptChatMessageFallback,
-]
-
+PromptChatMessage: TypeAlias = Union[PromptChatMessageSystem, PromptChatMessageUser, PromptChatMessageAssistant, PromptChatMessageTool, PromptChatMessageFunction, PromptChatMessageFallback]
 
 class PromptChat(BaseModel):
     messages: List[PromptChatMessage]
@@ -278,17 +208,16 @@ class PromptChat(BaseModel):
 
     tools: Optional[str] = None
 
-
 class PromptNullableVariant(BaseModel):
     pass
 
-
 Prompt: TypeAlias = Union[PromptCompletion, PromptChat, Optional[PromptNullableVariant]]
-
 
 class PromptData(BaseModel):
     options: Optional[Options] = None
 
     origin: Optional[Origin] = None
+
+    parser: Optional[Parser] = None
 
     prompt: Optional[Prompt] = None

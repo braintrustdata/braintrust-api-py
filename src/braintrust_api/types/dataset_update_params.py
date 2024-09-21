@@ -2,11 +2,17 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
 from typing_extensions import TypedDict
 
-__all__ = ["DatasetUpdateParams"]
+from typing import Optional, Dict
 
+from typing import List, Union, Dict, Optional
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from .._types import FileTypes
+from .._utils import PropertyInfo
+from ..types import shared_params
+
+__all__ = ["DatasetUpdateParams"]
 
 class DatasetUpdateParams(TypedDict, total=False):
     description: Optional[str]
