@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
+from typing import Optional, Iterable, List, Union, Dict
+
 from datetime import datetime
-from typing_extensions import Required, Annotated, TypedDict
+
+from typing_extensions import TypedDict, Required, Annotated
 
 from ..._utils import PropertyInfo
 
 __all__ = ["InsertDatasetEventMerge"]
-
 
 class InsertDatasetEventMerge(TypedDict, total=False):
     _is_merge: Required[bool]
@@ -56,7 +57,7 @@ class InsertDatasetEventMerge(TypedDict, total=False):
     Deleted events will not show up in subsequent fetches for this dataset
     """
 
-    created: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
+    created: Annotated[Union[str, datetime, None], PropertyInfo(format = "iso8601")]
     """The timestamp the dataset event was created"""
 
     expected: object

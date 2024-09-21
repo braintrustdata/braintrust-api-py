@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Optional
-from typing_extensions import Annotated, TypedDict
+from typing import Optional, List, Dict
+
+from typing_extensions import TypedDict, Annotated
 
 from ..._utils import PropertyInfo
 
 __all__ = ["ViewOptions"]
-
 
 class ViewOptions(TypedDict, total=False):
     column_order: Annotated[Optional[List[str]], PropertyInfo(alias="columnOrder")]

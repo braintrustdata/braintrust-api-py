@@ -2,11 +2,17 @@
 
 from __future__ import annotations
 
-from typing import List, Union
-from typing_extensions import TypedDict
+from typing_extensions import TypedDict, Literal
+
+from typing import Union, List, Optional
+
+from typing import List, Union, Dict, Optional
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from .._types import FileTypes
+from .._utils import PropertyInfo
+from ..types import shared_params
 
 __all__ = ["ProjectScoreListParams"]
-
 
 class ProjectScoreListParams(TypedDict, total=False):
     ending_before: str
@@ -37,6 +43,9 @@ class ProjectScoreListParams(TypedDict, total=False):
 
     project_score_name: str
     """Name of the project_score to search for"""
+
+    score_type: Union[Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]], List[Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]]]]
+    """The type of the configured score"""
 
     starting_after: str
     """Pagination cursor id.

@@ -2,11 +2,17 @@
 
 from __future__ import annotations
 
-from typing import List, Iterable, Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import TypedDict, Required, Literal
+
+from typing import Optional, Iterable, List
+
+from typing import List, Union, Dict, Optional
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from .._types import FileTypes
+from .._utils import PropertyInfo
+from ..types import shared_params
 
 __all__ = ["RoleReplaceParams", "MemberPermission"]
-
 
 class RoleReplaceParams(TypedDict, total=False):
     name: Required[str]
@@ -32,32 +38,13 @@ class RoleReplaceParams(TypedDict, total=False):
     may specify the name of the organization the role belongs in.
     """
 
-
 class MemberPermission(TypedDict, total=False):
-    permission: Required[
-        Optional[
-            Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
-        ]
-    ]
+    permission: Required[Optional[Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]]]
     """Each permission permits a certain type of operation on an object in the system
 
     Permissions can be assigned to to objects on an individual basis, or grouped
     into roles
     """
 
-    restrict_object_type: Optional[
-        Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ]
-    ]
+    restrict_object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]]
     """The object type that the ACL applies to"""

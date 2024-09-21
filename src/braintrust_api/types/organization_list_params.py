@@ -2,11 +2,17 @@
 
 from __future__ import annotations
 
-from typing import List, Union
 from typing_extensions import TypedDict
 
-__all__ = ["OrganizationListParams"]
+from typing import Union, List
 
+from typing import List, Union, Dict, Optional
+from typing_extensions import Literal, TypedDict, Required, Annotated
+from .._types import FileTypes
+from .._utils import PropertyInfo
+from ..types import shared_params
+
+__all__ = ["OrganizationListParams"]
 
 class OrganizationListParams(TypedDict, total=False):
     ending_before: str
@@ -28,9 +34,6 @@ class OrganizationListParams(TypedDict, total=False):
 
     org_name: str
     """Filter search results to within a particular organization"""
-
-    organization_name: str
-    """Name of the organization to search for"""
 
     starting_after: str
     """Pagination cursor id.
