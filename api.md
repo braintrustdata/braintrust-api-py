@@ -2,6 +2,7 @@
 
 ```python
 from braintrust_api.types import (
+    AISecret,
     ACL,
     APIKey,
     CreateAPIKeyOutput,
@@ -28,7 +29,6 @@ from braintrust_api.types import (
     InsertProjectLogsEventMerge,
     InsertProjectLogsEventReplace,
     MetricSummary,
-    OrgSecret,
     Organization,
     PathLookupFilter,
     Project,
@@ -193,6 +193,12 @@ Methods:
 
 # Function
 
+Types:
+
+```python
+from braintrust_api.types import FunctionInvokeResponse
+```
+
 Methods:
 
 - <code title="post /v1/function">client.function.<a href="./src/braintrust_api/resources/function.py">create</a>(\*\*<a href="src/braintrust_api/types/function_create_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/function.py">Function</a></code>
@@ -200,6 +206,7 @@ Methods:
 - <code title="patch /v1/function/{function_id}">client.function.<a href="./src/braintrust_api/resources/function.py">update</a>(function_id, \*\*<a href="src/braintrust_api/types/function_update_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/function.py">Function</a></code>
 - <code title="get /v1/function">client.function.<a href="./src/braintrust_api/resources/function.py">list</a>(\*\*<a href="src/braintrust_api/types/function_list_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/function.py">SyncListObjects[Function]</a></code>
 - <code title="delete /v1/function/{function_id}">client.function.<a href="./src/braintrust_api/resources/function.py">delete</a>(function_id) -> <a href="./src/braintrust_api/types/shared/function.py">Function</a></code>
+- <code title="post /v1/function/{function_id}/invoke">client.function.<a href="./src/braintrust_api/resources/function.py">invoke</a>(function_id, \*\*<a href="src/braintrust_api/types/function_invoke_params.py">params</a>) -> <a href="./src/braintrust_api/types/function_invoke_response.py">object</a></code>
 - <code title="put /v1/function">client.function.<a href="./src/braintrust_api/resources/function.py">replace</a>(\*\*<a href="src/braintrust_api/types/function_replace_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/function.py">Function</a></code>
 
 # View
@@ -243,14 +250,14 @@ Methods:
 - <code title="get /v1/api_key">client.api_key_resource.<a href="./src/braintrust_api/resources/api_key_resource.py">list</a>(\*\*<a href="src/braintrust_api/types/api_key_resource_list_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/api_key.py">SyncListObjects[APIKey]</a></code>
 - <code title="delete /v1/api_key/{api_key_id}">client.api_key_resource.<a href="./src/braintrust_api/resources/api_key_resource.py">delete</a>(api_key_id) -> <a href="./src/braintrust_api/types/shared/api_key.py">APIKey</a></code>
 
-# OrgSecret
+# AISecret
 
 Methods:
 
-- <code title="post /v1/org_secret">client.org_secret.<a href="./src/braintrust_api/resources/org_secret.py">create</a>(\*\*<a href="src/braintrust_api/types/org_secret_create_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/org_secret.py">OrgSecret</a></code>
-- <code title="get /v1/org_secret/{org_secret_id}">client.org_secret.<a href="./src/braintrust_api/resources/org_secret.py">retrieve</a>(org_secret_id) -> <a href="./src/braintrust_api/types/shared/org_secret.py">OrgSecret</a></code>
-- <code title="patch /v1/org_secret/{org_secret_id}">client.org_secret.<a href="./src/braintrust_api/resources/org_secret.py">update</a>(org_secret_id, \*\*<a href="src/braintrust_api/types/org_secret_update_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/org_secret.py">OrgSecret</a></code>
-- <code title="get /v1/org_secret">client.org_secret.<a href="./src/braintrust_api/resources/org_secret.py">list</a>(\*\*<a href="src/braintrust_api/types/org_secret_list_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/org_secret.py">SyncListObjects[OrgSecret]</a></code>
-- <code title="delete /v1/org_secret/{org_secret_id}">client.org_secret.<a href="./src/braintrust_api/resources/org_secret.py">delete</a>(org_secret_id) -> <a href="./src/braintrust_api/types/shared/org_secret.py">OrgSecret</a></code>
-- <code title="delete /v1/org_secret">client.org_secret.<a href="./src/braintrust_api/resources/org_secret.py">find_and_delete</a>(\*\*<a href="src/braintrust_api/types/org_secret_find_and_delete_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/org_secret.py">OrgSecret</a></code>
-- <code title="put /v1/org_secret">client.org_secret.<a href="./src/braintrust_api/resources/org_secret.py">replace</a>(\*\*<a href="src/braintrust_api/types/org_secret_replace_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/org_secret.py">OrgSecret</a></code>
+- <code title="post /v1/ai_secret">client.ai_secret.<a href="./src/braintrust_api/resources/ai_secret.py">create</a>(\*\*<a href="src/braintrust_api/types/ai_secret_create_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/a_i_secret.py">AISecret</a></code>
+- <code title="get /v1/ai_secret/{ai_secret_id}">client.ai_secret.<a href="./src/braintrust_api/resources/ai_secret.py">retrieve</a>(ai_secret_id) -> <a href="./src/braintrust_api/types/shared/a_i_secret.py">AISecret</a></code>
+- <code title="patch /v1/ai_secret/{ai_secret_id}">client.ai_secret.<a href="./src/braintrust_api/resources/ai_secret.py">update</a>(ai_secret_id, \*\*<a href="src/braintrust_api/types/ai_secret_update_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/a_i_secret.py">AISecret</a></code>
+- <code title="get /v1/ai_secret">client.ai_secret.<a href="./src/braintrust_api/resources/ai_secret.py">list</a>(\*\*<a href="src/braintrust_api/types/ai_secret_list_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/a_i_secret.py">SyncListObjects[AISecret]</a></code>
+- <code title="delete /v1/ai_secret/{ai_secret_id}">client.ai_secret.<a href="./src/braintrust_api/resources/ai_secret.py">delete</a>(ai_secret_id) -> <a href="./src/braintrust_api/types/shared/a_i_secret.py">AISecret</a></code>
+- <code title="delete /v1/ai_secret">client.ai_secret.<a href="./src/braintrust_api/resources/ai_secret.py">find_and_delete</a>(\*\*<a href="src/braintrust_api/types/ai_secret_find_and_delete_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/a_i_secret.py">AISecret</a></code>
+- <code title="put /v1/ai_secret">client.ai_secret.<a href="./src/braintrust_api/resources/ai_secret.py">replace</a>(\*\*<a href="src/braintrust_api/types/ai_secret_replace_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/a_i_secret.py">AISecret</a></code>

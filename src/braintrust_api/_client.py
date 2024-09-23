@@ -61,7 +61,7 @@ class Braintrust(SyncAPIClient):
     view: resources.ViewResource
     organization: resources.OrganizationResource
     api_key_resource: resources.APIKeyResourceResource
-    org_secret: resources.OrgSecretResource
+    ai_secret: resources.AISecretResource
     with_raw_response: BraintrustWithRawResponse
     with_streaming_response: BraintrustWithStreamedResponse
 
@@ -130,7 +130,7 @@ class Braintrust(SyncAPIClient):
         self.view = resources.ViewResource(self)
         self.organization = resources.OrganizationResource(self)
         self.api_key_resource = resources.APIKeyResourceResource(self)
-        self.org_secret = resources.OrgSecretResource(self)
+        self.ai_secret = resources.AISecretResource(self)
         self.with_raw_response = BraintrustWithRawResponse(self)
         self.with_streaming_response = BraintrustWithStreamedResponse(self)
 
@@ -257,7 +257,7 @@ class AsyncBraintrust(AsyncAPIClient):
     view: resources.AsyncViewResource
     organization: resources.AsyncOrganizationResource
     api_key_resource: resources.AsyncAPIKeyResourceResource
-    org_secret: resources.AsyncOrgSecretResource
+    ai_secret: resources.AsyncAISecretResource
     with_raw_response: AsyncBraintrustWithRawResponse
     with_streaming_response: AsyncBraintrustWithStreamedResponse
 
@@ -326,7 +326,7 @@ class AsyncBraintrust(AsyncAPIClient):
         self.view = resources.AsyncViewResource(self)
         self.organization = resources.AsyncOrganizationResource(self)
         self.api_key_resource = resources.AsyncAPIKeyResourceResource(self)
-        self.org_secret = resources.AsyncOrgSecretResource(self)
+        self.ai_secret = resources.AsyncAISecretResource(self)
         self.with_raw_response = AsyncBraintrustWithRawResponse(self)
         self.with_streaming_response = AsyncBraintrustWithStreamedResponse(self)
 
@@ -454,7 +454,7 @@ class BraintrustWithRawResponse:
         self.view = resources.ViewResourceWithRawResponse(client.view)
         self.organization = resources.OrganizationResourceWithRawResponse(client.organization)
         self.api_key_resource = resources.APIKeyResourceResourceWithRawResponse(client.api_key_resource)
-        self.org_secret = resources.OrgSecretResourceWithRawResponse(client.org_secret)
+        self.ai_secret = resources.AISecretResourceWithRawResponse(client.ai_secret)
 
 
 class AsyncBraintrustWithRawResponse:
@@ -474,7 +474,7 @@ class AsyncBraintrustWithRawResponse:
         self.view = resources.AsyncViewResourceWithRawResponse(client.view)
         self.organization = resources.AsyncOrganizationResourceWithRawResponse(client.organization)
         self.api_key_resource = resources.AsyncAPIKeyResourceResourceWithRawResponse(client.api_key_resource)
-        self.org_secret = resources.AsyncOrgSecretResourceWithRawResponse(client.org_secret)
+        self.ai_secret = resources.AsyncAISecretResourceWithRawResponse(client.ai_secret)
 
 
 class BraintrustWithStreamedResponse:
@@ -494,7 +494,7 @@ class BraintrustWithStreamedResponse:
         self.view = resources.ViewResourceWithStreamingResponse(client.view)
         self.organization = resources.OrganizationResourceWithStreamingResponse(client.organization)
         self.api_key_resource = resources.APIKeyResourceResourceWithStreamingResponse(client.api_key_resource)
-        self.org_secret = resources.OrgSecretResourceWithStreamingResponse(client.org_secret)
+        self.ai_secret = resources.AISecretResourceWithStreamingResponse(client.ai_secret)
 
 
 class AsyncBraintrustWithStreamedResponse:
@@ -514,7 +514,7 @@ class AsyncBraintrustWithStreamedResponse:
         self.view = resources.AsyncViewResourceWithStreamingResponse(client.view)
         self.organization = resources.AsyncOrganizationResourceWithStreamingResponse(client.organization)
         self.api_key_resource = resources.AsyncAPIKeyResourceResourceWithStreamingResponse(client.api_key_resource)
-        self.org_secret = resources.AsyncOrgSecretResourceWithStreamingResponse(client.org_secret)
+        self.ai_secret = resources.AsyncAISecretResourceWithStreamingResponse(client.ai_secret)
 
 
 Client = Braintrust

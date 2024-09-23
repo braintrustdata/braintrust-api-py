@@ -12,8 +12,8 @@ from .project import Project as Project
 from .function import Function as Function
 from .repo_info import RepoInfo as RepoInfo
 from .view_data import ViewData as ViewData
+from .a_i_secret import AISecret as AISecret
 from .experiment import Experiment as Experiment
-from .org_secret import OrgSecret as OrgSecret
 from .project_tag import ProjectTag as ProjectTag
 from .prompt_data import PromptData as PromptData
 from .data_summary import DataSummary as DataSummary

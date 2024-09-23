@@ -7,11 +7,11 @@ from typing import Dict, List, Union, Optional
 import httpx
 
 from ..types import (
-    org_secret_list_params,
-    org_secret_create_params,
-    org_secret_update_params,
-    org_secret_replace_params,
-    org_secret_find_and_delete_params,
+    ai_secret_list_params,
+    ai_secret_create_params,
+    ai_secret_update_params,
+    ai_secret_replace_params,
+    ai_secret_find_and_delete_params,
 )
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
@@ -28,30 +28,30 @@ from .._response import (
 )
 from ..pagination import SyncListObjects, AsyncListObjects
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.shared.org_secret import OrgSecret
+from ..types.shared.a_i_secret import AISecret
 
-__all__ = ["OrgSecretResource", "AsyncOrgSecretResource"]
+__all__ = ["AISecretResource", "AsyncAISecretResource"]
 
 
-class OrgSecretResource(SyncAPIResource):
+class AISecretResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> OrgSecretResourceWithRawResponse:
+    def with_raw_response(self) -> AISecretResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return the
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
         """
-        return OrgSecretResourceWithRawResponse(self)
+        return AISecretResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> OrgSecretResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AISecretResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/braintrustdata/braintrust-api-py#with_streaming_response
         """
-        return OrgSecretResourceWithStreamingResponse(self)
+        return AISecretResourceWithStreamingResponse(self)
 
     def create(
         self,
@@ -67,19 +67,18 @@ class OrgSecretResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> OrgSecret:
-        """Create a new org_secret.
+    ) -> AISecret:
+        """Create a new ai_secret.
 
-        If there is an existing org_secret with the same name
-        as the one specified in the request, will return the existing org_secret
-        unmodified
+        If there is an existing ai_secret with the same name as
+        the one specified in the request, will return the existing ai_secret unmodified
 
         Args:
-          name: Name of the org secret
+          name: Name of the AI secret
 
           org_name: For nearly all users, this parameter should be unnecessary. But in the rare case
               that your API key belongs to multiple organizations, you may specify the name of
-              the organization the Org Secret belongs in.
+              the organization the AI Secret belongs in.
 
           secret: Secret value. If omitted in a PUT request, the existing secret value will be
               left intact, not replaced with null.
@@ -93,7 +92,7 @@ class OrgSecretResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/v1/org_secret",
+            "/v1/ai_secret",
             body=maybe_transform(
                 {
                     "name": name,
@@ -102,17 +101,17 @@ class OrgSecretResource(SyncAPIResource):
                     "secret": secret,
                     "type": type,
                 },
-                org_secret_create_params.OrgSecretCreateParams,
+                ai_secret_create_params.AISecretCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=OrgSecret,
+            cast_to=AISecret,
         )
 
     def retrieve(
         self,
-        org_secret_id: str,
+        ai_secret_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -120,12 +119,12 @@ class OrgSecretResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> OrgSecret:
+    ) -> AISecret:
         """
-        Get an org_secret object by its id
+        Get an ai_secret object by its id
 
         Args:
-          org_secret_id: OrgSecret id
+          ai_secret_id: AiSecret id
 
           extra_headers: Send extra headers
 
@@ -135,19 +134,19 @@ class OrgSecretResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not org_secret_id:
-            raise ValueError(f"Expected a non-empty value for `org_secret_id` but received {org_secret_id!r}")
+        if not ai_secret_id:
+            raise ValueError(f"Expected a non-empty value for `ai_secret_id` but received {ai_secret_id!r}")
         return self._get(
-            f"/v1/org_secret/{org_secret_id}",
+            f"/v1/ai_secret/{ai_secret_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=OrgSecret,
+            cast_to=AISecret,
         )
 
     def update(
         self,
-        org_secret_id: str,
+        ai_secret_id: str,
         *,
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
@@ -159,17 +158,17 @@ class OrgSecretResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> OrgSecret:
-        """Partially update an org_secret object.
+    ) -> AISecret:
+        """Partially update an ai_secret object.
 
         Specify the fields to update in the
         payload. Any object-type fields will be deep-merged with existing content.
         Currently we do not support removing fields or setting them to null.
 
         Args:
-          org_secret_id: OrgSecret id
+          ai_secret_id: AiSecret id
 
-          name: Name of the org secret
+          name: Name of the AI secret
 
           extra_headers: Send extra headers
 
@@ -179,10 +178,10 @@ class OrgSecretResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not org_secret_id:
-            raise ValueError(f"Expected a non-empty value for `org_secret_id` but received {org_secret_id!r}")
+        if not ai_secret_id:
+            raise ValueError(f"Expected a non-empty value for `ai_secret_id` but received {ai_secret_id!r}")
         return self._patch(
-            f"/v1/org_secret/{org_secret_id}",
+            f"/v1/ai_secret/{ai_secret_id}",
             body=maybe_transform(
                 {
                     "metadata": metadata,
@@ -190,23 +189,23 @@ class OrgSecretResource(SyncAPIResource):
                     "secret": secret,
                     "type": type,
                 },
-                org_secret_update_params.OrgSecretUpdateParams,
+                ai_secret_update_params.AISecretUpdateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=OrgSecret,
+            cast_to=AISecret,
         )
 
     def list(
         self,
         *,
+        ai_secret_name: str | NotGiven = NOT_GIVEN,
+        ai_secret_type: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         ending_before: str | NotGiven = NOT_GIVEN,
         ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         org_name: str | NotGiven = NOT_GIVEN,
-        org_secret_name: str | NotGiven = NOT_GIVEN,
-        org_secret_type: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         starting_after: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -214,13 +213,15 @@ class OrgSecretResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncListObjects[OrgSecret]:
-        """List out all org_secrets.
+    ) -> SyncListObjects[AISecret]:
+        """List out all ai_secrets.
 
-        The org_secrets are sorted by creation date, with the
-        most recently-created org_secrets coming first
+        The ai_secrets are sorted by creation date, with the
+        most recently-created ai_secrets coming first
 
         Args:
+          ai_secret_name: Name of the ai_secret to search for
+
           ending_before: Pagination cursor id.
 
               For example, if the initial item in the last page you fetched had an id of
@@ -233,8 +234,6 @@ class OrgSecretResource(SyncAPIResource):
           limit: Limit the number of objects to return
 
           org_name: Filter search results to within a particular organization
-
-          org_secret_name: Name of the org_secret to search for
 
           starting_after: Pagination cursor id.
 
@@ -251,8 +250,8 @@ class OrgSecretResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/v1/org_secret",
-            page=SyncListObjects[OrgSecret],
+            "/v1/ai_secret",
+            page=SyncListObjects[AISecret],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -260,23 +259,23 @@ class OrgSecretResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "ai_secret_name": ai_secret_name,
+                        "ai_secret_type": ai_secret_type,
                         "ending_before": ending_before,
                         "ids": ids,
                         "limit": limit,
                         "org_name": org_name,
-                        "org_secret_name": org_secret_name,
-                        "org_secret_type": org_secret_type,
                         "starting_after": starting_after,
                     },
-                    org_secret_list_params.OrgSecretListParams,
+                    ai_secret_list_params.AISecretListParams,
                 ),
             ),
-            model=OrgSecret,
+            model=AISecret,
         )
 
     def delete(
         self,
-        org_secret_id: str,
+        ai_secret_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -284,12 +283,12 @@ class OrgSecretResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> OrgSecret:
+    ) -> AISecret:
         """
-        Delete an org_secret object by its id
+        Delete an ai_secret object by its id
 
         Args:
-          org_secret_id: OrgSecret id
+          ai_secret_id: AiSecret id
 
           extra_headers: Send extra headers
 
@@ -299,14 +298,14 @@ class OrgSecretResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not org_secret_id:
-            raise ValueError(f"Expected a non-empty value for `org_secret_id` but received {org_secret_id!r}")
+        if not ai_secret_id:
+            raise ValueError(f"Expected a non-empty value for `ai_secret_id` but received {ai_secret_id!r}")
         return self._delete(
-            f"/v1/org_secret/{org_secret_id}",
+            f"/v1/ai_secret/{ai_secret_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=OrgSecret,
+            cast_to=AISecret,
         )
 
     def find_and_delete(
@@ -320,16 +319,16 @@ class OrgSecretResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> OrgSecret:
+    ) -> AISecret:
         """
-        Delete a single org_secret
+        Delete a single ai_secret
 
         Args:
-          name: Name of the org secret
+          name: Name of the AI secret
 
           org_name: For nearly all users, this parameter should be unnecessary. But in the rare case
               that your API key belongs to multiple organizations, you may specify the name of
-              the organization the Org Secret belongs in.
+              the organization the AI Secret belongs in.
 
           extra_headers: Send extra headers
 
@@ -340,18 +339,18 @@ class OrgSecretResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._delete(
-            "/v1/org_secret",
+            "/v1/ai_secret",
             body=maybe_transform(
                 {
                     "name": name,
                     "org_name": org_name,
                 },
-                org_secret_find_and_delete_params.OrgSecretFindAndDeleteParams,
+                ai_secret_find_and_delete_params.AISecretFindAndDeleteParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=OrgSecret,
+            cast_to=AISecret,
         )
 
     def replace(
@@ -368,19 +367,19 @@ class OrgSecretResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> OrgSecret:
-        """Create or replace org_secret.
+    ) -> AISecret:
+        """Create or replace ai_secret.
 
-        If there is an existing org_secret with the same
-        name as the one specified in the request, will replace the existing org_secret
+        If there is an existing ai_secret with the same
+        name as the one specified in the request, will replace the existing ai_secret
         with the provided fields
 
         Args:
-          name: Name of the org secret
+          name: Name of the AI secret
 
           org_name: For nearly all users, this parameter should be unnecessary. But in the rare case
               that your API key belongs to multiple organizations, you may specify the name of
-              the organization the Org Secret belongs in.
+              the organization the AI Secret belongs in.
 
           secret: Secret value. If omitted in a PUT request, the existing secret value will be
               left intact, not replaced with null.
@@ -394,7 +393,7 @@ class OrgSecretResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._put(
-            "/v1/org_secret",
+            "/v1/ai_secret",
             body=maybe_transform(
                 {
                     "name": name,
@@ -403,34 +402,34 @@ class OrgSecretResource(SyncAPIResource):
                     "secret": secret,
                     "type": type,
                 },
-                org_secret_replace_params.OrgSecretReplaceParams,
+                ai_secret_replace_params.AISecretReplaceParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=OrgSecret,
+            cast_to=AISecret,
         )
 
 
-class AsyncOrgSecretResource(AsyncAPIResource):
+class AsyncAISecretResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncOrgSecretResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncAISecretResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return the
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
         """
-        return AsyncOrgSecretResourceWithRawResponse(self)
+        return AsyncAISecretResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncOrgSecretResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncAISecretResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/braintrustdata/braintrust-api-py#with_streaming_response
         """
-        return AsyncOrgSecretResourceWithStreamingResponse(self)
+        return AsyncAISecretResourceWithStreamingResponse(self)
 
     async def create(
         self,
@@ -446,19 +445,18 @@ class AsyncOrgSecretResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> OrgSecret:
-        """Create a new org_secret.
+    ) -> AISecret:
+        """Create a new ai_secret.
 
-        If there is an existing org_secret with the same name
-        as the one specified in the request, will return the existing org_secret
-        unmodified
+        If there is an existing ai_secret with the same name as
+        the one specified in the request, will return the existing ai_secret unmodified
 
         Args:
-          name: Name of the org secret
+          name: Name of the AI secret
 
           org_name: For nearly all users, this parameter should be unnecessary. But in the rare case
               that your API key belongs to multiple organizations, you may specify the name of
-              the organization the Org Secret belongs in.
+              the organization the AI Secret belongs in.
 
           secret: Secret value. If omitted in a PUT request, the existing secret value will be
               left intact, not replaced with null.
@@ -472,7 +470,7 @@ class AsyncOrgSecretResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/v1/org_secret",
+            "/v1/ai_secret",
             body=await async_maybe_transform(
                 {
                     "name": name,
@@ -481,17 +479,17 @@ class AsyncOrgSecretResource(AsyncAPIResource):
                     "secret": secret,
                     "type": type,
                 },
-                org_secret_create_params.OrgSecretCreateParams,
+                ai_secret_create_params.AISecretCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=OrgSecret,
+            cast_to=AISecret,
         )
 
     async def retrieve(
         self,
-        org_secret_id: str,
+        ai_secret_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -499,12 +497,12 @@ class AsyncOrgSecretResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> OrgSecret:
+    ) -> AISecret:
         """
-        Get an org_secret object by its id
+        Get an ai_secret object by its id
 
         Args:
-          org_secret_id: OrgSecret id
+          ai_secret_id: AiSecret id
 
           extra_headers: Send extra headers
 
@@ -514,19 +512,19 @@ class AsyncOrgSecretResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not org_secret_id:
-            raise ValueError(f"Expected a non-empty value for `org_secret_id` but received {org_secret_id!r}")
+        if not ai_secret_id:
+            raise ValueError(f"Expected a non-empty value for `ai_secret_id` but received {ai_secret_id!r}")
         return await self._get(
-            f"/v1/org_secret/{org_secret_id}",
+            f"/v1/ai_secret/{ai_secret_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=OrgSecret,
+            cast_to=AISecret,
         )
 
     async def update(
         self,
-        org_secret_id: str,
+        ai_secret_id: str,
         *,
         metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
@@ -538,17 +536,17 @@ class AsyncOrgSecretResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> OrgSecret:
-        """Partially update an org_secret object.
+    ) -> AISecret:
+        """Partially update an ai_secret object.
 
         Specify the fields to update in the
         payload. Any object-type fields will be deep-merged with existing content.
         Currently we do not support removing fields or setting them to null.
 
         Args:
-          org_secret_id: OrgSecret id
+          ai_secret_id: AiSecret id
 
-          name: Name of the org secret
+          name: Name of the AI secret
 
           extra_headers: Send extra headers
 
@@ -558,10 +556,10 @@ class AsyncOrgSecretResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not org_secret_id:
-            raise ValueError(f"Expected a non-empty value for `org_secret_id` but received {org_secret_id!r}")
+        if not ai_secret_id:
+            raise ValueError(f"Expected a non-empty value for `ai_secret_id` but received {ai_secret_id!r}")
         return await self._patch(
-            f"/v1/org_secret/{org_secret_id}",
+            f"/v1/ai_secret/{ai_secret_id}",
             body=await async_maybe_transform(
                 {
                     "metadata": metadata,
@@ -569,23 +567,23 @@ class AsyncOrgSecretResource(AsyncAPIResource):
                     "secret": secret,
                     "type": type,
                 },
-                org_secret_update_params.OrgSecretUpdateParams,
+                ai_secret_update_params.AISecretUpdateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=OrgSecret,
+            cast_to=AISecret,
         )
 
     def list(
         self,
         *,
+        ai_secret_name: str | NotGiven = NOT_GIVEN,
+        ai_secret_type: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         ending_before: str | NotGiven = NOT_GIVEN,
         ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         limit: int | NotGiven = NOT_GIVEN,
         org_name: str | NotGiven = NOT_GIVEN,
-        org_secret_name: str | NotGiven = NOT_GIVEN,
-        org_secret_type: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         starting_after: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -593,13 +591,15 @@ class AsyncOrgSecretResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[OrgSecret, AsyncListObjects[OrgSecret]]:
-        """List out all org_secrets.
+    ) -> AsyncPaginator[AISecret, AsyncListObjects[AISecret]]:
+        """List out all ai_secrets.
 
-        The org_secrets are sorted by creation date, with the
-        most recently-created org_secrets coming first
+        The ai_secrets are sorted by creation date, with the
+        most recently-created ai_secrets coming first
 
         Args:
+          ai_secret_name: Name of the ai_secret to search for
+
           ending_before: Pagination cursor id.
 
               For example, if the initial item in the last page you fetched had an id of
@@ -612,8 +612,6 @@ class AsyncOrgSecretResource(AsyncAPIResource):
           limit: Limit the number of objects to return
 
           org_name: Filter search results to within a particular organization
-
-          org_secret_name: Name of the org_secret to search for
 
           starting_after: Pagination cursor id.
 
@@ -630,8 +628,8 @@ class AsyncOrgSecretResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/v1/org_secret",
-            page=AsyncListObjects[OrgSecret],
+            "/v1/ai_secret",
+            page=AsyncListObjects[AISecret],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -639,23 +637,23 @@ class AsyncOrgSecretResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "ai_secret_name": ai_secret_name,
+                        "ai_secret_type": ai_secret_type,
                         "ending_before": ending_before,
                         "ids": ids,
                         "limit": limit,
                         "org_name": org_name,
-                        "org_secret_name": org_secret_name,
-                        "org_secret_type": org_secret_type,
                         "starting_after": starting_after,
                     },
-                    org_secret_list_params.OrgSecretListParams,
+                    ai_secret_list_params.AISecretListParams,
                 ),
             ),
-            model=OrgSecret,
+            model=AISecret,
         )
 
     async def delete(
         self,
-        org_secret_id: str,
+        ai_secret_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -663,12 +661,12 @@ class AsyncOrgSecretResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> OrgSecret:
+    ) -> AISecret:
         """
-        Delete an org_secret object by its id
+        Delete an ai_secret object by its id
 
         Args:
-          org_secret_id: OrgSecret id
+          ai_secret_id: AiSecret id
 
           extra_headers: Send extra headers
 
@@ -678,14 +676,14 @@ class AsyncOrgSecretResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not org_secret_id:
-            raise ValueError(f"Expected a non-empty value for `org_secret_id` but received {org_secret_id!r}")
+        if not ai_secret_id:
+            raise ValueError(f"Expected a non-empty value for `ai_secret_id` but received {ai_secret_id!r}")
         return await self._delete(
-            f"/v1/org_secret/{org_secret_id}",
+            f"/v1/ai_secret/{ai_secret_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=OrgSecret,
+            cast_to=AISecret,
         )
 
     async def find_and_delete(
@@ -699,16 +697,16 @@ class AsyncOrgSecretResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> OrgSecret:
+    ) -> AISecret:
         """
-        Delete a single org_secret
+        Delete a single ai_secret
 
         Args:
-          name: Name of the org secret
+          name: Name of the AI secret
 
           org_name: For nearly all users, this parameter should be unnecessary. But in the rare case
               that your API key belongs to multiple organizations, you may specify the name of
-              the organization the Org Secret belongs in.
+              the organization the AI Secret belongs in.
 
           extra_headers: Send extra headers
 
@@ -719,18 +717,18 @@ class AsyncOrgSecretResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._delete(
-            "/v1/org_secret",
+            "/v1/ai_secret",
             body=await async_maybe_transform(
                 {
                     "name": name,
                     "org_name": org_name,
                 },
-                org_secret_find_and_delete_params.OrgSecretFindAndDeleteParams,
+                ai_secret_find_and_delete_params.AISecretFindAndDeleteParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=OrgSecret,
+            cast_to=AISecret,
         )
 
     async def replace(
@@ -747,19 +745,19 @@ class AsyncOrgSecretResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> OrgSecret:
-        """Create or replace org_secret.
+    ) -> AISecret:
+        """Create or replace ai_secret.
 
-        If there is an existing org_secret with the same
-        name as the one specified in the request, will replace the existing org_secret
+        If there is an existing ai_secret with the same
+        name as the one specified in the request, will replace the existing ai_secret
         with the provided fields
 
         Args:
-          name: Name of the org secret
+          name: Name of the AI secret
 
           org_name: For nearly all users, this parameter should be unnecessary. But in the rare case
               that your API key belongs to multiple organizations, you may specify the name of
-              the organization the Org Secret belongs in.
+              the organization the AI Secret belongs in.
 
           secret: Secret value. If omitted in a PUT request, the existing secret value will be
               left intact, not replaced with null.
@@ -773,7 +771,7 @@ class AsyncOrgSecretResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._put(
-            "/v1/org_secret",
+            "/v1/ai_secret",
             body=await async_maybe_transform(
                 {
                     "name": name,
@@ -782,118 +780,118 @@ class AsyncOrgSecretResource(AsyncAPIResource):
                     "secret": secret,
                     "type": type,
                 },
-                org_secret_replace_params.OrgSecretReplaceParams,
+                ai_secret_replace_params.AISecretReplaceParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=OrgSecret,
+            cast_to=AISecret,
         )
 
 
-class OrgSecretResourceWithRawResponse:
-    def __init__(self, org_secret: OrgSecretResource) -> None:
-        self._org_secret = org_secret
+class AISecretResourceWithRawResponse:
+    def __init__(self, ai_secret: AISecretResource) -> None:
+        self._ai_secret = ai_secret
 
         self.create = to_raw_response_wrapper(
-            org_secret.create,
+            ai_secret.create,
         )
         self.retrieve = to_raw_response_wrapper(
-            org_secret.retrieve,
+            ai_secret.retrieve,
         )
         self.update = to_raw_response_wrapper(
-            org_secret.update,
+            ai_secret.update,
         )
         self.list = to_raw_response_wrapper(
-            org_secret.list,
+            ai_secret.list,
         )
         self.delete = to_raw_response_wrapper(
-            org_secret.delete,
+            ai_secret.delete,
         )
         self.find_and_delete = to_raw_response_wrapper(
-            org_secret.find_and_delete,
+            ai_secret.find_and_delete,
         )
         self.replace = to_raw_response_wrapper(
-            org_secret.replace,
+            ai_secret.replace,
         )
 
 
-class AsyncOrgSecretResourceWithRawResponse:
-    def __init__(self, org_secret: AsyncOrgSecretResource) -> None:
-        self._org_secret = org_secret
+class AsyncAISecretResourceWithRawResponse:
+    def __init__(self, ai_secret: AsyncAISecretResource) -> None:
+        self._ai_secret = ai_secret
 
         self.create = async_to_raw_response_wrapper(
-            org_secret.create,
+            ai_secret.create,
         )
         self.retrieve = async_to_raw_response_wrapper(
-            org_secret.retrieve,
+            ai_secret.retrieve,
         )
         self.update = async_to_raw_response_wrapper(
-            org_secret.update,
+            ai_secret.update,
         )
         self.list = async_to_raw_response_wrapper(
-            org_secret.list,
+            ai_secret.list,
         )
         self.delete = async_to_raw_response_wrapper(
-            org_secret.delete,
+            ai_secret.delete,
         )
         self.find_and_delete = async_to_raw_response_wrapper(
-            org_secret.find_and_delete,
+            ai_secret.find_and_delete,
         )
         self.replace = async_to_raw_response_wrapper(
-            org_secret.replace,
+            ai_secret.replace,
         )
 
 
-class OrgSecretResourceWithStreamingResponse:
-    def __init__(self, org_secret: OrgSecretResource) -> None:
-        self._org_secret = org_secret
+class AISecretResourceWithStreamingResponse:
+    def __init__(self, ai_secret: AISecretResource) -> None:
+        self._ai_secret = ai_secret
 
         self.create = to_streamed_response_wrapper(
-            org_secret.create,
+            ai_secret.create,
         )
         self.retrieve = to_streamed_response_wrapper(
-            org_secret.retrieve,
+            ai_secret.retrieve,
         )
         self.update = to_streamed_response_wrapper(
-            org_secret.update,
+            ai_secret.update,
         )
         self.list = to_streamed_response_wrapper(
-            org_secret.list,
+            ai_secret.list,
         )
         self.delete = to_streamed_response_wrapper(
-            org_secret.delete,
+            ai_secret.delete,
         )
         self.find_and_delete = to_streamed_response_wrapper(
-            org_secret.find_and_delete,
+            ai_secret.find_and_delete,
         )
         self.replace = to_streamed_response_wrapper(
-            org_secret.replace,
+            ai_secret.replace,
         )
 
 
-class AsyncOrgSecretResourceWithStreamingResponse:
-    def __init__(self, org_secret: AsyncOrgSecretResource) -> None:
-        self._org_secret = org_secret
+class AsyncAISecretResourceWithStreamingResponse:
+    def __init__(self, ai_secret: AsyncAISecretResource) -> None:
+        self._ai_secret = ai_secret
 
         self.create = async_to_streamed_response_wrapper(
-            org_secret.create,
+            ai_secret.create,
         )
         self.retrieve = async_to_streamed_response_wrapper(
-            org_secret.retrieve,
+            ai_secret.retrieve,
         )
         self.update = async_to_streamed_response_wrapper(
-            org_secret.update,
+            ai_secret.update,
         )
         self.list = async_to_streamed_response_wrapper(
-            org_secret.list,
+            ai_secret.list,
         )
         self.delete = async_to_streamed_response_wrapper(
-            org_secret.delete,
+            ai_secret.delete,
         )
         self.find_and_delete = async_to_streamed_response_wrapper(
-            org_secret.find_and_delete,
+            ai_secret.find_and_delete,
         )
         self.replace = async_to_streamed_response_wrapper(
-            org_secret.replace,
+            ai_secret.replace,
         )
