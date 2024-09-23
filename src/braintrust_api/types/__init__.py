@@ -84,6 +84,7 @@ from .experiment_list_params import ExperimentListParams as ExperimentListParams
 from .function_create_params import FunctionCreateParams as FunctionCreateParams
 from .function_update_params import FunctionUpdateParams as FunctionUpdateParams
 from .org_secret_list_params import OrgSecretListParams as OrgSecretListParams
+from .acl_batch_update_params import ACLBatchUpdateParams as ACLBatchUpdateParams
 from .dataset_feedback_params import DatasetFeedbackParams as DatasetFeedbackParams
 from .experiment_fetch_params import ExperimentFetchParams as ExperimentFetchParams
 from .function_replace_params import FunctionReplaceParams as FunctionReplaceParams
@@ -95,11 +96,13 @@ from .experiment_update_params import ExperimentUpdateParams as ExperimentUpdate
 from .org_secret_create_params import OrgSecretCreateParams as OrgSecretCreateParams
 from .org_secret_update_params import OrgSecretUpdateParams as OrgSecretUpdateParams
 from .organization_list_params import OrganizationListParams as OrganizationListParams
+from .acl_batch_update_response import ACLBatchUpdateResponse as ACLBatchUpdateResponse
 from .dataset_fetch_post_params import DatasetFetchPostParams as DatasetFetchPostParams
 from .org_secret_replace_params import OrgSecretReplaceParams as OrgSecretReplaceParams
 from .project_score_list_params import ProjectScoreListParams as ProjectScoreListParams
 from .project_tag_create_params import ProjectTagCreateParams as ProjectTagCreateParams
 from .project_tag_update_params import ProjectTagUpdateParams as ProjectTagUpdateParams
+from .acl_find_and_delete_params import ACLFindAndDeleteParams as ACLFindAndDeleteParams
 from .experiment_feedback_params import ExperimentFeedbackParams as ExperimentFeedbackParams
 from .organization_update_params import OrganizationUpdateParams as OrganizationUpdateParams
 from .project_tag_replace_params import ProjectTagReplaceParams as ProjectTagReplaceParams
@@ -111,3 +114,4 @@ from .experiment_fetch_post_params import ExperimentFetchPostParams as Experimen
 from .project_score_replace_params import ProjectScoreReplaceParams as ProjectScoreReplaceParams
 from .api_key_resource_create_params import APIKeyResourceCreateParams as APIKeyResourceCreateParams
 from .top_level_hello_world_response import TopLevelHelloWorldResponse as TopLevelHelloWorldResponse
+from .org_secret_find_and_delete_params import OrgSecretFindAndDeleteParams as OrgSecretFindAndDeleteParams

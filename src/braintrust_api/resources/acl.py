@@ -2,12 +2,17 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import List, Union, Iterable, Optional
 from typing_extensions import Literal
 
 import httpx
 
-from ..types import acl_list_params, acl_create_params
+from ..types import (
+    acl_list_params,
+    acl_create_params,
+    acl_batch_update_params,
+    acl_find_and_delete_params,
+)
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -24,6 +29,7 @@ from .._response import (
 from ..pagination import SyncListObjects, AsyncListObjects
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.acl import ACL
+from ..types.acl_batch_update_response import ACLBatchUpdateResponse
 
 __all__ = ["ACLResource", "AsyncACLResource"]
 
@@ -302,6 +308,170 @@ class ACLResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `acl_id` but received {acl_id!r}")
         return self._delete(
             f"/v1/acl/{acl_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ACL,
+        )
+
+    def batch_update(
+        self,
+        *,
+        add_acls: Optional[Iterable[acl_batch_update_params.AddACL]] | NotGiven = NOT_GIVEN,
+        remove_acls: Optional[Iterable[acl_batch_update_params.RemoveACL]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ACLBatchUpdateResponse:
+        """Batch update acls.
+
+        This operation is idempotent, so adding acls which already
+        exist will have no effect, and removing acls which do not exist will have no
+        effect.
+
+        Args:
+          add_acls: An ACL grants a certain permission or role to a certain user or group on an
+              object.
+
+              ACLs are inherited across the object hierarchy. So for example, if a user has
+              read permissions on a project, they will also have read permissions on any
+              experiment, dataset, etc. created within that project.
+
+              To restrict a grant to a particular sub-object, you may specify
+              `restrict_object_type` in the ACL, as part of a direct permission grant or as
+              part of a role.
+
+          remove_acls: An ACL grants a certain permission or role to a certain user or group on an
+              object.
+
+              ACLs are inherited across the object hierarchy. So for example, if a user has
+              read permissions on a project, they will also have read permissions on any
+              experiment, dataset, etc. created within that project.
+
+              To restrict a grant to a particular sub-object, you may specify
+              `restrict_object_type` in the ACL, as part of a direct permission grant or as
+              part of a role.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/v1/acl/batch-update",
+            body=maybe_transform(
+                {
+                    "add_acls": add_acls,
+                    "remove_acls": remove_acls,
+                },
+                acl_batch_update_params.ACLBatchUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ACLBatchUpdateResponse,
+        )
+
+    def find_and_delete(
+        self,
+        *,
+        object_id: str,
+        object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ],
+        group_id: Optional[str] | NotGiven = NOT_GIVEN,
+        permission: Optional[
+            Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
+        ]
+        | NotGiven = NOT_GIVEN,
+        restrict_object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ]
+        | NotGiven = NOT_GIVEN,
+        role_id: Optional[str] | NotGiven = NOT_GIVEN,
+        user_id: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ACL:
+        """
+        Delete a single acl
+
+        Args:
+          object_id: The id of the object the ACL applies to
+
+          object_type: The object type that the ACL applies to
+
+          group_id: Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
+              be provided
+
+          permission: Permission the ACL grants. Exactly one of `permission` and `role_id` will be
+              provided
+
+          restrict_object_type: When setting a permission directly, optionally restricts the permission grant to
+              just the specified object type. Cannot be set alongside a `role_id`.
+
+          role_id: Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
+              provided
+
+          user_id: Id of the user the ACL applies to. Exactly one of `user_id` and `group_id` will
+              be provided
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._delete(
+            "/v1/acl",
+            body=maybe_transform(
+                {
+                    "object_id": object_id,
+                    "object_type": object_type,
+                    "group_id": group_id,
+                    "permission": permission,
+                    "restrict_object_type": restrict_object_type,
+                    "role_id": role_id,
+                    "user_id": user_id,
+                },
+                acl_find_and_delete_params.ACLFindAndDeleteParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -589,6 +759,170 @@ class AsyncACLResource(AsyncAPIResource):
             cast_to=ACL,
         )
 
+    async def batch_update(
+        self,
+        *,
+        add_acls: Optional[Iterable[acl_batch_update_params.AddACL]] | NotGiven = NOT_GIVEN,
+        remove_acls: Optional[Iterable[acl_batch_update_params.RemoveACL]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ACLBatchUpdateResponse:
+        """Batch update acls.
+
+        This operation is idempotent, so adding acls which already
+        exist will have no effect, and removing acls which do not exist will have no
+        effect.
+
+        Args:
+          add_acls: An ACL grants a certain permission or role to a certain user or group on an
+              object.
+
+              ACLs are inherited across the object hierarchy. So for example, if a user has
+              read permissions on a project, they will also have read permissions on any
+              experiment, dataset, etc. created within that project.
+
+              To restrict a grant to a particular sub-object, you may specify
+              `restrict_object_type` in the ACL, as part of a direct permission grant or as
+              part of a role.
+
+          remove_acls: An ACL grants a certain permission or role to a certain user or group on an
+              object.
+
+              ACLs are inherited across the object hierarchy. So for example, if a user has
+              read permissions on a project, they will also have read permissions on any
+              experiment, dataset, etc. created within that project.
+
+              To restrict a grant to a particular sub-object, you may specify
+              `restrict_object_type` in the ACL, as part of a direct permission grant or as
+              part of a role.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/v1/acl/batch-update",
+            body=await async_maybe_transform(
+                {
+                    "add_acls": add_acls,
+                    "remove_acls": remove_acls,
+                },
+                acl_batch_update_params.ACLBatchUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ACLBatchUpdateResponse,
+        )
+
+    async def find_and_delete(
+        self,
+        *,
+        object_id: str,
+        object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ],
+        group_id: Optional[str] | NotGiven = NOT_GIVEN,
+        permission: Optional[
+            Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
+        ]
+        | NotGiven = NOT_GIVEN,
+        restrict_object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ]
+        | NotGiven = NOT_GIVEN,
+        role_id: Optional[str] | NotGiven = NOT_GIVEN,
+        user_id: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ACL:
+        """
+        Delete a single acl
+
+        Args:
+          object_id: The id of the object the ACL applies to
+
+          object_type: The object type that the ACL applies to
+
+          group_id: Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
+              be provided
+
+          permission: Permission the ACL grants. Exactly one of `permission` and `role_id` will be
+              provided
+
+          restrict_object_type: When setting a permission directly, optionally restricts the permission grant to
+              just the specified object type. Cannot be set alongside a `role_id`.
+
+          role_id: Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
+              provided
+
+          user_id: Id of the user the ACL applies to. Exactly one of `user_id` and `group_id` will
+              be provided
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._delete(
+            "/v1/acl",
+            body=await async_maybe_transform(
+                {
+                    "object_id": object_id,
+                    "object_type": object_type,
+                    "group_id": group_id,
+                    "permission": permission,
+                    "restrict_object_type": restrict_object_type,
+                    "role_id": role_id,
+                    "user_id": user_id,
+                },
+                acl_find_and_delete_params.ACLFindAndDeleteParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ACL,
+        )
+
 
 class ACLResourceWithRawResponse:
     def __init__(self, acl: ACLResource) -> None:
@@ -605,6 +939,12 @@ class ACLResourceWithRawResponse:
         )
         self.delete = to_raw_response_wrapper(
             acl.delete,
+        )
+        self.batch_update = to_raw_response_wrapper(
+            acl.batch_update,
+        )
+        self.find_and_delete = to_raw_response_wrapper(
+            acl.find_and_delete,
         )
 
 
@@ -624,6 +964,12 @@ class AsyncACLResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             acl.delete,
         )
+        self.batch_update = async_to_raw_response_wrapper(
+            acl.batch_update,
+        )
+        self.find_and_delete = async_to_raw_response_wrapper(
+            acl.find_and_delete,
+        )
 
 
 class ACLResourceWithStreamingResponse:
@@ -642,6 +988,12 @@ class ACLResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             acl.delete,
         )
+        self.batch_update = to_streamed_response_wrapper(
+            acl.batch_update,
+        )
+        self.find_and_delete = to_streamed_response_wrapper(
+            acl.find_and_delete,
+        )
 
 
 class AsyncACLResourceWithStreamingResponse:
@@ -659,4 +1011,10 @@ class AsyncACLResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             acl.delete,
+        )
+        self.batch_update = async_to_streamed_response_wrapper(
+            acl.batch_update,
+        )
+        self.find_and_delete = async_to_streamed_response_wrapper(
+            acl.find_and_delete,
         )
