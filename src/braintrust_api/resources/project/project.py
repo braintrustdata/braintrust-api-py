@@ -30,7 +30,7 @@ from ..._response import (
 )
 from ...pagination import SyncListObjects, AsyncListObjects
 from ..._base_client import AsyncPaginator, make_request_options
-from ...types.shared.project import Project
+from ...types.shared.project_model import ProjectModel
 
 __all__ = ["ProjectResource", "AsyncProjectResource"]
 
@@ -70,7 +70,7 @@ class ProjectResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Project:
+    ) -> ProjectModel:
         """Create a new project.
 
         If there is an existing project with the same name as the
@@ -103,7 +103,7 @@ class ProjectResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Project,
+            cast_to=ProjectModel,
         )
 
     def retrieve(
@@ -116,7 +116,7 @@ class ProjectResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Project:
+    ) -> ProjectModel:
         """
         Get a project object by its id
 
@@ -138,7 +138,7 @@ class ProjectResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Project,
+            cast_to=ProjectModel,
         )
 
     def update(
@@ -153,7 +153,7 @@ class ProjectResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Project:
+    ) -> ProjectModel:
         """Partially update a project object.
 
         Specify the fields to update in the payload.
@@ -190,7 +190,7 @@ class ProjectResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Project,
+            cast_to=ProjectModel,
         )
 
     def list(
@@ -208,7 +208,7 @@ class ProjectResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncListObjects[Project]:
+    ) -> SyncListObjects[ProjectModel]:
         """List out all projects.
 
         The projects are sorted by creation date, with the most
@@ -246,7 +246,7 @@ class ProjectResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/project",
-            page=SyncListObjects[Project],
+            page=SyncListObjects[ProjectModel],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -264,7 +264,7 @@ class ProjectResource(SyncAPIResource):
                     project_list_params.ProjectListParams,
                 ),
             ),
-            model=Project,
+            model=ProjectModel,
         )
 
     def delete(
@@ -277,7 +277,7 @@ class ProjectResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Project:
+    ) -> ProjectModel:
         """
         Delete a project object by its id
 
@@ -299,7 +299,7 @@ class ProjectResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Project,
+            cast_to=ProjectModel,
         )
 
 
@@ -338,7 +338,7 @@ class AsyncProjectResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Project:
+    ) -> ProjectModel:
         """Create a new project.
 
         If there is an existing project with the same name as the
@@ -371,7 +371,7 @@ class AsyncProjectResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Project,
+            cast_to=ProjectModel,
         )
 
     async def retrieve(
@@ -384,7 +384,7 @@ class AsyncProjectResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Project:
+    ) -> ProjectModel:
         """
         Get a project object by its id
 
@@ -406,7 +406,7 @@ class AsyncProjectResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Project,
+            cast_to=ProjectModel,
         )
 
     async def update(
@@ -421,7 +421,7 @@ class AsyncProjectResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Project:
+    ) -> ProjectModel:
         """Partially update a project object.
 
         Specify the fields to update in the payload.
@@ -458,7 +458,7 @@ class AsyncProjectResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Project,
+            cast_to=ProjectModel,
         )
 
     def list(
@@ -476,7 +476,7 @@ class AsyncProjectResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[Project, AsyncListObjects[Project]]:
+    ) -> AsyncPaginator[ProjectModel, AsyncListObjects[ProjectModel]]:
         """List out all projects.
 
         The projects are sorted by creation date, with the most
@@ -514,7 +514,7 @@ class AsyncProjectResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/project",
-            page=AsyncListObjects[Project],
+            page=AsyncListObjects[ProjectModel],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -532,7 +532,7 @@ class AsyncProjectResource(AsyncAPIResource):
                     project_list_params.ProjectListParams,
                 ),
             ),
-            model=Project,
+            model=ProjectModel,
         )
 
     async def delete(
@@ -545,7 +545,7 @@ class AsyncProjectResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Project:
+    ) -> ProjectModel:
         """
         Delete a project object by its id
 
@@ -567,7 +567,7 @@ class AsyncProjectResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Project,
+            cast_to=ProjectModel,
         )
 
 
