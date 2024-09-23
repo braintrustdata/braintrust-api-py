@@ -5,14 +5,14 @@ from __future__ import annotations
 from typing import Dict, Optional
 from typing_extensions import TypedDict
 
-__all__ = ["OrgSecretUpdateParams"]
+__all__ = ["AISecretUpdateParams"]
 
 
-class OrgSecretUpdateParams(TypedDict, total=False):
+class AISecretUpdateParams(TypedDict, total=False):
     metadata: Optional[Dict[str, object]]
 
     name: Optional[str]
-    """Name of the org secret"""
+    """Name of the AI secret"""
 
     secret: Optional[str]
 

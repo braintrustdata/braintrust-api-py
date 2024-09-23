@@ -12,10 +12,10 @@ from .shared import (
     Prompt as Prompt,
     Dataset as Dataset,
     Project as Project,
+    AISecret as AISecret,
     Function as Function,
     RepoInfo as RepoInfo,
     ViewData as ViewData,
-    OrgSecret as OrgSecret,
     Experiment as Experiment,
     ProjectTag as ProjectTag,
     PromptData as PromptData,
@@ -74,6 +74,7 @@ from .group_replace_params import GroupReplaceParams as GroupReplaceParams
 from .prompt_create_params import PromptCreateParams as PromptCreateParams
 from .prompt_update_params import PromptUpdateParams as PromptUpdateParams
 from .view_retrieve_params import ViewRetrieveParams as ViewRetrieveParams
+from .ai_secret_list_params import AISecretListParams as AISecretListParams
 from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
 from .dataset_insert_params import DatasetInsertParams as DatasetInsertParams
 from .dataset_update_params import DatasetUpdateParams as DatasetUpdateParams
@@ -82,23 +83,23 @@ from .project_update_params import ProjectUpdateParams as ProjectUpdateParams
 from .prompt_replace_params import PromptReplaceParams as PromptReplaceParams
 from .experiment_list_params import ExperimentListParams as ExperimentListParams
 from .function_create_params import FunctionCreateParams as FunctionCreateParams
+from .function_invoke_params import FunctionInvokeParams as FunctionInvokeParams
 from .function_update_params import FunctionUpdateParams as FunctionUpdateParams
-from .org_secret_list_params import OrgSecretListParams as OrgSecretListParams
 from .acl_batch_update_params import ACLBatchUpdateParams as ACLBatchUpdateParams
+from .ai_secret_create_params import AISecretCreateParams as AISecretCreateParams
+from .ai_secret_update_params import AISecretUpdateParams as AISecretUpdateParams
 from .dataset_feedback_params import DatasetFeedbackParams as DatasetFeedbackParams
 from .experiment_fetch_params import ExperimentFetchParams as ExperimentFetchParams
 from .function_replace_params import FunctionReplaceParams as FunctionReplaceParams
 from .project_tag_list_params import ProjectTagListParams as ProjectTagListParams
+from .ai_secret_replace_params import AISecretReplaceParams as AISecretReplaceParams
 from .dataset_summarize_params import DatasetSummarizeParams as DatasetSummarizeParams
 from .experiment_create_params import ExperimentCreateParams as ExperimentCreateParams
 from .experiment_insert_params import ExperimentInsertParams as ExperimentInsertParams
 from .experiment_update_params import ExperimentUpdateParams as ExperimentUpdateParams
-from .org_secret_create_params import OrgSecretCreateParams as OrgSecretCreateParams
-from .org_secret_update_params import OrgSecretUpdateParams as OrgSecretUpdateParams
 from .organization_list_params import OrganizationListParams as OrganizationListParams
 from .acl_batch_update_response import ACLBatchUpdateResponse as ACLBatchUpdateResponse
 from .dataset_fetch_post_params import DatasetFetchPostParams as DatasetFetchPostParams
-from .org_secret_replace_params import OrgSecretReplaceParams as OrgSecretReplaceParams
 from .project_score_list_params import ProjectScoreListParams as ProjectScoreListParams
 from .project_tag_create_params import ProjectTagCreateParams as ProjectTagCreateParams
 from .project_tag_update_params import ProjectTagUpdateParams as ProjectTagUpdateParams
@@ -114,4 +115,4 @@ from .experiment_fetch_post_params import ExperimentFetchPostParams as Experimen
 from .project_score_replace_params import ProjectScoreReplaceParams as ProjectScoreReplaceParams
 from .api_key_resource_create_params import APIKeyResourceCreateParams as APIKeyResourceCreateParams
 from .top_level_hello_world_response import TopLevelHelloWorldResponse as TopLevelHelloWorldResponse
-from .org_secret_find_and_delete_params import OrgSecretFindAndDeleteParams as OrgSecretFindAndDeleteParams
+from .ai_secret_find_and_delete_params import AISecretFindAndDeleteParams as AISecretFindAndDeleteParams
