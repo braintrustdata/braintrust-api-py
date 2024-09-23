@@ -10,6 +10,7 @@ import httpx
 from ..types import (
     function_list_params,
     function_create_params,
+    function_invoke_params,
     function_update_params,
     function_replace_params,
 )
@@ -344,6 +345,63 @@ class FunctionResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=Function,
+        )
+
+    def invoke(
+        self,
+        function_id: str,
+        *,
+        input: object | NotGiven = NOT_GIVEN,
+        parent: function_invoke_params.Parent | NotGiven = NOT_GIVEN,
+        stream: bool | NotGiven = NOT_GIVEN,
+        version: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> object:
+        """
+        Invoke a function.
+
+        Args:
+          function_id: Function id
+
+          input: Argument to the function, which can be any JSON serializable value
+
+          parent: Options for tracing the function call
+
+          stream: Whether to stream the response. If true, results will be returned in the
+              Braintrust SSE format.
+
+          version: The version of the function
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not function_id:
+            raise ValueError(f"Expected a non-empty value for `function_id` but received {function_id!r}")
+        return self._post(
+            f"/v1/function/{function_id}/invoke",
+            body=maybe_transform(
+                {
+                    "input": input,
+                    "parent": parent,
+                    "stream": stream,
+                    "version": version,
+                },
+                function_invoke_params.FunctionInvokeParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=object,
         )
 
     def replace(
@@ -727,6 +785,63 @@ class AsyncFunctionResource(AsyncAPIResource):
             cast_to=Function,
         )
 
+    async def invoke(
+        self,
+        function_id: str,
+        *,
+        input: object | NotGiven = NOT_GIVEN,
+        parent: function_invoke_params.Parent | NotGiven = NOT_GIVEN,
+        stream: bool | NotGiven = NOT_GIVEN,
+        version: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> object:
+        """
+        Invoke a function.
+
+        Args:
+          function_id: Function id
+
+          input: Argument to the function, which can be any JSON serializable value
+
+          parent: Options for tracing the function call
+
+          stream: Whether to stream the response. If true, results will be returned in the
+              Braintrust SSE format.
+
+          version: The version of the function
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not function_id:
+            raise ValueError(f"Expected a non-empty value for `function_id` but received {function_id!r}")
+        return await self._post(
+            f"/v1/function/{function_id}/invoke",
+            body=await async_maybe_transform(
+                {
+                    "input": input,
+                    "parent": parent,
+                    "stream": stream,
+                    "version": version,
+                },
+                function_invoke_params.FunctionInvokeParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=object,
+        )
+
     async def replace(
         self,
         *,
@@ -815,6 +930,9 @@ class FunctionResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             function.delete,
         )
+        self.invoke = to_raw_response_wrapper(
+            function.invoke,
+        )
         self.replace = to_raw_response_wrapper(
             function.replace,
         )
@@ -838,6 +956,9 @@ class AsyncFunctionResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             function.delete,
+        )
+        self.invoke = async_to_raw_response_wrapper(
+            function.invoke,
         )
         self.replace = async_to_raw_response_wrapper(
             function.replace,
@@ -863,6 +984,9 @@ class FunctionResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             function.delete,
         )
+        self.invoke = to_streamed_response_wrapper(
+            function.invoke,
+        )
         self.replace = to_streamed_response_wrapper(
             function.replace,
         )
@@ -886,6 +1010,9 @@ class AsyncFunctionResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             function.delete,
+        )
+        self.invoke = async_to_streamed_response_wrapper(
+            function.invoke,
         )
         self.replace = async_to_streamed_response_wrapper(
             function.replace,

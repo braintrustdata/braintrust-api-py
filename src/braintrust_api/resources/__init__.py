@@ -72,6 +72,14 @@ from .function import (
     FunctionResourceWithStreamingResponse,
     AsyncFunctionResourceWithStreamingResponse,
 )
+from .ai_secret import (
+    AISecretResource,
+    AsyncAISecretResource,
+    AISecretResourceWithRawResponse,
+    AsyncAISecretResourceWithRawResponse,
+    AISecretResourceWithStreamingResponse,
+    AsyncAISecretResourceWithStreamingResponse,
+)
 from .top_level import (
     TopLevelResource,
     AsyncTopLevelResource,
@@ -87,14 +95,6 @@ from .experiment import (
     AsyncExperimentResourceWithRawResponse,
     ExperimentResourceWithStreamingResponse,
     AsyncExperimentResourceWithStreamingResponse,
-)
-from .org_secret import (
-    OrgSecretResource,
-    AsyncOrgSecretResource,
-    OrgSecretResourceWithRawResponse,
-    AsyncOrgSecretResourceWithRawResponse,
-    OrgSecretResourceWithStreamingResponse,
-    AsyncOrgSecretResourceWithStreamingResponse,
 )
 from .project_tag import (
     ProjectTagResource,
@@ -220,10 +220,10 @@ __all__ = [
     "AsyncAPIKeyResourceResourceWithRawResponse",
     "APIKeyResourceResourceWithStreamingResponse",
     "AsyncAPIKeyResourceResourceWithStreamingResponse",
-    "OrgSecretResource",
-    "AsyncOrgSecretResource",
-    "OrgSecretResourceWithRawResponse",
-    "AsyncOrgSecretResourceWithRawResponse",
-    "OrgSecretResourceWithStreamingResponse",
-    "AsyncOrgSecretResourceWithStreamingResponse",
+    "AISecretResource",
+    "AsyncAISecretResource",
+    "AISecretResourceWithRawResponse",
+    "AsyncAISecretResourceWithRawResponse",
+    "AISecretResourceWithStreamingResponse",
+    "AsyncAISecretResourceWithStreamingResponse",
 ]
