@@ -2,24 +2,16 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, Literal, Annotated
-
-from typing import Optional, Union
-
+from typing import Union, Optional
 from datetime import datetime
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
-
+from .shared_params.view_data import ViewData
 from .shared_params.view_options import ViewOptions
 
-from .shared_params.view_data import ViewData
-
-from typing import List, Union, Dict, Optional
-from typing_extensions import Literal, TypedDict, Required, Annotated
-from .._types import FileTypes
-from .._utils import PropertyInfo
-
 __all__ = ["ViewCreateParams"]
+
 
 class ViewCreateParams(TypedDict, total=False):
     name: Required[str]
@@ -28,13 +20,33 @@ class ViewCreateParams(TypedDict, total=False):
     object_id: Required[str]
     """The id of the object the view applies to"""
 
-    object_type: Required[Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]]]
+    object_type: Required[
+        Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ]
+    ]
     """The object type that the ACL applies to"""
 
-    view_type: Required[Optional[Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]]]
+    view_type: Required[
+        Optional[
+            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+        ]
+    ]
     """Type of table that the view corresponds to."""
 
-    deleted_at: Annotated[Union[str, datetime, None], PropertyInfo(format = "iso8601")]
+    deleted_at: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """Date of role deletion, or null if the role is still active"""
 
     options: Optional[ViewOptions]

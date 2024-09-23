@@ -2,51 +2,41 @@
 
 from __future__ import annotations
 
+from typing import List, Union, Optional
+from datetime import datetime
+from typing_extensions import Literal
+
 import httpx
 
+from ..types import (
+    view_list_params,
+    view_create_params,
+    view_delete_params,
+    view_update_params,
+    view_replace_params,
+    view_retrieve_params,
+)
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._utils import (
+    maybe_transform,
+    async_maybe_transform,
+)
 from .._compat import cached_property
-
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ..pagination import SyncListObjects, AsyncListObjects
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.view import View
-
-from .._utils import maybe_transform, async_maybe_transform
-
-from .._base_client import make_request_options, AsyncPaginator
-
-from typing import Optional, Union, List
-
-from typing_extensions import Literal
-
-from datetime import datetime
-
+from ..types.shared_params.view_data import ViewData
 from ..types.shared_params.view_options import ViewOptions
 
-from ..types.shared_params.view_data import ViewData
-
-from ..pagination import SyncListObjects, AsyncListObjects
-
-from .._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-import warnings
-from typing import TYPE_CHECKING, Optional, Union, List, Dict, Any, Mapping, cast, overload
-from typing_extensions import Literal
-from .._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
-from .._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
-from .._resource import SyncAPIResource, AsyncAPIResource
-from ..types import shared_params
-from ..types import view_create_params
-from ..types import view_retrieve_params
-from ..types import view_update_params
-from ..types import view_list_params
-from ..types import view_delete_params
-from ..types import view_replace_params
-from ..types import shared
-from ..types import shared
-from ..types import shared
-from ..types import shared
-from ..types import shared
-from ..types import shared
-
 __all__ = ["ViewResource", "AsyncViewResource"]
+
 
 class ViewResource(SyncAPIResource):
     @cached_property
@@ -68,22 +58,40 @@ class ViewResource(SyncAPIResource):
         """
         return ViewResourceWithStreamingResponse(self)
 
-    def create(self,
-    *,
-    name: str,
-    object_id: str,
-    object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]],
-    view_type: Optional[Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]],
-    deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-    options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
-    user_id: Optional[str] | NotGiven = NOT_GIVEN,
-    view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> View:
+    def create(
+        self,
+        *,
+        name: str,
+        object_id: str,
+        object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ],
+        view_type: Optional[
+            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+        ],
+        deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
+        user_id: Optional[str] | NotGiven = NOT_GIVEN,
+        view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> View:
         """Create a new view.
 
         If there is an existing view with the same name as the one
@@ -116,31 +124,52 @@ class ViewResource(SyncAPIResource):
         """
         return self._post(
             "/v1/view",
-            body=maybe_transform({
-                "name": name,
-                "object_id": object_id,
-                "object_type": object_type,
-                "view_type": view_type,
-                "deleted_at": deleted_at,
-                "options": options,
-                "user_id": user_id,
-                "view_data": view_data,
-            }, view_create_params.ViewCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "name": name,
+                    "object_id": object_id,
+                    "object_type": object_type,
+                    "view_type": view_type,
+                    "deleted_at": deleted_at,
+                    "options": options,
+                    "user_id": user_id,
+                    "view_data": view_data,
+                },
+                view_create_params.ViewCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=View,
         )
 
-    def retrieve(self,
-    view_id: str,
-    *,
-    object_id: str,
-    object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]],
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> View:
+    def retrieve(
+        self,
+        view_id: str,
+        *,
+        object_id: str,
+        object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> View:
         """
         Get a view object by its id
 
@@ -160,34 +189,60 @@ class ViewResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not view_id:
-          raise ValueError(
-            f'Expected a non-empty value for `view_id` but received {view_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._get(
             f"/v1/view/{view_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "object_id": object_id,
-                "object_type": object_type,
-            }, view_retrieve_params.ViewRetrieveParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "object_id": object_id,
+                        "object_type": object_type,
+                    },
+                    view_retrieve_params.ViewRetrieveParams,
+                ),
+            ),
             cast_to=View,
         )
 
-    def update(self,
-    view_id: str,
-    *,
-    object_id: str,
-    object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]],
-    name: Optional[str] | NotGiven = NOT_GIVEN,
-    options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
-    user_id: Optional[str] | NotGiven = NOT_GIVEN,
-    view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
-    view_type: Optional[Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> View:
+    def update(
+        self,
+        view_id: str,
+        *,
+        object_id: str,
+        object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ],
+        name: Optional[str] | NotGiven = NOT_GIVEN,
+        options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
+        user_id: Optional[str] | NotGiven = NOT_GIVEN,
+        view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
+        view_type: Optional[
+            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+        ]
+        | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> View:
         """Partially update a view object.
 
         Specify the fields to update in the payload. Any
@@ -220,40 +275,62 @@ class ViewResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not view_id:
-          raise ValueError(
-            f'Expected a non-empty value for `view_id` but received {view_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._patch(
             f"/v1/view/{view_id}",
-            body=maybe_transform({
-                "object_id": object_id,
-                "object_type": object_type,
-                "name": name,
-                "options": options,
-                "user_id": user_id,
-                "view_data": view_data,
-                "view_type": view_type,
-            }, view_update_params.ViewUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "object_id": object_id,
+                    "object_type": object_type,
+                    "name": name,
+                    "options": options,
+                    "user_id": user_id,
+                    "view_data": view_data,
+                    "view_type": view_type,
+                },
+                view_update_params.ViewUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=View,
         )
 
-    def list(self,
-    *,
-    object_id: str,
-    object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]],
-    ending_before: str | NotGiven = NOT_GIVEN,
-    ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-    limit: int | NotGiven = NOT_GIVEN,
-    starting_after: str | NotGiven = NOT_GIVEN,
-    view_name: str | NotGiven = NOT_GIVEN,
-    view_type: Optional[Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> SyncListObjects[View]:
+    def list(
+        self,
+        *,
+        object_id: str,
+        object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ],
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
+        view_name: str | NotGiven = NOT_GIVEN,
+        view_type: Optional[
+            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+        ]
+        | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SyncListObjects[View]:
         """List out all views.
 
         The views are sorted by creation date, with the most
@@ -295,31 +372,56 @@ class ViewResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/view",
-            page = SyncListObjects[View],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "object_id": object_id,
-                "object_type": object_type,
-                "ending_before": ending_before,
-                "ids": ids,
-                "limit": limit,
-                "starting_after": starting_after,
-                "view_name": view_name,
-                "view_type": view_type,
-            }, view_list_params.ViewListParams)),
+            page=SyncListObjects[View],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "object_id": object_id,
+                        "object_type": object_type,
+                        "ending_before": ending_before,
+                        "ids": ids,
+                        "limit": limit,
+                        "starting_after": starting_after,
+                        "view_name": view_name,
+                        "view_type": view_type,
+                    },
+                    view_list_params.ViewListParams,
+                ),
+            ),
             model=View,
         )
 
-    def delete(self,
-    view_id: str,
-    *,
-    object_id: str,
-    object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]],
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> View:
+    def delete(
+        self,
+        view_id: str,
+        *,
+        object_id: str,
+        object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> View:
         """
         Delete a view object by its id
 
@@ -339,35 +441,56 @@ class ViewResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not view_id:
-          raise ValueError(
-            f'Expected a non-empty value for `view_id` but received {view_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return self._delete(
             f"/v1/view/{view_id}",
-            body=maybe_transform({
-                "object_id": object_id,
-                "object_type": object_type,
-            }, view_delete_params.ViewDeleteParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "object_id": object_id,
+                    "object_type": object_type,
+                },
+                view_delete_params.ViewDeleteParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=View,
         )
 
-    def replace(self,
-    *,
-    name: str,
-    object_id: str,
-    object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]],
-    view_type: Optional[Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]],
-    deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-    options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
-    user_id: Optional[str] | NotGiven = NOT_GIVEN,
-    view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> View:
+    def replace(
+        self,
+        *,
+        name: str,
+        object_id: str,
+        object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ],
+        view_type: Optional[
+            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+        ],
+        deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
+        user_id: Optional[str] | NotGiven = NOT_GIVEN,
+        view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> View:
         """Create or replace view.
 
         If there is an existing view with the same name as the
@@ -401,19 +524,25 @@ class ViewResource(SyncAPIResource):
         """
         return self._put(
             "/v1/view",
-            body=maybe_transform({
-                "name": name,
-                "object_id": object_id,
-                "object_type": object_type,
-                "view_type": view_type,
-                "deleted_at": deleted_at,
-                "options": options,
-                "user_id": user_id,
-                "view_data": view_data,
-            }, view_replace_params.ViewReplaceParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "name": name,
+                    "object_id": object_id,
+                    "object_type": object_type,
+                    "view_type": view_type,
+                    "deleted_at": deleted_at,
+                    "options": options,
+                    "user_id": user_id,
+                    "view_data": view_data,
+                },
+                view_replace_params.ViewReplaceParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=View,
         )
+
 
 class AsyncViewResource(AsyncAPIResource):
     @cached_property
@@ -435,22 +564,40 @@ class AsyncViewResource(AsyncAPIResource):
         """
         return AsyncViewResourceWithStreamingResponse(self)
 
-    async def create(self,
-    *,
-    name: str,
-    object_id: str,
-    object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]],
-    view_type: Optional[Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]],
-    deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-    options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
-    user_id: Optional[str] | NotGiven = NOT_GIVEN,
-    view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> View:
+    async def create(
+        self,
+        *,
+        name: str,
+        object_id: str,
+        object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ],
+        view_type: Optional[
+            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+        ],
+        deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
+        user_id: Optional[str] | NotGiven = NOT_GIVEN,
+        view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> View:
         """Create a new view.
 
         If there is an existing view with the same name as the one
@@ -483,31 +630,52 @@ class AsyncViewResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/view",
-            body=await async_maybe_transform({
-                "name": name,
-                "object_id": object_id,
-                "object_type": object_type,
-                "view_type": view_type,
-                "deleted_at": deleted_at,
-                "options": options,
-                "user_id": user_id,
-                "view_data": view_data,
-            }, view_create_params.ViewCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "name": name,
+                    "object_id": object_id,
+                    "object_type": object_type,
+                    "view_type": view_type,
+                    "deleted_at": deleted_at,
+                    "options": options,
+                    "user_id": user_id,
+                    "view_data": view_data,
+                },
+                view_create_params.ViewCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=View,
         )
 
-    async def retrieve(self,
-    view_id: str,
-    *,
-    object_id: str,
-    object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]],
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> View:
+    async def retrieve(
+        self,
+        view_id: str,
+        *,
+        object_id: str,
+        object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> View:
         """
         Get a view object by its id
 
@@ -527,34 +695,60 @@ class AsyncViewResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not view_id:
-          raise ValueError(
-            f'Expected a non-empty value for `view_id` but received {view_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._get(
             f"/v1/view/{view_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
-                "object_id": object_id,
-                "object_type": object_type,
-            }, view_retrieve_params.ViewRetrieveParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "object_id": object_id,
+                        "object_type": object_type,
+                    },
+                    view_retrieve_params.ViewRetrieveParams,
+                ),
+            ),
             cast_to=View,
         )
 
-    async def update(self,
-    view_id: str,
-    *,
-    object_id: str,
-    object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]],
-    name: Optional[str] | NotGiven = NOT_GIVEN,
-    options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
-    user_id: Optional[str] | NotGiven = NOT_GIVEN,
-    view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
-    view_type: Optional[Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> View:
+    async def update(
+        self,
+        view_id: str,
+        *,
+        object_id: str,
+        object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ],
+        name: Optional[str] | NotGiven = NOT_GIVEN,
+        options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
+        user_id: Optional[str] | NotGiven = NOT_GIVEN,
+        view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
+        view_type: Optional[
+            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+        ]
+        | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> View:
         """Partially update a view object.
 
         Specify the fields to update in the payload. Any
@@ -587,40 +781,62 @@ class AsyncViewResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not view_id:
-          raise ValueError(
-            f'Expected a non-empty value for `view_id` but received {view_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._patch(
             f"/v1/view/{view_id}",
-            body=await async_maybe_transform({
-                "object_id": object_id,
-                "object_type": object_type,
-                "name": name,
-                "options": options,
-                "user_id": user_id,
-                "view_data": view_data,
-                "view_type": view_type,
-            }, view_update_params.ViewUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "object_id": object_id,
+                    "object_type": object_type,
+                    "name": name,
+                    "options": options,
+                    "user_id": user_id,
+                    "view_data": view_data,
+                    "view_type": view_type,
+                },
+                view_update_params.ViewUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=View,
         )
 
-    def list(self,
-    *,
-    object_id: str,
-    object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]],
-    ending_before: str | NotGiven = NOT_GIVEN,
-    ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-    limit: int | NotGiven = NOT_GIVEN,
-    starting_after: str | NotGiven = NOT_GIVEN,
-    view_name: str | NotGiven = NOT_GIVEN,
-    view_type: Optional[Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> AsyncPaginator[View, AsyncListObjects[View]]:
+    def list(
+        self,
+        *,
+        object_id: str,
+        object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ],
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
+        view_name: str | NotGiven = NOT_GIVEN,
+        view_type: Optional[
+            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+        ]
+        | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AsyncPaginator[View, AsyncListObjects[View]]:
         """List out all views.
 
         The views are sorted by creation date, with the most
@@ -662,31 +878,56 @@ class AsyncViewResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/view",
-            page = AsyncListObjects[View],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "object_id": object_id,
-                "object_type": object_type,
-                "ending_before": ending_before,
-                "ids": ids,
-                "limit": limit,
-                "starting_after": starting_after,
-                "view_name": view_name,
-                "view_type": view_type,
-            }, view_list_params.ViewListParams)),
+            page=AsyncListObjects[View],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "object_id": object_id,
+                        "object_type": object_type,
+                        "ending_before": ending_before,
+                        "ids": ids,
+                        "limit": limit,
+                        "starting_after": starting_after,
+                        "view_name": view_name,
+                        "view_type": view_type,
+                    },
+                    view_list_params.ViewListParams,
+                ),
+            ),
             model=View,
         )
 
-    async def delete(self,
-    view_id: str,
-    *,
-    object_id: str,
-    object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]],
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> View:
+    async def delete(
+        self,
+        view_id: str,
+        *,
+        object_id: str,
+        object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> View:
         """
         Delete a view object by its id
 
@@ -706,35 +947,56 @@ class AsyncViewResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not view_id:
-          raise ValueError(
-            f'Expected a non-empty value for `view_id` but received {view_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `view_id` but received {view_id!r}")
         return await self._delete(
             f"/v1/view/{view_id}",
-            body=await async_maybe_transform({
-                "object_id": object_id,
-                "object_type": object_type,
-            }, view_delete_params.ViewDeleteParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "object_id": object_id,
+                    "object_type": object_type,
+                },
+                view_delete_params.ViewDeleteParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=View,
         )
 
-    async def replace(self,
-    *,
-    name: str,
-    object_id: str,
-    object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]],
-    view_type: Optional[Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]],
-    deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-    options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
-    user_id: Optional[str] | NotGiven = NOT_GIVEN,
-    view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> View:
+    async def replace(
+        self,
+        *,
+        name: str,
+        object_id: str,
+        object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ],
+        view_type: Optional[
+            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+        ],
+        deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
+        options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
+        user_id: Optional[str] | NotGiven = NOT_GIVEN,
+        view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> View:
         """Create or replace view.
 
         If there is an existing view with the same name as the
@@ -768,19 +1030,25 @@ class AsyncViewResource(AsyncAPIResource):
         """
         return await self._put(
             "/v1/view",
-            body=await async_maybe_transform({
-                "name": name,
-                "object_id": object_id,
-                "object_type": object_type,
-                "view_type": view_type,
-                "deleted_at": deleted_at,
-                "options": options,
-                "user_id": user_id,
-                "view_data": view_data,
-            }, view_replace_params.ViewReplaceParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "name": name,
+                    "object_id": object_id,
+                    "object_type": object_type,
+                    "view_type": view_type,
+                    "deleted_at": deleted_at,
+                    "options": options,
+                    "user_id": user_id,
+                    "view_data": view_data,
+                },
+                view_replace_params.ViewReplaceParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=View,
         )
+
 
 class ViewResourceWithRawResponse:
     def __init__(self, view: ViewResource) -> None:
@@ -805,6 +1073,7 @@ class ViewResourceWithRawResponse:
             view.replace,
         )
 
+
 class AsyncViewResourceWithRawResponse:
     def __init__(self, view: AsyncViewResource) -> None:
         self._view = view
@@ -828,6 +1097,7 @@ class AsyncViewResourceWithRawResponse:
             view.replace,
         )
 
+
 class ViewResourceWithStreamingResponse:
     def __init__(self, view: ViewResource) -> None:
         self._view = view
@@ -850,6 +1120,7 @@ class ViewResourceWithStreamingResponse:
         self.replace = to_streamed_response_wrapper(
             view.replace,
         )
+
 
 class AsyncViewResourceWithStreamingResponse:
     def __init__(self, view: AsyncViewResource) -> None:

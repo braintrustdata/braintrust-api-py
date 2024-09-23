@@ -1,29 +1,22 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
-from typing_extensions import Literal
-
-from typing import Optional, Dict, List
-
+from typing import Dict, List, Optional
 from datetime import datetime
-
-from .prompt_data import PromptData
-
-from typing import Optional, Union, List, Dict, Any
 from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
+from .prompt_data import PromptData
 
 __all__ = ["Prompt"]
+
 
 class Prompt(BaseModel):
     id: str
     """Unique identifier for the prompt"""
 
-    xact_id: str = FieldInfo(alias = "_xact_id")
+    xact_id: str = FieldInfo(alias="_xact_id")
     """
     The transaction id of an event is unique to the network operation that processed
     the event insertion. Transaction ids are monotonically increasing over time and

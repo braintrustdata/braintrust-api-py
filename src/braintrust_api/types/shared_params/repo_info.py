@@ -3,10 +3,10 @@
 from __future__ import annotations
 
 from typing import Optional
-
 from typing_extensions import TypedDict
 
 __all__ = ["RepoInfo"]
+
 
 class RepoInfo(TypedDict, total=False):
     author_email: Optional[str]

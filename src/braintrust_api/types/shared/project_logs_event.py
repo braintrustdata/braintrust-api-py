@@ -1,24 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
-from typing import Optional, Dict, List
-
-from typing_extensions import Literal
-
+from typing import TYPE_CHECKING, Dict, List, Optional
 from datetime import datetime
-
-from typing import Optional, Union, List, Dict, Any
 from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
-from typing import TYPE_CHECKING
-from typing import TYPE_CHECKING
-from typing import TYPE_CHECKING
 
 __all__ = ["ProjectLogsEvent", "Context", "Metrics", "SpanAttributes"]
+
 
 class Context(BaseModel):
     caller_filename: Optional[str] = None
@@ -34,7 +25,8 @@ class Context(BaseModel):
         # Stub to indicate that arbitrary properties are accepted.
         # To access properties that are not valid identifiers you can use `getattr`, e.g.
         # `getattr(obj, '$type')`
-        def __getattr__(self, attr: str) -> object:    ...
+        def __getattr__(self, attr: str) -> object: ...
+
 
 class Metrics(BaseModel):
     completion_tokens: Optional[int] = None
@@ -68,7 +60,8 @@ class Metrics(BaseModel):
         # Stub to indicate that arbitrary properties are accepted.
         # To access properties that are not valid identifiers you can use `getattr`, e.g.
         # `getattr(obj, '$type')`
-        def __getattr__(self, attr: str) -> object:    ...
+        def __getattr__(self, attr: str) -> object: ...
+
 
 class SpanAttributes(BaseModel):
     name: Optional[str] = None
@@ -81,7 +74,8 @@ class SpanAttributes(BaseModel):
         # Stub to indicate that arbitrary properties are accepted.
         # To access properties that are not valid identifiers you can use `getattr`, e.g.
         # `getattr(obj, '$type')`
-        def __getattr__(self, attr: str) -> object:    ...
+        def __getattr__(self, attr: str) -> object: ...
+
 
 class ProjectLogsEvent(BaseModel):
     id: str
@@ -90,7 +84,7 @@ class ProjectLogsEvent(BaseModel):
     If you don't provide one, BrainTrust will generate one for you
     """
 
-    xact_id: str = FieldInfo(alias = "_xact_id")
+    xact_id: str = FieldInfo(alias="_xact_id")
     """
     The transaction id of an event is unique to the network operation that processed
     the event insertion. Transaction ids are monotonically increasing over time and

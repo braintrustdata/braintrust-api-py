@@ -1,19 +1,14 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
-from typing import Optional, Dict, List
-
+from typing import Dict, List, Optional
 from datetime import datetime
-
-from typing import Optional, Union, List, Dict, Any
-from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
 
 __all__ = ["InsertDatasetEventReplace"]
+
 
 class InsertDatasetEventReplace(BaseModel):
     id: Optional[str] = None
@@ -22,7 +17,7 @@ class InsertDatasetEventReplace(BaseModel):
     If you don't provide one, BrainTrust will generate one for you
     """
 
-    is_merge: Optional[bool] = FieldInfo(alias = "_is_merge", default = None)
+    is_merge: Optional[bool] = FieldInfo(alias="_is_merge", default=None)
     """
     The `_is_merge` field controls how the row is merged with any existing row with
     the same id in the DB. By default (or when set to `false`), the existing row is
@@ -37,13 +32,13 @@ class InsertDatasetEventReplace(BaseModel):
     `{"id": "foo", "input": {"b": 11, "c": 20}}`
     """
 
-    object_delete: Optional[bool] = FieldInfo(alias = "_object_delete", default = None)
+    object_delete: Optional[bool] = FieldInfo(alias="_object_delete", default=None)
     """Pass `_object_delete=true` to mark the dataset event deleted.
 
     Deleted events will not show up in subsequent fetches for this dataset
     """
 
-    parent_id: Optional[str] = FieldInfo(alias = "_parent_id", default = None)
+    parent_id: Optional[str] = FieldInfo(alias="_parent_id", default=None)
     """Use the `_parent_id` field to create this row as a subspan of an existing row.
 
     It cannot be specified alongside `_is_merge=true`. Tracking hierarchical

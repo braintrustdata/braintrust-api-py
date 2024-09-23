@@ -2,18 +2,29 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, Literal, TypeAlias
-
-from typing import Optional, List, Union
+from typing import List, Union, Optional
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .shared_params.prompt_data import PromptData
 
-from typing import List, Union, Dict, Optional
-from typing_extensions import Literal, TypedDict, Required, Annotated
-from .._types import FileTypes
-from .._utils import PropertyInfo
+__all__ = [
+    "FunctionReplaceParams",
+    "FunctionData",
+    "FunctionDataPrompt",
+    "FunctionDataCode",
+    "FunctionDataCodeData",
+    "FunctionDataCodeDataBundle",
+    "FunctionDataCodeDataBundleLocation",
+    "FunctionDataCodeDataBundleLocationPosition",
+    "FunctionDataCodeDataBundleLocationPositionType",
+    "FunctionDataCodeDataBundleLocationPositionScorer",
+    "FunctionDataCodeDataBundleRuntimeContext",
+    "FunctionDataCodeDataInline",
+    "FunctionDataCodeDataInlineRuntimeContext",
+    "FunctionDataGlobal",
+    "Origin",
+]
 
-__all__ = ["FunctionReplaceParams", "FunctionData", "FunctionDataPrompt", "FunctionDataCode", "FunctionDataCodeData", "FunctionDataCodeDataBundle", "FunctionDataCodeDataBundleLocation", "FunctionDataCodeDataBundleLocationPosition", "FunctionDataCodeDataBundleLocationPositionType", "FunctionDataCodeDataBundleLocationPositionScorer", "FunctionDataCodeDataBundleRuntimeContext", "FunctionDataCodeDataInline", "FunctionDataCodeDataInlineRuntimeContext", "FunctionDataGlobal", "Origin"]
 
 class FunctionReplaceParams(TypedDict, total=False):
     function_data: Required[FunctionData]
@@ -40,18 +51,25 @@ class FunctionReplaceParams(TypedDict, total=False):
     tags: Optional[List[str]]
     """A list of tags for the prompt"""
 
+
 class FunctionDataPrompt(TypedDict, total=False):
     type: Required[Literal["prompt"]]
 
+
 class FunctionDataCodeDataBundleLocationPositionType(TypedDict, total=False):
     type: Required[Literal["task"]]
+
 
 class FunctionDataCodeDataBundleLocationPositionScorer(TypedDict, total=False):
     index: Required[float]
 
     type: Required[Literal["scorer"]]
 
-FunctionDataCodeDataBundleLocationPosition: TypeAlias = Union[FunctionDataCodeDataBundleLocationPositionType, FunctionDataCodeDataBundleLocationPositionScorer]
+
+FunctionDataCodeDataBundleLocationPosition: TypeAlias = Union[
+    FunctionDataCodeDataBundleLocationPositionType, FunctionDataCodeDataBundleLocationPositionScorer
+]
+
 
 class FunctionDataCodeDataBundleLocation(TypedDict, total=False):
     eval_name: Required[str]
@@ -60,10 +78,12 @@ class FunctionDataCodeDataBundleLocation(TypedDict, total=False):
 
     type: Required[Literal["experiment"]]
 
+
 class FunctionDataCodeDataBundleRuntimeContext(TypedDict, total=False):
     runtime: Required[Literal["node", "python"]]
 
     version: Required[str]
+
 
 class FunctionDataCodeDataBundle(TypedDict, total=False):
     bundle_id: Required[str]
@@ -77,10 +97,12 @@ class FunctionDataCodeDataBundle(TypedDict, total=False):
     preview: Optional[str]
     """A preview of the code"""
 
+
 class FunctionDataCodeDataInlineRuntimeContext(TypedDict, total=False):
     runtime: Required[Literal["node", "python"]]
 
     version: Required[str]
+
 
 class FunctionDataCodeDataInline(TypedDict, total=False):
     code: Required[str]
@@ -89,25 +111,46 @@ class FunctionDataCodeDataInline(TypedDict, total=False):
 
     type: Required[Literal["inline"]]
 
+
 FunctionDataCodeData: TypeAlias = Union[FunctionDataCodeDataBundle, FunctionDataCodeDataInline]
+
 
 class FunctionDataCode(TypedDict, total=False):
     data: Required[FunctionDataCodeData]
 
     type: Required[Literal["code"]]
 
+
 class FunctionDataGlobal(TypedDict, total=False):
     name: Required[str]
 
     type: Required[Literal["global"]]
 
+
 FunctionData: TypeAlias = Union[FunctionDataPrompt, FunctionDataCode, FunctionDataGlobal]
+
 
 class Origin(TypedDict, total=False):
     object_id: Required[str]
     """Id of the object the function is originating from"""
 
-    object_type: Required[Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]]]
+    object_type: Required[
+        Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ]
+    ]
     """The object type that the ACL applies to"""
 
     internal: Optional[bool]
