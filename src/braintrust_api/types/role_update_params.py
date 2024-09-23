@@ -2,16 +2,11 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Literal, Required
-
-from typing import Optional, Iterable, List
-
-from typing import List, Union, Dict, Optional
-from typing_extensions import Literal, TypedDict, Required, Annotated
-from .._types import FileTypes
-from .._utils import PropertyInfo
+from typing import List, Iterable, Optional
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["RoleUpdateParams", "AddMemberPermission", "RemoveMemberPermission"]
+
 
 class RoleUpdateParams(TypedDict, total=False):
     add_member_permissions: Optional[Iterable[AddMemberPermission]]
@@ -32,24 +27,62 @@ class RoleUpdateParams(TypedDict, total=False):
     remove_member_roles: Optional[List[str]]
     """A list of role IDs to remove from the role's inheriting-from set"""
 
+
 class AddMemberPermission(TypedDict, total=False):
-    permission: Required[Optional[Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]]]
+    permission: Required[
+        Optional[
+            Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
+        ]
+    ]
     """Each permission permits a certain type of operation on an object in the system
 
     Permissions can be assigned to to objects on an individual basis, or grouped
     into roles
     """
 
-    restrict_object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]]
+    restrict_object_type: Optional[
+        Literal[
+            "organization",
+            "project",
+            "experiment",
+            "dataset",
+            "prompt",
+            "prompt_session",
+            "group",
+            "role",
+            "org_member",
+            "project_log",
+            "org_project",
+        ]
+    ]
     """The object type that the ACL applies to"""
 
+
 class RemoveMemberPermission(TypedDict, total=False):
-    permission: Required[Optional[Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]]]
+    permission: Required[
+        Optional[
+            Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
+        ]
+    ]
     """Each permission permits a certain type of operation on an object in the system
 
     Permissions can be assigned to to objects on an individual basis, or grouped
     into roles
     """
 
-    restrict_object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]]
+    restrict_object_type: Optional[
+        Literal[
+            "organization",
+            "project",
+            "experiment",
+            "dataset",
+            "prompt",
+            "prompt_session",
+            "group",
+            "role",
+            "org_member",
+            "project_log",
+            "org_project",
+        ]
+    ]
     """The object type that the ACL applies to"""

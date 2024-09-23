@@ -2,42 +2,37 @@
 
 from __future__ import annotations
 
+from typing import List, Union, Optional
+from typing_extensions import Literal
+
 import httpx
 
+from ..types import (
+    prompt_list_params,
+    prompt_create_params,
+    prompt_update_params,
+    prompt_replace_params,
+)
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._utils import (
+    maybe_transform,
+    async_maybe_transform,
+)
 from .._compat import cached_property
-
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ..pagination import SyncListObjects, AsyncListObjects
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.prompt import Prompt
-
-from .._utils import maybe_transform, async_maybe_transform
-
-from .._base_client import make_request_options, AsyncPaginator
-
-from typing import Optional, List, Union
-
-from typing_extensions import Literal
-
 from ..types.shared_params.prompt_data import PromptData
 
-from ..pagination import SyncListObjects, AsyncListObjects
-
-from .._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-import warnings
-from typing import TYPE_CHECKING, Optional, Union, List, Dict, Any, Mapping, cast, overload
-from typing_extensions import Literal
-from .._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
-from .._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
-from .._resource import SyncAPIResource, AsyncAPIResource
-from ..types import shared_params
-from ..types import prompt_create_params
-from ..types import prompt_update_params
-from ..types import prompt_list_params
-from ..types import prompt_replace_params
-from ..types import shared
-from ..types import shared
-from ..types import shared
-
 __all__ = ["PromptResource", "AsyncPromptResource"]
+
 
 class PromptResource(SyncAPIResource):
     @cached_property
@@ -59,21 +54,23 @@ class PromptResource(SyncAPIResource):
         """
         return PromptResourceWithStreamingResponse(self)
 
-    def create(self,
-    *,
-    name: str,
-    project_id: str,
-    slug: str,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    function_type: Optional[Literal["task", "llm", "scorer"]] | NotGiven = NOT_GIVEN,
-    prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
-    tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Prompt:
+    def create(
+        self,
+        *,
+        name: str,
+        project_id: str,
+        slug: str,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        function_type: Optional[Literal["task", "llm", "scorer"]] | NotGiven = NOT_GIVEN,
+        prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
+        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Prompt:
         """Create a new prompt.
 
         If there is an existing prompt in the project with the same
@@ -103,28 +100,35 @@ class PromptResource(SyncAPIResource):
         """
         return self._post(
             "/v1/prompt",
-            body=maybe_transform({
-                "name": name,
-                "project_id": project_id,
-                "slug": slug,
-                "description": description,
-                "function_type": function_type,
-                "prompt_data": prompt_data,
-                "tags": tags,
-            }, prompt_create_params.PromptCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "name": name,
+                    "project_id": project_id,
+                    "slug": slug,
+                    "description": description,
+                    "function_type": function_type,
+                    "prompt_data": prompt_data,
+                    "tags": tags,
+                },
+                prompt_create_params.PromptCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Prompt,
         )
 
-    def retrieve(self,
-    prompt_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Prompt:
+    def retrieve(
+        self,
+        prompt_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Prompt:
         """
         Get a prompt object by its id
 
@@ -140,29 +144,31 @@ class PromptResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not prompt_id:
-          raise ValueError(
-            f'Expected a non-empty value for `prompt_id` but received {prompt_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `prompt_id` but received {prompt_id!r}")
         return self._get(
             f"/v1/prompt/{prompt_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Prompt,
         )
 
-    def update(self,
-    prompt_id: str,
-    *,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    name: Optional[str] | NotGiven = NOT_GIVEN,
-    prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
-    slug: Optional[str] | NotGiven = NOT_GIVEN,
-    tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Prompt:
+    def update(
+        self,
+        prompt_id: str,
+        *,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
+        prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
+        slug: Optional[str] | NotGiven = NOT_GIVEN,
+        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Prompt:
         """Partially update a prompt object.
 
         Specify the fields to update in the payload.
@@ -191,40 +197,45 @@ class PromptResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not prompt_id:
-          raise ValueError(
-            f'Expected a non-empty value for `prompt_id` but received {prompt_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `prompt_id` but received {prompt_id!r}")
         return self._patch(
             f"/v1/prompt/{prompt_id}",
-            body=maybe_transform({
-                "description": description,
-                "name": name,
-                "prompt_data": prompt_data,
-                "slug": slug,
-                "tags": tags,
-            }, prompt_update_params.PromptUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "description": description,
+                    "name": name,
+                    "prompt_data": prompt_data,
+                    "slug": slug,
+                    "tags": tags,
+                },
+                prompt_update_params.PromptUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Prompt,
         )
 
-    def list(self,
-    *,
-    ending_before: str | NotGiven = NOT_GIVEN,
-    ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-    limit: int | NotGiven = NOT_GIVEN,
-    org_name: str | NotGiven = NOT_GIVEN,
-    project_id: str | NotGiven = NOT_GIVEN,
-    project_name: str | NotGiven = NOT_GIVEN,
-    prompt_name: str | NotGiven = NOT_GIVEN,
-    slug: str | NotGiven = NOT_GIVEN,
-    starting_after: str | NotGiven = NOT_GIVEN,
-    version: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> SyncListObjects[Prompt]:
+    def list(
+        self,
+        *,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        project_id: str | NotGiven = NOT_GIVEN,
+        project_name: str | NotGiven = NOT_GIVEN,
+        prompt_name: str | NotGiven = NOT_GIVEN,
+        slug: str | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
+        version: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SyncListObjects[Prompt]:
         """List out all prompts.
 
         The prompts are sorted by creation date, with the most
@@ -273,31 +284,42 @@ class PromptResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/prompt",
-            page = SyncListObjects[Prompt],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "ending_before": ending_before,
-                "ids": ids,
-                "limit": limit,
-                "org_name": org_name,
-                "project_id": project_id,
-                "project_name": project_name,
-                "prompt_name": prompt_name,
-                "slug": slug,
-                "starting_after": starting_after,
-                "version": version,
-            }, prompt_list_params.PromptListParams)),
+            page=SyncListObjects[Prompt],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "ending_before": ending_before,
+                        "ids": ids,
+                        "limit": limit,
+                        "org_name": org_name,
+                        "project_id": project_id,
+                        "project_name": project_name,
+                        "prompt_name": prompt_name,
+                        "slug": slug,
+                        "starting_after": starting_after,
+                        "version": version,
+                    },
+                    prompt_list_params.PromptListParams,
+                ),
+            ),
             model=Prompt,
         )
 
-    def delete(self,
-    prompt_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Prompt:
+    def delete(
+        self,
+        prompt_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Prompt:
         """
         Delete a prompt object by its id
 
@@ -313,30 +335,32 @@ class PromptResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not prompt_id:
-          raise ValueError(
-            f'Expected a non-empty value for `prompt_id` but received {prompt_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `prompt_id` but received {prompt_id!r}")
         return self._delete(
             f"/v1/prompt/{prompt_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Prompt,
         )
 
-    def replace(self,
-    *,
-    name: str,
-    project_id: str,
-    slug: str,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    function_type: Optional[Literal["task", "llm", "scorer"]] | NotGiven = NOT_GIVEN,
-    prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
-    tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Prompt:
+    def replace(
+        self,
+        *,
+        name: str,
+        project_id: str,
+        slug: str,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        function_type: Optional[Literal["task", "llm", "scorer"]] | NotGiven = NOT_GIVEN,
+        prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
+        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Prompt:
         """Create or replace prompt.
 
         If there is an existing prompt in the project with the
@@ -366,18 +390,24 @@ class PromptResource(SyncAPIResource):
         """
         return self._put(
             "/v1/prompt",
-            body=maybe_transform({
-                "name": name,
-                "project_id": project_id,
-                "slug": slug,
-                "description": description,
-                "function_type": function_type,
-                "prompt_data": prompt_data,
-                "tags": tags,
-            }, prompt_replace_params.PromptReplaceParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "name": name,
+                    "project_id": project_id,
+                    "slug": slug,
+                    "description": description,
+                    "function_type": function_type,
+                    "prompt_data": prompt_data,
+                    "tags": tags,
+                },
+                prompt_replace_params.PromptReplaceParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Prompt,
         )
+
 
 class AsyncPromptResource(AsyncAPIResource):
     @cached_property
@@ -399,21 +429,23 @@ class AsyncPromptResource(AsyncAPIResource):
         """
         return AsyncPromptResourceWithStreamingResponse(self)
 
-    async def create(self,
-    *,
-    name: str,
-    project_id: str,
-    slug: str,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    function_type: Optional[Literal["task", "llm", "scorer"]] | NotGiven = NOT_GIVEN,
-    prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
-    tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Prompt:
+    async def create(
+        self,
+        *,
+        name: str,
+        project_id: str,
+        slug: str,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        function_type: Optional[Literal["task", "llm", "scorer"]] | NotGiven = NOT_GIVEN,
+        prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
+        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Prompt:
         """Create a new prompt.
 
         If there is an existing prompt in the project with the same
@@ -443,28 +475,35 @@ class AsyncPromptResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/prompt",
-            body=await async_maybe_transform({
-                "name": name,
-                "project_id": project_id,
-                "slug": slug,
-                "description": description,
-                "function_type": function_type,
-                "prompt_data": prompt_data,
-                "tags": tags,
-            }, prompt_create_params.PromptCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "name": name,
+                    "project_id": project_id,
+                    "slug": slug,
+                    "description": description,
+                    "function_type": function_type,
+                    "prompt_data": prompt_data,
+                    "tags": tags,
+                },
+                prompt_create_params.PromptCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Prompt,
         )
 
-    async def retrieve(self,
-    prompt_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Prompt:
+    async def retrieve(
+        self,
+        prompt_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Prompt:
         """
         Get a prompt object by its id
 
@@ -480,29 +519,31 @@ class AsyncPromptResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not prompt_id:
-          raise ValueError(
-            f'Expected a non-empty value for `prompt_id` but received {prompt_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `prompt_id` but received {prompt_id!r}")
         return await self._get(
             f"/v1/prompt/{prompt_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Prompt,
         )
 
-    async def update(self,
-    prompt_id: str,
-    *,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    name: Optional[str] | NotGiven = NOT_GIVEN,
-    prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
-    slug: Optional[str] | NotGiven = NOT_GIVEN,
-    tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Prompt:
+    async def update(
+        self,
+        prompt_id: str,
+        *,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
+        prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
+        slug: Optional[str] | NotGiven = NOT_GIVEN,
+        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Prompt:
         """Partially update a prompt object.
 
         Specify the fields to update in the payload.
@@ -531,40 +572,45 @@ class AsyncPromptResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not prompt_id:
-          raise ValueError(
-            f'Expected a non-empty value for `prompt_id` but received {prompt_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `prompt_id` but received {prompt_id!r}")
         return await self._patch(
             f"/v1/prompt/{prompt_id}",
-            body=await async_maybe_transform({
-                "description": description,
-                "name": name,
-                "prompt_data": prompt_data,
-                "slug": slug,
-                "tags": tags,
-            }, prompt_update_params.PromptUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "description": description,
+                    "name": name,
+                    "prompt_data": prompt_data,
+                    "slug": slug,
+                    "tags": tags,
+                },
+                prompt_update_params.PromptUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Prompt,
         )
 
-    def list(self,
-    *,
-    ending_before: str | NotGiven = NOT_GIVEN,
-    ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-    limit: int | NotGiven = NOT_GIVEN,
-    org_name: str | NotGiven = NOT_GIVEN,
-    project_id: str | NotGiven = NOT_GIVEN,
-    project_name: str | NotGiven = NOT_GIVEN,
-    prompt_name: str | NotGiven = NOT_GIVEN,
-    slug: str | NotGiven = NOT_GIVEN,
-    starting_after: str | NotGiven = NOT_GIVEN,
-    version: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> AsyncPaginator[Prompt, AsyncListObjects[Prompt]]:
+    def list(
+        self,
+        *,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        project_id: str | NotGiven = NOT_GIVEN,
+        project_name: str | NotGiven = NOT_GIVEN,
+        prompt_name: str | NotGiven = NOT_GIVEN,
+        slug: str | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
+        version: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AsyncPaginator[Prompt, AsyncListObjects[Prompt]]:
         """List out all prompts.
 
         The prompts are sorted by creation date, with the most
@@ -613,31 +659,42 @@ class AsyncPromptResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/prompt",
-            page = AsyncListObjects[Prompt],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "ending_before": ending_before,
-                "ids": ids,
-                "limit": limit,
-                "org_name": org_name,
-                "project_id": project_id,
-                "project_name": project_name,
-                "prompt_name": prompt_name,
-                "slug": slug,
-                "starting_after": starting_after,
-                "version": version,
-            }, prompt_list_params.PromptListParams)),
+            page=AsyncListObjects[Prompt],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "ending_before": ending_before,
+                        "ids": ids,
+                        "limit": limit,
+                        "org_name": org_name,
+                        "project_id": project_id,
+                        "project_name": project_name,
+                        "prompt_name": prompt_name,
+                        "slug": slug,
+                        "starting_after": starting_after,
+                        "version": version,
+                    },
+                    prompt_list_params.PromptListParams,
+                ),
+            ),
             model=Prompt,
         )
 
-    async def delete(self,
-    prompt_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Prompt:
+    async def delete(
+        self,
+        prompt_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Prompt:
         """
         Delete a prompt object by its id
 
@@ -653,30 +710,32 @@ class AsyncPromptResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not prompt_id:
-          raise ValueError(
-            f'Expected a non-empty value for `prompt_id` but received {prompt_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `prompt_id` but received {prompt_id!r}")
         return await self._delete(
             f"/v1/prompt/{prompt_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Prompt,
         )
 
-    async def replace(self,
-    *,
-    name: str,
-    project_id: str,
-    slug: str,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    function_type: Optional[Literal["task", "llm", "scorer"]] | NotGiven = NOT_GIVEN,
-    prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
-    tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Prompt:
+    async def replace(
+        self,
+        *,
+        name: str,
+        project_id: str,
+        slug: str,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        function_type: Optional[Literal["task", "llm", "scorer"]] | NotGiven = NOT_GIVEN,
+        prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
+        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Prompt:
         """Create or replace prompt.
 
         If there is an existing prompt in the project with the
@@ -706,18 +765,24 @@ class AsyncPromptResource(AsyncAPIResource):
         """
         return await self._put(
             "/v1/prompt",
-            body=await async_maybe_transform({
-                "name": name,
-                "project_id": project_id,
-                "slug": slug,
-                "description": description,
-                "function_type": function_type,
-                "prompt_data": prompt_data,
-                "tags": tags,
-            }, prompt_replace_params.PromptReplaceParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "name": name,
+                    "project_id": project_id,
+                    "slug": slug,
+                    "description": description,
+                    "function_type": function_type,
+                    "prompt_data": prompt_data,
+                    "tags": tags,
+                },
+                prompt_replace_params.PromptReplaceParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Prompt,
         )
+
 
 class PromptResourceWithRawResponse:
     def __init__(self, prompt: PromptResource) -> None:
@@ -742,6 +807,7 @@ class PromptResourceWithRawResponse:
             prompt.replace,
         )
 
+
 class AsyncPromptResourceWithRawResponse:
     def __init__(self, prompt: AsyncPromptResource) -> None:
         self._prompt = prompt
@@ -765,6 +831,7 @@ class AsyncPromptResourceWithRawResponse:
             prompt.replace,
         )
 
+
 class PromptResourceWithStreamingResponse:
     def __init__(self, prompt: PromptResource) -> None:
         self._prompt = prompt
@@ -787,6 +854,7 @@ class PromptResourceWithStreamingResponse:
         self.replace = to_streamed_response_wrapper(
             prompt.replace,
         )
+
 
 class AsyncPromptResourceWithStreamingResponse:
     def __init__(self, prompt: AsyncPromptResource) -> None:

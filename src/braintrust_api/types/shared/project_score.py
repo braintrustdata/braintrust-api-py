@@ -1,40 +1,47 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Dict, Optional
+from typing import Dict, List, Union, Optional
+from datetime import datetime
+from typing_extensions import Literal, TypeAlias
 
+from ..._models import BaseModel
 from .project_score_category import ProjectScoreCategory
 
-from ..._models import BaseModel
+__all__ = [
+    "ProjectScore",
+    "Categories",
+    "CategoriesNullableVariant",
+    "Config",
+    "ConfigOnline",
+    "ConfigOnlineScorer",
+    "ConfigOnlineScorerFunction",
+    "ConfigOnlineScorerGlobal",
+]
 
-from typing_extensions import TypeAlias, Literal
-
-from datetime import datetime
-
-from typing import Optional, Union, List, Dict, Any
-from typing_extensions import Literal
-
-from pydantic import Field as FieldInfo
-
-from ..._models import BaseModel
-
-__all__ = ["ProjectScore", "Categories", "CategoriesNullableVariant", "Config", "ConfigOnline", "ConfigOnlineScorer", "ConfigOnlineScorerFunction", "ConfigOnlineScorerGlobal"]
 
 class CategoriesNullableVariant(BaseModel):
     pass
 
-Categories: TypeAlias = Union[List[ProjectScoreCategory], Dict[str, float], List[str], Optional[CategoriesNullableVariant]]
+
+Categories: TypeAlias = Union[
+    List[ProjectScoreCategory], Dict[str, float], List[str], Optional[CategoriesNullableVariant]
+]
+
 
 class ConfigOnlineScorerFunction(BaseModel):
     id: str
 
     type: Literal["function"]
 
+
 class ConfigOnlineScorerGlobal(BaseModel):
     name: str
 
     type: Literal["global"]
 
+
 ConfigOnlineScorer: TypeAlias = Union[ConfigOnlineScorerFunction, ConfigOnlineScorerGlobal]
+
 
 class ConfigOnline(BaseModel):
     sampling_rate: float
@@ -49,12 +56,14 @@ class ConfigOnline(BaseModel):
     apply_to_span_names: Optional[List[str]] = None
     """Trigger online scoring on any spans with a name in this list"""
 
+
 class Config(BaseModel):
     destination: Optional[Literal["expected"]] = None
 
     multi_select: Optional[bool] = None
 
     online: Optional[ConfigOnline] = None
+
 
 class ProjectScore(BaseModel):
     id: str

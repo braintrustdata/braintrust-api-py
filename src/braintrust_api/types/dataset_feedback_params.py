@@ -2,18 +2,13 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required
-
 from typing import Iterable
+from typing_extensions import Required, TypedDict
 
 from .shared_params.feedback_dataset_item import FeedbackDatasetItem
 
-from typing import List, Union, Dict, Optional
-from typing_extensions import Literal, TypedDict, Required, Annotated
-from .._types import FileTypes
-from .._utils import PropertyInfo
-
 __all__ = ["DatasetFeedbackParams"]
+
 
 class DatasetFeedbackParams(TypedDict, total=False):
     feedback: Required[Iterable[FeedbackDatasetItem]]

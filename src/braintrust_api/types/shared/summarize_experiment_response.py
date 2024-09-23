@@ -1,21 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from typing import Dict, Optional
+
 from ..._models import BaseModel
-
-from typing import Optional, Dict
-
+from .score_summary import ScoreSummary
 from .metric_summary import MetricSummary
 
-from .score_summary import ScoreSummary
-
-from typing import Optional, Union, List, Dict, Any
-from typing_extensions import Literal
-
-from pydantic import Field as FieldInfo
-
-from ..._models import BaseModel
-
 __all__ = ["SummarizeExperimentResponse"]
+
 
 class SummarizeExperimentResponse(BaseModel):
     experiment_name: str

@@ -4,23 +4,19 @@ from __future__ import annotations
 
 import httpx
 
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._compat import cached_property
-
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
 from .._base_client import make_request_options
 
-from ..types.top_level_hello_world_response import TopLevelHelloWorldResponse
-
-from .._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-import warnings
-from typing import TYPE_CHECKING, Optional, Union, List, Dict, Any, Mapping, cast, overload
-from typing_extensions import Literal
-from .._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
-from .._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
-from .._resource import SyncAPIResource, AsyncAPIResource
-from ..types import shared_params
-
 __all__ = ["TopLevelResource", "AsyncTopLevelResource"]
+
 
 class TopLevelResource(SyncAPIResource):
     @cached_property
@@ -42,14 +38,16 @@ class TopLevelResource(SyncAPIResource):
         """
         return TopLevelResourceWithStreamingResponse(self)
 
-    def hello_world(self,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> str:
+    def hello_world(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
         """Default endpoint.
 
         Simply replies with 'Hello, World!'. Authorization is not
@@ -58,9 +56,12 @@ class TopLevelResource(SyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return self._get(
             "/v1",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=str,
         )
+
 
 class AsyncTopLevelResource(AsyncAPIResource):
     @cached_property
@@ -82,14 +83,16 @@ class AsyncTopLevelResource(AsyncAPIResource):
         """
         return AsyncTopLevelResourceWithStreamingResponse(self)
 
-    async def hello_world(self,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> str:
+    async def hello_world(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> str:
         """Default endpoint.
 
         Simply replies with 'Hello, World!'. Authorization is not
@@ -98,9 +101,12 @@ class AsyncTopLevelResource(AsyncAPIResource):
         extra_headers = {"Accept": "text/plain", **(extra_headers or {})}
         return await self._get(
             "/v1",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=str,
         )
+
 
 class TopLevelResourceWithRawResponse:
     def __init__(self, top_level: TopLevelResource) -> None:
@@ -110,6 +116,7 @@ class TopLevelResourceWithRawResponse:
             top_level.hello_world,
         )
 
+
 class AsyncTopLevelResourceWithRawResponse:
     def __init__(self, top_level: AsyncTopLevelResource) -> None:
         self._top_level = top_level
@@ -118,6 +125,7 @@ class AsyncTopLevelResourceWithRawResponse:
             top_level.hello_world,
         )
 
+
 class TopLevelResourceWithStreamingResponse:
     def __init__(self, top_level: TopLevelResource) -> None:
         self._top_level = top_level
@@ -125,6 +133,7 @@ class TopLevelResourceWithStreamingResponse:
         self.hello_world = to_streamed_response_wrapper(
             top_level.hello_world,
         )
+
 
 class AsyncTopLevelResourceWithStreamingResponse:
     def __init__(self, top_level: AsyncTopLevelResource) -> None:

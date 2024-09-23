@@ -2,26 +2,36 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, Literal
-
 from typing import Optional
-
-from .shared_params.view_options import ViewOptions
+from typing_extensions import Literal, Required, TypedDict
 
 from .shared_params.view_data import ViewData
-
-from typing import List, Union, Dict, Optional
-from typing_extensions import Literal, TypedDict, Required, Annotated
-from .._types import FileTypes
-from .._utils import PropertyInfo
+from .shared_params.view_options import ViewOptions
 
 __all__ = ["ViewUpdateParams"]
+
 
 class ViewUpdateParams(TypedDict, total=False):
     object_id: Required[str]
     """The id of the object the view applies to"""
 
-    object_type: Required[Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]]]
+    object_type: Required[
+        Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ]
+    ]
     """The object type that the ACL applies to"""
 
     name: Optional[str]
@@ -36,5 +46,7 @@ class ViewUpdateParams(TypedDict, total=False):
     view_data: Optional[ViewData]
     """The view definition"""
 
-    view_type: Optional[Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]]
+    view_type: Optional[
+        Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+    ]
     """Type of table that the view corresponds to."""

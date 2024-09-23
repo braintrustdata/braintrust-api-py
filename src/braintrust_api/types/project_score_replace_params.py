@@ -2,18 +2,13 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, Literal, TypeAlias
-
-from typing import Optional, Iterable, Dict, List, Union
+from typing import Dict, List, Union, Iterable, Optional
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .shared_params.project_score_category import ProjectScoreCategory
 
-from typing import List, Union, Dict, Optional
-from typing_extensions import Literal, TypedDict, Required, Annotated
-from .._types import FileTypes
-from .._utils import PropertyInfo
-
 __all__ = ["ProjectScoreReplaceParams", "Categories", "CategoriesNullableVariant"]
+
 
 class ProjectScoreReplaceParams(TypedDict, total=False):
     name: Required[str]
@@ -31,7 +26,11 @@ class ProjectScoreReplaceParams(TypedDict, total=False):
     description: Optional[str]
     """Textual description of the project score"""
 
+
 class CategoriesNullableVariant(TypedDict, total=False):
     pass
 
-Categories: TypeAlias = Union[Iterable[ProjectScoreCategory], Dict[str, float], List[str], Optional[CategoriesNullableVariant]]
+
+Categories: TypeAlias = Union[
+    Iterable[ProjectScoreCategory], Dict[str, float], List[str], Optional[CategoriesNullableVariant]
+]

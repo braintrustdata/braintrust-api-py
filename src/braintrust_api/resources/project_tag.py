@@ -2,35 +2,35 @@
 
 from __future__ import annotations
 
+from typing import List, Union, Optional
+
 import httpx
 
+from ..types import (
+    project_tag_list_params,
+    project_tag_create_params,
+    project_tag_update_params,
+    project_tag_replace_params,
+)
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._utils import (
+    maybe_transform,
+    async_maybe_transform,
+)
 from .._compat import cached_property
-
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ..pagination import SyncListObjects, AsyncListObjects
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.project_tag import ProjectTag
 
-from .._utils import maybe_transform, async_maybe_transform
-
-from .._base_client import make_request_options, AsyncPaginator
-
-from typing import Optional, Union, List
-
-from ..pagination import SyncListObjects, AsyncListObjects
-
-from .._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-import warnings
-from typing import TYPE_CHECKING, Optional, Union, List, Dict, Any, Mapping, cast, overload
-from typing_extensions import Literal
-from .._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
-from .._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
-from .._resource import SyncAPIResource, AsyncAPIResource
-from ..types import shared_params
-from ..types import project_tag_create_params
-from ..types import project_tag_update_params
-from ..types import project_tag_list_params
-from ..types import project_tag_replace_params
-
 __all__ = ["ProjectTagResource", "AsyncProjectTagResource"]
+
 
 class ProjectTagResource(SyncAPIResource):
     @cached_property
@@ -52,18 +52,20 @@ class ProjectTagResource(SyncAPIResource):
         """
         return ProjectTagResourceWithStreamingResponse(self)
 
-    def create(self,
-    *,
-    name: str,
-    project_id: str,
-    color: Optional[str] | NotGiven = NOT_GIVEN,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ProjectTag:
+    def create(
+        self,
+        *,
+        name: str,
+        project_id: str,
+        color: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ProjectTag:
         """Create a new project_tag.
 
         If there is an existing project_tag in the project
@@ -89,25 +91,32 @@ class ProjectTagResource(SyncAPIResource):
         """
         return self._post(
             "/v1/project_tag",
-            body=maybe_transform({
-                "name": name,
-                "project_id": project_id,
-                "color": color,
-                "description": description,
-            }, project_tag_create_params.ProjectTagCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "name": name,
+                    "project_id": project_id,
+                    "color": color,
+                    "description": description,
+                },
+                project_tag_create_params.ProjectTagCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ProjectTag,
         )
 
-    def retrieve(self,
-    project_tag_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ProjectTag:
+    def retrieve(
+        self,
+        project_tag_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ProjectTag:
         """
         Get a project_tag object by its id
 
@@ -123,27 +132,29 @@ class ProjectTagResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not project_tag_id:
-          raise ValueError(
-            f'Expected a non-empty value for `project_tag_id` but received {project_tag_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `project_tag_id` but received {project_tag_id!r}")
         return self._get(
             f"/v1/project_tag/{project_tag_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ProjectTag,
         )
 
-    def update(self,
-    project_tag_id: str,
-    *,
-    color: Optional[str] | NotGiven = NOT_GIVEN,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    name: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ProjectTag:
+    def update(
+        self,
+        project_tag_id: str,
+        *,
+        color: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ProjectTag:
         """Partially update a project_tag object.
 
         Specify the fields to update in the
@@ -168,36 +179,41 @@ class ProjectTagResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not project_tag_id:
-          raise ValueError(
-            f'Expected a non-empty value for `project_tag_id` but received {project_tag_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `project_tag_id` but received {project_tag_id!r}")
         return self._patch(
             f"/v1/project_tag/{project_tag_id}",
-            body=maybe_transform({
-                "color": color,
-                "description": description,
-                "name": name,
-            }, project_tag_update_params.ProjectTagUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "color": color,
+                    "description": description,
+                    "name": name,
+                },
+                project_tag_update_params.ProjectTagUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ProjectTag,
         )
 
-    def list(self,
-    *,
-    ending_before: str | NotGiven = NOT_GIVEN,
-    ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-    limit: int | NotGiven = NOT_GIVEN,
-    org_name: str | NotGiven = NOT_GIVEN,
-    project_id: str | NotGiven = NOT_GIVEN,
-    project_name: str | NotGiven = NOT_GIVEN,
-    project_tag_name: str | NotGiven = NOT_GIVEN,
-    starting_after: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> SyncListObjects[ProjectTag]:
+    def list(
+        self,
+        *,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        project_id: str | NotGiven = NOT_GIVEN,
+        project_name: str | NotGiven = NOT_GIVEN,
+        project_tag_name: str | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SyncListObjects[ProjectTag]:
         """List out all project_tags.
 
         The project_tags are sorted by creation date, with
@@ -239,29 +255,40 @@ class ProjectTagResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/project_tag",
-            page = SyncListObjects[ProjectTag],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "ending_before": ending_before,
-                "ids": ids,
-                "limit": limit,
-                "org_name": org_name,
-                "project_id": project_id,
-                "project_name": project_name,
-                "project_tag_name": project_tag_name,
-                "starting_after": starting_after,
-            }, project_tag_list_params.ProjectTagListParams)),
+            page=SyncListObjects[ProjectTag],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "ending_before": ending_before,
+                        "ids": ids,
+                        "limit": limit,
+                        "org_name": org_name,
+                        "project_id": project_id,
+                        "project_name": project_name,
+                        "project_tag_name": project_tag_name,
+                        "starting_after": starting_after,
+                    },
+                    project_tag_list_params.ProjectTagListParams,
+                ),
+            ),
             model=ProjectTag,
         )
 
-    def delete(self,
-    project_tag_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ProjectTag:
+    def delete(
+        self,
+        project_tag_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ProjectTag:
         """
         Delete a project_tag object by its id
 
@@ -277,27 +304,29 @@ class ProjectTagResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not project_tag_id:
-          raise ValueError(
-            f'Expected a non-empty value for `project_tag_id` but received {project_tag_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `project_tag_id` but received {project_tag_id!r}")
         return self._delete(
             f"/v1/project_tag/{project_tag_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ProjectTag,
         )
 
-    def replace(self,
-    *,
-    name: str,
-    project_id: str,
-    color: Optional[str] | NotGiven = NOT_GIVEN,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ProjectTag:
+    def replace(
+        self,
+        *,
+        name: str,
+        project_id: str,
+        color: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ProjectTag:
         """Create or replace project_tag.
 
         If there is an existing project_tag in the
@@ -323,15 +352,21 @@ class ProjectTagResource(SyncAPIResource):
         """
         return self._put(
             "/v1/project_tag",
-            body=maybe_transform({
-                "name": name,
-                "project_id": project_id,
-                "color": color,
-                "description": description,
-            }, project_tag_replace_params.ProjectTagReplaceParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "name": name,
+                    "project_id": project_id,
+                    "color": color,
+                    "description": description,
+                },
+                project_tag_replace_params.ProjectTagReplaceParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ProjectTag,
         )
+
 
 class AsyncProjectTagResource(AsyncAPIResource):
     @cached_property
@@ -353,18 +388,20 @@ class AsyncProjectTagResource(AsyncAPIResource):
         """
         return AsyncProjectTagResourceWithStreamingResponse(self)
 
-    async def create(self,
-    *,
-    name: str,
-    project_id: str,
-    color: Optional[str] | NotGiven = NOT_GIVEN,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ProjectTag:
+    async def create(
+        self,
+        *,
+        name: str,
+        project_id: str,
+        color: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ProjectTag:
         """Create a new project_tag.
 
         If there is an existing project_tag in the project
@@ -390,25 +427,32 @@ class AsyncProjectTagResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/project_tag",
-            body=await async_maybe_transform({
-                "name": name,
-                "project_id": project_id,
-                "color": color,
-                "description": description,
-            }, project_tag_create_params.ProjectTagCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "name": name,
+                    "project_id": project_id,
+                    "color": color,
+                    "description": description,
+                },
+                project_tag_create_params.ProjectTagCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ProjectTag,
         )
 
-    async def retrieve(self,
-    project_tag_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ProjectTag:
+    async def retrieve(
+        self,
+        project_tag_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ProjectTag:
         """
         Get a project_tag object by its id
 
@@ -424,27 +468,29 @@ class AsyncProjectTagResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not project_tag_id:
-          raise ValueError(
-            f'Expected a non-empty value for `project_tag_id` but received {project_tag_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `project_tag_id` but received {project_tag_id!r}")
         return await self._get(
             f"/v1/project_tag/{project_tag_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ProjectTag,
         )
 
-    async def update(self,
-    project_tag_id: str,
-    *,
-    color: Optional[str] | NotGiven = NOT_GIVEN,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    name: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ProjectTag:
+    async def update(
+        self,
+        project_tag_id: str,
+        *,
+        color: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ProjectTag:
         """Partially update a project_tag object.
 
         Specify the fields to update in the
@@ -469,36 +515,41 @@ class AsyncProjectTagResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not project_tag_id:
-          raise ValueError(
-            f'Expected a non-empty value for `project_tag_id` but received {project_tag_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `project_tag_id` but received {project_tag_id!r}")
         return await self._patch(
             f"/v1/project_tag/{project_tag_id}",
-            body=await async_maybe_transform({
-                "color": color,
-                "description": description,
-                "name": name,
-            }, project_tag_update_params.ProjectTagUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "color": color,
+                    "description": description,
+                    "name": name,
+                },
+                project_tag_update_params.ProjectTagUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ProjectTag,
         )
 
-    def list(self,
-    *,
-    ending_before: str | NotGiven = NOT_GIVEN,
-    ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-    limit: int | NotGiven = NOT_GIVEN,
-    org_name: str | NotGiven = NOT_GIVEN,
-    project_id: str | NotGiven = NOT_GIVEN,
-    project_name: str | NotGiven = NOT_GIVEN,
-    project_tag_name: str | NotGiven = NOT_GIVEN,
-    starting_after: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> AsyncPaginator[ProjectTag, AsyncListObjects[ProjectTag]]:
+    def list(
+        self,
+        *,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        project_id: str | NotGiven = NOT_GIVEN,
+        project_name: str | NotGiven = NOT_GIVEN,
+        project_tag_name: str | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AsyncPaginator[ProjectTag, AsyncListObjects[ProjectTag]]:
         """List out all project_tags.
 
         The project_tags are sorted by creation date, with
@@ -540,29 +591,40 @@ class AsyncProjectTagResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/project_tag",
-            page = AsyncListObjects[ProjectTag],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "ending_before": ending_before,
-                "ids": ids,
-                "limit": limit,
-                "org_name": org_name,
-                "project_id": project_id,
-                "project_name": project_name,
-                "project_tag_name": project_tag_name,
-                "starting_after": starting_after,
-            }, project_tag_list_params.ProjectTagListParams)),
+            page=AsyncListObjects[ProjectTag],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "ending_before": ending_before,
+                        "ids": ids,
+                        "limit": limit,
+                        "org_name": org_name,
+                        "project_id": project_id,
+                        "project_name": project_name,
+                        "project_tag_name": project_tag_name,
+                        "starting_after": starting_after,
+                    },
+                    project_tag_list_params.ProjectTagListParams,
+                ),
+            ),
             model=ProjectTag,
         )
 
-    async def delete(self,
-    project_tag_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ProjectTag:
+    async def delete(
+        self,
+        project_tag_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ProjectTag:
         """
         Delete a project_tag object by its id
 
@@ -578,27 +640,29 @@ class AsyncProjectTagResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not project_tag_id:
-          raise ValueError(
-            f'Expected a non-empty value for `project_tag_id` but received {project_tag_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `project_tag_id` but received {project_tag_id!r}")
         return await self._delete(
             f"/v1/project_tag/{project_tag_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ProjectTag,
         )
 
-    async def replace(self,
-    *,
-    name: str,
-    project_id: str,
-    color: Optional[str] | NotGiven = NOT_GIVEN,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ProjectTag:
+    async def replace(
+        self,
+        *,
+        name: str,
+        project_id: str,
+        color: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ProjectTag:
         """Create or replace project_tag.
 
         If there is an existing project_tag in the
@@ -624,15 +688,21 @@ class AsyncProjectTagResource(AsyncAPIResource):
         """
         return await self._put(
             "/v1/project_tag",
-            body=await async_maybe_transform({
-                "name": name,
-                "project_id": project_id,
-                "color": color,
-                "description": description,
-            }, project_tag_replace_params.ProjectTagReplaceParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "name": name,
+                    "project_id": project_id,
+                    "color": color,
+                    "description": description,
+                },
+                project_tag_replace_params.ProjectTagReplaceParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ProjectTag,
         )
+
 
 class ProjectTagResourceWithRawResponse:
     def __init__(self, project_tag: ProjectTagResource) -> None:
@@ -657,6 +727,7 @@ class ProjectTagResourceWithRawResponse:
             project_tag.replace,
         )
 
+
 class AsyncProjectTagResourceWithRawResponse:
     def __init__(self, project_tag: AsyncProjectTagResource) -> None:
         self._project_tag = project_tag
@@ -680,6 +751,7 @@ class AsyncProjectTagResourceWithRawResponse:
             project_tag.replace,
         )
 
+
 class ProjectTagResourceWithStreamingResponse:
     def __init__(self, project_tag: ProjectTagResource) -> None:
         self._project_tag = project_tag
@@ -702,6 +774,7 @@ class ProjectTagResourceWithStreamingResponse:
         self.replace = to_streamed_response_wrapper(
             project_tag.replace,
         )
+
 
 class AsyncProjectTagResourceWithStreamingResponse:
     def __init__(self, project_tag: AsyncProjectTagResource) -> None:
