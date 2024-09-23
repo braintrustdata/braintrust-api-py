@@ -5,10 +5,15 @@ from __future__ import annotations
 from typing import List, Union
 from typing_extensions import TypedDict
 
-__all__ = ["OrgSecretListParams"]
+__all__ = ["AISecretListParams"]
 
 
-class OrgSecretListParams(TypedDict, total=False):
+class AISecretListParams(TypedDict, total=False):
+    ai_secret_name: str
+    """Name of the ai_secret to search for"""
+
+    ai_secret_type: Union[str, List[str]]
+
     ending_before: str
     """Pagination cursor id.
 
@@ -28,11 +33,6 @@ class OrgSecretListParams(TypedDict, total=False):
 
     org_name: str
     """Filter search results to within a particular organization"""
-
-    org_secret_name: str
-    """Name of the org_secret to search for"""
-
-    org_secret_type: Union[str, List[str]]
 
     starting_after: str
     """Pagination cursor id.

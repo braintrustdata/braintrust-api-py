@@ -5,21 +5,21 @@ from datetime import datetime
 
 from ..._models import BaseModel
 
-__all__ = ["OrgSecret"]
+__all__ = ["AISecret"]
 
 
-class OrgSecret(BaseModel):
+class AISecret(BaseModel):
     id: str
-    """Unique identifier for the org secret"""
+    """Unique identifier for the AI secret"""
 
     name: str
-    """Name of the org secret"""
+    """Name of the AI secret"""
 
     org_id: str
     """Unique identifier for the organization"""
 
     created: Optional[datetime] = None
-    """Date of org secret creation"""
+    """Date of AI secret creation"""
 
     metadata: Optional[Dict[str, object]] = None
 
