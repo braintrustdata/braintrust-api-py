@@ -32,10 +32,10 @@ client = Braintrust(
     api_key=os.environ.get("BRAINTRUST_API_KEY"),
 )
 
-project = client.project.create(
+project_model = client.project.create(
     name="foobar",
 )
-print(project.id)
+print(project_model.id)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -59,10 +59,10 @@ client = AsyncBraintrust(
 
 
 async def main() -> None:
-    project = await client.project.create(
+    project_model = await client.project.create(
         name="foobar",
     )
-    print(project.id)
+    print(project_model.id)
 
 
 asyncio.run(main())
