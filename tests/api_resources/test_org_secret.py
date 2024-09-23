@@ -224,6 +224,45 @@ class TestOrgSecret:
             )
 
     @parametrize
+    def test_method_find_and_delete(self, client: Braintrust) -> None:
+        org_secret = client.org_secret.find_and_delete(
+            name="name",
+        )
+        assert_matches_type(OrgSecret, org_secret, path=["response"])
+
+    @parametrize
+    def test_method_find_and_delete_with_all_params(self, client: Braintrust) -> None:
+        org_secret = client.org_secret.find_and_delete(
+            name="name",
+            org_name="org_name",
+        )
+        assert_matches_type(OrgSecret, org_secret, path=["response"])
+
+    @parametrize
+    def test_raw_response_find_and_delete(self, client: Braintrust) -> None:
+        response = client.org_secret.with_raw_response.find_and_delete(
+            name="name",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        org_secret = response.parse()
+        assert_matches_type(OrgSecret, org_secret, path=["response"])
+
+    @parametrize
+    def test_streaming_response_find_and_delete(self, client: Braintrust) -> None:
+        with client.org_secret.with_streaming_response.find_and_delete(
+            name="name",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            org_secret = response.parse()
+            assert_matches_type(OrgSecret, org_secret, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @parametrize
     def test_method_replace(self, client: Braintrust) -> None:
         org_secret = client.org_secret.replace(
             name="name",
@@ -473,6 +512,45 @@ class TestAsyncOrgSecret:
             await async_client.org_secret.with_raw_response.delete(
                 "",
             )
+
+    @parametrize
+    async def test_method_find_and_delete(self, async_client: AsyncBraintrust) -> None:
+        org_secret = await async_client.org_secret.find_and_delete(
+            name="name",
+        )
+        assert_matches_type(OrgSecret, org_secret, path=["response"])
+
+    @parametrize
+    async def test_method_find_and_delete_with_all_params(self, async_client: AsyncBraintrust) -> None:
+        org_secret = await async_client.org_secret.find_and_delete(
+            name="name",
+            org_name="org_name",
+        )
+        assert_matches_type(OrgSecret, org_secret, path=["response"])
+
+    @parametrize
+    async def test_raw_response_find_and_delete(self, async_client: AsyncBraintrust) -> None:
+        response = await async_client.org_secret.with_raw_response.find_and_delete(
+            name="name",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        org_secret = await response.parse()
+        assert_matches_type(OrgSecret, org_secret, path=["response"])
+
+    @parametrize
+    async def test_streaming_response_find_and_delete(self, async_client: AsyncBraintrust) -> None:
+        async with async_client.org_secret.with_streaming_response.find_and_delete(
+            name="name",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            org_secret = await response.parse()
+            assert_matches_type(OrgSecret, org_secret, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @parametrize
     async def test_method_replace(self, async_client: AsyncBraintrust) -> None:
