@@ -2,53 +2,45 @@
 
 from __future__ import annotations
 
+from typing import Dict, List, Union, Iterable, Optional
+
 import httpx
 
+from ..types import (
+    dataset_list_params,
+    dataset_fetch_params,
+    dataset_create_params,
+    dataset_insert_params,
+    dataset_update_params,
+    dataset_feedback_params,
+    dataset_summarize_params,
+    dataset_fetch_post_params,
+)
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._utils import (
+    maybe_transform,
+    async_maybe_transform,
+)
 from .._compat import cached_property
-
-from ..types.shared.dataset import Dataset
-
-from .._utils import maybe_transform, async_maybe_transform
-
-from .._base_client import make_request_options, AsyncPaginator
-
-from typing import Optional, Dict, Union, List, Iterable
-
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
 from ..pagination import SyncListObjects, AsyncListObjects
-
+from .._base_client import AsyncPaginator, make_request_options
+from ..types.shared.dataset import Dataset
+from ..types.shared.insert_events_response import InsertEventsResponse
 from ..types.shared.feedback_response_schema import FeedbackResponseSchema
-
+from ..types.shared_params.path_lookup_filter import PathLookupFilter
+from ..types.shared.summarize_dataset_response import SummarizeDatasetResponse
 from ..types.shared_params.feedback_dataset_item import FeedbackDatasetItem
-
 from ..types.shared.fetch_dataset_events_response import FetchDatasetEventsResponse
 
-from ..types.shared_params.path_lookup_filter import PathLookupFilter
-
-from ..types.shared.insert_events_response import InsertEventsResponse
-
-from ..types.shared.summarize_dataset_response import SummarizeDatasetResponse
-
-from .._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from ..types import dataset_insert_params
-
-import warnings
-from typing import TYPE_CHECKING, Optional, Union, List, Dict, Any, Mapping, cast, overload
-from typing_extensions import Literal
-from .._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
-from .._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
-from .._resource import SyncAPIResource, AsyncAPIResource
-from ..types import shared_params
-from ..types import dataset_create_params
-from ..types import dataset_update_params
-from ..types import dataset_list_params
-from ..types import dataset_feedback_params
-from ..types import dataset_fetch_params
-from ..types import dataset_fetch_post_params
-from ..types import dataset_insert_params
-from ..types import dataset_summarize_params
-
 __all__ = ["DatasetResource", "AsyncDatasetResource"]
+
 
 class DatasetResource(SyncAPIResource):
     @cached_property
@@ -70,17 +62,19 @@ class DatasetResource(SyncAPIResource):
         """
         return DatasetResourceWithStreamingResponse(self)
 
-    def create(self,
-    *,
-    name: str,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    project_id: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Dataset:
+    def create(
+        self,
+        *,
+        name: str,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        project_id: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Dataset:
         """Create a new dataset.
 
         If there is an existing dataset in the project with the
@@ -104,24 +98,31 @@ class DatasetResource(SyncAPIResource):
         """
         return self._post(
             "/v1/dataset",
-            body=maybe_transform({
-                "name": name,
-                "description": description,
-                "project_id": project_id,
-            }, dataset_create_params.DatasetCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "name": name,
+                    "description": description,
+                    "project_id": project_id,
+                },
+                dataset_create_params.DatasetCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Dataset,
         )
 
-    def retrieve(self,
-    dataset_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Dataset:
+    def retrieve(
+        self,
+        dataset_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Dataset:
         """
         Get a dataset object by its id
 
@@ -137,27 +138,29 @@ class DatasetResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not dataset_id:
-          raise ValueError(
-            f'Expected a non-empty value for `dataset_id` but received {dataset_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         return self._get(
             f"/v1/dataset/{dataset_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Dataset,
         )
 
-    def update(self,
-    dataset_id: str,
-    *,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
-    name: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Dataset:
+    def update(
+        self,
+        dataset_id: str,
+        *,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Dataset:
         """Partially update a dataset object.
 
         Specify the fields to update in the payload.
@@ -182,36 +185,41 @@ class DatasetResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not dataset_id:
-          raise ValueError(
-            f'Expected a non-empty value for `dataset_id` but received {dataset_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         return self._patch(
             f"/v1/dataset/{dataset_id}",
-            body=maybe_transform({
-                "description": description,
-                "metadata": metadata,
-                "name": name,
-            }, dataset_update_params.DatasetUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "description": description,
+                    "metadata": metadata,
+                    "name": name,
+                },
+                dataset_update_params.DatasetUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Dataset,
         )
 
-    def list(self,
-    *,
-    dataset_name: str | NotGiven = NOT_GIVEN,
-    ending_before: str | NotGiven = NOT_GIVEN,
-    ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-    limit: int | NotGiven = NOT_GIVEN,
-    org_name: str | NotGiven = NOT_GIVEN,
-    project_id: str | NotGiven = NOT_GIVEN,
-    project_name: str | NotGiven = NOT_GIVEN,
-    starting_after: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> SyncListObjects[Dataset]:
+    def list(
+        self,
+        *,
+        dataset_name: str | NotGiven = NOT_GIVEN,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        project_id: str | NotGiven = NOT_GIVEN,
+        project_name: str | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SyncListObjects[Dataset]:
         """List out all datasets.
 
         The datasets are sorted by creation date, with the most
@@ -253,29 +261,40 @@ class DatasetResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/dataset",
-            page = SyncListObjects[Dataset],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "dataset_name": dataset_name,
-                "ending_before": ending_before,
-                "ids": ids,
-                "limit": limit,
-                "org_name": org_name,
-                "project_id": project_id,
-                "project_name": project_name,
-                "starting_after": starting_after,
-            }, dataset_list_params.DatasetListParams)),
+            page=SyncListObjects[Dataset],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "dataset_name": dataset_name,
+                        "ending_before": ending_before,
+                        "ids": ids,
+                        "limit": limit,
+                        "org_name": org_name,
+                        "project_id": project_id,
+                        "project_name": project_name,
+                        "starting_after": starting_after,
+                    },
+                    dataset_list_params.DatasetListParams,
+                ),
+            ),
             model=Dataset,
         )
 
-    def delete(self,
-    dataset_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Dataset:
+    def delete(
+        self,
+        dataset_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Dataset:
         """
         Delete a dataset object by its id
 
@@ -291,25 +310,27 @@ class DatasetResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not dataset_id:
-          raise ValueError(
-            f'Expected a non-empty value for `dataset_id` but received {dataset_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         return self._delete(
             f"/v1/dataset/{dataset_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Dataset,
         )
 
-    def feedback(self,
-    dataset_id: str,
-    *,
-    feedback: Iterable[FeedbackDatasetItem],
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> FeedbackResponseSchema:
+    def feedback(
+        self,
+        dataset_id: str,
+        *,
+        feedback: Iterable[FeedbackDatasetItem],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> FeedbackResponseSchema:
         """
         Log feedback for a set of dataset events
 
@@ -327,31 +348,31 @@ class DatasetResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not dataset_id:
-          raise ValueError(
-            f'Expected a non-empty value for `dataset_id` but received {dataset_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         return self._post(
             f"/v1/dataset/{dataset_id}/feedback",
-            body=maybe_transform({
-                "feedback": feedback
-            }, dataset_feedback_params.DatasetFeedbackParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform({"feedback": feedback}, dataset_feedback_params.DatasetFeedbackParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=FeedbackResponseSchema,
         )
 
-    def fetch(self,
-    dataset_id: str,
-    *,
-    limit: int | NotGiven = NOT_GIVEN,
-    max_root_span_id: str | NotGiven = NOT_GIVEN,
-    max_xact_id: str | NotGiven = NOT_GIVEN,
-    version: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> FetchDatasetEventsResponse:
+    def fetch(
+        self,
+        dataset_id: str,
+        *,
+        limit: int | NotGiven = NOT_GIVEN,
+        max_root_span_id: str | NotGiven = NOT_GIVEN,
+        max_xact_id: str | NotGiven = NOT_GIVEN,
+        version: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> FetchDatasetEventsResponse:
         """Fetch the events in a dataset.
 
         Equivalent to the POST form of the same path, but
@@ -412,35 +433,44 @@ class DatasetResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not dataset_id:
-          raise ValueError(
-            f'Expected a non-empty value for `dataset_id` but received {dataset_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         return self._get(
             f"/v1/dataset/{dataset_id}/fetch",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "limit": limit,
-                "max_root_span_id": max_root_span_id,
-                "max_xact_id": max_xact_id,
-                "version": version,
-            }, dataset_fetch_params.DatasetFetchParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "limit": limit,
+                        "max_root_span_id": max_root_span_id,
+                        "max_xact_id": max_xact_id,
+                        "version": version,
+                    },
+                    dataset_fetch_params.DatasetFetchParams,
+                ),
+            ),
             cast_to=FetchDatasetEventsResponse,
         )
 
-    def fetch_post(self,
-    dataset_id: str,
-    *,
-    cursor: Optional[str] | NotGiven = NOT_GIVEN,
-    filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
-    limit: Optional[int] | NotGiven = NOT_GIVEN,
-    max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
-    max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
-    version: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> FetchDatasetEventsResponse:
+    def fetch_post(
+        self,
+        dataset_id: str,
+        *,
+        cursor: Optional[str] | NotGiven = NOT_GIVEN,
+        filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
+        limit: Optional[int] | NotGiven = NOT_GIVEN,
+        max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
+        max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
+        version: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> FetchDatasetEventsResponse:
         """Fetch the events in a dataset.
 
         Equivalent to the GET form of the same path, but
@@ -514,33 +544,38 @@ class DatasetResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not dataset_id:
-          raise ValueError(
-            f'Expected a non-empty value for `dataset_id` but received {dataset_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         return self._post(
             f"/v1/dataset/{dataset_id}/fetch",
-            body=maybe_transform({
-                "cursor": cursor,
-                "filters": filters,
-                "limit": limit,
-                "max_root_span_id": max_root_span_id,
-                "max_xact_id": max_xact_id,
-                "version": version,
-            }, dataset_fetch_post_params.DatasetFetchPostParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "cursor": cursor,
+                    "filters": filters,
+                    "limit": limit,
+                    "max_root_span_id": max_root_span_id,
+                    "max_xact_id": max_xact_id,
+                    "version": version,
+                },
+                dataset_fetch_post_params.DatasetFetchPostParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=FetchDatasetEventsResponse,
         )
 
-    def insert(self,
-    dataset_id: str,
-    *,
-    events: Iterable[dataset_insert_params.Event],
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> InsertEventsResponse:
+    def insert(
+        self,
+        dataset_id: str,
+        *,
+        events: Iterable[dataset_insert_params.Event],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> InsertEventsResponse:
         """
         Insert a set of events into the dataset
 
@@ -558,28 +593,28 @@ class DatasetResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not dataset_id:
-          raise ValueError(
-            f'Expected a non-empty value for `dataset_id` but received {dataset_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         return self._post(
             f"/v1/dataset/{dataset_id}/insert",
-            body=maybe_transform({
-                "events": events
-            }, dataset_insert_params.DatasetInsertParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform({"events": events}, dataset_insert_params.DatasetInsertParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=InsertEventsResponse,
         )
 
-    def summarize(self,
-    dataset_id: str,
-    *,
-    summarize_data: bool | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> SummarizeDatasetResponse:
+    def summarize(
+        self,
+        dataset_id: str,
+        *,
+        summarize_data: bool | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SummarizeDatasetResponse:
         """
         Summarize dataset
 
@@ -598,16 +633,21 @@ class DatasetResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not dataset_id:
-          raise ValueError(
-            f'Expected a non-empty value for `dataset_id` but received {dataset_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         return self._get(
             f"/v1/dataset/{dataset_id}/summarize",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "summarize_data": summarize_data
-            }, dataset_summarize_params.DatasetSummarizeParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"summarize_data": summarize_data}, dataset_summarize_params.DatasetSummarizeParams
+                ),
+            ),
             cast_to=SummarizeDatasetResponse,
         )
+
 
 class AsyncDatasetResource(AsyncAPIResource):
     @cached_property
@@ -629,17 +669,19 @@ class AsyncDatasetResource(AsyncAPIResource):
         """
         return AsyncDatasetResourceWithStreamingResponse(self)
 
-    async def create(self,
-    *,
-    name: str,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    project_id: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Dataset:
+    async def create(
+        self,
+        *,
+        name: str,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        project_id: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Dataset:
         """Create a new dataset.
 
         If there is an existing dataset in the project with the
@@ -663,24 +705,31 @@ class AsyncDatasetResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/dataset",
-            body=await async_maybe_transform({
-                "name": name,
-                "description": description,
-                "project_id": project_id,
-            }, dataset_create_params.DatasetCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "name": name,
+                    "description": description,
+                    "project_id": project_id,
+                },
+                dataset_create_params.DatasetCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Dataset,
         )
 
-    async def retrieve(self,
-    dataset_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Dataset:
+    async def retrieve(
+        self,
+        dataset_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Dataset:
         """
         Get a dataset object by its id
 
@@ -696,27 +745,29 @@ class AsyncDatasetResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not dataset_id:
-          raise ValueError(
-            f'Expected a non-empty value for `dataset_id` but received {dataset_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         return await self._get(
             f"/v1/dataset/{dataset_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Dataset,
         )
 
-    async def update(self,
-    dataset_id: str,
-    *,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
-    name: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Dataset:
+    async def update(
+        self,
+        dataset_id: str,
+        *,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Dataset:
         """Partially update a dataset object.
 
         Specify the fields to update in the payload.
@@ -741,36 +792,41 @@ class AsyncDatasetResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not dataset_id:
-          raise ValueError(
-            f'Expected a non-empty value for `dataset_id` but received {dataset_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         return await self._patch(
             f"/v1/dataset/{dataset_id}",
-            body=await async_maybe_transform({
-                "description": description,
-                "metadata": metadata,
-                "name": name,
-            }, dataset_update_params.DatasetUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "description": description,
+                    "metadata": metadata,
+                    "name": name,
+                },
+                dataset_update_params.DatasetUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Dataset,
         )
 
-    def list(self,
-    *,
-    dataset_name: str | NotGiven = NOT_GIVEN,
-    ending_before: str | NotGiven = NOT_GIVEN,
-    ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-    limit: int | NotGiven = NOT_GIVEN,
-    org_name: str | NotGiven = NOT_GIVEN,
-    project_id: str | NotGiven = NOT_GIVEN,
-    project_name: str | NotGiven = NOT_GIVEN,
-    starting_after: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> AsyncPaginator[Dataset, AsyncListObjects[Dataset]]:
+    def list(
+        self,
+        *,
+        dataset_name: str | NotGiven = NOT_GIVEN,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        project_id: str | NotGiven = NOT_GIVEN,
+        project_name: str | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AsyncPaginator[Dataset, AsyncListObjects[Dataset]]:
         """List out all datasets.
 
         The datasets are sorted by creation date, with the most
@@ -812,29 +868,40 @@ class AsyncDatasetResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/dataset",
-            page = AsyncListObjects[Dataset],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "dataset_name": dataset_name,
-                "ending_before": ending_before,
-                "ids": ids,
-                "limit": limit,
-                "org_name": org_name,
-                "project_id": project_id,
-                "project_name": project_name,
-                "starting_after": starting_after,
-            }, dataset_list_params.DatasetListParams)),
+            page=AsyncListObjects[Dataset],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "dataset_name": dataset_name,
+                        "ending_before": ending_before,
+                        "ids": ids,
+                        "limit": limit,
+                        "org_name": org_name,
+                        "project_id": project_id,
+                        "project_name": project_name,
+                        "starting_after": starting_after,
+                    },
+                    dataset_list_params.DatasetListParams,
+                ),
+            ),
             model=Dataset,
         )
 
-    async def delete(self,
-    dataset_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Dataset:
+    async def delete(
+        self,
+        dataset_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Dataset:
         """
         Delete a dataset object by its id
 
@@ -850,25 +917,27 @@ class AsyncDatasetResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not dataset_id:
-          raise ValueError(
-            f'Expected a non-empty value for `dataset_id` but received {dataset_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         return await self._delete(
             f"/v1/dataset/{dataset_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Dataset,
         )
 
-    async def feedback(self,
-    dataset_id: str,
-    *,
-    feedback: Iterable[FeedbackDatasetItem],
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> FeedbackResponseSchema:
+    async def feedback(
+        self,
+        dataset_id: str,
+        *,
+        feedback: Iterable[FeedbackDatasetItem],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> FeedbackResponseSchema:
         """
         Log feedback for a set of dataset events
 
@@ -886,31 +955,31 @@ class AsyncDatasetResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not dataset_id:
-          raise ValueError(
-            f'Expected a non-empty value for `dataset_id` but received {dataset_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         return await self._post(
             f"/v1/dataset/{dataset_id}/feedback",
-            body=await async_maybe_transform({
-                "feedback": feedback
-            }, dataset_feedback_params.DatasetFeedbackParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform({"feedback": feedback}, dataset_feedback_params.DatasetFeedbackParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=FeedbackResponseSchema,
         )
 
-    async def fetch(self,
-    dataset_id: str,
-    *,
-    limit: int | NotGiven = NOT_GIVEN,
-    max_root_span_id: str | NotGiven = NOT_GIVEN,
-    max_xact_id: str | NotGiven = NOT_GIVEN,
-    version: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> FetchDatasetEventsResponse:
+    async def fetch(
+        self,
+        dataset_id: str,
+        *,
+        limit: int | NotGiven = NOT_GIVEN,
+        max_root_span_id: str | NotGiven = NOT_GIVEN,
+        max_xact_id: str | NotGiven = NOT_GIVEN,
+        version: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> FetchDatasetEventsResponse:
         """Fetch the events in a dataset.
 
         Equivalent to the POST form of the same path, but
@@ -971,35 +1040,44 @@ class AsyncDatasetResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not dataset_id:
-          raise ValueError(
-            f'Expected a non-empty value for `dataset_id` but received {dataset_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         return await self._get(
             f"/v1/dataset/{dataset_id}/fetch",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
-                "limit": limit,
-                "max_root_span_id": max_root_span_id,
-                "max_xact_id": max_xact_id,
-                "version": version,
-            }, dataset_fetch_params.DatasetFetchParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "limit": limit,
+                        "max_root_span_id": max_root_span_id,
+                        "max_xact_id": max_xact_id,
+                        "version": version,
+                    },
+                    dataset_fetch_params.DatasetFetchParams,
+                ),
+            ),
             cast_to=FetchDatasetEventsResponse,
         )
 
-    async def fetch_post(self,
-    dataset_id: str,
-    *,
-    cursor: Optional[str] | NotGiven = NOT_GIVEN,
-    filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
-    limit: Optional[int] | NotGiven = NOT_GIVEN,
-    max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
-    max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
-    version: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> FetchDatasetEventsResponse:
+    async def fetch_post(
+        self,
+        dataset_id: str,
+        *,
+        cursor: Optional[str] | NotGiven = NOT_GIVEN,
+        filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
+        limit: Optional[int] | NotGiven = NOT_GIVEN,
+        max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
+        max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
+        version: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> FetchDatasetEventsResponse:
         """Fetch the events in a dataset.
 
         Equivalent to the GET form of the same path, but
@@ -1073,33 +1151,38 @@ class AsyncDatasetResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not dataset_id:
-          raise ValueError(
-            f'Expected a non-empty value for `dataset_id` but received {dataset_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         return await self._post(
             f"/v1/dataset/{dataset_id}/fetch",
-            body=await async_maybe_transform({
-                "cursor": cursor,
-                "filters": filters,
-                "limit": limit,
-                "max_root_span_id": max_root_span_id,
-                "max_xact_id": max_xact_id,
-                "version": version,
-            }, dataset_fetch_post_params.DatasetFetchPostParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "cursor": cursor,
+                    "filters": filters,
+                    "limit": limit,
+                    "max_root_span_id": max_root_span_id,
+                    "max_xact_id": max_xact_id,
+                    "version": version,
+                },
+                dataset_fetch_post_params.DatasetFetchPostParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=FetchDatasetEventsResponse,
         )
 
-    async def insert(self,
-    dataset_id: str,
-    *,
-    events: Iterable[dataset_insert_params.Event],
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> InsertEventsResponse:
+    async def insert(
+        self,
+        dataset_id: str,
+        *,
+        events: Iterable[dataset_insert_params.Event],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> InsertEventsResponse:
         """
         Insert a set of events into the dataset
 
@@ -1117,28 +1200,28 @@ class AsyncDatasetResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not dataset_id:
-          raise ValueError(
-            f'Expected a non-empty value for `dataset_id` but received {dataset_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         return await self._post(
             f"/v1/dataset/{dataset_id}/insert",
-            body=await async_maybe_transform({
-                "events": events
-            }, dataset_insert_params.DatasetInsertParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform({"events": events}, dataset_insert_params.DatasetInsertParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=InsertEventsResponse,
         )
 
-    async def summarize(self,
-    dataset_id: str,
-    *,
-    summarize_data: bool | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> SummarizeDatasetResponse:
+    async def summarize(
+        self,
+        dataset_id: str,
+        *,
+        summarize_data: bool | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SummarizeDatasetResponse:
         """
         Summarize dataset
 
@@ -1157,16 +1240,21 @@ class AsyncDatasetResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not dataset_id:
-          raise ValueError(
-            f'Expected a non-empty value for `dataset_id` but received {dataset_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `dataset_id` but received {dataset_id!r}")
         return await self._get(
             f"/v1/dataset/{dataset_id}/summarize",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
-                "summarize_data": summarize_data
-            }, dataset_summarize_params.DatasetSummarizeParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"summarize_data": summarize_data}, dataset_summarize_params.DatasetSummarizeParams
+                ),
+            ),
             cast_to=SummarizeDatasetResponse,
         )
+
 
 class DatasetResourceWithRawResponse:
     def __init__(self, dataset: DatasetResource) -> None:
@@ -1203,6 +1291,7 @@ class DatasetResourceWithRawResponse:
             dataset.summarize,
         )
 
+
 class AsyncDatasetResourceWithRawResponse:
     def __init__(self, dataset: AsyncDatasetResource) -> None:
         self._dataset = dataset
@@ -1238,6 +1327,7 @@ class AsyncDatasetResourceWithRawResponse:
             dataset.summarize,
         )
 
+
 class DatasetResourceWithStreamingResponse:
     def __init__(self, dataset: DatasetResource) -> None:
         self._dataset = dataset
@@ -1272,6 +1362,7 @@ class DatasetResourceWithStreamingResponse:
         self.summarize = to_streamed_response_wrapper(
             dataset.summarize,
         )
+
 
 class AsyncDatasetResourceWithStreamingResponse:
     def __init__(self, dataset: AsyncDatasetResource) -> None:

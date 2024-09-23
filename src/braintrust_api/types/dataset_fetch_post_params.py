@@ -2,18 +2,13 @@
 
 from __future__ import annotations
 
+from typing import Iterable, Optional
 from typing_extensions import TypedDict
-
-from typing import Optional, Iterable
 
 from .shared_params.path_lookup_filter import PathLookupFilter
 
-from typing import List, Union, Dict, Optional
-from typing_extensions import Literal, TypedDict, Required, Annotated
-from .._types import FileTypes
-from .._utils import PropertyInfo
-
 __all__ = ["DatasetFetchPostParams"]
+
 
 class DatasetFetchPostParams(TypedDict, total=False):
     cursor: Optional[str]

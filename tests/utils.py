@@ -8,7 +8,7 @@ from typing import Any, TypeVar, Iterator, cast
 from datetime import date, datetime
 from typing_extensions import Literal, get_args, get_origin, assert_type
 
-from braintrust_api._types import NoneType, Omit
+from braintrust_api._types import Omit, NoneType
 from braintrust_api._utils import (
     is_dict,
     is_list,

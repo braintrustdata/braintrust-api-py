@@ -2,39 +2,36 @@
 
 from __future__ import annotations
 
+from typing import List, Union, Optional
+from typing_extensions import Literal
+
 import httpx
 
+from ..types import (
+    project_score_list_params,
+    project_score_create_params,
+    project_score_update_params,
+    project_score_replace_params,
+)
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._utils import (
+    maybe_transform,
+    async_maybe_transform,
+)
 from .._compat import cached_property
-
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ..pagination import SyncListObjects, AsyncListObjects
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.project_score import ProjectScore
 
-from .._utils import maybe_transform, async_maybe_transform
-
-from .._base_client import make_request_options, AsyncPaginator
-
-from typing import Optional, Union, List
-
-from typing_extensions import Literal
-
-from ..pagination import SyncListObjects, AsyncListObjects
-
-from .._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from ..types import project_score_create_params, project_score_update_params, project_score_replace_params
-
-import warnings
-from typing import TYPE_CHECKING, Optional, Union, List, Dict, Any, Mapping, cast, overload
-from typing_extensions import Literal
-from .._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
-from .._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
-from .._resource import SyncAPIResource, AsyncAPIResource
-from ..types import shared_params
-from ..types import project_score_create_params
-from ..types import project_score_update_params
-from ..types import project_score_list_params
-from ..types import project_score_replace_params
-
 __all__ = ["ProjectScoreResource", "AsyncProjectScoreResource"]
+
 
 class ProjectScoreResource(SyncAPIResource):
     @cached_property
@@ -56,19 +53,21 @@ class ProjectScoreResource(SyncAPIResource):
         """
         return ProjectScoreResourceWithStreamingResponse(self)
 
-    def create(self,
-    *,
-    name: str,
-    project_id: str,
-    score_type: Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]],
-    categories: project_score_create_params.Categories | NotGiven = NOT_GIVEN,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ProjectScore:
+    def create(
+        self,
+        *,
+        name: str,
+        project_id: str,
+        score_type: Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]],
+        categories: project_score_create_params.Categories | NotGiven = NOT_GIVEN,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ProjectScore:
         """Create a new project_score.
 
         If there is an existing project_score in the project
@@ -96,26 +95,33 @@ class ProjectScoreResource(SyncAPIResource):
         """
         return self._post(
             "/v1/project_score",
-            body=maybe_transform({
-                "name": name,
-                "project_id": project_id,
-                "score_type": score_type,
-                "categories": categories,
-                "description": description,
-            }, project_score_create_params.ProjectScoreCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "name": name,
+                    "project_id": project_id,
+                    "score_type": score_type,
+                    "categories": categories,
+                    "description": description,
+                },
+                project_score_create_params.ProjectScoreCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ProjectScore,
         )
 
-    def retrieve(self,
-    project_score_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ProjectScore:
+    def retrieve(
+        self,
+        project_score_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ProjectScore:
         """
         Get a project_score object by its id
 
@@ -131,28 +137,30 @@ class ProjectScoreResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not project_score_id:
-          raise ValueError(
-            f'Expected a non-empty value for `project_score_id` but received {project_score_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `project_score_id` but received {project_score_id!r}")
         return self._get(
             f"/v1/project_score/{project_score_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ProjectScore,
         )
 
-    def update(self,
-    project_score_id: str,
-    *,
-    categories: project_score_update_params.Categories | NotGiven = NOT_GIVEN,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    name: Optional[str] | NotGiven = NOT_GIVEN,
-    score_type: Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ProjectScore:
+    def update(
+        self,
+        project_score_id: str,
+        *,
+        categories: project_score_update_params.Categories | NotGiven = NOT_GIVEN,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
+        score_type: Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ProjectScore:
         """Partially update a project_score object.
 
         Specify the fields to update in the
@@ -179,38 +187,47 @@ class ProjectScoreResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not project_score_id:
-          raise ValueError(
-            f'Expected a non-empty value for `project_score_id` but received {project_score_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `project_score_id` but received {project_score_id!r}")
         return self._patch(
             f"/v1/project_score/{project_score_id}",
-            body=maybe_transform({
-                "categories": categories,
-                "description": description,
-                "name": name,
-                "score_type": score_type,
-            }, project_score_update_params.ProjectScoreUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "categories": categories,
+                    "description": description,
+                    "name": name,
+                    "score_type": score_type,
+                },
+                project_score_update_params.ProjectScoreUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ProjectScore,
         )
 
-    def list(self,
-    *,
-    ending_before: str | NotGiven = NOT_GIVEN,
-    ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-    limit: int | NotGiven = NOT_GIVEN,
-    org_name: str | NotGiven = NOT_GIVEN,
-    project_id: str | NotGiven = NOT_GIVEN,
-    project_name: str | NotGiven = NOT_GIVEN,
-    project_score_name: str | NotGiven = NOT_GIVEN,
-    score_type: Union[Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]], List[Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]]]] | NotGiven = NOT_GIVEN,
-    starting_after: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> SyncListObjects[ProjectScore]:
+    def list(
+        self,
+        *,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        project_id: str | NotGiven = NOT_GIVEN,
+        project_name: str | NotGiven = NOT_GIVEN,
+        project_score_name: str | NotGiven = NOT_GIVEN,
+        score_type: Union[
+            Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]],
+            List[Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]]],
+        ]
+        | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SyncListObjects[ProjectScore]:
         """List out all project_scores.
 
         The project_scores are sorted by creation date,
@@ -254,30 +271,41 @@ class ProjectScoreResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/project_score",
-            page = SyncListObjects[ProjectScore],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "ending_before": ending_before,
-                "ids": ids,
-                "limit": limit,
-                "org_name": org_name,
-                "project_id": project_id,
-                "project_name": project_name,
-                "project_score_name": project_score_name,
-                "score_type": score_type,
-                "starting_after": starting_after,
-            }, project_score_list_params.ProjectScoreListParams)),
+            page=SyncListObjects[ProjectScore],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "ending_before": ending_before,
+                        "ids": ids,
+                        "limit": limit,
+                        "org_name": org_name,
+                        "project_id": project_id,
+                        "project_name": project_name,
+                        "project_score_name": project_score_name,
+                        "score_type": score_type,
+                        "starting_after": starting_after,
+                    },
+                    project_score_list_params.ProjectScoreListParams,
+                ),
+            ),
             model=ProjectScore,
         )
 
-    def delete(self,
-    project_score_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ProjectScore:
+    def delete(
+        self,
+        project_score_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ProjectScore:
         """
         Delete a project_score object by its id
 
@@ -293,28 +321,30 @@ class ProjectScoreResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not project_score_id:
-          raise ValueError(
-            f'Expected a non-empty value for `project_score_id` but received {project_score_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `project_score_id` but received {project_score_id!r}")
         return self._delete(
             f"/v1/project_score/{project_score_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ProjectScore,
         )
 
-    def replace(self,
-    *,
-    name: str,
-    project_id: str,
-    score_type: Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]],
-    categories: project_score_replace_params.Categories | NotGiven = NOT_GIVEN,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ProjectScore:
+    def replace(
+        self,
+        *,
+        name: str,
+        project_id: str,
+        score_type: Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]],
+        categories: project_score_replace_params.Categories | NotGiven = NOT_GIVEN,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ProjectScore:
         """Create or replace project_score.
 
         If there is an existing project_score in the
@@ -342,16 +372,22 @@ class ProjectScoreResource(SyncAPIResource):
         """
         return self._put(
             "/v1/project_score",
-            body=maybe_transform({
-                "name": name,
-                "project_id": project_id,
-                "score_type": score_type,
-                "categories": categories,
-                "description": description,
-            }, project_score_replace_params.ProjectScoreReplaceParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "name": name,
+                    "project_id": project_id,
+                    "score_type": score_type,
+                    "categories": categories,
+                    "description": description,
+                },
+                project_score_replace_params.ProjectScoreReplaceParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ProjectScore,
         )
+
 
 class AsyncProjectScoreResource(AsyncAPIResource):
     @cached_property
@@ -373,19 +409,21 @@ class AsyncProjectScoreResource(AsyncAPIResource):
         """
         return AsyncProjectScoreResourceWithStreamingResponse(self)
 
-    async def create(self,
-    *,
-    name: str,
-    project_id: str,
-    score_type: Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]],
-    categories: project_score_create_params.Categories | NotGiven = NOT_GIVEN,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ProjectScore:
+    async def create(
+        self,
+        *,
+        name: str,
+        project_id: str,
+        score_type: Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]],
+        categories: project_score_create_params.Categories | NotGiven = NOT_GIVEN,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ProjectScore:
         """Create a new project_score.
 
         If there is an existing project_score in the project
@@ -413,26 +451,33 @@ class AsyncProjectScoreResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/project_score",
-            body=await async_maybe_transform({
-                "name": name,
-                "project_id": project_id,
-                "score_type": score_type,
-                "categories": categories,
-                "description": description,
-            }, project_score_create_params.ProjectScoreCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "name": name,
+                    "project_id": project_id,
+                    "score_type": score_type,
+                    "categories": categories,
+                    "description": description,
+                },
+                project_score_create_params.ProjectScoreCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ProjectScore,
         )
 
-    async def retrieve(self,
-    project_score_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ProjectScore:
+    async def retrieve(
+        self,
+        project_score_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ProjectScore:
         """
         Get a project_score object by its id
 
@@ -448,28 +493,30 @@ class AsyncProjectScoreResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not project_score_id:
-          raise ValueError(
-            f'Expected a non-empty value for `project_score_id` but received {project_score_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `project_score_id` but received {project_score_id!r}")
         return await self._get(
             f"/v1/project_score/{project_score_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ProjectScore,
         )
 
-    async def update(self,
-    project_score_id: str,
-    *,
-    categories: project_score_update_params.Categories | NotGiven = NOT_GIVEN,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    name: Optional[str] | NotGiven = NOT_GIVEN,
-    score_type: Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ProjectScore:
+    async def update(
+        self,
+        project_score_id: str,
+        *,
+        categories: project_score_update_params.Categories | NotGiven = NOT_GIVEN,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
+        score_type: Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ProjectScore:
         """Partially update a project_score object.
 
         Specify the fields to update in the
@@ -496,38 +543,47 @@ class AsyncProjectScoreResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not project_score_id:
-          raise ValueError(
-            f'Expected a non-empty value for `project_score_id` but received {project_score_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `project_score_id` but received {project_score_id!r}")
         return await self._patch(
             f"/v1/project_score/{project_score_id}",
-            body=await async_maybe_transform({
-                "categories": categories,
-                "description": description,
-                "name": name,
-                "score_type": score_type,
-            }, project_score_update_params.ProjectScoreUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "categories": categories,
+                    "description": description,
+                    "name": name,
+                    "score_type": score_type,
+                },
+                project_score_update_params.ProjectScoreUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ProjectScore,
         )
 
-    def list(self,
-    *,
-    ending_before: str | NotGiven = NOT_GIVEN,
-    ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-    limit: int | NotGiven = NOT_GIVEN,
-    org_name: str | NotGiven = NOT_GIVEN,
-    project_id: str | NotGiven = NOT_GIVEN,
-    project_name: str | NotGiven = NOT_GIVEN,
-    project_score_name: str | NotGiven = NOT_GIVEN,
-    score_type: Union[Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]], List[Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]]]] | NotGiven = NOT_GIVEN,
-    starting_after: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> AsyncPaginator[ProjectScore, AsyncListObjects[ProjectScore]]:
+    def list(
+        self,
+        *,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        project_id: str | NotGiven = NOT_GIVEN,
+        project_name: str | NotGiven = NOT_GIVEN,
+        project_score_name: str | NotGiven = NOT_GIVEN,
+        score_type: Union[
+            Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]],
+            List[Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]]],
+        ]
+        | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AsyncPaginator[ProjectScore, AsyncListObjects[ProjectScore]]:
         """List out all project_scores.
 
         The project_scores are sorted by creation date,
@@ -571,30 +627,41 @@ class AsyncProjectScoreResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/project_score",
-            page = AsyncListObjects[ProjectScore],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "ending_before": ending_before,
-                "ids": ids,
-                "limit": limit,
-                "org_name": org_name,
-                "project_id": project_id,
-                "project_name": project_name,
-                "project_score_name": project_score_name,
-                "score_type": score_type,
-                "starting_after": starting_after,
-            }, project_score_list_params.ProjectScoreListParams)),
+            page=AsyncListObjects[ProjectScore],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "ending_before": ending_before,
+                        "ids": ids,
+                        "limit": limit,
+                        "org_name": org_name,
+                        "project_id": project_id,
+                        "project_name": project_name,
+                        "project_score_name": project_score_name,
+                        "score_type": score_type,
+                        "starting_after": starting_after,
+                    },
+                    project_score_list_params.ProjectScoreListParams,
+                ),
+            ),
             model=ProjectScore,
         )
 
-    async def delete(self,
-    project_score_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ProjectScore:
+    async def delete(
+        self,
+        project_score_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ProjectScore:
         """
         Delete a project_score object by its id
 
@@ -610,28 +677,30 @@ class AsyncProjectScoreResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not project_score_id:
-          raise ValueError(
-            f'Expected a non-empty value for `project_score_id` but received {project_score_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `project_score_id` but received {project_score_id!r}")
         return await self._delete(
             f"/v1/project_score/{project_score_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ProjectScore,
         )
 
-    async def replace(self,
-    *,
-    name: str,
-    project_id: str,
-    score_type: Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]],
-    categories: project_score_replace_params.Categories | NotGiven = NOT_GIVEN,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ProjectScore:
+    async def replace(
+        self,
+        *,
+        name: str,
+        project_id: str,
+        score_type: Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]],
+        categories: project_score_replace_params.Categories | NotGiven = NOT_GIVEN,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ProjectScore:
         """Create or replace project_score.
 
         If there is an existing project_score in the
@@ -659,16 +728,22 @@ class AsyncProjectScoreResource(AsyncAPIResource):
         """
         return await self._put(
             "/v1/project_score",
-            body=await async_maybe_transform({
-                "name": name,
-                "project_id": project_id,
-                "score_type": score_type,
-                "categories": categories,
-                "description": description,
-            }, project_score_replace_params.ProjectScoreReplaceParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "name": name,
+                    "project_id": project_id,
+                    "score_type": score_type,
+                    "categories": categories,
+                    "description": description,
+                },
+                project_score_replace_params.ProjectScoreReplaceParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ProjectScore,
         )
+
 
 class ProjectScoreResourceWithRawResponse:
     def __init__(self, project_score: ProjectScoreResource) -> None:
@@ -693,6 +768,7 @@ class ProjectScoreResourceWithRawResponse:
             project_score.replace,
         )
 
+
 class AsyncProjectScoreResourceWithRawResponse:
     def __init__(self, project_score: AsyncProjectScoreResource) -> None:
         self._project_score = project_score
@@ -716,6 +792,7 @@ class AsyncProjectScoreResourceWithRawResponse:
             project_score.replace,
         )
 
+
 class ProjectScoreResourceWithStreamingResponse:
     def __init__(self, project_score: ProjectScoreResource) -> None:
         self._project_score = project_score
@@ -738,6 +815,7 @@ class ProjectScoreResourceWithStreamingResponse:
         self.replace = to_streamed_response_wrapper(
             project_score.replace,
         )
+
 
 class AsyncProjectScoreResourceWithStreamingResponse:
     def __init__(self, project_score: AsyncProjectScoreResource) -> None:

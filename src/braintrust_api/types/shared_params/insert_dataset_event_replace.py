@@ -2,15 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Optional, Union, Dict, List
-
+from typing import Dict, List, Union, Optional
 from datetime import datetime
-
-from typing_extensions import TypedDict, Annotated
+from typing_extensions import Annotated, TypedDict
 
 from ..._utils import PropertyInfo
 
 __all__ = ["InsertDatasetEventReplace"]
+
 
 class InsertDatasetEventReplace(TypedDict, total=False):
     id: Optional[str]
@@ -56,7 +55,7 @@ class InsertDatasetEventReplace(TypedDict, total=False):
     clicking on the "abc" row.
     """
 
-    created: Annotated[Union[str, datetime, None], PropertyInfo(format = "iso8601")]
+    created: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """The timestamp the dataset event was created"""
 
     expected: object
