@@ -5,7 +5,7 @@ description = "The official Python library for the braintrust API"
 dynamic = ["readme"]
 license = "Apache-2.0"
 authors = [
-{ name = "Braintrust", email = "info@braintrustdata.com" },
+{ name = "Braintrust", email = "infotest@braintrustdata.com" },
 ]
 dependencies = [
     "httpx>=0.23.0, <1",
