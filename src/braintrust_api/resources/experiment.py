@@ -2,57 +2,46 @@
 
 from __future__ import annotations
 
+from typing import Dict, List, Union, Iterable, Optional
+
 import httpx
 
+from ..types import (
+    experiment_list_params,
+    experiment_fetch_params,
+    experiment_create_params,
+    experiment_insert_params,
+    experiment_update_params,
+    experiment_feedback_params,
+    experiment_summarize_params,
+    experiment_fetch_post_params,
+)
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._utils import (
+    maybe_transform,
+    async_maybe_transform,
+)
 from .._compat import cached_property
-
-from ..types.shared.experiment import Experiment
-
-from .._utils import maybe_transform, async_maybe_transform
-
-from .._base_client import make_request_options, AsyncPaginator
-
-from typing import Optional, Dict, Union, List, Iterable
-
-from ..types.shared_params.repo_info import RepoInfo
-
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
 from ..pagination import SyncListObjects, AsyncListObjects
-
+from .._base_client import AsyncPaginator, make_request_options
+from ..types.shared.experiment import Experiment
+from ..types.shared_params.repo_info import RepoInfo
+from ..types.shared.insert_events_response import InsertEventsResponse
 from ..types.shared.feedback_response_schema import FeedbackResponseSchema
-
+from ..types.shared_params.path_lookup_filter import PathLookupFilter
+from ..types.shared.summarize_experiment_response import SummarizeExperimentResponse
 from ..types.shared_params.feedback_experiment_item import FeedbackExperimentItem
-
 from ..types.shared.fetch_experiment_events_response import FetchExperimentEventsResponse
 
-from ..types.shared_params.path_lookup_filter import PathLookupFilter
-
-from ..types.shared.insert_events_response import InsertEventsResponse
-
-from ..types.shared.summarize_experiment_response import SummarizeExperimentResponse
-
-from .._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from ..types import experiment_insert_params
-
-import warnings
-from typing import TYPE_CHECKING, Optional, Union, List, Dict, Any, Mapping, cast, overload
-from typing_extensions import Literal
-from .._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
-from .._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
-from .._resource import SyncAPIResource, AsyncAPIResource
-from ..types import shared_params
-from ..types import experiment_create_params
-from ..types import experiment_update_params
-from ..types import experiment_list_params
-from ..types import experiment_feedback_params
-from ..types import experiment_fetch_params
-from ..types import experiment_fetch_post_params
-from ..types import experiment_insert_params
-from ..types import experiment_summarize_params
-from ..types import shared
-from ..types import shared
-
 __all__ = ["ExperimentResource", "AsyncExperimentResource"]
+
 
 class ExperimentResource(SyncAPIResource):
     @cached_property
@@ -74,24 +63,26 @@ class ExperimentResource(SyncAPIResource):
         """
         return ExperimentResourceWithStreamingResponse(self)
 
-    def create(self,
-    *,
-    project_id: str,
-    base_exp_id: Optional[str] | NotGiven = NOT_GIVEN,
-    dataset_id: Optional[str] | NotGiven = NOT_GIVEN,
-    dataset_version: Optional[str] | NotGiven = NOT_GIVEN,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    ensure_new: Optional[bool] | NotGiven = NOT_GIVEN,
-    metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
-    name: Optional[str] | NotGiven = NOT_GIVEN,
-    public: Optional[bool] | NotGiven = NOT_GIVEN,
-    repo_info: Optional[RepoInfo] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Experiment:
+    def create(
+        self,
+        *,
+        project_id: str,
+        base_exp_id: Optional[str] | NotGiven = NOT_GIVEN,
+        dataset_id: Optional[str] | NotGiven = NOT_GIVEN,
+        dataset_version: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        ensure_new: Optional[bool] | NotGiven = NOT_GIVEN,
+        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
+        public: Optional[bool] | NotGiven = NOT_GIVEN,
+        repo_info: Optional[RepoInfo] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Experiment:
         """Create a new experiment.
 
         If there is an existing experiment in the project with
@@ -135,31 +126,38 @@ class ExperimentResource(SyncAPIResource):
         """
         return self._post(
             "/v1/experiment",
-            body=maybe_transform({
-                "project_id": project_id,
-                "base_exp_id": base_exp_id,
-                "dataset_id": dataset_id,
-                "dataset_version": dataset_version,
-                "description": description,
-                "ensure_new": ensure_new,
-                "metadata": metadata,
-                "name": name,
-                "public": public,
-                "repo_info": repo_info,
-            }, experiment_create_params.ExperimentCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "project_id": project_id,
+                    "base_exp_id": base_exp_id,
+                    "dataset_id": dataset_id,
+                    "dataset_version": dataset_version,
+                    "description": description,
+                    "ensure_new": ensure_new,
+                    "metadata": metadata,
+                    "name": name,
+                    "public": public,
+                    "repo_info": repo_info,
+                },
+                experiment_create_params.ExperimentCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Experiment,
         )
 
-    def retrieve(self,
-    experiment_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Experiment:
+    def retrieve(
+        self,
+        experiment_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Experiment:
         """
         Get an experiment object by its id
 
@@ -175,32 +173,34 @@ class ExperimentResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not experiment_id:
-          raise ValueError(
-            f'Expected a non-empty value for `experiment_id` but received {experiment_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `experiment_id` but received {experiment_id!r}")
         return self._get(
             f"/v1/experiment/{experiment_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Experiment,
         )
 
-    def update(self,
-    experiment_id: str,
-    *,
-    base_exp_id: Optional[str] | NotGiven = NOT_GIVEN,
-    dataset_id: Optional[str] | NotGiven = NOT_GIVEN,
-    dataset_version: Optional[str] | NotGiven = NOT_GIVEN,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
-    name: Optional[str] | NotGiven = NOT_GIVEN,
-    public: Optional[bool] | NotGiven = NOT_GIVEN,
-    repo_info: Optional[RepoInfo] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Experiment:
+    def update(
+        self,
+        experiment_id: str,
+        *,
+        base_exp_id: Optional[str] | NotGiven = NOT_GIVEN,
+        dataset_id: Optional[str] | NotGiven = NOT_GIVEN,
+        dataset_version: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
+        public: Optional[bool] | NotGiven = NOT_GIVEN,
+        repo_info: Optional[RepoInfo] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Experiment:
         """Partially update an experiment object.
 
         Specify the fields to update in the
@@ -238,41 +238,46 @@ class ExperimentResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not experiment_id:
-          raise ValueError(
-            f'Expected a non-empty value for `experiment_id` but received {experiment_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `experiment_id` but received {experiment_id!r}")
         return self._patch(
             f"/v1/experiment/{experiment_id}",
-            body=maybe_transform({
-                "base_exp_id": base_exp_id,
-                "dataset_id": dataset_id,
-                "dataset_version": dataset_version,
-                "description": description,
-                "metadata": metadata,
-                "name": name,
-                "public": public,
-                "repo_info": repo_info,
-            }, experiment_update_params.ExperimentUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "base_exp_id": base_exp_id,
+                    "dataset_id": dataset_id,
+                    "dataset_version": dataset_version,
+                    "description": description,
+                    "metadata": metadata,
+                    "name": name,
+                    "public": public,
+                    "repo_info": repo_info,
+                },
+                experiment_update_params.ExperimentUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Experiment,
         )
 
-    def list(self,
-    *,
-    ending_before: str | NotGiven = NOT_GIVEN,
-    experiment_name: str | NotGiven = NOT_GIVEN,
-    ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-    limit: int | NotGiven = NOT_GIVEN,
-    org_name: str | NotGiven = NOT_GIVEN,
-    project_id: str | NotGiven = NOT_GIVEN,
-    project_name: str | NotGiven = NOT_GIVEN,
-    starting_after: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> SyncListObjects[Experiment]:
+    def list(
+        self,
+        *,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        experiment_name: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        project_id: str | NotGiven = NOT_GIVEN,
+        project_name: str | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SyncListObjects[Experiment]:
         """List out all experiments.
 
         The experiments are sorted by creation date, with the
@@ -314,29 +319,40 @@ class ExperimentResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/experiment",
-            page = SyncListObjects[Experiment],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "ending_before": ending_before,
-                "experiment_name": experiment_name,
-                "ids": ids,
-                "limit": limit,
-                "org_name": org_name,
-                "project_id": project_id,
-                "project_name": project_name,
-                "starting_after": starting_after,
-            }, experiment_list_params.ExperimentListParams)),
+            page=SyncListObjects[Experiment],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "ending_before": ending_before,
+                        "experiment_name": experiment_name,
+                        "ids": ids,
+                        "limit": limit,
+                        "org_name": org_name,
+                        "project_id": project_id,
+                        "project_name": project_name,
+                        "starting_after": starting_after,
+                    },
+                    experiment_list_params.ExperimentListParams,
+                ),
+            ),
             model=Experiment,
         )
 
-    def delete(self,
-    experiment_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Experiment:
+    def delete(
+        self,
+        experiment_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Experiment:
         """
         Delete an experiment object by its id
 
@@ -352,25 +368,27 @@ class ExperimentResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not experiment_id:
-          raise ValueError(
-            f'Expected a non-empty value for `experiment_id` but received {experiment_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `experiment_id` but received {experiment_id!r}")
         return self._delete(
             f"/v1/experiment/{experiment_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Experiment,
         )
 
-    def feedback(self,
-    experiment_id: str,
-    *,
-    feedback: Iterable[FeedbackExperimentItem],
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> FeedbackResponseSchema:
+    def feedback(
+        self,
+        experiment_id: str,
+        *,
+        feedback: Iterable[FeedbackExperimentItem],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> FeedbackResponseSchema:
         """
         Log feedback for a set of experiment events
 
@@ -388,31 +406,31 @@ class ExperimentResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not experiment_id:
-          raise ValueError(
-            f'Expected a non-empty value for `experiment_id` but received {experiment_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `experiment_id` but received {experiment_id!r}")
         return self._post(
             f"/v1/experiment/{experiment_id}/feedback",
-            body=maybe_transform({
-                "feedback": feedback
-            }, experiment_feedback_params.ExperimentFeedbackParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform({"feedback": feedback}, experiment_feedback_params.ExperimentFeedbackParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=FeedbackResponseSchema,
         )
 
-    def fetch(self,
-    experiment_id: str,
-    *,
-    limit: int | NotGiven = NOT_GIVEN,
-    max_root_span_id: str | NotGiven = NOT_GIVEN,
-    max_xact_id: str | NotGiven = NOT_GIVEN,
-    version: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> FetchExperimentEventsResponse:
+    def fetch(
+        self,
+        experiment_id: str,
+        *,
+        limit: int | NotGiven = NOT_GIVEN,
+        max_root_span_id: str | NotGiven = NOT_GIVEN,
+        max_xact_id: str | NotGiven = NOT_GIVEN,
+        version: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> FetchExperimentEventsResponse:
         """Fetch the events in an experiment.
 
         Equivalent to the POST form of the same path,
@@ -473,35 +491,44 @@ class ExperimentResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not experiment_id:
-          raise ValueError(
-            f'Expected a non-empty value for `experiment_id` but received {experiment_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `experiment_id` but received {experiment_id!r}")
         return self._get(
             f"/v1/experiment/{experiment_id}/fetch",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "limit": limit,
-                "max_root_span_id": max_root_span_id,
-                "max_xact_id": max_xact_id,
-                "version": version,
-            }, experiment_fetch_params.ExperimentFetchParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "limit": limit,
+                        "max_root_span_id": max_root_span_id,
+                        "max_xact_id": max_xact_id,
+                        "version": version,
+                    },
+                    experiment_fetch_params.ExperimentFetchParams,
+                ),
+            ),
             cast_to=FetchExperimentEventsResponse,
         )
 
-    def fetch_post(self,
-    experiment_id: str,
-    *,
-    cursor: Optional[str] | NotGiven = NOT_GIVEN,
-    filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
-    limit: Optional[int] | NotGiven = NOT_GIVEN,
-    max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
-    max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
-    version: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> FetchExperimentEventsResponse:
+    def fetch_post(
+        self,
+        experiment_id: str,
+        *,
+        cursor: Optional[str] | NotGiven = NOT_GIVEN,
+        filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
+        limit: Optional[int] | NotGiven = NOT_GIVEN,
+        max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
+        max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
+        version: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> FetchExperimentEventsResponse:
         """Fetch the events in an experiment.
 
         Equivalent to the GET form of the same path,
@@ -575,33 +602,38 @@ class ExperimentResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not experiment_id:
-          raise ValueError(
-            f'Expected a non-empty value for `experiment_id` but received {experiment_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `experiment_id` but received {experiment_id!r}")
         return self._post(
             f"/v1/experiment/{experiment_id}/fetch",
-            body=maybe_transform({
-                "cursor": cursor,
-                "filters": filters,
-                "limit": limit,
-                "max_root_span_id": max_root_span_id,
-                "max_xact_id": max_xact_id,
-                "version": version,
-            }, experiment_fetch_post_params.ExperimentFetchPostParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "cursor": cursor,
+                    "filters": filters,
+                    "limit": limit,
+                    "max_root_span_id": max_root_span_id,
+                    "max_xact_id": max_xact_id,
+                    "version": version,
+                },
+                experiment_fetch_post_params.ExperimentFetchPostParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=FetchExperimentEventsResponse,
         )
 
-    def insert(self,
-    experiment_id: str,
-    *,
-    events: Iterable[experiment_insert_params.Event],
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> InsertEventsResponse:
+    def insert(
+        self,
+        experiment_id: str,
+        *,
+        events: Iterable[experiment_insert_params.Event],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> InsertEventsResponse:
         """
         Insert a set of events into the experiment
 
@@ -619,29 +651,29 @@ class ExperimentResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not experiment_id:
-          raise ValueError(
-            f'Expected a non-empty value for `experiment_id` but received {experiment_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `experiment_id` but received {experiment_id!r}")
         return self._post(
             f"/v1/experiment/{experiment_id}/insert",
-            body=maybe_transform({
-                "events": events
-            }, experiment_insert_params.ExperimentInsertParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform({"events": events}, experiment_insert_params.ExperimentInsertParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=InsertEventsResponse,
         )
 
-    def summarize(self,
-    experiment_id: str,
-    *,
-    comparison_experiment_id: str | NotGiven = NOT_GIVEN,
-    summarize_scores: bool | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> SummarizeExperimentResponse:
+    def summarize(
+        self,
+        experiment_id: str,
+        *,
+        comparison_experiment_id: str | NotGiven = NOT_GIVEN,
+        summarize_scores: bool | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SummarizeExperimentResponse:
         """
         Summarize experiment
 
@@ -665,17 +697,25 @@ class ExperimentResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not experiment_id:
-          raise ValueError(
-            f'Expected a non-empty value for `experiment_id` but received {experiment_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `experiment_id` but received {experiment_id!r}")
         return self._get(
             f"/v1/experiment/{experiment_id}/summarize",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "comparison_experiment_id": comparison_experiment_id,
-                "summarize_scores": summarize_scores,
-            }, experiment_summarize_params.ExperimentSummarizeParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "comparison_experiment_id": comparison_experiment_id,
+                        "summarize_scores": summarize_scores,
+                    },
+                    experiment_summarize_params.ExperimentSummarizeParams,
+                ),
+            ),
             cast_to=SummarizeExperimentResponse,
         )
+
 
 class AsyncExperimentResource(AsyncAPIResource):
     @cached_property
@@ -697,24 +737,26 @@ class AsyncExperimentResource(AsyncAPIResource):
         """
         return AsyncExperimentResourceWithStreamingResponse(self)
 
-    async def create(self,
-    *,
-    project_id: str,
-    base_exp_id: Optional[str] | NotGiven = NOT_GIVEN,
-    dataset_id: Optional[str] | NotGiven = NOT_GIVEN,
-    dataset_version: Optional[str] | NotGiven = NOT_GIVEN,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    ensure_new: Optional[bool] | NotGiven = NOT_GIVEN,
-    metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
-    name: Optional[str] | NotGiven = NOT_GIVEN,
-    public: Optional[bool] | NotGiven = NOT_GIVEN,
-    repo_info: Optional[RepoInfo] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Experiment:
+    async def create(
+        self,
+        *,
+        project_id: str,
+        base_exp_id: Optional[str] | NotGiven = NOT_GIVEN,
+        dataset_id: Optional[str] | NotGiven = NOT_GIVEN,
+        dataset_version: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        ensure_new: Optional[bool] | NotGiven = NOT_GIVEN,
+        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
+        public: Optional[bool] | NotGiven = NOT_GIVEN,
+        repo_info: Optional[RepoInfo] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Experiment:
         """Create a new experiment.
 
         If there is an existing experiment in the project with
@@ -758,31 +800,38 @@ class AsyncExperimentResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/experiment",
-            body=await async_maybe_transform({
-                "project_id": project_id,
-                "base_exp_id": base_exp_id,
-                "dataset_id": dataset_id,
-                "dataset_version": dataset_version,
-                "description": description,
-                "ensure_new": ensure_new,
-                "metadata": metadata,
-                "name": name,
-                "public": public,
-                "repo_info": repo_info,
-            }, experiment_create_params.ExperimentCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "project_id": project_id,
+                    "base_exp_id": base_exp_id,
+                    "dataset_id": dataset_id,
+                    "dataset_version": dataset_version,
+                    "description": description,
+                    "ensure_new": ensure_new,
+                    "metadata": metadata,
+                    "name": name,
+                    "public": public,
+                    "repo_info": repo_info,
+                },
+                experiment_create_params.ExperimentCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Experiment,
         )
 
-    async def retrieve(self,
-    experiment_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Experiment:
+    async def retrieve(
+        self,
+        experiment_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Experiment:
         """
         Get an experiment object by its id
 
@@ -798,32 +847,34 @@ class AsyncExperimentResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not experiment_id:
-          raise ValueError(
-            f'Expected a non-empty value for `experiment_id` but received {experiment_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `experiment_id` but received {experiment_id!r}")
         return await self._get(
             f"/v1/experiment/{experiment_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Experiment,
         )
 
-    async def update(self,
-    experiment_id: str,
-    *,
-    base_exp_id: Optional[str] | NotGiven = NOT_GIVEN,
-    dataset_id: Optional[str] | NotGiven = NOT_GIVEN,
-    dataset_version: Optional[str] | NotGiven = NOT_GIVEN,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
-    name: Optional[str] | NotGiven = NOT_GIVEN,
-    public: Optional[bool] | NotGiven = NOT_GIVEN,
-    repo_info: Optional[RepoInfo] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Experiment:
+    async def update(
+        self,
+        experiment_id: str,
+        *,
+        base_exp_id: Optional[str] | NotGiven = NOT_GIVEN,
+        dataset_id: Optional[str] | NotGiven = NOT_GIVEN,
+        dataset_version: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
+        public: Optional[bool] | NotGiven = NOT_GIVEN,
+        repo_info: Optional[RepoInfo] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Experiment:
         """Partially update an experiment object.
 
         Specify the fields to update in the
@@ -861,41 +912,46 @@ class AsyncExperimentResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not experiment_id:
-          raise ValueError(
-            f'Expected a non-empty value for `experiment_id` but received {experiment_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `experiment_id` but received {experiment_id!r}")
         return await self._patch(
             f"/v1/experiment/{experiment_id}",
-            body=await async_maybe_transform({
-                "base_exp_id": base_exp_id,
-                "dataset_id": dataset_id,
-                "dataset_version": dataset_version,
-                "description": description,
-                "metadata": metadata,
-                "name": name,
-                "public": public,
-                "repo_info": repo_info,
-            }, experiment_update_params.ExperimentUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "base_exp_id": base_exp_id,
+                    "dataset_id": dataset_id,
+                    "dataset_version": dataset_version,
+                    "description": description,
+                    "metadata": metadata,
+                    "name": name,
+                    "public": public,
+                    "repo_info": repo_info,
+                },
+                experiment_update_params.ExperimentUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Experiment,
         )
 
-    def list(self,
-    *,
-    ending_before: str | NotGiven = NOT_GIVEN,
-    experiment_name: str | NotGiven = NOT_GIVEN,
-    ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-    limit: int | NotGiven = NOT_GIVEN,
-    org_name: str | NotGiven = NOT_GIVEN,
-    project_id: str | NotGiven = NOT_GIVEN,
-    project_name: str | NotGiven = NOT_GIVEN,
-    starting_after: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> AsyncPaginator[Experiment, AsyncListObjects[Experiment]]:
+    def list(
+        self,
+        *,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        experiment_name: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        project_id: str | NotGiven = NOT_GIVEN,
+        project_name: str | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AsyncPaginator[Experiment, AsyncListObjects[Experiment]]:
         """List out all experiments.
 
         The experiments are sorted by creation date, with the
@@ -937,29 +993,40 @@ class AsyncExperimentResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/experiment",
-            page = AsyncListObjects[Experiment],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "ending_before": ending_before,
-                "experiment_name": experiment_name,
-                "ids": ids,
-                "limit": limit,
-                "org_name": org_name,
-                "project_id": project_id,
-                "project_name": project_name,
-                "starting_after": starting_after,
-            }, experiment_list_params.ExperimentListParams)),
+            page=AsyncListObjects[Experiment],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "ending_before": ending_before,
+                        "experiment_name": experiment_name,
+                        "ids": ids,
+                        "limit": limit,
+                        "org_name": org_name,
+                        "project_id": project_id,
+                        "project_name": project_name,
+                        "starting_after": starting_after,
+                    },
+                    experiment_list_params.ExperimentListParams,
+                ),
+            ),
             model=Experiment,
         )
 
-    async def delete(self,
-    experiment_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Experiment:
+    async def delete(
+        self,
+        experiment_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Experiment:
         """
         Delete an experiment object by its id
 
@@ -975,25 +1042,27 @@ class AsyncExperimentResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not experiment_id:
-          raise ValueError(
-            f'Expected a non-empty value for `experiment_id` but received {experiment_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `experiment_id` but received {experiment_id!r}")
         return await self._delete(
             f"/v1/experiment/{experiment_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Experiment,
         )
 
-    async def feedback(self,
-    experiment_id: str,
-    *,
-    feedback: Iterable[FeedbackExperimentItem],
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> FeedbackResponseSchema:
+    async def feedback(
+        self,
+        experiment_id: str,
+        *,
+        feedback: Iterable[FeedbackExperimentItem],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> FeedbackResponseSchema:
         """
         Log feedback for a set of experiment events
 
@@ -1011,31 +1080,33 @@ class AsyncExperimentResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not experiment_id:
-          raise ValueError(
-            f'Expected a non-empty value for `experiment_id` but received {experiment_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `experiment_id` but received {experiment_id!r}")
         return await self._post(
             f"/v1/experiment/{experiment_id}/feedback",
-            body=await async_maybe_transform({
-                "feedback": feedback
-            }, experiment_feedback_params.ExperimentFeedbackParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {"feedback": feedback}, experiment_feedback_params.ExperimentFeedbackParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=FeedbackResponseSchema,
         )
 
-    async def fetch(self,
-    experiment_id: str,
-    *,
-    limit: int | NotGiven = NOT_GIVEN,
-    max_root_span_id: str | NotGiven = NOT_GIVEN,
-    max_xact_id: str | NotGiven = NOT_GIVEN,
-    version: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> FetchExperimentEventsResponse:
+    async def fetch(
+        self,
+        experiment_id: str,
+        *,
+        limit: int | NotGiven = NOT_GIVEN,
+        max_root_span_id: str | NotGiven = NOT_GIVEN,
+        max_xact_id: str | NotGiven = NOT_GIVEN,
+        version: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> FetchExperimentEventsResponse:
         """Fetch the events in an experiment.
 
         Equivalent to the POST form of the same path,
@@ -1096,35 +1167,44 @@ class AsyncExperimentResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not experiment_id:
-          raise ValueError(
-            f'Expected a non-empty value for `experiment_id` but received {experiment_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `experiment_id` but received {experiment_id!r}")
         return await self._get(
             f"/v1/experiment/{experiment_id}/fetch",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
-                "limit": limit,
-                "max_root_span_id": max_root_span_id,
-                "max_xact_id": max_xact_id,
-                "version": version,
-            }, experiment_fetch_params.ExperimentFetchParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "limit": limit,
+                        "max_root_span_id": max_root_span_id,
+                        "max_xact_id": max_xact_id,
+                        "version": version,
+                    },
+                    experiment_fetch_params.ExperimentFetchParams,
+                ),
+            ),
             cast_to=FetchExperimentEventsResponse,
         )
 
-    async def fetch_post(self,
-    experiment_id: str,
-    *,
-    cursor: Optional[str] | NotGiven = NOT_GIVEN,
-    filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
-    limit: Optional[int] | NotGiven = NOT_GIVEN,
-    max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
-    max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
-    version: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> FetchExperimentEventsResponse:
+    async def fetch_post(
+        self,
+        experiment_id: str,
+        *,
+        cursor: Optional[str] | NotGiven = NOT_GIVEN,
+        filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
+        limit: Optional[int] | NotGiven = NOT_GIVEN,
+        max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
+        max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
+        version: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> FetchExperimentEventsResponse:
         """Fetch the events in an experiment.
 
         Equivalent to the GET form of the same path,
@@ -1198,33 +1278,38 @@ class AsyncExperimentResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not experiment_id:
-          raise ValueError(
-            f'Expected a non-empty value for `experiment_id` but received {experiment_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `experiment_id` but received {experiment_id!r}")
         return await self._post(
             f"/v1/experiment/{experiment_id}/fetch",
-            body=await async_maybe_transform({
-                "cursor": cursor,
-                "filters": filters,
-                "limit": limit,
-                "max_root_span_id": max_root_span_id,
-                "max_xact_id": max_xact_id,
-                "version": version,
-            }, experiment_fetch_post_params.ExperimentFetchPostParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "cursor": cursor,
+                    "filters": filters,
+                    "limit": limit,
+                    "max_root_span_id": max_root_span_id,
+                    "max_xact_id": max_xact_id,
+                    "version": version,
+                },
+                experiment_fetch_post_params.ExperimentFetchPostParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=FetchExperimentEventsResponse,
         )
 
-    async def insert(self,
-    experiment_id: str,
-    *,
-    events: Iterable[experiment_insert_params.Event],
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> InsertEventsResponse:
+    async def insert(
+        self,
+        experiment_id: str,
+        *,
+        events: Iterable[experiment_insert_params.Event],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> InsertEventsResponse:
         """
         Insert a set of events into the experiment
 
@@ -1242,29 +1327,29 @@ class AsyncExperimentResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not experiment_id:
-          raise ValueError(
-            f'Expected a non-empty value for `experiment_id` but received {experiment_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `experiment_id` but received {experiment_id!r}")
         return await self._post(
             f"/v1/experiment/{experiment_id}/insert",
-            body=await async_maybe_transform({
-                "events": events
-            }, experiment_insert_params.ExperimentInsertParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform({"events": events}, experiment_insert_params.ExperimentInsertParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=InsertEventsResponse,
         )
 
-    async def summarize(self,
-    experiment_id: str,
-    *,
-    comparison_experiment_id: str | NotGiven = NOT_GIVEN,
-    summarize_scores: bool | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> SummarizeExperimentResponse:
+    async def summarize(
+        self,
+        experiment_id: str,
+        *,
+        comparison_experiment_id: str | NotGiven = NOT_GIVEN,
+        summarize_scores: bool | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SummarizeExperimentResponse:
         """
         Summarize experiment
 
@@ -1288,17 +1373,25 @@ class AsyncExperimentResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not experiment_id:
-          raise ValueError(
-            f'Expected a non-empty value for `experiment_id` but received {experiment_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `experiment_id` but received {experiment_id!r}")
         return await self._get(
             f"/v1/experiment/{experiment_id}/summarize",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
-                "comparison_experiment_id": comparison_experiment_id,
-                "summarize_scores": summarize_scores,
-            }, experiment_summarize_params.ExperimentSummarizeParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "comparison_experiment_id": comparison_experiment_id,
+                        "summarize_scores": summarize_scores,
+                    },
+                    experiment_summarize_params.ExperimentSummarizeParams,
+                ),
+            ),
             cast_to=SummarizeExperimentResponse,
         )
+
 
 class ExperimentResourceWithRawResponse:
     def __init__(self, experiment: ExperimentResource) -> None:
@@ -1335,6 +1428,7 @@ class ExperimentResourceWithRawResponse:
             experiment.summarize,
         )
 
+
 class AsyncExperimentResourceWithRawResponse:
     def __init__(self, experiment: AsyncExperimentResource) -> None:
         self._experiment = experiment
@@ -1370,6 +1464,7 @@ class AsyncExperimentResourceWithRawResponse:
             experiment.summarize,
         )
 
+
 class ExperimentResourceWithStreamingResponse:
     def __init__(self, experiment: ExperimentResource) -> None:
         self._experiment = experiment
@@ -1404,6 +1499,7 @@ class ExperimentResourceWithStreamingResponse:
         self.summarize = to_streamed_response_wrapper(
             experiment.summarize,
         )
+
 
 class AsyncExperimentResourceWithStreamingResponse:
     def __init__(self, experiment: AsyncExperimentResource) -> None:

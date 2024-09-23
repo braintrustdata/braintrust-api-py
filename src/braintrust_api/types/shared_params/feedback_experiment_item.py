@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Optional, Dict
-
-from typing_extensions import Literal, TypedDict, Required
+from typing import Dict, Optional
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["FeedbackExperimentItem"]
+
 
 class FeedbackExperimentItem(TypedDict, total=False):
     id: Required[str]

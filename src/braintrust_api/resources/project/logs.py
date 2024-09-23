@@ -2,43 +2,33 @@
 
 from __future__ import annotations
 
-import httpx
-
-from ..._compat import cached_property
-
-from ...types.shared.feedback_response_schema import FeedbackResponseSchema
-
-from ..._utils import maybe_transform, async_maybe_transform
-
-from ..._base_client import make_request_options
-
 from typing import Iterable, Optional
 
-from ...types.shared_params.feedback_project_logs_item import FeedbackProjectLogsItem
+import httpx
 
+from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._utils import (
+    maybe_transform,
+    async_maybe_transform,
+)
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ..._base_client import make_request_options
+from ...types.project import log_fetch_params, log_insert_params, log_feedback_params, log_fetch_post_params
+from ...types.shared.insert_events_response import InsertEventsResponse
+from ...types.shared.feedback_response_schema import FeedbackResponseSchema
+from ...types.shared_params.path_lookup_filter import PathLookupFilter
+from ...types.shared_params.feedback_project_logs_item import FeedbackProjectLogsItem
 from ...types.shared.fetch_project_logs_events_response import FetchProjectLogsEventsResponse
 
-from ...types.shared_params.path_lookup_filter import PathLookupFilter
-
-from ...types.shared.insert_events_response import InsertEventsResponse
-
-from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from ...types.project import log_insert_params
-
-import warnings
-from typing import TYPE_CHECKING, Optional, Union, List, Dict, Any, Mapping, cast, overload
-from typing_extensions import Literal
-from ..._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
-from ..._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
-from ..._resource import SyncAPIResource, AsyncAPIResource
-from ...types import shared_params
-from ...types.project import log_feedback_params
-from ...types.project import log_fetch_params
-from ...types.project import log_fetch_post_params
-from ...types.project import log_insert_params
-
 __all__ = ["LogsResource", "AsyncLogsResource"]
+
 
 class LogsResource(SyncAPIResource):
     @cached_property
@@ -60,16 +50,18 @@ class LogsResource(SyncAPIResource):
         """
         return LogsResourceWithStreamingResponse(self)
 
-    def feedback(self,
-    project_id: str,
-    *,
-    feedback: Iterable[FeedbackProjectLogsItem],
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> FeedbackResponseSchema:
+    def feedback(
+        self,
+        project_id: str,
+        *,
+        feedback: Iterable[FeedbackProjectLogsItem],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> FeedbackResponseSchema:
         """
         Log feedback for a set of project logs events
 
@@ -87,31 +79,31 @@ class LogsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not project_id:
-          raise ValueError(
-            f'Expected a non-empty value for `project_id` but received {project_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `project_id` but received {project_id!r}")
         return self._post(
             f"/v1/project_logs/{project_id}/feedback",
-            body=maybe_transform({
-                "feedback": feedback
-            }, log_feedback_params.LogFeedbackParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform({"feedback": feedback}, log_feedback_params.LogFeedbackParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=FeedbackResponseSchema,
         )
 
-    def fetch(self,
-    project_id: str,
-    *,
-    limit: int | NotGiven = NOT_GIVEN,
-    max_root_span_id: str | NotGiven = NOT_GIVEN,
-    max_xact_id: str | NotGiven = NOT_GIVEN,
-    version: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> FetchProjectLogsEventsResponse:
+    def fetch(
+        self,
+        project_id: str,
+        *,
+        limit: int | NotGiven = NOT_GIVEN,
+        max_root_span_id: str | NotGiven = NOT_GIVEN,
+        max_xact_id: str | NotGiven = NOT_GIVEN,
+        version: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> FetchProjectLogsEventsResponse:
         """Fetch the events in a project logs.
 
         Equivalent to the POST form of the same
@@ -172,35 +164,44 @@ class LogsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not project_id:
-          raise ValueError(
-            f'Expected a non-empty value for `project_id` but received {project_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `project_id` but received {project_id!r}")
         return self._get(
             f"/v1/project_logs/{project_id}/fetch",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "limit": limit,
-                "max_root_span_id": max_root_span_id,
-                "max_xact_id": max_xact_id,
-                "version": version,
-            }, log_fetch_params.LogFetchParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "limit": limit,
+                        "max_root_span_id": max_root_span_id,
+                        "max_xact_id": max_xact_id,
+                        "version": version,
+                    },
+                    log_fetch_params.LogFetchParams,
+                ),
+            ),
             cast_to=FetchProjectLogsEventsResponse,
         )
 
-    def fetch_post(self,
-    project_id: str,
-    *,
-    cursor: Optional[str] | NotGiven = NOT_GIVEN,
-    filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
-    limit: Optional[int] | NotGiven = NOT_GIVEN,
-    max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
-    max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
-    version: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> FetchProjectLogsEventsResponse:
+    def fetch_post(
+        self,
+        project_id: str,
+        *,
+        cursor: Optional[str] | NotGiven = NOT_GIVEN,
+        filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
+        limit: Optional[int] | NotGiven = NOT_GIVEN,
+        max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
+        max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
+        version: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> FetchProjectLogsEventsResponse:
         """Fetch the events in a project logs.
 
         Equivalent to the GET form of the same path,
@@ -274,33 +275,38 @@ class LogsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not project_id:
-          raise ValueError(
-            f'Expected a non-empty value for `project_id` but received {project_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `project_id` but received {project_id!r}")
         return self._post(
             f"/v1/project_logs/{project_id}/fetch",
-            body=maybe_transform({
-                "cursor": cursor,
-                "filters": filters,
-                "limit": limit,
-                "max_root_span_id": max_root_span_id,
-                "max_xact_id": max_xact_id,
-                "version": version,
-            }, log_fetch_post_params.LogFetchPostParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "cursor": cursor,
+                    "filters": filters,
+                    "limit": limit,
+                    "max_root_span_id": max_root_span_id,
+                    "max_xact_id": max_xact_id,
+                    "version": version,
+                },
+                log_fetch_post_params.LogFetchPostParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=FetchProjectLogsEventsResponse,
         )
 
-    def insert(self,
-    project_id: str,
-    *,
-    events: Iterable[log_insert_params.Event],
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> InsertEventsResponse:
+    def insert(
+        self,
+        project_id: str,
+        *,
+        events: Iterable[log_insert_params.Event],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> InsertEventsResponse:
         """
         Insert a set of events into the project logs
 
@@ -318,17 +324,16 @@ class LogsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not project_id:
-          raise ValueError(
-            f'Expected a non-empty value for `project_id` but received {project_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `project_id` but received {project_id!r}")
         return self._post(
             f"/v1/project_logs/{project_id}/insert",
-            body=maybe_transform({
-                "events": events
-            }, log_insert_params.LogInsertParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform({"events": events}, log_insert_params.LogInsertParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=InsertEventsResponse,
         )
+
 
 class AsyncLogsResource(AsyncAPIResource):
     @cached_property
@@ -350,16 +355,18 @@ class AsyncLogsResource(AsyncAPIResource):
         """
         return AsyncLogsResourceWithStreamingResponse(self)
 
-    async def feedback(self,
-    project_id: str,
-    *,
-    feedback: Iterable[FeedbackProjectLogsItem],
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> FeedbackResponseSchema:
+    async def feedback(
+        self,
+        project_id: str,
+        *,
+        feedback: Iterable[FeedbackProjectLogsItem],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> FeedbackResponseSchema:
         """
         Log feedback for a set of project logs events
 
@@ -377,31 +384,31 @@ class AsyncLogsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not project_id:
-          raise ValueError(
-            f'Expected a non-empty value for `project_id` but received {project_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `project_id` but received {project_id!r}")
         return await self._post(
             f"/v1/project_logs/{project_id}/feedback",
-            body=await async_maybe_transform({
-                "feedback": feedback
-            }, log_feedback_params.LogFeedbackParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform({"feedback": feedback}, log_feedback_params.LogFeedbackParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=FeedbackResponseSchema,
         )
 
-    async def fetch(self,
-    project_id: str,
-    *,
-    limit: int | NotGiven = NOT_GIVEN,
-    max_root_span_id: str | NotGiven = NOT_GIVEN,
-    max_xact_id: str | NotGiven = NOT_GIVEN,
-    version: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> FetchProjectLogsEventsResponse:
+    async def fetch(
+        self,
+        project_id: str,
+        *,
+        limit: int | NotGiven = NOT_GIVEN,
+        max_root_span_id: str | NotGiven = NOT_GIVEN,
+        max_xact_id: str | NotGiven = NOT_GIVEN,
+        version: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> FetchProjectLogsEventsResponse:
         """Fetch the events in a project logs.
 
         Equivalent to the POST form of the same
@@ -462,35 +469,44 @@ class AsyncLogsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not project_id:
-          raise ValueError(
-            f'Expected a non-empty value for `project_id` but received {project_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `project_id` but received {project_id!r}")
         return await self._get(
             f"/v1/project_logs/{project_id}/fetch",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
-                "limit": limit,
-                "max_root_span_id": max_root_span_id,
-                "max_xact_id": max_xact_id,
-                "version": version,
-            }, log_fetch_params.LogFetchParams)),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "limit": limit,
+                        "max_root_span_id": max_root_span_id,
+                        "max_xact_id": max_xact_id,
+                        "version": version,
+                    },
+                    log_fetch_params.LogFetchParams,
+                ),
+            ),
             cast_to=FetchProjectLogsEventsResponse,
         )
 
-    async def fetch_post(self,
-    project_id: str,
-    *,
-    cursor: Optional[str] | NotGiven = NOT_GIVEN,
-    filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
-    limit: Optional[int] | NotGiven = NOT_GIVEN,
-    max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
-    max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
-    version: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> FetchProjectLogsEventsResponse:
+    async def fetch_post(
+        self,
+        project_id: str,
+        *,
+        cursor: Optional[str] | NotGiven = NOT_GIVEN,
+        filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
+        limit: Optional[int] | NotGiven = NOT_GIVEN,
+        max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
+        max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
+        version: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> FetchProjectLogsEventsResponse:
         """Fetch the events in a project logs.
 
         Equivalent to the GET form of the same path,
@@ -564,33 +580,38 @@ class AsyncLogsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not project_id:
-          raise ValueError(
-            f'Expected a non-empty value for `project_id` but received {project_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `project_id` but received {project_id!r}")
         return await self._post(
             f"/v1/project_logs/{project_id}/fetch",
-            body=await async_maybe_transform({
-                "cursor": cursor,
-                "filters": filters,
-                "limit": limit,
-                "max_root_span_id": max_root_span_id,
-                "max_xact_id": max_xact_id,
-                "version": version,
-            }, log_fetch_post_params.LogFetchPostParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "cursor": cursor,
+                    "filters": filters,
+                    "limit": limit,
+                    "max_root_span_id": max_root_span_id,
+                    "max_xact_id": max_xact_id,
+                    "version": version,
+                },
+                log_fetch_post_params.LogFetchPostParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=FetchProjectLogsEventsResponse,
         )
 
-    async def insert(self,
-    project_id: str,
-    *,
-    events: Iterable[log_insert_params.Event],
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> InsertEventsResponse:
+    async def insert(
+        self,
+        project_id: str,
+        *,
+        events: Iterable[log_insert_params.Event],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> InsertEventsResponse:
         """
         Insert a set of events into the project logs
 
@@ -608,17 +629,16 @@ class AsyncLogsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not project_id:
-          raise ValueError(
-            f'Expected a non-empty value for `project_id` but received {project_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `project_id` but received {project_id!r}")
         return await self._post(
             f"/v1/project_logs/{project_id}/insert",
-            body=await async_maybe_transform({
-                "events": events
-            }, log_insert_params.LogInsertParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform({"events": events}, log_insert_params.LogInsertParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=InsertEventsResponse,
         )
+
 
 class LogsResourceWithRawResponse:
     def __init__(self, logs: LogsResource) -> None:
@@ -637,6 +657,7 @@ class LogsResourceWithRawResponse:
             logs.insert,
         )
 
+
 class AsyncLogsResourceWithRawResponse:
     def __init__(self, logs: AsyncLogsResource) -> None:
         self._logs = logs
@@ -654,6 +675,7 @@ class AsyncLogsResourceWithRawResponse:
             logs.insert,
         )
 
+
 class LogsResourceWithStreamingResponse:
     def __init__(self, logs: LogsResource) -> None:
         self._logs = logs
@@ -670,6 +692,7 @@ class LogsResourceWithStreamingResponse:
         self.insert = to_streamed_response_wrapper(
             logs.insert,
         )
+
 
 class AsyncLogsResourceWithStreamingResponse:
     def __init__(self, logs: AsyncLogsResource) -> None:

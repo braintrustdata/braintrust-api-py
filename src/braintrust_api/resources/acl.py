@@ -2,35 +2,31 @@
 
 from __future__ import annotations
 
+from typing import List, Union, Optional
+from typing_extensions import Literal
+
 import httpx
 
+from ..types import acl_list_params, acl_create_params
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._utils import (
+    maybe_transform,
+    async_maybe_transform,
+)
 from .._compat import cached_property
-
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ..pagination import SyncListObjects, AsyncListObjects
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.acl import ACL
 
-from .._utils import maybe_transform, async_maybe_transform
-
-from .._base_client import make_request_options, AsyncPaginator
-
-from typing import Optional, Union, List
-
-from typing_extensions import Literal
-
-from ..pagination import SyncListObjects, AsyncListObjects
-
-from .._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-import warnings
-from typing import TYPE_CHECKING, Optional, Union, List, Dict, Any, Mapping, cast, overload
-from typing_extensions import Literal
-from .._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
-from .._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
-from .._resource import SyncAPIResource, AsyncAPIResource
-from ..types import shared_params
-from ..types import acl_create_params
-from ..types import acl_list_params
-
 __all__ = ["ACLResource", "AsyncACLResource"]
+
 
 class ACLResource(SyncAPIResource):
     @cached_property
@@ -52,21 +48,55 @@ class ACLResource(SyncAPIResource):
         """
         return ACLResourceWithStreamingResponse(self)
 
-    def create(self,
-    *,
-    object_id: str,
-    object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]],
-    group_id: Optional[str] | NotGiven = NOT_GIVEN,
-    permission: Optional[Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]] | NotGiven = NOT_GIVEN,
-    restrict_object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]] | NotGiven = NOT_GIVEN,
-    role_id: Optional[str] | NotGiven = NOT_GIVEN,
-    user_id: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ACL:
+    def create(
+        self,
+        *,
+        object_id: str,
+        object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ],
+        group_id: Optional[str] | NotGiven = NOT_GIVEN,
+        permission: Optional[
+            Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
+        ]
+        | NotGiven = NOT_GIVEN,
+        restrict_object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ]
+        | NotGiven = NOT_GIVEN,
+        role_id: Optional[str] | NotGiven = NOT_GIVEN,
+        user_id: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ACL:
         """Create a new acl.
 
         If there is an existing acl with the same contents as the one
@@ -102,28 +132,35 @@ class ACLResource(SyncAPIResource):
         """
         return self._post(
             "/v1/acl",
-            body=maybe_transform({
-                "object_id": object_id,
-                "object_type": object_type,
-                "group_id": group_id,
-                "permission": permission,
-                "restrict_object_type": restrict_object_type,
-                "role_id": role_id,
-                "user_id": user_id,
-            }, acl_create_params.ACLCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "object_id": object_id,
+                    "object_type": object_type,
+                    "group_id": group_id,
+                    "permission": permission,
+                    "restrict_object_type": restrict_object_type,
+                    "role_id": role_id,
+                    "user_id": user_id,
+                },
+                acl_create_params.ACLCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ACL,
         )
 
-    def retrieve(self,
-    acl_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ACL:
+    def retrieve(
+        self,
+        acl_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ACL:
         """
         Get an acl object by its id
 
@@ -139,29 +176,45 @@ class ACLResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not acl_id:
-          raise ValueError(
-            f'Expected a non-empty value for `acl_id` but received {acl_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `acl_id` but received {acl_id!r}")
         return self._get(
             f"/v1/acl/{acl_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ACL,
         )
 
-    def list(self,
-    *,
-    object_id: str,
-    object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]],
-    ending_before: str | NotGiven = NOT_GIVEN,
-    ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-    limit: int | NotGiven = NOT_GIVEN,
-    starting_after: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> SyncListObjects[ACL]:
+    def list(
+        self,
+        *,
+        object_id: str,
+        object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ],
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SyncListObjects[ACL]:
         """List out all acls.
 
         The acls are sorted by creation date, with the most
@@ -199,27 +252,38 @@ class ACLResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/acl",
-            page = SyncListObjects[ACL],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "object_id": object_id,
-                "object_type": object_type,
-                "ending_before": ending_before,
-                "ids": ids,
-                "limit": limit,
-                "starting_after": starting_after,
-            }, acl_list_params.ACLListParams)),
+            page=SyncListObjects[ACL],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "object_id": object_id,
+                        "object_type": object_type,
+                        "ending_before": ending_before,
+                        "ids": ids,
+                        "limit": limit,
+                        "starting_after": starting_after,
+                    },
+                    acl_list_params.ACLListParams,
+                ),
+            ),
             model=ACL,
         )
 
-    def delete(self,
-    acl_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ACL:
+    def delete(
+        self,
+        acl_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ACL:
         """
         Delete an acl object by its id
 
@@ -235,14 +299,15 @@ class ACLResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not acl_id:
-          raise ValueError(
-            f'Expected a non-empty value for `acl_id` but received {acl_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `acl_id` but received {acl_id!r}")
         return self._delete(
             f"/v1/acl/{acl_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ACL,
         )
+
 
 class AsyncACLResource(AsyncAPIResource):
     @cached_property
@@ -264,21 +329,55 @@ class AsyncACLResource(AsyncAPIResource):
         """
         return AsyncACLResourceWithStreamingResponse(self)
 
-    async def create(self,
-    *,
-    object_id: str,
-    object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]],
-    group_id: Optional[str] | NotGiven = NOT_GIVEN,
-    permission: Optional[Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]] | NotGiven = NOT_GIVEN,
-    restrict_object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]] | NotGiven = NOT_GIVEN,
-    role_id: Optional[str] | NotGiven = NOT_GIVEN,
-    user_id: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ACL:
+    async def create(
+        self,
+        *,
+        object_id: str,
+        object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ],
+        group_id: Optional[str] | NotGiven = NOT_GIVEN,
+        permission: Optional[
+            Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
+        ]
+        | NotGiven = NOT_GIVEN,
+        restrict_object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ]
+        | NotGiven = NOT_GIVEN,
+        role_id: Optional[str] | NotGiven = NOT_GIVEN,
+        user_id: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ACL:
         """Create a new acl.
 
         If there is an existing acl with the same contents as the one
@@ -314,28 +413,35 @@ class AsyncACLResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/acl",
-            body=await async_maybe_transform({
-                "object_id": object_id,
-                "object_type": object_type,
-                "group_id": group_id,
-                "permission": permission,
-                "restrict_object_type": restrict_object_type,
-                "role_id": role_id,
-                "user_id": user_id,
-            }, acl_create_params.ACLCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "object_id": object_id,
+                    "object_type": object_type,
+                    "group_id": group_id,
+                    "permission": permission,
+                    "restrict_object_type": restrict_object_type,
+                    "role_id": role_id,
+                    "user_id": user_id,
+                },
+                acl_create_params.ACLCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ACL,
         )
 
-    async def retrieve(self,
-    acl_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ACL:
+    async def retrieve(
+        self,
+        acl_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ACL:
         """
         Get an acl object by its id
 
@@ -351,29 +457,45 @@ class AsyncACLResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not acl_id:
-          raise ValueError(
-            f'Expected a non-empty value for `acl_id` but received {acl_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `acl_id` but received {acl_id!r}")
         return await self._get(
             f"/v1/acl/{acl_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ACL,
         )
 
-    def list(self,
-    *,
-    object_id: str,
-    object_type: Optional[Literal["organization", "project", "experiment", "dataset", "prompt", "prompt_session", "group", "role", "org_member", "project_log", "org_project"]],
-    ending_before: str | NotGiven = NOT_GIVEN,
-    ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-    limit: int | NotGiven = NOT_GIVEN,
-    starting_after: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> AsyncPaginator[ACL, AsyncListObjects[ACL]]:
+    def list(
+        self,
+        *,
+        object_id: str,
+        object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
+        ],
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AsyncPaginator[ACL, AsyncListObjects[ACL]]:
         """List out all acls.
 
         The acls are sorted by creation date, with the most
@@ -411,27 +533,38 @@ class AsyncACLResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/acl",
-            page = AsyncListObjects[ACL],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "object_id": object_id,
-                "object_type": object_type,
-                "ending_before": ending_before,
-                "ids": ids,
-                "limit": limit,
-                "starting_after": starting_after,
-            }, acl_list_params.ACLListParams)),
+            page=AsyncListObjects[ACL],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "object_id": object_id,
+                        "object_type": object_type,
+                        "ending_before": ending_before,
+                        "ids": ids,
+                        "limit": limit,
+                        "starting_after": starting_after,
+                    },
+                    acl_list_params.ACLListParams,
+                ),
+            ),
             model=ACL,
         )
 
-    async def delete(self,
-    acl_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> ACL:
+    async def delete(
+        self,
+        acl_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> ACL:
         """
         Delete an acl object by its id
 
@@ -447,14 +580,15 @@ class AsyncACLResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not acl_id:
-          raise ValueError(
-            f'Expected a non-empty value for `acl_id` but received {acl_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `acl_id` but received {acl_id!r}")
         return await self._delete(
             f"/v1/acl/{acl_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=ACL,
         )
+
 
 class ACLResourceWithRawResponse:
     def __init__(self, acl: ACLResource) -> None:
@@ -473,6 +607,7 @@ class ACLResourceWithRawResponse:
             acl.delete,
         )
 
+
 class AsyncACLResourceWithRawResponse:
     def __init__(self, acl: AsyncACLResource) -> None:
         self._acl = acl
@@ -490,6 +625,7 @@ class AsyncACLResourceWithRawResponse:
             acl.delete,
         )
 
+
 class ACLResourceWithStreamingResponse:
     def __init__(self, acl: ACLResource) -> None:
         self._acl = acl
@@ -506,6 +642,7 @@ class ACLResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             acl.delete,
         )
+
 
 class AsyncACLResourceWithStreamingResponse:
     def __init__(self, acl: AsyncACLResource) -> None:

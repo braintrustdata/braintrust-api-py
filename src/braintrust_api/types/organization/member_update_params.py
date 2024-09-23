@@ -2,16 +2,11 @@
 
 from __future__ import annotations
 
+from typing import List, Optional
 from typing_extensions import TypedDict
 
-from typing import Optional, List
-
-from typing import List, Union, Dict, Optional
-from typing_extensions import Literal, TypedDict, Required, Annotated
-from ..._types import FileTypes
-from ..._utils import PropertyInfo
-
 __all__ = ["MemberUpdateParams", "InviteUsers", "RemoveUsers"]
+
 
 class MemberUpdateParams(TypedDict, total=False):
     invite_users: Optional[InviteUsers]
@@ -36,6 +31,7 @@ class MemberUpdateParams(TypedDict, total=False):
     remove_users: Optional[RemoveUsers]
     """Users to remove from the organization"""
 
+
 class InviteUsers(TypedDict, total=False):
     emails: Optional[List[str]]
     """Emails of users to invite"""
@@ -57,6 +53,7 @@ class InviteUsers(TypedDict, total=False):
 
     send_invite_emails: Optional[bool]
     """If true, send invite emails to the users who wore actually added"""
+
 
 class RemoveUsers(TypedDict, total=False):
     emails: Optional[List[str]]

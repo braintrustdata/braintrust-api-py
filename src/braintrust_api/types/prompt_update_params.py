@@ -2,18 +2,13 @@
 
 from __future__ import annotations
 
+from typing import List, Optional
 from typing_extensions import TypedDict
-
-from typing import Optional, List
 
 from .shared_params.prompt_data import PromptData
 
-from typing import List, Union, Dict, Optional
-from typing_extensions import Literal, TypedDict, Required, Annotated
-from .._types import FileTypes
-from .._utils import PropertyInfo
-
 __all__ = ["PromptUpdateParams"]
+
 
 class PromptUpdateParams(TypedDict, total=False):
     description: Optional[str]

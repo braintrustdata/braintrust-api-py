@@ -2,37 +2,30 @@
 
 from __future__ import annotations
 
+from typing import List, Union, Iterable, Optional
+
 import httpx
 
+from ..types import role_list_params, role_create_params, role_update_params, role_replace_params
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._utils import (
+    maybe_transform,
+    async_maybe_transform,
+)
 from .._compat import cached_property
-
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ..pagination import SyncListObjects, AsyncListObjects
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.role import Role
 
-from .._utils import maybe_transform, async_maybe_transform
-
-from .._base_client import make_request_options, AsyncPaginator
-
-from typing import Optional, Iterable, List, Union
-
-from ..pagination import SyncListObjects, AsyncListObjects
-
-from .._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from ..types import role_create_params, role_update_params, role_replace_params
-
-import warnings
-from typing import TYPE_CHECKING, Optional, Union, List, Dict, Any, Mapping, cast, overload
-from typing_extensions import Literal
-from .._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
-from .._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
-from .._resource import SyncAPIResource, AsyncAPIResource
-from ..types import shared_params
-from ..types import role_create_params
-from ..types import role_update_params
-from ..types import role_list_params
-from ..types import role_replace_params
-
 __all__ = ["RoleResource", "AsyncRoleResource"]
+
 
 class RoleResource(SyncAPIResource):
     @cached_property
@@ -54,19 +47,21 @@ class RoleResource(SyncAPIResource):
         """
         return RoleResourceWithStreamingResponse(self)
 
-    def create(self,
-    *,
-    name: str,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    member_permissions: Optional[Iterable[role_create_params.MemberPermission]] | NotGiven = NOT_GIVEN,
-    member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
-    org_name: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Role:
+    def create(
+        self,
+        *,
+        name: str,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        member_permissions: Optional[Iterable[role_create_params.MemberPermission]] | NotGiven = NOT_GIVEN,
+        member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        org_name: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Role:
         """Create a new role.
 
         If there is an existing role with the same name as the one
@@ -98,26 +93,33 @@ class RoleResource(SyncAPIResource):
         """
         return self._post(
             "/v1/role",
-            body=maybe_transform({
-                "name": name,
-                "description": description,
-                "member_permissions": member_permissions,
-                "member_roles": member_roles,
-                "org_name": org_name,
-            }, role_create_params.RoleCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "name": name,
+                    "description": description,
+                    "member_permissions": member_permissions,
+                    "member_roles": member_roles,
+                    "org_name": org_name,
+                },
+                role_create_params.RoleCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Role,
         )
 
-    def retrieve(self,
-    role_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Role:
+    def retrieve(
+        self,
+        role_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Role:
         """
         Get a role object by its id
 
@@ -133,30 +135,32 @@ class RoleResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not role_id:
-          raise ValueError(
-            f'Expected a non-empty value for `role_id` but received {role_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `role_id` but received {role_id!r}")
         return self._get(
             f"/v1/role/{role_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Role,
         )
 
-    def update(self,
-    role_id: str,
-    *,
-    add_member_permissions: Optional[Iterable[role_update_params.AddMemberPermission]] | NotGiven = NOT_GIVEN,
-    add_member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    name: Optional[str] | NotGiven = NOT_GIVEN,
-    remove_member_permissions: Optional[Iterable[role_update_params.RemoveMemberPermission]] | NotGiven = NOT_GIVEN,
-    remove_member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Role:
+    def update(
+        self,
+        role_id: str,
+        *,
+        add_member_permissions: Optional[Iterable[role_update_params.AddMemberPermission]] | NotGiven = NOT_GIVEN,
+        add_member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
+        remove_member_permissions: Optional[Iterable[role_update_params.RemoveMemberPermission]] | NotGiven = NOT_GIVEN,
+        remove_member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Role:
         """Partially update a role object.
 
         Specify the fields to update in the payload. Any
@@ -187,37 +191,42 @@ class RoleResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not role_id:
-          raise ValueError(
-            f'Expected a non-empty value for `role_id` but received {role_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `role_id` but received {role_id!r}")
         return self._patch(
             f"/v1/role/{role_id}",
-            body=maybe_transform({
-                "add_member_permissions": add_member_permissions,
-                "add_member_roles": add_member_roles,
-                "description": description,
-                "name": name,
-                "remove_member_permissions": remove_member_permissions,
-                "remove_member_roles": remove_member_roles,
-            }, role_update_params.RoleUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "add_member_permissions": add_member_permissions,
+                    "add_member_roles": add_member_roles,
+                    "description": description,
+                    "name": name,
+                    "remove_member_permissions": remove_member_permissions,
+                    "remove_member_roles": remove_member_roles,
+                },
+                role_update_params.RoleUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Role,
         )
 
-    def list(self,
-    *,
-    ending_before: str | NotGiven = NOT_GIVEN,
-    ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-    limit: int | NotGiven = NOT_GIVEN,
-    org_name: str | NotGiven = NOT_GIVEN,
-    role_name: str | NotGiven = NOT_GIVEN,
-    starting_after: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> SyncListObjects[Role]:
+    def list(
+        self,
+        *,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        role_name: str | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SyncListObjects[Role]:
         """List out all roles.
 
         The roles are sorted by creation date, with the most
@@ -255,27 +264,38 @@ class RoleResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/role",
-            page = SyncListObjects[Role],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "ending_before": ending_before,
-                "ids": ids,
-                "limit": limit,
-                "org_name": org_name,
-                "role_name": role_name,
-                "starting_after": starting_after,
-            }, role_list_params.RoleListParams)),
+            page=SyncListObjects[Role],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "ending_before": ending_before,
+                        "ids": ids,
+                        "limit": limit,
+                        "org_name": org_name,
+                        "role_name": role_name,
+                        "starting_after": starting_after,
+                    },
+                    role_list_params.RoleListParams,
+                ),
+            ),
             model=Role,
         )
 
-    def delete(self,
-    role_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Role:
+    def delete(
+        self,
+        role_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Role:
         """
         Delete a role object by its id
 
@@ -291,28 +311,30 @@ class RoleResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not role_id:
-          raise ValueError(
-            f'Expected a non-empty value for `role_id` but received {role_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `role_id` but received {role_id!r}")
         return self._delete(
             f"/v1/role/{role_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Role,
         )
 
-    def replace(self,
-    *,
-    name: str,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    member_permissions: Optional[Iterable[role_replace_params.MemberPermission]] | NotGiven = NOT_GIVEN,
-    member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
-    org_name: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Role:
+    def replace(
+        self,
+        *,
+        name: str,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        member_permissions: Optional[Iterable[role_replace_params.MemberPermission]] | NotGiven = NOT_GIVEN,
+        member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        org_name: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Role:
         """Create or replace role.
 
         If there is an existing role with the same name as the
@@ -345,16 +367,22 @@ class RoleResource(SyncAPIResource):
         """
         return self._put(
             "/v1/role",
-            body=maybe_transform({
-                "name": name,
-                "description": description,
-                "member_permissions": member_permissions,
-                "member_roles": member_roles,
-                "org_name": org_name,
-            }, role_replace_params.RoleReplaceParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "name": name,
+                    "description": description,
+                    "member_permissions": member_permissions,
+                    "member_roles": member_roles,
+                    "org_name": org_name,
+                },
+                role_replace_params.RoleReplaceParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Role,
         )
+
 
 class AsyncRoleResource(AsyncAPIResource):
     @cached_property
@@ -376,19 +404,21 @@ class AsyncRoleResource(AsyncAPIResource):
         """
         return AsyncRoleResourceWithStreamingResponse(self)
 
-    async def create(self,
-    *,
-    name: str,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    member_permissions: Optional[Iterable[role_create_params.MemberPermission]] | NotGiven = NOT_GIVEN,
-    member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
-    org_name: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Role:
+    async def create(
+        self,
+        *,
+        name: str,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        member_permissions: Optional[Iterable[role_create_params.MemberPermission]] | NotGiven = NOT_GIVEN,
+        member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        org_name: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Role:
         """Create a new role.
 
         If there is an existing role with the same name as the one
@@ -420,26 +450,33 @@ class AsyncRoleResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/role",
-            body=await async_maybe_transform({
-                "name": name,
-                "description": description,
-                "member_permissions": member_permissions,
-                "member_roles": member_roles,
-                "org_name": org_name,
-            }, role_create_params.RoleCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "name": name,
+                    "description": description,
+                    "member_permissions": member_permissions,
+                    "member_roles": member_roles,
+                    "org_name": org_name,
+                },
+                role_create_params.RoleCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Role,
         )
 
-    async def retrieve(self,
-    role_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Role:
+    async def retrieve(
+        self,
+        role_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Role:
         """
         Get a role object by its id
 
@@ -455,30 +492,32 @@ class AsyncRoleResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not role_id:
-          raise ValueError(
-            f'Expected a non-empty value for `role_id` but received {role_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `role_id` but received {role_id!r}")
         return await self._get(
             f"/v1/role/{role_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Role,
         )
 
-    async def update(self,
-    role_id: str,
-    *,
-    add_member_permissions: Optional[Iterable[role_update_params.AddMemberPermission]] | NotGiven = NOT_GIVEN,
-    add_member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    name: Optional[str] | NotGiven = NOT_GIVEN,
-    remove_member_permissions: Optional[Iterable[role_update_params.RemoveMemberPermission]] | NotGiven = NOT_GIVEN,
-    remove_member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Role:
+    async def update(
+        self,
+        role_id: str,
+        *,
+        add_member_permissions: Optional[Iterable[role_update_params.AddMemberPermission]] | NotGiven = NOT_GIVEN,
+        add_member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
+        remove_member_permissions: Optional[Iterable[role_update_params.RemoveMemberPermission]] | NotGiven = NOT_GIVEN,
+        remove_member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Role:
         """Partially update a role object.
 
         Specify the fields to update in the payload. Any
@@ -509,37 +548,42 @@ class AsyncRoleResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not role_id:
-          raise ValueError(
-            f'Expected a non-empty value for `role_id` but received {role_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `role_id` but received {role_id!r}")
         return await self._patch(
             f"/v1/role/{role_id}",
-            body=await async_maybe_transform({
-                "add_member_permissions": add_member_permissions,
-                "add_member_roles": add_member_roles,
-                "description": description,
-                "name": name,
-                "remove_member_permissions": remove_member_permissions,
-                "remove_member_roles": remove_member_roles,
-            }, role_update_params.RoleUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "add_member_permissions": add_member_permissions,
+                    "add_member_roles": add_member_roles,
+                    "description": description,
+                    "name": name,
+                    "remove_member_permissions": remove_member_permissions,
+                    "remove_member_roles": remove_member_roles,
+                },
+                role_update_params.RoleUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Role,
         )
 
-    def list(self,
-    *,
-    ending_before: str | NotGiven = NOT_GIVEN,
-    ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-    limit: int | NotGiven = NOT_GIVEN,
-    org_name: str | NotGiven = NOT_GIVEN,
-    role_name: str | NotGiven = NOT_GIVEN,
-    starting_after: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> AsyncPaginator[Role, AsyncListObjects[Role]]:
+    def list(
+        self,
+        *,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        role_name: str | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AsyncPaginator[Role, AsyncListObjects[Role]]:
         """List out all roles.
 
         The roles are sorted by creation date, with the most
@@ -577,27 +621,38 @@ class AsyncRoleResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/role",
-            page = AsyncListObjects[Role],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "ending_before": ending_before,
-                "ids": ids,
-                "limit": limit,
-                "org_name": org_name,
-                "role_name": role_name,
-                "starting_after": starting_after,
-            }, role_list_params.RoleListParams)),
+            page=AsyncListObjects[Role],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "ending_before": ending_before,
+                        "ids": ids,
+                        "limit": limit,
+                        "org_name": org_name,
+                        "role_name": role_name,
+                        "starting_after": starting_after,
+                    },
+                    role_list_params.RoleListParams,
+                ),
+            ),
             model=Role,
         )
 
-    async def delete(self,
-    role_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Role:
+    async def delete(
+        self,
+        role_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Role:
         """
         Delete a role object by its id
 
@@ -613,28 +668,30 @@ class AsyncRoleResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not role_id:
-          raise ValueError(
-            f'Expected a non-empty value for `role_id` but received {role_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `role_id` but received {role_id!r}")
         return await self._delete(
             f"/v1/role/{role_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Role,
         )
 
-    async def replace(self,
-    *,
-    name: str,
-    description: Optional[str] | NotGiven = NOT_GIVEN,
-    member_permissions: Optional[Iterable[role_replace_params.MemberPermission]] | NotGiven = NOT_GIVEN,
-    member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
-    org_name: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> Role:
+    async def replace(
+        self,
+        *,
+        name: str,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
+        member_permissions: Optional[Iterable[role_replace_params.MemberPermission]] | NotGiven = NOT_GIVEN,
+        member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        org_name: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> Role:
         """Create or replace role.
 
         If there is an existing role with the same name as the
@@ -667,16 +724,22 @@ class AsyncRoleResource(AsyncAPIResource):
         """
         return await self._put(
             "/v1/role",
-            body=await async_maybe_transform({
-                "name": name,
-                "description": description,
-                "member_permissions": member_permissions,
-                "member_roles": member_roles,
-                "org_name": org_name,
-            }, role_replace_params.RoleReplaceParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "name": name,
+                    "description": description,
+                    "member_permissions": member_permissions,
+                    "member_roles": member_roles,
+                    "org_name": org_name,
+                },
+                role_replace_params.RoleReplaceParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=Role,
         )
+
 
 class RoleResourceWithRawResponse:
     def __init__(self, role: RoleResource) -> None:
@@ -701,6 +764,7 @@ class RoleResourceWithRawResponse:
             role.replace,
         )
 
+
 class AsyncRoleResourceWithRawResponse:
     def __init__(self, role: AsyncRoleResource) -> None:
         self._role = role
@@ -724,6 +788,7 @@ class AsyncRoleResourceWithRawResponse:
             role.replace,
         )
 
+
 class RoleResourceWithStreamingResponse:
     def __init__(self, role: RoleResource) -> None:
         self._role = role
@@ -746,6 +811,7 @@ class RoleResourceWithStreamingResponse:
         self.replace = to_streamed_response_wrapper(
             role.replace,
         )
+
 
 class AsyncRoleResourceWithStreamingResponse:
     def __init__(self, role: AsyncRoleResource) -> None:

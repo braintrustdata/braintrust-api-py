@@ -1,19 +1,14 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
-
+from typing import Dict, List, Optional
 from datetime import datetime
-
-from typing import Optional, Dict, List
-
-from typing import Optional, Union, List, Dict, Any
-from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
 
 __all__ = ["DatasetEvent"]
+
 
 class DatasetEvent(BaseModel):
     id: str
@@ -22,7 +17,7 @@ class DatasetEvent(BaseModel):
     If you don't provide one, BrainTrust will generate one for you
     """
 
-    xact_id: str = FieldInfo(alias = "_xact_id")
+    xact_id: str = FieldInfo(alias="_xact_id")
     """
     The transaction id of an event is unique to the network operation that processed
     the event insertion. Transaction ids are monotonically increasing over time and

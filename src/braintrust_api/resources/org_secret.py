@@ -2,35 +2,35 @@
 
 from __future__ import annotations
 
+from typing import Dict, List, Union, Optional
+
 import httpx
 
+from ..types import (
+    org_secret_list_params,
+    org_secret_create_params,
+    org_secret_update_params,
+    org_secret_replace_params,
+)
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._utils import (
+    maybe_transform,
+    async_maybe_transform,
+)
 from .._compat import cached_property
-
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ..pagination import SyncListObjects, AsyncListObjects
+from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.org_secret import OrgSecret
 
-from .._utils import maybe_transform, async_maybe_transform
-
-from .._base_client import make_request_options, AsyncPaginator
-
-from typing import Optional, Dict, Union, List
-
-from ..pagination import SyncListObjects, AsyncListObjects
-
-from .._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-import warnings
-from typing import TYPE_CHECKING, Optional, Union, List, Dict, Any, Mapping, cast, overload
-from typing_extensions import Literal
-from .._utils import extract_files, maybe_transform, required_args, deepcopy_minimal, strip_not_given
-from .._types import NotGiven, Timeout, Headers, NoneType, Query, Body, NOT_GIVEN, FileTypes, BinaryResponseContent
-from .._resource import SyncAPIResource, AsyncAPIResource
-from ..types import shared_params
-from ..types import org_secret_create_params
-from ..types import org_secret_update_params
-from ..types import org_secret_list_params
-from ..types import org_secret_replace_params
-
 __all__ = ["OrgSecretResource", "AsyncOrgSecretResource"]
+
 
 class OrgSecretResource(SyncAPIResource):
     @cached_property
@@ -52,19 +52,21 @@ class OrgSecretResource(SyncAPIResource):
         """
         return OrgSecretResourceWithStreamingResponse(self)
 
-    def create(self,
-    *,
-    name: str,
-    metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
-    org_name: Optional[str] | NotGiven = NOT_GIVEN,
-    secret: Optional[str] | NotGiven = NOT_GIVEN,
-    type: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> OrgSecret:
+    def create(
+        self,
+        *,
+        name: str,
+        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        org_name: Optional[str] | NotGiven = NOT_GIVEN,
+        secret: Optional[str] | NotGiven = NOT_GIVEN,
+        type: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> OrgSecret:
         """Create a new org_secret.
 
         If there is an existing org_secret with the same name
@@ -91,26 +93,33 @@ class OrgSecretResource(SyncAPIResource):
         """
         return self._post(
             "/v1/org_secret",
-            body=maybe_transform({
-                "name": name,
-                "metadata": metadata,
-                "org_name": org_name,
-                "secret": secret,
-                "type": type,
-            }, org_secret_create_params.OrgSecretCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "name": name,
+                    "metadata": metadata,
+                    "org_name": org_name,
+                    "secret": secret,
+                    "type": type,
+                },
+                org_secret_create_params.OrgSecretCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=OrgSecret,
         )
 
-    def retrieve(self,
-    org_secret_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> OrgSecret:
+    def retrieve(
+        self,
+        org_secret_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> OrgSecret:
         """
         Get an org_secret object by its id
 
@@ -126,28 +135,30 @@ class OrgSecretResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not org_secret_id:
-          raise ValueError(
-            f'Expected a non-empty value for `org_secret_id` but received {org_secret_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `org_secret_id` but received {org_secret_id!r}")
         return self._get(
             f"/v1/org_secret/{org_secret_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=OrgSecret,
         )
 
-    def update(self,
-    org_secret_id: str,
-    *,
-    metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
-    name: Optional[str] | NotGiven = NOT_GIVEN,
-    secret: Optional[str] | NotGiven = NOT_GIVEN,
-    type: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> OrgSecret:
+    def update(
+        self,
+        org_secret_id: str,
+        *,
+        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
+        secret: Optional[str] | NotGiven = NOT_GIVEN,
+        type: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> OrgSecret:
         """Partially update an org_secret object.
 
         Specify the fields to update in the
@@ -168,36 +179,41 @@ class OrgSecretResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not org_secret_id:
-          raise ValueError(
-            f'Expected a non-empty value for `org_secret_id` but received {org_secret_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `org_secret_id` but received {org_secret_id!r}")
         return self._patch(
             f"/v1/org_secret/{org_secret_id}",
-            body=maybe_transform({
-                "metadata": metadata,
-                "name": name,
-                "secret": secret,
-                "type": type,
-            }, org_secret_update_params.OrgSecretUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "metadata": metadata,
+                    "name": name,
+                    "secret": secret,
+                    "type": type,
+                },
+                org_secret_update_params.OrgSecretUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=OrgSecret,
         )
 
-    def list(self,
-    *,
-    ending_before: str | NotGiven = NOT_GIVEN,
-    ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-    limit: int | NotGiven = NOT_GIVEN,
-    org_name: str | NotGiven = NOT_GIVEN,
-    org_secret_name: str | NotGiven = NOT_GIVEN,
-    org_secret_type: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-    starting_after: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> SyncListObjects[OrgSecret]:
+    def list(
+        self,
+        *,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        org_secret_name: str | NotGiven = NOT_GIVEN,
+        org_secret_type: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> SyncListObjects[OrgSecret]:
         """List out all org_secrets.
 
         The org_secrets are sorted by creation date, with the
@@ -235,28 +251,39 @@ class OrgSecretResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/v1/org_secret",
-            page = SyncListObjects[OrgSecret],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "ending_before": ending_before,
-                "ids": ids,
-                "limit": limit,
-                "org_name": org_name,
-                "org_secret_name": org_secret_name,
-                "org_secret_type": org_secret_type,
-                "starting_after": starting_after,
-            }, org_secret_list_params.OrgSecretListParams)),
+            page=SyncListObjects[OrgSecret],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "ending_before": ending_before,
+                        "ids": ids,
+                        "limit": limit,
+                        "org_name": org_name,
+                        "org_secret_name": org_secret_name,
+                        "org_secret_type": org_secret_type,
+                        "starting_after": starting_after,
+                    },
+                    org_secret_list_params.OrgSecretListParams,
+                ),
+            ),
             model=OrgSecret,
         )
 
-    def delete(self,
-    org_secret_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> OrgSecret:
+    def delete(
+        self,
+        org_secret_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> OrgSecret:
         """
         Delete an org_secret object by its id
 
@@ -272,28 +299,30 @@ class OrgSecretResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not org_secret_id:
-          raise ValueError(
-            f'Expected a non-empty value for `org_secret_id` but received {org_secret_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `org_secret_id` but received {org_secret_id!r}")
         return self._delete(
             f"/v1/org_secret/{org_secret_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=OrgSecret,
         )
 
-    def replace(self,
-    *,
-    name: str,
-    metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
-    org_name: Optional[str] | NotGiven = NOT_GIVEN,
-    secret: Optional[str] | NotGiven = NOT_GIVEN,
-    type: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> OrgSecret:
+    def replace(
+        self,
+        *,
+        name: str,
+        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        org_name: Optional[str] | NotGiven = NOT_GIVEN,
+        secret: Optional[str] | NotGiven = NOT_GIVEN,
+        type: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> OrgSecret:
         """Create or replace org_secret.
 
         If there is an existing org_secret with the same
@@ -320,16 +349,22 @@ class OrgSecretResource(SyncAPIResource):
         """
         return self._put(
             "/v1/org_secret",
-            body=maybe_transform({
-                "name": name,
-                "metadata": metadata,
-                "org_name": org_name,
-                "secret": secret,
-                "type": type,
-            }, org_secret_replace_params.OrgSecretReplaceParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "name": name,
+                    "metadata": metadata,
+                    "org_name": org_name,
+                    "secret": secret,
+                    "type": type,
+                },
+                org_secret_replace_params.OrgSecretReplaceParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=OrgSecret,
         )
+
 
 class AsyncOrgSecretResource(AsyncAPIResource):
     @cached_property
@@ -351,19 +386,21 @@ class AsyncOrgSecretResource(AsyncAPIResource):
         """
         return AsyncOrgSecretResourceWithStreamingResponse(self)
 
-    async def create(self,
-    *,
-    name: str,
-    metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
-    org_name: Optional[str] | NotGiven = NOT_GIVEN,
-    secret: Optional[str] | NotGiven = NOT_GIVEN,
-    type: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> OrgSecret:
+    async def create(
+        self,
+        *,
+        name: str,
+        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        org_name: Optional[str] | NotGiven = NOT_GIVEN,
+        secret: Optional[str] | NotGiven = NOT_GIVEN,
+        type: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> OrgSecret:
         """Create a new org_secret.
 
         If there is an existing org_secret with the same name
@@ -390,26 +427,33 @@ class AsyncOrgSecretResource(AsyncAPIResource):
         """
         return await self._post(
             "/v1/org_secret",
-            body=await async_maybe_transform({
-                "name": name,
-                "metadata": metadata,
-                "org_name": org_name,
-                "secret": secret,
-                "type": type,
-            }, org_secret_create_params.OrgSecretCreateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "name": name,
+                    "metadata": metadata,
+                    "org_name": org_name,
+                    "secret": secret,
+                    "type": type,
+                },
+                org_secret_create_params.OrgSecretCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=OrgSecret,
         )
 
-    async def retrieve(self,
-    org_secret_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> OrgSecret:
+    async def retrieve(
+        self,
+        org_secret_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> OrgSecret:
         """
         Get an org_secret object by its id
 
@@ -425,28 +469,30 @@ class AsyncOrgSecretResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not org_secret_id:
-          raise ValueError(
-            f'Expected a non-empty value for `org_secret_id` but received {org_secret_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `org_secret_id` but received {org_secret_id!r}")
         return await self._get(
             f"/v1/org_secret/{org_secret_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=OrgSecret,
         )
 
-    async def update(self,
-    org_secret_id: str,
-    *,
-    metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
-    name: Optional[str] | NotGiven = NOT_GIVEN,
-    secret: Optional[str] | NotGiven = NOT_GIVEN,
-    type: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> OrgSecret:
+    async def update(
+        self,
+        org_secret_id: str,
+        *,
+        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | NotGiven = NOT_GIVEN,
+        secret: Optional[str] | NotGiven = NOT_GIVEN,
+        type: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> OrgSecret:
         """Partially update an org_secret object.
 
         Specify the fields to update in the
@@ -467,36 +513,41 @@ class AsyncOrgSecretResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not org_secret_id:
-          raise ValueError(
-            f'Expected a non-empty value for `org_secret_id` but received {org_secret_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `org_secret_id` but received {org_secret_id!r}")
         return await self._patch(
             f"/v1/org_secret/{org_secret_id}",
-            body=await async_maybe_transform({
-                "metadata": metadata,
-                "name": name,
-                "secret": secret,
-                "type": type,
-            }, org_secret_update_params.OrgSecretUpdateParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "metadata": metadata,
+                    "name": name,
+                    "secret": secret,
+                    "type": type,
+                },
+                org_secret_update_params.OrgSecretUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=OrgSecret,
         )
 
-    def list(self,
-    *,
-    ending_before: str | NotGiven = NOT_GIVEN,
-    ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-    limit: int | NotGiven = NOT_GIVEN,
-    org_name: str | NotGiven = NOT_GIVEN,
-    org_secret_name: str | NotGiven = NOT_GIVEN,
-    org_secret_type: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-    starting_after: str | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> AsyncPaginator[OrgSecret, AsyncListObjects[OrgSecret]]:
+    def list(
+        self,
+        *,
+        ending_before: str | NotGiven = NOT_GIVEN,
+        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        limit: int | NotGiven = NOT_GIVEN,
+        org_name: str | NotGiven = NOT_GIVEN,
+        org_secret_name: str | NotGiven = NOT_GIVEN,
+        org_secret_type: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        starting_after: str | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> AsyncPaginator[OrgSecret, AsyncListObjects[OrgSecret]]:
         """List out all org_secrets.
 
         The org_secrets are sorted by creation date, with the
@@ -534,28 +585,39 @@ class AsyncOrgSecretResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/v1/org_secret",
-            page = AsyncListObjects[OrgSecret],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "ending_before": ending_before,
-                "ids": ids,
-                "limit": limit,
-                "org_name": org_name,
-                "org_secret_name": org_secret_name,
-                "org_secret_type": org_secret_type,
-                "starting_after": starting_after,
-            }, org_secret_list_params.OrgSecretListParams)),
+            page=AsyncListObjects[OrgSecret],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "ending_before": ending_before,
+                        "ids": ids,
+                        "limit": limit,
+                        "org_name": org_name,
+                        "org_secret_name": org_secret_name,
+                        "org_secret_type": org_secret_type,
+                        "starting_after": starting_after,
+                    },
+                    org_secret_list_params.OrgSecretListParams,
+                ),
+            ),
             model=OrgSecret,
         )
 
-    async def delete(self,
-    org_secret_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> OrgSecret:
+    async def delete(
+        self,
+        org_secret_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> OrgSecret:
         """
         Delete an org_secret object by its id
 
@@ -571,28 +633,30 @@ class AsyncOrgSecretResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not org_secret_id:
-          raise ValueError(
-            f'Expected a non-empty value for `org_secret_id` but received {org_secret_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `org_secret_id` but received {org_secret_id!r}")
         return await self._delete(
             f"/v1/org_secret/{org_secret_id}",
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=OrgSecret,
         )
 
-    async def replace(self,
-    *,
-    name: str,
-    metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
-    org_name: Optional[str] | NotGiven = NOT_GIVEN,
-    secret: Optional[str] | NotGiven = NOT_GIVEN,
-    type: Optional[str] | NotGiven = NOT_GIVEN,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,) -> OrgSecret:
+    async def replace(
+        self,
+        *,
+        name: str,
+        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        org_name: Optional[str] | NotGiven = NOT_GIVEN,
+        secret: Optional[str] | NotGiven = NOT_GIVEN,
+        type: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> OrgSecret:
         """Create or replace org_secret.
 
         If there is an existing org_secret with the same
@@ -619,16 +683,22 @@ class AsyncOrgSecretResource(AsyncAPIResource):
         """
         return await self._put(
             "/v1/org_secret",
-            body=await async_maybe_transform({
-                "name": name,
-                "metadata": metadata,
-                "org_name": org_name,
-                "secret": secret,
-                "type": type,
-            }, org_secret_replace_params.OrgSecretReplaceParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "name": name,
+                    "metadata": metadata,
+                    "org_name": org_name,
+                    "secret": secret,
+                    "type": type,
+                },
+                org_secret_replace_params.OrgSecretReplaceParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=OrgSecret,
         )
+
 
 class OrgSecretResourceWithRawResponse:
     def __init__(self, org_secret: OrgSecretResource) -> None:
@@ -653,6 +723,7 @@ class OrgSecretResourceWithRawResponse:
             org_secret.replace,
         )
 
+
 class AsyncOrgSecretResourceWithRawResponse:
     def __init__(self, org_secret: AsyncOrgSecretResource) -> None:
         self._org_secret = org_secret
@@ -676,6 +747,7 @@ class AsyncOrgSecretResourceWithRawResponse:
             org_secret.replace,
         )
 
+
 class OrgSecretResourceWithStreamingResponse:
     def __init__(self, org_secret: OrgSecretResource) -> None:
         self._org_secret = org_secret
@@ -698,6 +770,7 @@ class OrgSecretResourceWithStreamingResponse:
         self.replace = to_streamed_response_wrapper(
             org_secret.replace,
         )
+
 
 class AsyncOrgSecretResourceWithStreamingResponse:
     def __init__(self, org_secret: AsyncOrgSecretResource) -> None:

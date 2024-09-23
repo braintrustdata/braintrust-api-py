@@ -3,10 +3,10 @@
 from __future__ import annotations
 
 from typing import List
-
-from typing_extensions import Literal, TypedDict, Required
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["PathLookupFilter"]
+
 
 class PathLookupFilter(TypedDict, total=False):
     path: Required[List[str]]

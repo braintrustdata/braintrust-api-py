@@ -57,11 +57,13 @@ client = AsyncBraintrust(
     api_key=os.environ.get("BRAINTRUST_API_KEY"),
 )
 
+
 async def main() -> None:
-  project = await client.project.create(
-      name="foobar",
-  )
-  print(project.id)
+    project = await client.project.create(
+        name="foobar",
+    )
+    print(project.id)
+
 
 asyncio.run(main())
 ```
@@ -104,12 +106,14 @@ from braintrust_api import AsyncBraintrust
 
 client = AsyncBraintrust()
 
+
 async def main() -> None:
     all_projects = []
     # Iterate through items across all pages, issuing requests as needed.
     async for project in client.project.list():
         all_projects.append(project)
     print(all_projects)
+
 
 asyncio.run(main())
 ```
@@ -131,7 +135,7 @@ Or just work directly with the returned data:
 ```python
 first_page = await client.project.list()
 
-print(f"next page cursor: {first_page.starting_after}") # => "next page cursor: ..."
+print(f"next page cursor: {first_page.starting_after}")  # => "next page cursor: ..."
 for project in first_page.objects:
     print(project.id)
 
@@ -159,7 +163,7 @@ try:
     )
 except braintrust_api.APIConnectionError as e:
     print("The server could not be reached")
-    print(e.__cause__) # an underlying Exception, likely raised within httpx.
+    print(e.__cause__)  # an underlying Exception, likely raised within httpx.
 except braintrust_api.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
 except braintrust_api.APIStatusError as e:
@@ -199,7 +203,7 @@ client = Braintrust(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries = 5).project.create(
+client.with_options(max_retries=5).project.create(
     name="foobar",
 )
 ```
@@ -224,7 +228,7 @@ client = Braintrust(
 )
 
 # Override per-request:
-client.with_options(timeout = 5.0).project.create(
+client.with_options(timeout=5.0).project.create(
     name="foobar",
 )
 ```
@@ -287,11 +291,11 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 ```python
 with client.project.with_streaming_response.create(
     name="foobar",
-) as response :
-    print(response.headers.get('X-My-Header'))
+) as response:
+    print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():
-      print(line)
+        print(line)
 ```
 
 The context manager is required so that the response will reliably be closed.
@@ -345,7 +349,10 @@ from braintrust_api import Braintrust, DefaultHttpxClient
 client = Braintrust(
     # Or use the `BRAINTRUST_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
-    http_client=DefaultHttpxClient(proxies="http://my.test.proxy.example.com", transport=httpx.HTTPTransport(local_address="0.0.0.0")),
+    http_client=DefaultHttpxClient(
+        proxies="http://my.test.proxy.example.com",
+        transport=httpx.HTTPTransport(local_address="0.0.0.0"),
+    ),
 )
 ```
 
