@@ -5,7 +5,7 @@ from datetime import datetime
 
 from ..._models import BaseModel
 
-__all__ = ["Project", "Settings"]
+__all__ = ["ProjectModel", "Settings"]
 
 
 class Settings(BaseModel):
@@ -13,7 +13,7 @@ class Settings(BaseModel):
     """The key used to join two experiments (defaults to `input`)."""
 
 
-class Project(BaseModel):
+class ProjectModel(BaseModel):
     id: str
     """Unique identifier for the project"""
 

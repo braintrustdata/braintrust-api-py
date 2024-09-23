@@ -31,8 +31,8 @@ from braintrust_api.types import (
     MetricSummary,
     Organization,
     PathLookupFilter,
-    Project,
     ProjectLogsEvent,
+    ProjectModel,
     ProjectScore,
     ProjectScoreCategory,
     ProjectTag,
@@ -67,11 +67,11 @@ Methods:
 
 Methods:
 
-- <code title="post /v1/project">client.project.<a href="./src/braintrust_api/resources/project/project.py">create</a>(\*\*<a href="src/braintrust_api/types/project_create_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/project.py">Project</a></code>
-- <code title="get /v1/project/{project_id}">client.project.<a href="./src/braintrust_api/resources/project/project.py">retrieve</a>(project_id) -> <a href="./src/braintrust_api/types/shared/project.py">Project</a></code>
-- <code title="patch /v1/project/{project_id}">client.project.<a href="./src/braintrust_api/resources/project/project.py">update</a>(project_id, \*\*<a href="src/braintrust_api/types/project_update_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/project.py">Project</a></code>
-- <code title="get /v1/project">client.project.<a href="./src/braintrust_api/resources/project/project.py">list</a>(\*\*<a href="src/braintrust_api/types/project_list_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/project.py">SyncListObjects[Project]</a></code>
-- <code title="delete /v1/project/{project_id}">client.project.<a href="./src/braintrust_api/resources/project/project.py">delete</a>(project_id) -> <a href="./src/braintrust_api/types/shared/project.py">Project</a></code>
+- <code title="post /v1/project">client.project.<a href="./src/braintrust_api/resources/project/project.py">create</a>(\*\*<a href="src/braintrust_api/types/project_create_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/project_model.py">ProjectModel</a></code>
+- <code title="get /v1/project/{project_id}">client.project.<a href="./src/braintrust_api/resources/project/project.py">retrieve</a>(project_id) -> <a href="./src/braintrust_api/types/shared/project_model.py">ProjectModel</a></code>
+- <code title="patch /v1/project/{project_id}">client.project.<a href="./src/braintrust_api/resources/project/project.py">update</a>(project_id, \*\*<a href="src/braintrust_api/types/project_update_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/project_model.py">ProjectModel</a></code>
+- <code title="get /v1/project">client.project.<a href="./src/braintrust_api/resources/project/project.py">list</a>(\*\*<a href="src/braintrust_api/types/project_list_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/project_model.py">SyncListObjects[ProjectModel]</a></code>
+- <code title="delete /v1/project/{project_id}">client.project.<a href="./src/braintrust_api/resources/project/project.py">delete</a>(project_id) -> <a href="./src/braintrust_api/types/shared/project_model.py">ProjectModel</a></code>
 
 ## Logs
 
