@@ -147,12 +147,20 @@ Methods:
 
 # ACL
 
+Types:
+
+```python
+from braintrust_api.types import ACLBatchUpdateResponse
+```
+
 Methods:
 
 - <code title="post /v1/acl">client.acl.<a href="./src/braintrust_api/resources/acl.py">create</a>(\*\*<a href="src/braintrust_api/types/acl_create_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/acl.py">ACL</a></code>
 - <code title="get /v1/acl/{acl_id}">client.acl.<a href="./src/braintrust_api/resources/acl.py">retrieve</a>(acl_id) -> <a href="./src/braintrust_api/types/shared/acl.py">ACL</a></code>
 - <code title="get /v1/acl">client.acl.<a href="./src/braintrust_api/resources/acl.py">list</a>(\*\*<a href="src/braintrust_api/types/acl_list_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/acl.py">SyncListObjects[ACL]</a></code>
 - <code title="delete /v1/acl/{acl_id}">client.acl.<a href="./src/braintrust_api/resources/acl.py">delete</a>(acl_id) -> <a href="./src/braintrust_api/types/shared/acl.py">ACL</a></code>
+- <code title="post /v1/acl/batch-update">client.acl.<a href="./src/braintrust_api/resources/acl.py">batch_update</a>(\*\*<a href="src/braintrust_api/types/acl_batch_update_params.py">params</a>) -> <a href="./src/braintrust_api/types/acl_batch_update_response.py">ACLBatchUpdateResponse</a></code>
+- <code title="delete /v1/acl">client.acl.<a href="./src/braintrust_api/resources/acl.py">find_and_delete</a>(\*\*<a href="src/braintrust_api/types/acl_find_and_delete_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/acl.py">ACL</a></code>
 
 # User
 
@@ -244,4 +252,5 @@ Methods:
 - <code title="patch /v1/org_secret/{org_secret_id}">client.org_secret.<a href="./src/braintrust_api/resources/org_secret.py">update</a>(org_secret_id, \*\*<a href="src/braintrust_api/types/org_secret_update_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/org_secret.py">OrgSecret</a></code>
 - <code title="get /v1/org_secret">client.org_secret.<a href="./src/braintrust_api/resources/org_secret.py">list</a>(\*\*<a href="src/braintrust_api/types/org_secret_list_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/org_secret.py">SyncListObjects[OrgSecret]</a></code>
 - <code title="delete /v1/org_secret/{org_secret_id}">client.org_secret.<a href="./src/braintrust_api/resources/org_secret.py">delete</a>(org_secret_id) -> <a href="./src/braintrust_api/types/shared/org_secret.py">OrgSecret</a></code>
+- <code title="delete /v1/org_secret">client.org_secret.<a href="./src/braintrust_api/resources/org_secret.py">find_and_delete</a>(\*\*<a href="src/braintrust_api/types/org_secret_find_and_delete_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/org_secret.py">OrgSecret</a></code>
 - <code title="put /v1/org_secret">client.org_secret.<a href="./src/braintrust_api/resources/org_secret.py">replace</a>(\*\*<a href="src/braintrust_api/types/org_secret_replace_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/org_secret.py">OrgSecret</a></code>

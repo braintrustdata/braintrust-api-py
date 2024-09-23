@@ -11,6 +11,7 @@ from ..types import (
     org_secret_create_params,
     org_secret_update_params,
     org_secret_replace_params,
+    org_secret_find_and_delete_params,
 )
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
@@ -302,6 +303,51 @@ class OrgSecretResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `org_secret_id` but received {org_secret_id!r}")
         return self._delete(
             f"/v1/org_secret/{org_secret_id}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=OrgSecret,
+        )
+
+    def find_and_delete(
+        self,
+        *,
+        name: str,
+        org_name: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> OrgSecret:
+        """
+        Delete a single org_secret
+
+        Args:
+          name: Name of the org secret
+
+          org_name: For nearly all users, this parameter should be unnecessary. But in the rare case
+              that your API key belongs to multiple organizations, you may specify the name of
+              the organization the Org Secret belongs in.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._delete(
+            "/v1/org_secret",
+            body=maybe_transform(
+                {
+                    "name": name,
+                    "org_name": org_name,
+                },
+                org_secret_find_and_delete_params.OrgSecretFindAndDeleteParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -642,6 +688,51 @@ class AsyncOrgSecretResource(AsyncAPIResource):
             cast_to=OrgSecret,
         )
 
+    async def find_and_delete(
+        self,
+        *,
+        name: str,
+        org_name: Optional[str] | NotGiven = NOT_GIVEN,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+    ) -> OrgSecret:
+        """
+        Delete a single org_secret
+
+        Args:
+          name: Name of the org secret
+
+          org_name: For nearly all users, this parameter should be unnecessary. But in the rare case
+              that your API key belongs to multiple organizations, you may specify the name of
+              the organization the Org Secret belongs in.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._delete(
+            "/v1/org_secret",
+            body=await async_maybe_transform(
+                {
+                    "name": name,
+                    "org_name": org_name,
+                },
+                org_secret_find_and_delete_params.OrgSecretFindAndDeleteParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=OrgSecret,
+        )
+
     async def replace(
         self,
         *,
@@ -719,6 +810,9 @@ class OrgSecretResourceWithRawResponse:
         self.delete = to_raw_response_wrapper(
             org_secret.delete,
         )
+        self.find_and_delete = to_raw_response_wrapper(
+            org_secret.find_and_delete,
+        )
         self.replace = to_raw_response_wrapper(
             org_secret.replace,
         )
@@ -742,6 +836,9 @@ class AsyncOrgSecretResourceWithRawResponse:
         )
         self.delete = async_to_raw_response_wrapper(
             org_secret.delete,
+        )
+        self.find_and_delete = async_to_raw_response_wrapper(
+            org_secret.find_and_delete,
         )
         self.replace = async_to_raw_response_wrapper(
             org_secret.replace,
@@ -767,6 +864,9 @@ class OrgSecretResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             org_secret.delete,
         )
+        self.find_and_delete = to_streamed_response_wrapper(
+            org_secret.find_and_delete,
+        )
         self.replace = to_streamed_response_wrapper(
             org_secret.replace,
         )
@@ -790,6 +890,9 @@ class AsyncOrgSecretResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             org_secret.delete,
+        )
+        self.find_and_delete = async_to_streamed_response_wrapper(
+            org_secret.find_and_delete,
         )
         self.replace = async_to_streamed_response_wrapper(
             org_secret.replace,
