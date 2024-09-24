@@ -23,7 +23,7 @@ class PromptReplaceParams(TypedDict, total=False):
     description: Optional[str]
     """Textual description of the prompt"""
 
-    function_type: Optional[Literal["task", "llm", "scorer"]]
+    function_type: Optional[Literal["llm", "scorer", "task", "tool"]]
 
     prompt_data: Optional[PromptData]
     """The prompt, model, and its parameters"""

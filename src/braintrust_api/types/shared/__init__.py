@@ -8,6 +8,7 @@ from .group import Group as Group
 from .prompt import Prompt as Prompt
 from .api_key import APIKey as APIKey
 from .dataset import Dataset as Dataset
+from .project import Project as Project
 from .function import Function as Function
 from .repo_info import RepoInfo as RepoInfo
 from .view_data import ViewData as ViewData
@@ -19,7 +20,6 @@ from .data_summary import DataSummary as DataSummary
 from .organization import Organization as Organization
 from .view_options import ViewOptions as ViewOptions
 from .dataset_event import DatasetEvent as DatasetEvent
-from .project_model import ProjectModel as ProjectModel
 from .project_score import ProjectScore as ProjectScore
 from .score_summary import ScoreSummary as ScoreSummary
 from .metric_summary import MetricSummary as MetricSummary

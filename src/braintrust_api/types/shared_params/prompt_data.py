@@ -42,6 +42,9 @@ __all__ = [
     "PromptChatMessageFunction",
     "PromptChatMessageFallback",
     "PromptNullableVariant",
+    "ToolFunction",
+    "ToolFunctionFunction",
+    "ToolFunctionGlobal",
 ]
 
 
@@ -295,6 +298,21 @@ class PromptNullableVariant(TypedDict, total=False):
 Prompt: TypeAlias = Union[PromptCompletion, PromptChat, Optional[PromptNullableVariant]]
 
 
+class ToolFunctionFunction(TypedDict, total=False):
+    id: Required[str]
+
+    type: Required[Literal["function"]]
+
+
+class ToolFunctionGlobal(TypedDict, total=False):
+    name: Required[str]
+
+    type: Required[Literal["global"]]
+
+
+ToolFunction: TypeAlias = Union[ToolFunctionFunction, ToolFunctionGlobal]
+
+
 class PromptData(TypedDict, total=False):
     options: Optional[Options]
 
@@ -303,3 +321,5 @@ class PromptData(TypedDict, total=False):
     parser: Optional[Parser]
 
     prompt: Prompt
+
+    tool_functions: Optional[Iterable[ToolFunction]]

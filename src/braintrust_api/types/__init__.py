@@ -11,6 +11,7 @@ from .shared import (
     APIKey as APIKey,
     Prompt as Prompt,
     Dataset as Dataset,
+    Project as Project,
     AISecret as AISecret,
     Function as Function,
     RepoInfo as RepoInfo,
@@ -22,7 +23,6 @@ from .shared import (
     ViewOptions as ViewOptions,
     DatasetEvent as DatasetEvent,
     Organization as Organization,
-    ProjectModel as ProjectModel,
     ProjectScore as ProjectScore,
     ScoreSummary as ScoreSummary,
     MetricSummary as MetricSummary,
@@ -62,6 +62,7 @@ from .role_update_params import RoleUpdateParams as RoleUpdateParams
 from .view_create_params import ViewCreateParams as ViewCreateParams
 from .view_delete_params import ViewDeleteParams as ViewDeleteParams
 from .view_update_params import ViewUpdateParams as ViewUpdateParams
+from .api_key_list_params import APIKeyListParams as APIKeyListParams
 from .dataset_list_params import DatasetListParams as DatasetListParams
 from .group_create_params import GroupCreateParams as GroupCreateParams
 from .group_update_params import GroupUpdateParams as GroupUpdateParams
@@ -75,6 +76,7 @@ from .prompt_create_params import PromptCreateParams as PromptCreateParams
 from .prompt_update_params import PromptUpdateParams as PromptUpdateParams
 from .view_retrieve_params import ViewRetrieveParams as ViewRetrieveParams
 from .ai_secret_list_params import AISecretListParams as AISecretListParams
+from .api_key_create_params import APIKeyCreateParams as APIKeyCreateParams
 from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
 from .dataset_insert_params import DatasetInsertParams as DatasetInsertParams
 from .dataset_update_params import DatasetUpdateParams as DatasetUpdateParams
@@ -110,9 +112,7 @@ from .project_tag_replace_params import ProjectTagReplaceParams as ProjectTagRep
 from .experiment_summarize_params import ExperimentSummarizeParams as ExperimentSummarizeParams
 from .project_score_create_params import ProjectScoreCreateParams as ProjectScoreCreateParams
 from .project_score_update_params import ProjectScoreUpdateParams as ProjectScoreUpdateParams
-from .api_key_resource_list_params import APIKeyResourceListParams as APIKeyResourceListParams
 from .experiment_fetch_post_params import ExperimentFetchPostParams as ExperimentFetchPostParams
 from .project_score_replace_params import ProjectScoreReplaceParams as ProjectScoreReplaceParams
-from .api_key_resource_create_params import APIKeyResourceCreateParams as APIKeyResourceCreateParams
 from .top_level_hello_world_response import TopLevelHelloWorldResponse as TopLevelHelloWorldResponse
 from .ai_secret_find_and_delete_params import AISecretFindAndDeleteParams as AISecretFindAndDeleteParams

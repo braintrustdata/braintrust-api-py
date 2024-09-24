@@ -17,13 +17,16 @@ __all__ = [
     "FunctionDataCodeData",
     "FunctionDataCodeDataBundle",
     "FunctionDataCodeDataBundleLocation",
-    "FunctionDataCodeDataBundleLocationPosition",
-    "FunctionDataCodeDataBundleLocationPositionType",
-    "FunctionDataCodeDataBundleLocationPositionScorer",
+    "FunctionDataCodeDataBundleLocationExperiment",
+    "FunctionDataCodeDataBundleLocationExperimentPosition",
+    "FunctionDataCodeDataBundleLocationExperimentPositionType",
+    "FunctionDataCodeDataBundleLocationExperimentPositionScorer",
+    "FunctionDataCodeDataBundleLocationFunction",
     "FunctionDataCodeDataBundleRuntimeContext",
     "FunctionDataCodeDataInline",
     "FunctionDataCodeDataInlineRuntimeContext",
     "FunctionDataGlobal",
+    "FunctionSchema",
     "Origin",
 ]
 
@@ -32,27 +35,38 @@ class FunctionDataPrompt(BaseModel):
     type: Literal["prompt"]
 
 
-class FunctionDataCodeDataBundleLocationPositionType(BaseModel):
+class FunctionDataCodeDataBundleLocationExperimentPositionType(BaseModel):
     type: Literal["task"]
 
 
-class FunctionDataCodeDataBundleLocationPositionScorer(BaseModel):
-    index: float
+class FunctionDataCodeDataBundleLocationExperimentPositionScorer(BaseModel):
+    index: int
 
     type: Literal["scorer"]
 
 
-FunctionDataCodeDataBundleLocationPosition: TypeAlias = Union[
-    FunctionDataCodeDataBundleLocationPositionType, FunctionDataCodeDataBundleLocationPositionScorer
+FunctionDataCodeDataBundleLocationExperimentPosition: TypeAlias = Union[
+    FunctionDataCodeDataBundleLocationExperimentPositionType, FunctionDataCodeDataBundleLocationExperimentPositionScorer
 ]
 
 
-class FunctionDataCodeDataBundleLocation(BaseModel):
+class FunctionDataCodeDataBundleLocationExperiment(BaseModel):
     eval_name: str
 
-    position: FunctionDataCodeDataBundleLocationPosition
+    position: FunctionDataCodeDataBundleLocationExperimentPosition
 
     type: Literal["experiment"]
+
+
+class FunctionDataCodeDataBundleLocationFunction(BaseModel):
+    index: int
+
+    type: Literal["function"]
+
+
+FunctionDataCodeDataBundleLocation: TypeAlias = Union[
+    FunctionDataCodeDataBundleLocationExperiment, FunctionDataCodeDataBundleLocationFunction
+]
 
 
 class FunctionDataCodeDataBundleRuntimeContext(BaseModel):
@@ -104,6 +118,12 @@ class FunctionDataGlobal(BaseModel):
 
 
 FunctionData: TypeAlias = Union[FunctionDataPrompt, FunctionDataCode, FunctionDataGlobal]
+
+
+class FunctionSchema(BaseModel):
+    parameters: Optional[object] = None
+
+    returns: Optional[object] = None
 
 
 class Origin(BaseModel):
@@ -169,7 +189,10 @@ class Function(BaseModel):
     description: Optional[str] = None
     """Textual description of the prompt"""
 
-    function_type: Optional[Literal["task", "llm", "scorer"]] = None
+    function_schema: Optional[FunctionSchema] = None
+    """JSON schema for the function's parameters and return type"""
+
+    function_type: Optional[Literal["llm", "scorer", "task", "tool"]] = None
 
     metadata: Optional[Dict[str, object]] = None
     """User-controlled metadata about the prompt"""
