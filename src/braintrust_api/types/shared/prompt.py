@@ -45,7 +45,7 @@ class Prompt(BaseModel):
     description: Optional[str] = None
     """Textual description of the prompt"""
 
-    function_type: Optional[Literal["task", "llm", "scorer"]] = None
+    function_type: Optional[Literal["llm", "scorer", "task", "tool"]] = None
 
     metadata: Optional[Dict[str, object]] = None
     """User-controlled metadata about the prompt"""
