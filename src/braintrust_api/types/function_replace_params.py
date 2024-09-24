@@ -15,13 +15,16 @@ __all__ = [
     "FunctionDataCodeData",
     "FunctionDataCodeDataBundle",
     "FunctionDataCodeDataBundleLocation",
-    "FunctionDataCodeDataBundleLocationPosition",
-    "FunctionDataCodeDataBundleLocationPositionType",
-    "FunctionDataCodeDataBundleLocationPositionScorer",
+    "FunctionDataCodeDataBundleLocationExperiment",
+    "FunctionDataCodeDataBundleLocationExperimentPosition",
+    "FunctionDataCodeDataBundleLocationExperimentPositionType",
+    "FunctionDataCodeDataBundleLocationExperimentPositionScorer",
+    "FunctionDataCodeDataBundleLocationFunction",
     "FunctionDataCodeDataBundleRuntimeContext",
     "FunctionDataCodeDataInline",
     "FunctionDataCodeDataInlineRuntimeContext",
     "FunctionDataGlobal",
+    "FunctionSchema",
     "Origin",
 ]
 
@@ -41,7 +44,10 @@ class FunctionReplaceParams(TypedDict, total=False):
     description: Optional[str]
     """Textual description of the prompt"""
 
-    function_type: Optional[Literal["task", "llm", "scorer"]]
+    function_schema: Optional[FunctionSchema]
+    """JSON schema for the function's parameters and return type"""
+
+    function_type: Optional[Literal["llm", "scorer", "task", "tool"]]
 
     origin: Optional[Origin]
 
@@ -56,27 +62,38 @@ class FunctionDataPrompt(TypedDict, total=False):
     type: Required[Literal["prompt"]]
 
 
-class FunctionDataCodeDataBundleLocationPositionType(TypedDict, total=False):
+class FunctionDataCodeDataBundleLocationExperimentPositionType(TypedDict, total=False):
     type: Required[Literal["task"]]
 
 
-class FunctionDataCodeDataBundleLocationPositionScorer(TypedDict, total=False):
-    index: Required[float]
+class FunctionDataCodeDataBundleLocationExperimentPositionScorer(TypedDict, total=False):
+    index: Required[int]
 
     type: Required[Literal["scorer"]]
 
 
-FunctionDataCodeDataBundleLocationPosition: TypeAlias = Union[
-    FunctionDataCodeDataBundleLocationPositionType, FunctionDataCodeDataBundleLocationPositionScorer
+FunctionDataCodeDataBundleLocationExperimentPosition: TypeAlias = Union[
+    FunctionDataCodeDataBundleLocationExperimentPositionType, FunctionDataCodeDataBundleLocationExperimentPositionScorer
 ]
 
 
-class FunctionDataCodeDataBundleLocation(TypedDict, total=False):
+class FunctionDataCodeDataBundleLocationExperiment(TypedDict, total=False):
     eval_name: Required[str]
 
-    position: Required[FunctionDataCodeDataBundleLocationPosition]
+    position: Required[FunctionDataCodeDataBundleLocationExperimentPosition]
 
     type: Required[Literal["experiment"]]
+
+
+class FunctionDataCodeDataBundleLocationFunction(TypedDict, total=False):
+    index: Required[int]
+
+    type: Required[Literal["function"]]
+
+
+FunctionDataCodeDataBundleLocation: TypeAlias = Union[
+    FunctionDataCodeDataBundleLocationExperiment, FunctionDataCodeDataBundleLocationFunction
+]
 
 
 class FunctionDataCodeDataBundleRuntimeContext(TypedDict, total=False):
@@ -128,6 +145,12 @@ class FunctionDataGlobal(TypedDict, total=False):
 
 
 FunctionData: TypeAlias = Union[FunctionDataPrompt, FunctionDataCode, FunctionDataGlobal]
+
+
+class FunctionSchema(TypedDict, total=False):
+    parameters: object
+
+    returns: object
 
 
 class Origin(TypedDict, total=False):

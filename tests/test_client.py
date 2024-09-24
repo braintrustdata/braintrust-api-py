@@ -758,7 +758,7 @@ class TestBraintrust:
 
         respx_mock.post("/v1/project").mock(side_effect=retry_handler)
 
-        response = client.project.with_raw_response.create(name="name")
+        response = client.projects.with_raw_response.create(name="name")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1481,7 +1481,7 @@ class TestAsyncBraintrust:
 
         respx_mock.post("/v1/project").mock(side_effect=retry_handler)
 
-        response = await client.project.with_raw_response.create(name="name")
+        response = await client.projects.with_raw_response.create(name="name")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
