@@ -5,6 +5,7 @@ from braintrust_api.types import (
     AISecret,
     ACL,
     APIKey,
+    Code,
     CreateAPIKeyOutput,
     CrossObjectInsertResponse,
     DataSummary,
@@ -28,10 +29,10 @@ from braintrust_api.types import (
     InsertExperimentEventReplace,
     InsertProjectLogsEventMerge,
     InsertProjectLogsEventReplace,
+    Messages,
     MetricSummary,
     Organization,
     PathLookupFilter,
-    Position,
     Project,
     ProjectLogsEvent,
     ProjectScore,
@@ -39,11 +40,15 @@ from braintrust_api.types import (
     ProjectTag,
     Prompt,
     PromptData,
+    PromptImageURL,
     RepoInfo,
     Role,
     ScoreSummary,
+    Scorer,
     SummarizeDatasetResponse,
     SummarizeExperimentResponse,
+    Task,
+    ToolChoiceFunction,
     User,
     View,
     ViewData,
@@ -197,7 +202,7 @@ Methods:
 Types:
 
 ```python
-from braintrust_api.types import FunctionInvokeResponse
+from braintrust_api.types import ImageURL, FunctionInvokeResponse
 ```
 
 Methods:
