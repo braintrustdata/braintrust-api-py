@@ -14,6 +14,7 @@ from .shared import (
     Project as Project,
     AISecret as AISecret,
     Function as Function,
+    Position as Position,
     RepoInfo as RepoInfo,
     ViewData as ViewData,
     Experiment as Experiment,
