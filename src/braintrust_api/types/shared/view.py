@@ -21,21 +21,19 @@ class View(BaseModel):
     object_id: str
     """The id of the object the view applies to"""
 
-    object_type: Optional[
-        Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ]
-    ] = None
+    object_type: Literal[
+        "organization",
+        "project",
+        "experiment",
+        "dataset",
+        "prompt",
+        "prompt_session",
+        "group",
+        "role",
+        "org_member",
+        "project_log",
+        "org_project",
+    ]
     """The object type that the ACL applies to"""
 
     view_type: Optional[

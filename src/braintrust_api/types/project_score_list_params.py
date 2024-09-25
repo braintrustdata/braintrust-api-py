@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import List, Union
 from typing_extensions import Literal, TypedDict
 
 __all__ = ["ProjectScoreListParams"]
@@ -39,8 +39,8 @@ class ProjectScoreListParams(TypedDict, total=False):
     """Name of the project_score to search for"""
 
     score_type: Union[
-        Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]],
-        List[Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]]],
+        Literal["slider", "categorical", "weighted", "minimum", "online"],
+        List[Literal["slider", "categorical", "weighted", "minimum", "online"]],
     ]
     """The type of the configured score"""
 

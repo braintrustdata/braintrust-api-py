@@ -21,21 +21,19 @@ class ACL(BaseModel):
     object_id: str
     """The id of the object the ACL applies to"""
 
-    object_type: Optional[
-        Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ]
-    ] = None
+    object_type: Literal[
+        "organization",
+        "project",
+        "experiment",
+        "dataset",
+        "prompt",
+        "prompt_session",
+        "group",
+        "role",
+        "org_member",
+        "project_log",
+        "org_project",
+    ]
     """The object type that the ACL applies to"""
 
     created: Optional[datetime] = None
@@ -50,9 +48,10 @@ class ACL(BaseModel):
     permission: Optional[
         Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
     ] = None
-    """Permission the ACL grants.
+    """Each permission permits a certain type of operation on an object in the system
 
-    Exactly one of `permission` and `role_id` will be provided
+    Permissions can be assigned to to objects on an individual basis, or grouped
+    into roles
     """
 
     restrict_object_type: Optional[
@@ -70,10 +69,7 @@ class ACL(BaseModel):
             "org_project",
         ]
     ] = None
-    """
-    When setting a permission directly, optionally restricts the permission grant to
-    just the specified object type. Cannot be set alongside a `role_id`.
-    """
+    """The object type that the ACL applies to"""
 
     role_id: Optional[str] = None
     """Id of the role the ACL grants.

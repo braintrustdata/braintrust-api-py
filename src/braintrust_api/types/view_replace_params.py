@@ -21,20 +21,18 @@ class ViewReplaceParams(TypedDict, total=False):
     """The id of the object the view applies to"""
 
     object_type: Required[
-        Optional[
-            Literal[
-                "organization",
-                "project",
-                "experiment",
-                "dataset",
-                "prompt",
-                "prompt_session",
-                "group",
-                "role",
-                "org_member",
-                "project_log",
-                "org_project",
-            ]
+        Literal[
+            "organization",
+            "project",
+            "experiment",
+            "dataset",
+            "prompt",
+            "prompt_session",
+            "group",
+            "role",
+            "org_member",
+            "project_log",
+            "org_project",
         ]
     ]
     """The object type that the ACL applies to"""

@@ -2,8 +2,8 @@
 
 from typing import List
 
-from .._models import BaseModel
-from .shared.acl import ACL
+from .acl import ACL
+from ..._models import BaseModel
 
 __all__ = ["ACLBatchUpdateResponse"]
 
