@@ -5,7 +5,9 @@ from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
+from .messages import Messages
 from ..._models import BaseModel
+from .tool_choice_function import ToolChoiceFunction
 
 __all__ = [
     "PromptData",
@@ -17,7 +19,6 @@ __all__ = [
     "OptionsParamsOpenAIModelParamsResponseFormat",
     "OptionsParamsOpenAIModelParamsToolChoice",
     "OptionsParamsOpenAIModelParamsToolChoiceFunction",
-    "OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction",
     "OptionsParamsAnthropicModelParams",
     "OptionsParamsGoogleModelParams",
     "OptionsParamsWindowAIModelParams",
@@ -27,20 +28,6 @@ __all__ = [
     "Prompt",
     "PromptCompletion",
     "PromptChat",
-    "PromptChatMessage",
-    "PromptChatMessageSystem",
-    "PromptChatMessageUser",
-    "PromptChatMessageUserContentArray",
-    "PromptChatMessageUserContentArrayText",
-    "PromptChatMessageUserContentArrayImageURL",
-    "PromptChatMessageUserContentArrayImageURLImageURL",
-    "PromptChatMessageAssistant",
-    "PromptChatMessageAssistantFunctionCall",
-    "PromptChatMessageAssistantToolCall",
-    "PromptChatMessageAssistantToolCallFunction",
-    "PromptChatMessageTool",
-    "PromptChatMessageFunction",
-    "PromptChatMessageFallback",
     "PromptNullableVariant",
     "ToolFunction",
     "ToolFunctionFunction",
@@ -61,12 +48,8 @@ class OptionsParamsOpenAIModelParamsResponseFormat(BaseModel):
     type: Literal["json_object"]
 
 
-class OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction(BaseModel):
-    name: str
-
-
 class OptionsParamsOpenAIModelParamsToolChoiceFunction(BaseModel):
-    function: OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction
+    function: ToolChoiceFunction
 
     type: Literal["function"]
 
@@ -180,111 +163,8 @@ class PromptCompletion(BaseModel):
     type: Literal["completion"]
 
 
-class PromptChatMessageSystem(BaseModel):
-    role: Literal["system"]
-
-    content: Optional[str] = None
-
-    name: Optional[str] = None
-
-
-class PromptChatMessageUserContentArrayText(BaseModel):
-    type: Literal["text"]
-
-    text: Optional[str] = None
-
-
-class PromptChatMessageUserContentArrayImageURLImageURL(BaseModel):
-    url: str
-
-    detail: Optional[Literal["auto", "low", "high"]] = None
-
-
-class PromptChatMessageUserContentArrayImageURL(BaseModel):
-    image_url: PromptChatMessageUserContentArrayImageURLImageURL
-
-    type: Literal["image_url"]
-
-
-PromptChatMessageUserContentArray: TypeAlias = Union[
-    PromptChatMessageUserContentArrayText, PromptChatMessageUserContentArrayImageURL
-]
-
-
-class PromptChatMessageUser(BaseModel):
-    role: Literal["user"]
-
-    content: Union[str, List[PromptChatMessageUserContentArray], None] = None
-
-    name: Optional[str] = None
-
-
-class PromptChatMessageAssistantFunctionCall(BaseModel):
-    arguments: str
-
-    name: str
-
-
-class PromptChatMessageAssistantToolCallFunction(BaseModel):
-    arguments: str
-
-    name: str
-
-
-class PromptChatMessageAssistantToolCall(BaseModel):
-    id: str
-
-    function: PromptChatMessageAssistantToolCallFunction
-
-    type: Literal["function"]
-
-
-class PromptChatMessageAssistant(BaseModel):
-    role: Literal["assistant"]
-
-    content: Optional[str] = None
-
-    function_call: Optional[PromptChatMessageAssistantFunctionCall] = None
-
-    name: Optional[str] = None
-
-    tool_calls: Optional[List[PromptChatMessageAssistantToolCall]] = None
-
-
-class PromptChatMessageTool(BaseModel):
-    role: Literal["tool"]
-
-    content: Optional[str] = None
-
-    tool_call_id: Optional[str] = None
-
-
-class PromptChatMessageFunction(BaseModel):
-    name: str
-
-    role: Literal["function"]
-
-    content: Optional[str] = None
-
-
-class PromptChatMessageFallback(BaseModel):
-    role: Literal["model"]
-
-    content: Optional[str] = None
-
-
-PromptChatMessage: TypeAlias = Union[
-    PromptChatMessageSystem,
-    PromptChatMessageUser,
-    PromptChatMessageAssistant,
-    PromptChatMessageTool,
-    PromptChatMessageFunction,
-    PromptChatMessageFallback,
-]
-
-
 class PromptChat(BaseModel):
-    messages: List[PromptChatMessage]
+    messages: List[Messages]
 
     type: Literal["chat"]
 

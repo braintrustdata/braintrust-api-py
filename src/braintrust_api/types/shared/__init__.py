@@ -1,16 +1,19 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from .acl import ACL as ACL
+from .code import Code as Code
 from .role import Role as Role
+from .task import Task as Task
 from .user import User as User
 from .view import View as View
 from .group import Group as Group
 from .prompt import Prompt as Prompt
+from .scorer import Scorer as Scorer
 from .api_key import APIKey as APIKey
 from .dataset import Dataset as Dataset
 from .project import Project as Project
 from .function import Function as Function
-from .position import Position as Position
+from .messages import Messages as Messages
 from .repo_info import RepoInfo as RepoInfo
 from .view_data import ViewData as ViewData
 from .a_i_secret import AISecret as AISecret
@@ -25,9 +28,11 @@ from .project_score import ProjectScore as ProjectScore
 from .score_summary import ScoreSummary as ScoreSummary
 from .metric_summary import MetricSummary as MetricSummary
 from .experiment_event import ExperimentEvent as ExperimentEvent
+from .prompt_image_url import PromptImageURL as PromptImageURL
 from .view_data_search import ViewDataSearch as ViewDataSearch
 from .path_lookup_filter import PathLookupFilter as PathLookupFilter
 from .project_logs_event import ProjectLogsEvent as ProjectLogsEvent
+from .tool_choice_function import ToolChoiceFunction as ToolChoiceFunction
 from .create_api_key_output import CreateAPIKeyOutput as CreateAPIKeyOutput
 from .feedback_dataset_item import FeedbackDatasetItem as FeedbackDatasetItem
 from .insert_events_response import InsertEventsResponse as InsertEventsResponse
