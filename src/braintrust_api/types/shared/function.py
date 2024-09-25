@@ -6,6 +6,7 @@ from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
+from .position import Position
 from ..._models import BaseModel
 from .prompt_data import PromptData
 
@@ -18,9 +19,6 @@ __all__ = [
     "FunctionDataCodeDataBundle",
     "FunctionDataCodeDataBundleLocation",
     "FunctionDataCodeDataBundleLocationExperiment",
-    "FunctionDataCodeDataBundleLocationExperimentPosition",
-    "FunctionDataCodeDataBundleLocationExperimentPositionType",
-    "FunctionDataCodeDataBundleLocationExperimentPositionScorer",
     "FunctionDataCodeDataBundleLocationFunction",
     "FunctionDataCodeDataBundleRuntimeContext",
     "FunctionDataCodeDataInline",
@@ -35,25 +33,10 @@ class FunctionDataPrompt(BaseModel):
     type: Literal["prompt"]
 
 
-class FunctionDataCodeDataBundleLocationExperimentPositionType(BaseModel):
-    type: Literal["task"]
-
-
-class FunctionDataCodeDataBundleLocationExperimentPositionScorer(BaseModel):
-    index: int
-
-    type: Literal["scorer"]
-
-
-FunctionDataCodeDataBundleLocationExperimentPosition: TypeAlias = Union[
-    FunctionDataCodeDataBundleLocationExperimentPositionType, FunctionDataCodeDataBundleLocationExperimentPositionScorer
-]
-
-
 class FunctionDataCodeDataBundleLocationExperiment(BaseModel):
     eval_name: str
 
-    position: FunctionDataCodeDataBundleLocationExperimentPosition
+    position: Position
 
     type: Literal["experiment"]
 
