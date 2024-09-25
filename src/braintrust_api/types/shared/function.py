@@ -6,92 +6,15 @@ from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
-from .position import Position
+from .code import Code
 from ..._models import BaseModel
 from .prompt_data import PromptData
 
-__all__ = [
-    "Function",
-    "FunctionData",
-    "FunctionDataPrompt",
-    "FunctionDataCode",
-    "FunctionDataCodeData",
-    "FunctionDataCodeDataBundle",
-    "FunctionDataCodeDataBundleLocation",
-    "FunctionDataCodeDataBundleLocationExperiment",
-    "FunctionDataCodeDataBundleLocationFunction",
-    "FunctionDataCodeDataBundleRuntimeContext",
-    "FunctionDataCodeDataInline",
-    "FunctionDataCodeDataInlineRuntimeContext",
-    "FunctionDataGlobal",
-    "FunctionSchema",
-    "Origin",
-]
+__all__ = ["Function", "FunctionData", "FunctionDataPrompt", "FunctionDataGlobal", "FunctionSchema", "Origin"]
 
 
 class FunctionDataPrompt(BaseModel):
     type: Literal["prompt"]
-
-
-class FunctionDataCodeDataBundleLocationExperiment(BaseModel):
-    eval_name: str
-
-    position: Position
-
-    type: Literal["experiment"]
-
-
-class FunctionDataCodeDataBundleLocationFunction(BaseModel):
-    index: int
-
-    type: Literal["function"]
-
-
-FunctionDataCodeDataBundleLocation: TypeAlias = Union[
-    FunctionDataCodeDataBundleLocationExperiment, FunctionDataCodeDataBundleLocationFunction
-]
-
-
-class FunctionDataCodeDataBundleRuntimeContext(BaseModel):
-    runtime: Literal["node", "python"]
-
-    version: str
-
-
-class FunctionDataCodeDataBundle(BaseModel):
-    bundle_id: str
-
-    location: FunctionDataCodeDataBundleLocation
-
-    runtime_context: FunctionDataCodeDataBundleRuntimeContext
-
-    type: Literal["bundle"]
-
-    preview: Optional[str] = None
-    """A preview of the code"""
-
-
-class FunctionDataCodeDataInlineRuntimeContext(BaseModel):
-    runtime: Literal["node", "python"]
-
-    version: str
-
-
-class FunctionDataCodeDataInline(BaseModel):
-    code: str
-
-    runtime_context: FunctionDataCodeDataInlineRuntimeContext
-
-    type: Literal["inline"]
-
-
-FunctionDataCodeData: TypeAlias = Union[FunctionDataCodeDataBundle, FunctionDataCodeDataInline]
-
-
-class FunctionDataCode(BaseModel):
-    data: FunctionDataCodeData
-
-    type: Literal["code"]
 
 
 class FunctionDataGlobal(BaseModel):
@@ -100,7 +23,7 @@ class FunctionDataGlobal(BaseModel):
     type: Literal["global"]
 
 
-FunctionData: TypeAlias = Union[FunctionDataPrompt, FunctionDataCode, FunctionDataGlobal]
+FunctionData: TypeAlias = Union[FunctionDataPrompt, Code, FunctionDataGlobal]
 
 
 class FunctionSchema(BaseModel):

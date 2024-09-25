@@ -4,17 +4,20 @@ from __future__ import annotations
 
 from .shared import (
     ACL as ACL,
+    Code as Code,
     Role as Role,
+    Task as Task,
     User as User,
     View as View,
     Group as Group,
     APIKey as APIKey,
     Prompt as Prompt,
+    Scorer as Scorer,
     Dataset as Dataset,
     Project as Project,
     AISecret as AISecret,
     Function as Function,
-    Position as Position,
+    Messages as Messages,
     RepoInfo as RepoInfo,
     ViewData as ViewData,
     Experiment as Experiment,
@@ -27,11 +30,13 @@ from .shared import (
     ProjectScore as ProjectScore,
     ScoreSummary as ScoreSummary,
     MetricSummary as MetricSummary,
+    PromptImageURL as PromptImageURL,
     ViewDataSearch as ViewDataSearch,
     ExperimentEvent as ExperimentEvent,
     PathLookupFilter as PathLookupFilter,
     ProjectLogsEvent as ProjectLogsEvent,
     CreateAPIKeyOutput as CreateAPIKeyOutput,
+    ToolChoiceFunction as ToolChoiceFunction,
     FeedbackDatasetItem as FeedbackDatasetItem,
     InsertEventsResponse as InsertEventsResponse,
     ProjectScoreCategory as ProjectScoreCategory,
@@ -52,6 +57,7 @@ from .shared import (
     FetchProjectLogsEventsResponse as FetchProjectLogsEventsResponse,
 )
 from .acl_list_params import ACLListParams as ACLListParams
+from .image_url_param import ImageURLParam as ImageURLParam
 from .role_list_params import RoleListParams as RoleListParams
 from .user_list_params import UserListParams as UserListParams
 from .view_list_params import ViewListParams as ViewListParams
