@@ -6,8 +6,9 @@ from typing import Dict, List, Union, Iterable, Optional
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
-from .messages import Messages
-from .tool_choice_function import ToolChoiceFunction
+from .chat_completion_content_part_text import ChatCompletionContentPartText
+from .chat_completion_message_tool_call import ChatCompletionMessageToolCall
+from .chat_completion_content_part_image import ChatCompletionContentPartImage
 
 __all__ = [
     "PromptData",
@@ -19,6 +20,7 @@ __all__ = [
     "OptionsParamsOpenAIModelParamsResponseFormat",
     "OptionsParamsOpenAIModelParamsToolChoice",
     "OptionsParamsOpenAIModelParamsToolChoiceFunction",
+    "OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction",
     "OptionsParamsAnthropicModelParams",
     "OptionsParamsGoogleModelParams",
     "OptionsParamsWindowAIModelParams",
@@ -28,6 +30,15 @@ __all__ = [
     "Prompt",
     "PromptCompletion",
     "PromptChat",
+    "PromptChatMessage",
+    "PromptChatMessageSystem",
+    "PromptChatMessageUser",
+    "PromptChatMessageUserContentArray",
+    "PromptChatMessageAssistant",
+    "PromptChatMessageAssistantFunctionCall",
+    "PromptChatMessageTool",
+    "PromptChatMessageFunction",
+    "PromptChatMessageFallback",
     "PromptNullableVariant",
     "ToolFunction",
     "ToolFunctionFunction",
@@ -48,8 +59,12 @@ class OptionsParamsOpenAIModelParamsResponseFormat(TypedDict, total=False):
     type: Required[Literal["json_object"]]
 
 
+class OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction(TypedDict, total=False):
+    name: Required[str]
+
+
 class OptionsParamsOpenAIModelParamsToolChoiceFunction(TypedDict, total=False):
-    function: Required[ToolChoiceFunction]
+    function: Required[OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction]
 
     type: Required[Literal["function"]]
 
@@ -163,8 +178,77 @@ class PromptCompletion(TypedDict, total=False):
     type: Required[Literal["completion"]]
 
 
+class PromptChatMessageSystem(TypedDict, total=False):
+    role: Required[Literal["system"]]
+
+    content: str
+
+    name: str
+
+
+PromptChatMessageUserContentArray: TypeAlias = Union[ChatCompletionContentPartText, ChatCompletionContentPartImage]
+
+
+class PromptChatMessageUser(TypedDict, total=False):
+    role: Required[Literal["user"]]
+
+    content: Union[str, Iterable[PromptChatMessageUserContentArray]]
+
+    name: str
+
+
+class PromptChatMessageAssistantFunctionCall(TypedDict, total=False):
+    arguments: Required[str]
+
+    name: Required[str]
+
+
+class PromptChatMessageAssistant(TypedDict, total=False):
+    role: Required[Literal["assistant"]]
+
+    content: Optional[str]
+
+    function_call: Optional[PromptChatMessageAssistantFunctionCall]
+
+    name: Optional[str]
+
+    tool_calls: Optional[Iterable[ChatCompletionMessageToolCall]]
+
+
+class PromptChatMessageTool(TypedDict, total=False):
+    role: Required[Literal["tool"]]
+
+    content: str
+
+    tool_call_id: str
+
+
+class PromptChatMessageFunction(TypedDict, total=False):
+    name: Required[str]
+
+    role: Required[Literal["function"]]
+
+    content: str
+
+
+class PromptChatMessageFallback(TypedDict, total=False):
+    role: Required[Literal["model"]]
+
+    content: Optional[str]
+
+
+PromptChatMessage: TypeAlias = Union[
+    PromptChatMessageSystem,
+    PromptChatMessageUser,
+    PromptChatMessageAssistant,
+    PromptChatMessageTool,
+    PromptChatMessageFunction,
+    PromptChatMessageFallback,
+]
+
+
 class PromptChat(TypedDict, total=False):
-    messages: Required[Iterable[Messages]]
+    messages: Required[Iterable[PromptChatMessage]]
 
     type: Required[Literal["chat"]]
 

@@ -5,10 +5,16 @@ from typing_extensions import Literal
 
 from ..._models import BaseModel
 
-__all__ = ["PromptImageURL"]
+__all__ = ["ChatCompletionContentPartImage", "ImageURL"]
 
 
-class PromptImageURL(BaseModel):
+class ImageURL(BaseModel):
     url: str
 
     detail: Optional[Literal["auto", "low", "high"]] = None
+
+
+class ChatCompletionContentPartImage(BaseModel):
+    image_url: ImageURL
+
+    type: Literal["image_url"]

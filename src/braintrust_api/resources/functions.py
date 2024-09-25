@@ -30,7 +30,6 @@ from .._response import (
 from ..pagination import SyncListObjects, AsyncListObjects
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.function import Function
-from ..types.shared_params.messages import Messages
 from ..types.shared_params.prompt_data import PromptData
 
 __all__ = ["FunctionsResource", "AsyncFunctionsResource"]
@@ -357,7 +356,7 @@ class FunctionsResource(SyncAPIResource):
         function_id: str,
         *,
         input: object | NotGiven = NOT_GIVEN,
-        messages: Iterable[Messages] | NotGiven = NOT_GIVEN,
+        messages: Iterable[function_invoke_params.Message] | NotGiven = NOT_GIVEN,
         mode: Optional[Literal["auto", "parallel"]] | NotGiven = NOT_GIVEN,
         parent: function_invoke_params.Parent | NotGiven = NOT_GIVEN,
         stream: Optional[bool] | NotGiven = NOT_GIVEN,
@@ -811,7 +810,7 @@ class AsyncFunctionsResource(AsyncAPIResource):
         function_id: str,
         *,
         input: object | NotGiven = NOT_GIVEN,
-        messages: Iterable[Messages] | NotGiven = NOT_GIVEN,
+        messages: Iterable[function_invoke_params.Message] | NotGiven = NOT_GIVEN,
         mode: Optional[Literal["auto", "parallel"]] | NotGiven = NOT_GIVEN,
         parent: function_invoke_params.Parent | NotGiven = NOT_GIVEN,
         stream: Optional[bool] | NotGiven = NOT_GIVEN,

@@ -5,13 +5,17 @@ from __future__ import annotations
 from typing import List, Union, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from .shared_params.code import Code
+from ..types import function_update_params
 from .shared_params.prompt_data import PromptData
 
 __all__ = [
     "FunctionUpdateParams",
     "FunctionData",
     "FunctionDataPrompt",
+    "FunctionDataCode",
+    "FunctionDataCodeData",
+    "FunctionDataCodeDataInline",
+    "FunctionDataCodeDataInlineRuntimeContext",
     "FunctionDataGlobal",
     "FunctionDataNullableVariant",
 ]
@@ -37,6 +41,29 @@ class FunctionDataPrompt(TypedDict, total=False):
     type: Required[Literal["prompt"]]
 
 
+class FunctionDataCodeDataInlineRuntimeContext(TypedDict, total=False):
+    runtime: Required[Literal["node", "python"]]
+
+    version: Required[str]
+
+
+class FunctionDataCodeDataInline(TypedDict, total=False):
+    code: Required[str]
+
+    runtime_context: Required[FunctionDataCodeDataInlineRuntimeContext]
+
+    type: Required[Literal["inline"]]
+
+
+FunctionDataCodeData: TypeAlias = Union[function_update_params.FunctionDataCodeDataBundle, FunctionDataCodeDataInline]
+
+
+class FunctionDataCode(TypedDict, total=False):
+    data: Required[FunctionDataCodeData]
+
+    type: Required[Literal["code"]]
+
+
 class FunctionDataGlobal(TypedDict, total=False):
     name: Required[str]
 
@@ -47,4 +74,6 @@ class FunctionDataNullableVariant(TypedDict, total=False):
     pass
 
 
-FunctionData: TypeAlias = Union[FunctionDataPrompt, Code, FunctionDataGlobal, Optional[FunctionDataNullableVariant]]
+FunctionData: TypeAlias = Union[
+    FunctionDataPrompt, FunctionDataCode, FunctionDataGlobal, Optional[FunctionDataNullableVariant]
+]

@@ -6,15 +6,54 @@ from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
-from .code import Code
 from ..._models import BaseModel
+from .code_bundle import CodeBundle
 from .prompt_data import PromptData
 
-__all__ = ["Function", "FunctionData", "FunctionDataPrompt", "FunctionDataGlobal", "FunctionSchema", "Origin"]
+__all__ = [
+    "Function",
+    "FunctionData",
+    "FunctionDataPrompt",
+    "FunctionDataCode",
+    "FunctionDataCodeData",
+    "FunctionDataCodeDataBundle",
+    "FunctionDataCodeDataInline",
+    "FunctionDataCodeDataInlineRuntimeContext",
+    "FunctionDataGlobal",
+    "FunctionSchema",
+    "Origin",
+]
 
 
 class FunctionDataPrompt(BaseModel):
     type: Literal["prompt"]
+
+
+class FunctionDataCodeDataBundle(CodeBundle):
+    type: Literal["bundle"]
+
+
+class FunctionDataCodeDataInlineRuntimeContext(BaseModel):
+    runtime: Literal["node", "python"]
+
+    version: str
+
+
+class FunctionDataCodeDataInline(BaseModel):
+    code: str
+
+    runtime_context: FunctionDataCodeDataInlineRuntimeContext
+
+    type: Literal["inline"]
+
+
+FunctionDataCodeData: TypeAlias = Union[FunctionDataCodeDataBundle, FunctionDataCodeDataInline]
+
+
+class FunctionDataCode(BaseModel):
+    data: FunctionDataCodeData
+
+    type: Literal["code"]
 
 
 class FunctionDataGlobal(BaseModel):
@@ -23,7 +62,7 @@ class FunctionDataGlobal(BaseModel):
     type: Literal["global"]
 
 
-FunctionData: TypeAlias = Union[FunctionDataPrompt, Code, FunctionDataGlobal]
+FunctionData: TypeAlias = Union[FunctionDataPrompt, FunctionDataCode, FunctionDataGlobal]
 
 
 class FunctionSchema(BaseModel):
@@ -36,21 +75,19 @@ class Origin(BaseModel):
     object_id: str
     """Id of the object the function is originating from"""
 
-    object_type: Optional[
-        Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ]
-    ] = None
+    object_type: Literal[
+        "organization",
+        "project",
+        "experiment",
+        "dataset",
+        "prompt",
+        "prompt_session",
+        "group",
+        "role",
+        "org_member",
+        "project_log",
+        "org_project",
+    ]
     """The object type that the ACL applies to"""
 
     internal: Optional[bool] = None

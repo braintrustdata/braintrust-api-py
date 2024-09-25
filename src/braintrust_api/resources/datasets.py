@@ -461,9 +461,9 @@ class DatasetsResource(SyncAPIResource):
         cursor: Optional[str] | NotGiven = NOT_GIVEN,
         filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
-        max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
-        max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
-        version: Optional[str] | NotGiven = NOT_GIVEN,
+        max_root_span_id: str | NotGiven = NOT_GIVEN,
+        max_xact_id: str | NotGiven = NOT_GIVEN,
+        version: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1068,9 +1068,9 @@ class AsyncDatasetsResource(AsyncAPIResource):
         cursor: Optional[str] | NotGiven = NOT_GIVEN,
         filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
-        max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
-        max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
-        version: Optional[str] | NotGiven = NOT_GIVEN,
+        max_root_span_id: str | NotGiven = NOT_GIVEN,
+        max_xact_id: str | NotGiven = NOT_GIVEN,
+        version: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

@@ -9,7 +9,7 @@ import pytest
 
 from tests.utils import assert_matches_type
 from braintrust_api import Braintrust, AsyncBraintrust
-from braintrust_api.types.organizations import MemberUpdateResponse
+from braintrust_api.types.shared import PatchOrganizationMembersOutput
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -20,7 +20,7 @@ class TestMembers:
     @parametrize
     def test_method_update(self, client: Braintrust) -> None:
         member = client.organizations.members.update()
-        assert_matches_type(MemberUpdateResponse, member, path=["response"])
+        assert_matches_type(PatchOrganizationMembersOutput, member, path=["response"])
 
     @parametrize
     def test_method_update_with_all_params(self, client: Braintrust) -> None:
@@ -53,7 +53,7 @@ class TestMembers:
                 ],
             },
         )
-        assert_matches_type(MemberUpdateResponse, member, path=["response"])
+        assert_matches_type(PatchOrganizationMembersOutput, member, path=["response"])
 
     @parametrize
     def test_raw_response_update(self, client: Braintrust) -> None:
@@ -62,7 +62,7 @@ class TestMembers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         member = response.parse()
-        assert_matches_type(MemberUpdateResponse, member, path=["response"])
+        assert_matches_type(PatchOrganizationMembersOutput, member, path=["response"])
 
     @parametrize
     def test_streaming_response_update(self, client: Braintrust) -> None:
@@ -71,7 +71,7 @@ class TestMembers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             member = response.parse()
-            assert_matches_type(MemberUpdateResponse, member, path=["response"])
+            assert_matches_type(PatchOrganizationMembersOutput, member, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -82,7 +82,7 @@ class TestAsyncMembers:
     @parametrize
     async def test_method_update(self, async_client: AsyncBraintrust) -> None:
         member = await async_client.organizations.members.update()
-        assert_matches_type(MemberUpdateResponse, member, path=["response"])
+        assert_matches_type(PatchOrganizationMembersOutput, member, path=["response"])
 
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncBraintrust) -> None:
@@ -115,7 +115,7 @@ class TestAsyncMembers:
                 ],
             },
         )
-        assert_matches_type(MemberUpdateResponse, member, path=["response"])
+        assert_matches_type(PatchOrganizationMembersOutput, member, path=["response"])
 
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncBraintrust) -> None:
@@ -124,7 +124,7 @@ class TestAsyncMembers:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         member = await response.parse()
-        assert_matches_type(MemberUpdateResponse, member, path=["response"])
+        assert_matches_type(PatchOrganizationMembersOutput, member, path=["response"])
 
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncBraintrust) -> None:
@@ -133,6 +133,6 @@ class TestAsyncMembers:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             member = await response.parse()
-            assert_matches_type(MemberUpdateResponse, member, path=["response"])
+            assert_matches_type(PatchOrganizationMembersOutput, member, path=["response"])
 
         assert cast(Any, response.is_closed) is True

@@ -4,8 +4,12 @@
 from braintrust_api.types import (
     AISecret,
     ACL,
+    ACLBatchUpdateResponse,
     APIKey,
-    Code,
+    ChatCompletionContentPartImage,
+    ChatCompletionContentPartText,
+    ChatCompletionMessageToolCall,
+    CodeBundle,
     CreateAPIKeyOutput,
     CrossObjectInsertResponse,
     DataSummary,
@@ -29,26 +33,24 @@ from braintrust_api.types import (
     InsertExperimentEventReplace,
     InsertProjectLogsEventMerge,
     InsertProjectLogsEventReplace,
-    Messages,
     MetricSummary,
+    OnlineScoreConfig,
     Organization,
+    PatchOrganizationMembersOutput,
     PathLookupFilter,
     Project,
     ProjectLogsEvent,
     ProjectScore,
     ProjectScoreCategory,
+    ProjectSettings,
     ProjectTag,
     Prompt,
     PromptData,
-    PromptImageURL,
     RepoInfo,
     Role,
     ScoreSummary,
-    Scorer,
     SummarizeDatasetResponse,
     SummarizeExperimentResponse,
-    Task,
-    ToolChoiceFunction,
     User,
     View,
     ViewData,
@@ -153,19 +155,13 @@ Methods:
 
 # ACLs
 
-Types:
-
-```python
-from braintrust_api.types import ACLBatchUpdateResponse
-```
-
 Methods:
 
 - <code title="post /v1/acl">client.acls.<a href="./src/braintrust_api/resources/acls.py">create</a>(\*\*<a href="src/braintrust_api/types/acl_create_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/acl.py">ACL</a></code>
 - <code title="get /v1/acl/{acl_id}">client.acls.<a href="./src/braintrust_api/resources/acls.py">retrieve</a>(acl_id) -> <a href="./src/braintrust_api/types/shared/acl.py">ACL</a></code>
 - <code title="get /v1/acl">client.acls.<a href="./src/braintrust_api/resources/acls.py">list</a>(\*\*<a href="src/braintrust_api/types/acl_list_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/acl.py">SyncListObjects[ACL]</a></code>
 - <code title="delete /v1/acl/{acl_id}">client.acls.<a href="./src/braintrust_api/resources/acls.py">delete</a>(acl_id) -> <a href="./src/braintrust_api/types/shared/acl.py">ACL</a></code>
-- <code title="post /v1/acl/batch-update">client.acls.<a href="./src/braintrust_api/resources/acls.py">batch_update</a>(\*\*<a href="src/braintrust_api/types/acl_batch_update_params.py">params</a>) -> <a href="./src/braintrust_api/types/acl_batch_update_response.py">ACLBatchUpdateResponse</a></code>
+- <code title="post /v1/acl/batch-update">client.acls.<a href="./src/braintrust_api/resources/acls.py">batch_update</a>(\*\*<a href="src/braintrust_api/types/acl_batch_update_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/acl_batch_update_response.py">ACLBatchUpdateResponse</a></code>
 - <code title="delete /v1/acl">client.acls.<a href="./src/braintrust_api/resources/acls.py">find_and_delete</a>(\*\*<a href="src/braintrust_api/types/acl_find_and_delete_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/acl.py">ACL</a></code>
 
 # Users
@@ -202,7 +198,7 @@ Methods:
 Types:
 
 ```python
-from braintrust_api.types import ImageURL, FunctionInvokeResponse
+from braintrust_api.types import FunctionInvokeResponse
 ```
 
 Methods:
@@ -237,15 +233,9 @@ Methods:
 
 ## Members
 
-Types:
-
-```python
-from braintrust_api.types.organizations import MemberUpdateResponse
-```
-
 Methods:
 
-- <code title="patch /v1/organization/members">client.organizations.members.<a href="./src/braintrust_api/resources/organizations/members.py">update</a>(\*\*<a href="src/braintrust_api/types/organizations/member_update_params.py">params</a>) -> <a href="./src/braintrust_api/types/organizations/member_update_response.py">MemberUpdateResponse</a></code>
+- <code title="patch /v1/organization/members">client.organizations.members.<a href="./src/braintrust_api/resources/organizations/members.py">update</a>(\*\*<a href="src/braintrust_api/types/organizations/member_update_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/patch_organization_members_output.py">PatchOrganizationMembersOutput</a></code>
 
 # APIKeys
 

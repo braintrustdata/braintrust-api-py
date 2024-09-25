@@ -20,7 +20,7 @@ class ProjectScoreUpdateParams(TypedDict, total=False):
     name: Optional[str]
     """Name of the project score"""
 
-    score_type: Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]]
+    score_type: Literal["slider", "categorical", "weighted", "minimum", "online"]
     """The type of the configured score"""
 
 

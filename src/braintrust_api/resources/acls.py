@@ -29,7 +29,7 @@ from .._response import (
 from ..pagination import SyncListObjects, AsyncListObjects
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.acl import ACL
-from ..types.acl_batch_update_response import ACLBatchUpdateResponse
+from ..types.shared.acl_batch_update_response import ACLBatchUpdateResponse
 
 __all__ = ["ACLsResource", "AsyncACLsResource"]
 
@@ -58,40 +58,36 @@ class ACLsResource(SyncAPIResource):
         self,
         *,
         object_id: str,
-        object_type: Optional[
-            Literal[
-                "organization",
-                "project",
-                "experiment",
-                "dataset",
-                "prompt",
-                "prompt_session",
-                "group",
-                "role",
-                "org_member",
-                "project_log",
-                "org_project",
-            ]
+        object_type: Literal[
+            "organization",
+            "project",
+            "experiment",
+            "dataset",
+            "prompt",
+            "prompt_session",
+            "group",
+            "role",
+            "org_member",
+            "project_log",
+            "org_project",
         ],
         group_id: Optional[str] | NotGiven = NOT_GIVEN,
-        permission: Optional[
-            Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
+        permission: Literal[
+            "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
         ]
         | NotGiven = NOT_GIVEN,
-        restrict_object_type: Optional[
-            Literal[
-                "organization",
-                "project",
-                "experiment",
-                "dataset",
-                "prompt",
-                "prompt_session",
-                "group",
-                "role",
-                "org_member",
-                "project_log",
-                "org_project",
-            ]
+        restrict_object_type: Literal[
+            "organization",
+            "project",
+            "experiment",
+            "dataset",
+            "prompt",
+            "prompt_session",
+            "group",
+            "role",
+            "org_member",
+            "project_log",
+            "org_project",
         ]
         | NotGiven = NOT_GIVEN,
         role_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -116,11 +112,12 @@ class ACLsResource(SyncAPIResource):
           group_id: Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
               be provided
 
-          permission: Permission the ACL grants. Exactly one of `permission` and `role_id` will be
-              provided
+          permission: Each permission permits a certain type of operation on an object in the system
 
-          restrict_object_type: When setting a permission directly, optionally restricts the permission grant to
-              just the specified object type. Cannot be set alongside a `role_id`.
+              Permissions can be assigned to to objects on an individual basis, or grouped
+              into roles
+
+          restrict_object_type: The object type that the ACL applies to
 
           role_id: Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
               provided
@@ -195,20 +192,18 @@ class ACLsResource(SyncAPIResource):
         self,
         *,
         object_id: str,
-        object_type: Optional[
-            Literal[
-                "organization",
-                "project",
-                "experiment",
-                "dataset",
-                "prompt",
-                "prompt_session",
-                "group",
-                "role",
-                "org_member",
-                "project_log",
-                "org_project",
-            ]
+        object_type: Literal[
+            "organization",
+            "project",
+            "experiment",
+            "dataset",
+            "prompt",
+            "prompt_session",
+            "group",
+            "role",
+            "org_member",
+            "project_log",
+            "org_project",
         ],
         ending_before: str | NotGiven = NOT_GIVEN,
         ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
@@ -382,40 +377,36 @@ class ACLsResource(SyncAPIResource):
         self,
         *,
         object_id: str,
-        object_type: Optional[
-            Literal[
-                "organization",
-                "project",
-                "experiment",
-                "dataset",
-                "prompt",
-                "prompt_session",
-                "group",
-                "role",
-                "org_member",
-                "project_log",
-                "org_project",
-            ]
+        object_type: Literal[
+            "organization",
+            "project",
+            "experiment",
+            "dataset",
+            "prompt",
+            "prompt_session",
+            "group",
+            "role",
+            "org_member",
+            "project_log",
+            "org_project",
         ],
         group_id: Optional[str] | NotGiven = NOT_GIVEN,
-        permission: Optional[
-            Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
+        permission: Literal[
+            "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
         ]
         | NotGiven = NOT_GIVEN,
-        restrict_object_type: Optional[
-            Literal[
-                "organization",
-                "project",
-                "experiment",
-                "dataset",
-                "prompt",
-                "prompt_session",
-                "group",
-                "role",
-                "org_member",
-                "project_log",
-                "org_project",
-            ]
+        restrict_object_type: Literal[
+            "organization",
+            "project",
+            "experiment",
+            "dataset",
+            "prompt",
+            "prompt_session",
+            "group",
+            "role",
+            "org_member",
+            "project_log",
+            "org_project",
         ]
         | NotGiven = NOT_GIVEN,
         role_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -438,11 +429,12 @@ class ACLsResource(SyncAPIResource):
           group_id: Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
               be provided
 
-          permission: Permission the ACL grants. Exactly one of `permission` and `role_id` will be
-              provided
+          permission: Each permission permits a certain type of operation on an object in the system
 
-          restrict_object_type: When setting a permission directly, optionally restricts the permission grant to
-              just the specified object type. Cannot be set alongside a `role_id`.
+              Permissions can be assigned to to objects on an individual basis, or grouped
+              into roles
+
+          restrict_object_type: The object type that the ACL applies to
 
           role_id: Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
               provided
@@ -503,40 +495,36 @@ class AsyncACLsResource(AsyncAPIResource):
         self,
         *,
         object_id: str,
-        object_type: Optional[
-            Literal[
-                "organization",
-                "project",
-                "experiment",
-                "dataset",
-                "prompt",
-                "prompt_session",
-                "group",
-                "role",
-                "org_member",
-                "project_log",
-                "org_project",
-            ]
+        object_type: Literal[
+            "organization",
+            "project",
+            "experiment",
+            "dataset",
+            "prompt",
+            "prompt_session",
+            "group",
+            "role",
+            "org_member",
+            "project_log",
+            "org_project",
         ],
         group_id: Optional[str] | NotGiven = NOT_GIVEN,
-        permission: Optional[
-            Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
+        permission: Literal[
+            "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
         ]
         | NotGiven = NOT_GIVEN,
-        restrict_object_type: Optional[
-            Literal[
-                "organization",
-                "project",
-                "experiment",
-                "dataset",
-                "prompt",
-                "prompt_session",
-                "group",
-                "role",
-                "org_member",
-                "project_log",
-                "org_project",
-            ]
+        restrict_object_type: Literal[
+            "organization",
+            "project",
+            "experiment",
+            "dataset",
+            "prompt",
+            "prompt_session",
+            "group",
+            "role",
+            "org_member",
+            "project_log",
+            "org_project",
         ]
         | NotGiven = NOT_GIVEN,
         role_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -561,11 +549,12 @@ class AsyncACLsResource(AsyncAPIResource):
           group_id: Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
               be provided
 
-          permission: Permission the ACL grants. Exactly one of `permission` and `role_id` will be
-              provided
+          permission: Each permission permits a certain type of operation on an object in the system
 
-          restrict_object_type: When setting a permission directly, optionally restricts the permission grant to
-              just the specified object type. Cannot be set alongside a `role_id`.
+              Permissions can be assigned to to objects on an individual basis, or grouped
+              into roles
+
+          restrict_object_type: The object type that the ACL applies to
 
           role_id: Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
               provided
@@ -640,20 +629,18 @@ class AsyncACLsResource(AsyncAPIResource):
         self,
         *,
         object_id: str,
-        object_type: Optional[
-            Literal[
-                "organization",
-                "project",
-                "experiment",
-                "dataset",
-                "prompt",
-                "prompt_session",
-                "group",
-                "role",
-                "org_member",
-                "project_log",
-                "org_project",
-            ]
+        object_type: Literal[
+            "organization",
+            "project",
+            "experiment",
+            "dataset",
+            "prompt",
+            "prompt_session",
+            "group",
+            "role",
+            "org_member",
+            "project_log",
+            "org_project",
         ],
         ending_before: str | NotGiven = NOT_GIVEN,
         ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
@@ -827,40 +814,36 @@ class AsyncACLsResource(AsyncAPIResource):
         self,
         *,
         object_id: str,
-        object_type: Optional[
-            Literal[
-                "organization",
-                "project",
-                "experiment",
-                "dataset",
-                "prompt",
-                "prompt_session",
-                "group",
-                "role",
-                "org_member",
-                "project_log",
-                "org_project",
-            ]
+        object_type: Literal[
+            "organization",
+            "project",
+            "experiment",
+            "dataset",
+            "prompt",
+            "prompt_session",
+            "group",
+            "role",
+            "org_member",
+            "project_log",
+            "org_project",
         ],
         group_id: Optional[str] | NotGiven = NOT_GIVEN,
-        permission: Optional[
-            Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
+        permission: Literal[
+            "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
         ]
         | NotGiven = NOT_GIVEN,
-        restrict_object_type: Optional[
-            Literal[
-                "organization",
-                "project",
-                "experiment",
-                "dataset",
-                "prompt",
-                "prompt_session",
-                "group",
-                "role",
-                "org_member",
-                "project_log",
-                "org_project",
-            ]
+        restrict_object_type: Literal[
+            "organization",
+            "project",
+            "experiment",
+            "dataset",
+            "prompt",
+            "prompt_session",
+            "group",
+            "role",
+            "org_member",
+            "project_log",
+            "org_project",
         ]
         | NotGiven = NOT_GIVEN,
         role_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -883,11 +866,12 @@ class AsyncACLsResource(AsyncAPIResource):
           group_id: Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
               be provided
 
-          permission: Permission the ACL grants. Exactly one of `permission` and `role_id` will be
-              provided
+          permission: Each permission permits a certain type of operation on an object in the system
 
-          restrict_object_type: When setting a permission directly, optionally restricts the permission grant to
-              just the specified object type. Cannot be set alongside a `role_id`.
+              Permissions can be assigned to to objects on an individual basis, or grouped
+              into roles
+
+          restrict_object_type: The object type that the ACL applies to
 
           role_id: Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
               provided

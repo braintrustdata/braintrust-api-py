@@ -43,39 +43,6 @@ class AddACL(TypedDict, total=False):
     """The id of the object the ACL applies to"""
 
     object_type: Required[
-        Optional[
-            Literal[
-                "organization",
-                "project",
-                "experiment",
-                "dataset",
-                "prompt",
-                "prompt_session",
-                "group",
-                "role",
-                "org_member",
-                "project_log",
-                "org_project",
-            ]
-        ]
-    ]
-    """The object type that the ACL applies to"""
-
-    group_id: Optional[str]
-    """Id of the group the ACL applies to.
-
-    Exactly one of `user_id` and `group_id` will be provided
-    """
-
-    permission: Optional[
-        Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
-    ]
-    """Permission the ACL grants.
-
-    Exactly one of `permission` and `role_id` will be provided
-    """
-
-    restrict_object_type: Optional[
         Literal[
             "organization",
             "project",
@@ -90,10 +57,35 @@ class AddACL(TypedDict, total=False):
             "org_project",
         ]
     ]
+    """The object type that the ACL applies to"""
+
+    group_id: Optional[str]
+    """Id of the group the ACL applies to.
+
+    Exactly one of `user_id` and `group_id` will be provided
     """
-    When setting a permission directly, optionally restricts the permission grant to
-    just the specified object type. Cannot be set alongside a `role_id`.
+
+    permission: Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
+    """Each permission permits a certain type of operation on an object in the system
+
+    Permissions can be assigned to to objects on an individual basis, or grouped
+    into roles
     """
+
+    restrict_object_type: Literal[
+        "organization",
+        "project",
+        "experiment",
+        "dataset",
+        "prompt",
+        "prompt_session",
+        "group",
+        "role",
+        "org_member",
+        "project_log",
+        "org_project",
+    ]
+    """The object type that the ACL applies to"""
 
     role_id: Optional[str]
     """Id of the role the ACL grants.
@@ -113,39 +105,6 @@ class RemoveACL(TypedDict, total=False):
     """The id of the object the ACL applies to"""
 
     object_type: Required[
-        Optional[
-            Literal[
-                "organization",
-                "project",
-                "experiment",
-                "dataset",
-                "prompt",
-                "prompt_session",
-                "group",
-                "role",
-                "org_member",
-                "project_log",
-                "org_project",
-            ]
-        ]
-    ]
-    """The object type that the ACL applies to"""
-
-    group_id: Optional[str]
-    """Id of the group the ACL applies to.
-
-    Exactly one of `user_id` and `group_id` will be provided
-    """
-
-    permission: Optional[
-        Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
-    ]
-    """Permission the ACL grants.
-
-    Exactly one of `permission` and `role_id` will be provided
-    """
-
-    restrict_object_type: Optional[
         Literal[
             "organization",
             "project",
@@ -160,10 +119,35 @@ class RemoveACL(TypedDict, total=False):
             "org_project",
         ]
     ]
+    """The object type that the ACL applies to"""
+
+    group_id: Optional[str]
+    """Id of the group the ACL applies to.
+
+    Exactly one of `user_id` and `group_id` will be provided
     """
-    When setting a permission directly, optionally restricts the permission grant to
-    just the specified object type. Cannot be set alongside a `role_id`.
+
+    permission: Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
+    """Each permission permits a certain type of operation on an object in the system
+
+    Permissions can be assigned to to objects on an individual basis, or grouped
+    into roles
     """
+
+    restrict_object_type: Literal[
+        "organization",
+        "project",
+        "experiment",
+        "dataset",
+        "prompt",
+        "prompt_session",
+        "group",
+        "role",
+        "org_member",
+        "project_log",
+        "org_project",
+    ]
+    """The object type that the ACL applies to"""
 
     role_id: Optional[str]
     """Id of the role the ACL grants.
