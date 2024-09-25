@@ -31,6 +31,7 @@ from braintrust_api.types import (
     MetricSummary,
     Organization,
     PathLookupFilter,
+    Position,
     Project,
     ProjectLogsEvent,
     ProjectScore,

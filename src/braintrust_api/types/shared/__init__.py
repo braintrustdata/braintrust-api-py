@@ -10,6 +10,7 @@ from .api_key import APIKey as APIKey
 from .dataset import Dataset as Dataset
 from .project import Project as Project
 from .function import Function as Function
+from .position import Position as Position
 from .repo_info import RepoInfo as RepoInfo
 from .view_data import ViewData as ViewData
 from .a_i_secret import AISecret as AISecret
