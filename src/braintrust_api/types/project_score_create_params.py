@@ -17,7 +17,7 @@ class ProjectScoreCreateParams(TypedDict, total=False):
     project_id: Required[str]
     """Unique identifier for the project that the project score belongs under"""
 
-    score_type: Required[Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]]]
+    score_type: Required[Literal["slider", "categorical", "weighted", "minimum", "online"]]
     """The type of the configured score"""
 
     categories: Categories
