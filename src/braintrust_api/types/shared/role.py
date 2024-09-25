@@ -10,9 +10,7 @@ __all__ = ["Role", "MemberPermission"]
 
 
 class MemberPermission(BaseModel):
-    permission: Optional[
-        Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
-    ] = None
+    permission: Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
     """Each permission permits a certain type of operation on an object in the system
 
     Permissions can be assigned to to objects on an individual basis, or grouped

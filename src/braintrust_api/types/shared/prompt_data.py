@@ -5,9 +5,10 @@ from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
-from .messages import Messages
 from ..._models import BaseModel
-from .tool_choice_function import ToolChoiceFunction
+from .chat_completion_content_part_text import ChatCompletionContentPartText
+from .chat_completion_message_tool_call import ChatCompletionMessageToolCall
+from .chat_completion_content_part_image import ChatCompletionContentPartImage
 
 __all__ = [
     "PromptData",
@@ -19,6 +20,7 @@ __all__ = [
     "OptionsParamsOpenAIModelParamsResponseFormat",
     "OptionsParamsOpenAIModelParamsToolChoice",
     "OptionsParamsOpenAIModelParamsToolChoiceFunction",
+    "OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction",
     "OptionsParamsAnthropicModelParams",
     "OptionsParamsGoogleModelParams",
     "OptionsParamsWindowAIModelParams",
@@ -28,6 +30,15 @@ __all__ = [
     "Prompt",
     "PromptCompletion",
     "PromptChat",
+    "PromptChatMessage",
+    "PromptChatMessageSystem",
+    "PromptChatMessageUser",
+    "PromptChatMessageUserContentArray",
+    "PromptChatMessageAssistant",
+    "PromptChatMessageAssistantFunctionCall",
+    "PromptChatMessageTool",
+    "PromptChatMessageFunction",
+    "PromptChatMessageFallback",
     "PromptNullableVariant",
     "ToolFunction",
     "ToolFunctionFunction",
@@ -48,8 +59,12 @@ class OptionsParamsOpenAIModelParamsResponseFormat(BaseModel):
     type: Literal["json_object"]
 
 
+class OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction(BaseModel):
+    name: str
+
+
 class OptionsParamsOpenAIModelParamsToolChoiceFunction(BaseModel):
-    function: ToolChoiceFunction
+    function: OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction
 
     type: Literal["function"]
 
@@ -163,8 +178,77 @@ class PromptCompletion(BaseModel):
     type: Literal["completion"]
 
 
+class PromptChatMessageSystem(BaseModel):
+    role: Literal["system"]
+
+    content: Optional[str] = None
+
+    name: Optional[str] = None
+
+
+PromptChatMessageUserContentArray: TypeAlias = Union[ChatCompletionContentPartText, ChatCompletionContentPartImage]
+
+
+class PromptChatMessageUser(BaseModel):
+    role: Literal["user"]
+
+    content: Union[str, List[PromptChatMessageUserContentArray], None] = None
+
+    name: Optional[str] = None
+
+
+class PromptChatMessageAssistantFunctionCall(BaseModel):
+    arguments: str
+
+    name: str
+
+
+class PromptChatMessageAssistant(BaseModel):
+    role: Literal["assistant"]
+
+    content: Optional[str] = None
+
+    function_call: Optional[PromptChatMessageAssistantFunctionCall] = None
+
+    name: Optional[str] = None
+
+    tool_calls: Optional[List[ChatCompletionMessageToolCall]] = None
+
+
+class PromptChatMessageTool(BaseModel):
+    role: Literal["tool"]
+
+    content: Optional[str] = None
+
+    tool_call_id: Optional[str] = None
+
+
+class PromptChatMessageFunction(BaseModel):
+    name: str
+
+    role: Literal["function"]
+
+    content: Optional[str] = None
+
+
+class PromptChatMessageFallback(BaseModel):
+    role: Literal["model"]
+
+    content: Optional[str] = None
+
+
+PromptChatMessage: TypeAlias = Union[
+    PromptChatMessageSystem,
+    PromptChatMessageUser,
+    PromptChatMessageAssistant,
+    PromptChatMessageTool,
+    PromptChatMessageFunction,
+    PromptChatMessageFallback,
+]
+
+
 class PromptChat(BaseModel):
-    messages: List[Messages]
+    messages: List[PromptChatMessage]
 
     type: Literal["chat"]
 

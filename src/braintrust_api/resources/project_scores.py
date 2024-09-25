@@ -58,7 +58,7 @@ class ProjectScoresResource(SyncAPIResource):
         *,
         name: str,
         project_id: str,
-        score_type: Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]],
+        score_type: Literal["slider", "categorical", "weighted", "minimum", "online"],
         categories: project_score_create_params.Categories | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -153,7 +153,7 @@ class ProjectScoresResource(SyncAPIResource):
         categories: project_score_update_params.Categories | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
-        score_type: Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]] | NotGiven = NOT_GIVEN,
+        score_type: Literal["slider", "categorical", "weighted", "minimum", "online"] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -216,8 +216,8 @@ class ProjectScoresResource(SyncAPIResource):
         project_name: str | NotGiven = NOT_GIVEN,
         project_score_name: str | NotGiven = NOT_GIVEN,
         score_type: Union[
-            Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]],
-            List[Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]]],
+            Literal["slider", "categorical", "weighted", "minimum", "online"],
+            List[Literal["slider", "categorical", "weighted", "minimum", "online"]],
         ]
         | NotGiven = NOT_GIVEN,
         starting_after: str | NotGiven = NOT_GIVEN,
@@ -335,7 +335,7 @@ class ProjectScoresResource(SyncAPIResource):
         *,
         name: str,
         project_id: str,
-        score_type: Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]],
+        score_type: Literal["slider", "categorical", "weighted", "minimum", "online"],
         categories: project_score_replace_params.Categories | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -414,7 +414,7 @@ class AsyncProjectScoresResource(AsyncAPIResource):
         *,
         name: str,
         project_id: str,
-        score_type: Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]],
+        score_type: Literal["slider", "categorical", "weighted", "minimum", "online"],
         categories: project_score_create_params.Categories | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -509,7 +509,7 @@ class AsyncProjectScoresResource(AsyncAPIResource):
         categories: project_score_update_params.Categories | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
-        score_type: Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]] | NotGiven = NOT_GIVEN,
+        score_type: Literal["slider", "categorical", "weighted", "minimum", "online"] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -572,8 +572,8 @@ class AsyncProjectScoresResource(AsyncAPIResource):
         project_name: str | NotGiven = NOT_GIVEN,
         project_score_name: str | NotGiven = NOT_GIVEN,
         score_type: Union[
-            Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]],
-            List[Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]]],
+            Literal["slider", "categorical", "weighted", "minimum", "online"],
+            List[Literal["slider", "categorical", "weighted", "minimum", "online"]],
         ]
         | NotGiven = NOT_GIVEN,
         starting_after: str | NotGiven = NOT_GIVEN,
@@ -691,7 +691,7 @@ class AsyncProjectScoresResource(AsyncAPIResource):
         *,
         name: str,
         project_id: str,
-        score_type: Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]],
+        score_type: Literal["slider", "categorical", "weighted", "minimum", "online"],
         categories: project_score_replace_params.Categories | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.

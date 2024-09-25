@@ -3,4 +3,3 @@
 from __future__ import annotations
 
 from .member_update_params import MemberUpdateParams as MemberUpdateParams
-from .member_update_response import MemberUpdateResponse as MemberUpdateResponse

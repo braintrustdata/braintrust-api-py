@@ -4,22 +4,19 @@ from __future__ import annotations
 
 from .shared import (
     ACL as ACL,
-    Code as Code,
     Role as Role,
-    Task as Task,
     User as User,
     View as View,
     Group as Group,
     APIKey as APIKey,
     Prompt as Prompt,
-    Scorer as Scorer,
     Dataset as Dataset,
     Project as Project,
     AISecret as AISecret,
     Function as Function,
-    Messages as Messages,
     RepoInfo as RepoInfo,
     ViewData as ViewData,
+    CodeBundle as CodeBundle,
     Experiment as Experiment,
     ProjectTag as ProjectTag,
     PromptData as PromptData,
@@ -30,16 +27,17 @@ from .shared import (
     ProjectScore as ProjectScore,
     ScoreSummary as ScoreSummary,
     MetricSummary as MetricSummary,
-    PromptImageURL as PromptImageURL,
     ViewDataSearch as ViewDataSearch,
     ExperimentEvent as ExperimentEvent,
+    ProjectSettings as ProjectSettings,
     PathLookupFilter as PathLookupFilter,
     ProjectLogsEvent as ProjectLogsEvent,
+    OnlineScoreConfig as OnlineScoreConfig,
     CreateAPIKeyOutput as CreateAPIKeyOutput,
-    ToolChoiceFunction as ToolChoiceFunction,
     FeedbackDatasetItem as FeedbackDatasetItem,
     InsertEventsResponse as InsertEventsResponse,
     ProjectScoreCategory as ProjectScoreCategory,
+    ACLBatchUpdateResponse as ACLBatchUpdateResponse,
     FeedbackExperimentItem as FeedbackExperimentItem,
     FeedbackResponseSchema as FeedbackResponseSchema,
     FeedbackProjectLogsItem as FeedbackProjectLogsItem,
@@ -52,12 +50,15 @@ from .shared import (
     InsertProjectLogsEventMerge as InsertProjectLogsEventMerge,
     SummarizeExperimentResponse as SummarizeExperimentResponse,
     InsertExperimentEventReplace as InsertExperimentEventReplace,
+    ChatCompletionContentPartText as ChatCompletionContentPartText,
+    ChatCompletionMessageToolCall as ChatCompletionMessageToolCall,
     FetchExperimentEventsResponse as FetchExperimentEventsResponse,
     InsertProjectLogsEventReplace as InsertProjectLogsEventReplace,
+    ChatCompletionContentPartImage as ChatCompletionContentPartImage,
     FetchProjectLogsEventsResponse as FetchProjectLogsEventsResponse,
+    PatchOrganizationMembersOutput as PatchOrganizationMembersOutput,
 )
 from .acl_list_params import ACLListParams as ACLListParams
-from .image_url_param import ImageURLParam as ImageURLParam
 from .role_list_params import RoleListParams as RoleListParams
 from .user_list_params import UserListParams as UserListParams
 from .view_list_params import ViewListParams as ViewListParams
@@ -107,7 +108,6 @@ from .experiment_create_params import ExperimentCreateParams as ExperimentCreate
 from .experiment_insert_params import ExperimentInsertParams as ExperimentInsertParams
 from .experiment_update_params import ExperimentUpdateParams as ExperimentUpdateParams
 from .organization_list_params import OrganizationListParams as OrganizationListParams
-from .acl_batch_update_response import ACLBatchUpdateResponse as ACLBatchUpdateResponse
 from .dataset_fetch_post_params import DatasetFetchPostParams as DatasetFetchPostParams
 from .project_score_list_params import ProjectScoreListParams as ProjectScoreListParams
 from .project_tag_create_params import ProjectTagCreateParams as ProjectTagCreateParams

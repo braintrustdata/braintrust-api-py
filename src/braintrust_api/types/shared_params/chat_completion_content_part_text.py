@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["PromptImageURL"]
+__all__ = ["ChatCompletionContentPartText"]
 
 
-class PromptImageURL(TypedDict, total=False):
-    url: Required[str]
+class ChatCompletionContentPartText(TypedDict, total=False):
+    type: Required[Literal["text"]]
 
-    detail: Literal["auto", "low", "high"]
+    text: str

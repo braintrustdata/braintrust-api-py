@@ -5,13 +5,17 @@ from __future__ import annotations
 from typing import List, Union, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from .shared_params.code import Code
+from ..types import function_replace_params
 from .shared_params.prompt_data import PromptData
 
 __all__ = [
     "FunctionReplaceParams",
     "FunctionData",
     "FunctionDataPrompt",
+    "FunctionDataCode",
+    "FunctionDataCodeData",
+    "FunctionDataCodeDataInline",
+    "FunctionDataCodeDataInlineRuntimeContext",
     "FunctionDataGlobal",
     "FunctionSchema",
     "Origin",
@@ -51,13 +55,36 @@ class FunctionDataPrompt(TypedDict, total=False):
     type: Required[Literal["prompt"]]
 
 
+class FunctionDataCodeDataInlineRuntimeContext(TypedDict, total=False):
+    runtime: Required[Literal["node", "python"]]
+
+    version: Required[str]
+
+
+class FunctionDataCodeDataInline(TypedDict, total=False):
+    code: Required[str]
+
+    runtime_context: Required[FunctionDataCodeDataInlineRuntimeContext]
+
+    type: Required[Literal["inline"]]
+
+
+FunctionDataCodeData: TypeAlias = Union[function_replace_params.FunctionDataCodeDataBundle, FunctionDataCodeDataInline]
+
+
+class FunctionDataCode(TypedDict, total=False):
+    data: Required[FunctionDataCodeData]
+
+    type: Required[Literal["code"]]
+
+
 class FunctionDataGlobal(TypedDict, total=False):
     name: Required[str]
 
     type: Required[Literal["global"]]
 
 
-FunctionData: TypeAlias = Union[FunctionDataPrompt, Code, FunctionDataGlobal]
+FunctionData: TypeAlias = Union[FunctionDataPrompt, FunctionDataCode, FunctionDataGlobal]
 
 
 class FunctionSchema(TypedDict, total=False):
@@ -71,20 +98,18 @@ class Origin(TypedDict, total=False):
     """Id of the object the function is originating from"""
 
     object_type: Required[
-        Optional[
-            Literal[
-                "organization",
-                "project",
-                "experiment",
-                "dataset",
-                "prompt",
-                "prompt_session",
-                "group",
-                "role",
-                "org_member",
-                "project_log",
-                "org_project",
-            ]
+        Literal[
+            "organization",
+            "project",
+            "experiment",
+            "dataset",
+            "prompt",
+            "prompt_session",
+            "group",
+            "role",
+            "org_member",
+            "project_log",
+            "org_project",
         ]
     ]
     """The object type that the ACL applies to"""
