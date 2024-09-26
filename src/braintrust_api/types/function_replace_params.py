@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import List, Union, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from ..types import function_replace_params
+from ..types.shared import CodeBundle
 from .shared_params.prompt_data import PromptData
 
 __all__ = [
@@ -69,7 +69,7 @@ class FunctionDataCodeDataInline(TypedDict, total=False):
     type: Required[Literal["inline"]]
 
 
-FunctionDataCodeData: TypeAlias = Union[function_replace_params.FunctionDataCodeDataBundle, FunctionDataCodeDataInline]
+FunctionDataCodeData: TypeAlias = Union[CodeBundle, FunctionDataCodeDataInline]
 
 
 class FunctionDataCode(TypedDict, total=False):
