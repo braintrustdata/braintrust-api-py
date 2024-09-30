@@ -24,7 +24,7 @@ class FeedbackExperimentItem(BaseModel):
     compare to `output` to determine if your `output` value is correct or not
     """
 
-    metadata: Optional[Dict[str, object]] = None
+    metadata: Optional[Dict[str, Optional[object]]] = None
     """A dictionary with additional data about the feedback.
 
     If you have a `user_id`, you can log it here and access it in the Braintrust UI.

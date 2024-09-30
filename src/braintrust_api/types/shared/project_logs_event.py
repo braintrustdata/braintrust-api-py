@@ -25,7 +25,7 @@ class Context(BaseModel):
         # Stub to indicate that arbitrary properties are accepted.
         # To access properties that are not valid identifiers you can use `getattr`, e.g.
         # `getattr(obj, '$type')`
-        def __getattr__(self, attr: str) -> object: ...
+        def __getattr__(self, attr: str) -> Optional[object]: ...
 
 
 class Metrics(BaseModel):
@@ -60,7 +60,7 @@ class Metrics(BaseModel):
         # Stub to indicate that arbitrary properties are accepted.
         # To access properties that are not valid identifiers you can use `getattr`, e.g.
         # `getattr(obj, '$type')`
-        def __getattr__(self, attr: str) -> object: ...
+        def __getattr__(self, attr: str) -> Optional[object]: ...
 
 
 class SpanAttributes(BaseModel):
@@ -74,7 +74,7 @@ class SpanAttributes(BaseModel):
         # Stub to indicate that arbitrary properties are accepted.
         # To access properties that are not valid identifiers you can use `getattr`, e.g.
         # `getattr(obj, '$type')`
-        def __getattr__(self, attr: str) -> object: ...
+        def __getattr__(self, attr: str) -> Optional[object]: ...
 
 
 class ProjectLogsEvent(BaseModel):
@@ -142,7 +142,7 @@ class ProjectLogsEvent(BaseModel):
     object).
     """
 
-    metadata: Optional[Dict[str, object]] = None
+    metadata: Optional[Dict[str, Optional[object]]] = None
     """
     A dictionary with additional data about the test example, model outputs, or just
     about anything else that's relevant, that you can use to help find and analyze

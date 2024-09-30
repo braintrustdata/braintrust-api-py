@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union
+from typing import List, Union, Optional
 from typing_extensions import TypedDict
 
 __all__ = ["PromptListParams"]
@@ -23,7 +23,7 @@ class PromptListParams(TypedDict, total=False):
     To specify a list of IDs, include the query param multiple times
     """
 
-    limit: int
+    limit: Optional[int]
     """Limit the number of objects to return"""
 
     org_name: str

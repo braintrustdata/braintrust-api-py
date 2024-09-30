@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import TypedDict
 
 __all__ = ["DatasetSummarizeParams"]
 
 
 class DatasetSummarizeParams(TypedDict, total=False):
-    summarize_data: bool
+    summarize_data: Optional[bool]
     """Whether to summarize the data.
 
     If false (or omitted), only the metadata will be returned.

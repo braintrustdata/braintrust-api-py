@@ -38,18 +38,20 @@ class AddMemberPermission(TypedDict, total=False):
     into roles
     """
 
-    restrict_object_type: Literal[
-        "organization",
-        "project",
-        "experiment",
-        "dataset",
-        "prompt",
-        "prompt_session",
-        "group",
-        "role",
-        "org_member",
-        "project_log",
-        "org_project",
+    restrict_object_type: Optional[
+        Literal[
+            "organization",
+            "project",
+            "experiment",
+            "dataset",
+            "prompt",
+            "prompt_session",
+            "group",
+            "role",
+            "org_member",
+            "project_log",
+            "org_project",
+        ]
     ]
     """The object type that the ACL applies to"""
 
@@ -64,17 +66,19 @@ class RemoveMemberPermission(TypedDict, total=False):
     into roles
     """
 
-    restrict_object_type: Literal[
-        "organization",
-        "project",
-        "experiment",
-        "dataset",
-        "prompt",
-        "prompt_session",
-        "group",
-        "role",
-        "org_member",
-        "project_log",
-        "org_project",
+    restrict_object_type: Optional[
+        Literal[
+            "organization",
+            "project",
+            "experiment",
+            "dataset",
+            "prompt",
+            "prompt_session",
+            "group",
+            "role",
+            "org_member",
+            "project_log",
+            "org_project",
+        ]
     ]
     """The object type that the ACL applies to"""

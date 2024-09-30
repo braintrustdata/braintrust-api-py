@@ -8,6 +8,7 @@ from .group import Group as Group
 from .prompt import Prompt as Prompt
 from .api_key import APIKey as APIKey
 from .dataset import Dataset as Dataset
+from .env_var import EnvVar as EnvVar
 from .project import Project as Project
 from .function import Function as Function
 from .repo_info import RepoInfo as RepoInfo
@@ -30,6 +31,7 @@ from .view_data_search import ViewDataSearch as ViewDataSearch
 from .path_lookup_filter import PathLookupFilter as PathLookupFilter
 from .project_logs_event import ProjectLogsEvent as ProjectLogsEvent
 from .online_score_config import OnlineScoreConfig as OnlineScoreConfig
+from .project_score_config import ProjectScoreConfig as ProjectScoreConfig
 from .create_api_key_output import CreateAPIKeyOutput as CreateAPIKeyOutput
 from .feedback_dataset_item import FeedbackDatasetItem as FeedbackDatasetItem
 from .insert_events_response import InsertEventsResponse as InsertEventsResponse

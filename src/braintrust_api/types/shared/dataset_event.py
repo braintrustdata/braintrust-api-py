@@ -31,6 +31,9 @@ class DatasetEvent(BaseModel):
     dataset_id: str
     """Unique identifier for the dataset"""
 
+    project_id: str
+    """Unique identifier for the project that the dataset belongs under"""
+
     root_span_id: str
     """The `span_id` of the root of the trace this dataset event belongs to"""
 
@@ -54,7 +57,7 @@ class DatasetEvent(BaseModel):
     object)
     """
 
-    metadata: Optional[Dict[str, object]] = None
+    metadata: Optional[Dict[str, Optional[object]]] = None
     """
     A dictionary with additional data about the test example, model outputs, or just
     about anything else that's relevant, that you can use to help find and analyze
@@ -62,9 +65,6 @@ class DatasetEvent(BaseModel):
     anything else that would be useful to slice/dice later. The values in `metadata`
     can be any JSON-serializable type, but its keys must be strings
     """
-
-    project_id: Optional[str] = None
-    """Unique identifier for the project that the dataset belongs under"""
 
     tags: Optional[List[str]] = None
     """A list of tags to log"""

@@ -66,8 +66,8 @@ class DatasetsResource(SyncAPIResource):
         self,
         *,
         name: str,
+        project_id: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        project_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -84,9 +84,9 @@ class DatasetsResource(SyncAPIResource):
         Args:
           name: Name of the dataset. Within a project, dataset names are unique
 
-          description: Textual description of the dataset
-
           project_id: Unique identifier for the project that the dataset belongs under
+
+          description: Textual description of the dataset
 
           extra_headers: Send extra headers
 
@@ -101,8 +101,8 @@ class DatasetsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "name": name,
-                    "description": description,
                     "project_id": project_id,
+                    "description": description,
                 },
                 dataset_create_params.DatasetCreateParams,
             ),
@@ -152,7 +152,7 @@ class DatasetsResource(SyncAPIResource):
         dataset_id: str,
         *,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        metadata: Optional[Dict[str, Optional[object]]] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -208,7 +208,7 @@ class DatasetsResource(SyncAPIResource):
         dataset_name: str | NotGiven = NOT_GIVEN,
         ending_before: str | NotGiven = NOT_GIVEN,
         ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
+        limit: Optional[int] | NotGiven = NOT_GIVEN,
         org_name: str | NotGiven = NOT_GIVEN,
         project_id: str | NotGiven = NOT_GIVEN,
         project_name: str | NotGiven = NOT_GIVEN,
@@ -362,7 +362,7 @@ class DatasetsResource(SyncAPIResource):
         self,
         dataset_id: str,
         *,
-        limit: int | NotGiven = NOT_GIVEN,
+        limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: str | NotGiven = NOT_GIVEN,
         max_xact_id: str | NotGiven = NOT_GIVEN,
         version: str | NotGiven = NOT_GIVEN,
@@ -461,9 +461,9 @@ class DatasetsResource(SyncAPIResource):
         cursor: Optional[str] | NotGiven = NOT_GIVEN,
         filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
-        max_root_span_id: str | NotGiven = NOT_GIVEN,
-        max_xact_id: str | NotGiven = NOT_GIVEN,
-        version: str | NotGiven = NOT_GIVEN,
+        max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
+        max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
+        version: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -607,7 +607,7 @@ class DatasetsResource(SyncAPIResource):
         self,
         dataset_id: str,
         *,
-        summarize_data: bool | NotGiven = NOT_GIVEN,
+        summarize_data: Optional[bool] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -673,8 +673,8 @@ class AsyncDatasetsResource(AsyncAPIResource):
         self,
         *,
         name: str,
+        project_id: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        project_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -691,9 +691,9 @@ class AsyncDatasetsResource(AsyncAPIResource):
         Args:
           name: Name of the dataset. Within a project, dataset names are unique
 
-          description: Textual description of the dataset
-
           project_id: Unique identifier for the project that the dataset belongs under
+
+          description: Textual description of the dataset
 
           extra_headers: Send extra headers
 
@@ -708,8 +708,8 @@ class AsyncDatasetsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "name": name,
-                    "description": description,
                     "project_id": project_id,
+                    "description": description,
                 },
                 dataset_create_params.DatasetCreateParams,
             ),
@@ -759,7 +759,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         dataset_id: str,
         *,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        metadata: Optional[Dict[str, object]] | NotGiven = NOT_GIVEN,
+        metadata: Optional[Dict[str, Optional[object]]] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -815,7 +815,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         dataset_name: str | NotGiven = NOT_GIVEN,
         ending_before: str | NotGiven = NOT_GIVEN,
         ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
+        limit: Optional[int] | NotGiven = NOT_GIVEN,
         org_name: str | NotGiven = NOT_GIVEN,
         project_id: str | NotGiven = NOT_GIVEN,
         project_name: str | NotGiven = NOT_GIVEN,
@@ -969,7 +969,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         self,
         dataset_id: str,
         *,
-        limit: int | NotGiven = NOT_GIVEN,
+        limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: str | NotGiven = NOT_GIVEN,
         max_xact_id: str | NotGiven = NOT_GIVEN,
         version: str | NotGiven = NOT_GIVEN,
@@ -1068,9 +1068,9 @@ class AsyncDatasetsResource(AsyncAPIResource):
         cursor: Optional[str] | NotGiven = NOT_GIVEN,
         filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
-        max_root_span_id: str | NotGiven = NOT_GIVEN,
-        max_xact_id: str | NotGiven = NOT_GIVEN,
-        version: str | NotGiven = NOT_GIVEN,
+        max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
+        max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
+        version: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1214,7 +1214,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         self,
         dataset_id: str,
         *,
-        summarize_data: bool | NotGiven = NOT_GIVEN,
+        summarize_data: Optional[bool] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
+from typing import Optional
 from typing_extensions import TypedDict
 
 __all__ = ["DatasetFetchParams"]
 
 
 class DatasetFetchParams(TypedDict, total=False):
-    limit: int
+    limit: Optional[int]
     """limit the number of traces fetched
 
     Fetch queries may be paginated if the total result size is expected to be large

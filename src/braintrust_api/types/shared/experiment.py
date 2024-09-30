@@ -53,7 +53,7 @@ class Experiment(BaseModel):
     description: Optional[str] = None
     """Textual description of the experiment"""
 
-    metadata: Optional[Dict[str, object]] = None
+    metadata: Optional[Dict[str, Optional[object]]] = None
     """User-controlled metadata about the experiment"""
 
     repo_info: Optional[RepoInfo] = None

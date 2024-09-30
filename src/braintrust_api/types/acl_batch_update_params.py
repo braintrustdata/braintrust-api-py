@@ -65,25 +65,29 @@ class AddACL(TypedDict, total=False):
     Exactly one of `user_id` and `group_id` will be provided
     """
 
-    permission: Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
+    permission: Optional[
+        Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
+    ]
     """Each permission permits a certain type of operation on an object in the system
 
     Permissions can be assigned to to objects on an individual basis, or grouped
     into roles
     """
 
-    restrict_object_type: Literal[
-        "organization",
-        "project",
-        "experiment",
-        "dataset",
-        "prompt",
-        "prompt_session",
-        "group",
-        "role",
-        "org_member",
-        "project_log",
-        "org_project",
+    restrict_object_type: Optional[
+        Literal[
+            "organization",
+            "project",
+            "experiment",
+            "dataset",
+            "prompt",
+            "prompt_session",
+            "group",
+            "role",
+            "org_member",
+            "project_log",
+            "org_project",
+        ]
     ]
     """The object type that the ACL applies to"""
 
@@ -127,25 +131,29 @@ class RemoveACL(TypedDict, total=False):
     Exactly one of `user_id` and `group_id` will be provided
     """
 
-    permission: Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
+    permission: Optional[
+        Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
+    ]
     """Each permission permits a certain type of operation on an object in the system
 
     Permissions can be assigned to to objects on an individual basis, or grouped
     into roles
     """
 
-    restrict_object_type: Literal[
-        "organization",
-        "project",
-        "experiment",
-        "dataset",
-        "prompt",
-        "prompt_session",
-        "group",
-        "role",
-        "org_member",
-        "project_log",
-        "org_project",
+    restrict_object_type: Optional[
+        Literal[
+            "organization",
+            "project",
+            "experiment",
+            "dataset",
+            "prompt",
+            "prompt_session",
+            "group",
+            "role",
+            "org_member",
+            "project_log",
+            "org_project",
+        ]
     ]
     """The object type that the ACL applies to"""
 

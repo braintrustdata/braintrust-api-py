@@ -309,7 +309,7 @@ class ViewsResource(SyncAPIResource):
         ],
         ending_before: str | NotGiven = NOT_GIVEN,
         ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
+        limit: Optional[int] | NotGiven = NOT_GIVEN,
         starting_after: str | NotGiven = NOT_GIVEN,
         view_name: str | NotGiven = NOT_GIVEN,
         view_type: Optional[
@@ -803,7 +803,7 @@ class AsyncViewsResource(AsyncAPIResource):
         ],
         ending_before: str | NotGiven = NOT_GIVEN,
         ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
+        limit: Optional[int] | NotGiven = NOT_GIVEN,
         starting_after: str | NotGiven = NOT_GIVEN,
         view_name: str | NotGiven = NOT_GIVEN,
         view_type: Optional[

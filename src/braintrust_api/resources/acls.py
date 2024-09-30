@@ -72,22 +72,24 @@ class ACLsResource(SyncAPIResource):
             "org_project",
         ],
         group_id: Optional[str] | NotGiven = NOT_GIVEN,
-        permission: Literal[
-            "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
+        permission: Optional[
+            Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
         ]
         | NotGiven = NOT_GIVEN,
-        restrict_object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
+        restrict_object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
         ]
         | NotGiven = NOT_GIVEN,
         role_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -207,7 +209,7 @@ class ACLsResource(SyncAPIResource):
         ],
         ending_before: str | NotGiven = NOT_GIVEN,
         ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
+        limit: Optional[int] | NotGiven = NOT_GIVEN,
         starting_after: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -391,22 +393,24 @@ class ACLsResource(SyncAPIResource):
             "org_project",
         ],
         group_id: Optional[str] | NotGiven = NOT_GIVEN,
-        permission: Literal[
-            "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
+        permission: Optional[
+            Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
         ]
         | NotGiven = NOT_GIVEN,
-        restrict_object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
+        restrict_object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
         ]
         | NotGiven = NOT_GIVEN,
         role_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -509,22 +513,24 @@ class AsyncACLsResource(AsyncAPIResource):
             "org_project",
         ],
         group_id: Optional[str] | NotGiven = NOT_GIVEN,
-        permission: Literal[
-            "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
+        permission: Optional[
+            Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
         ]
         | NotGiven = NOT_GIVEN,
-        restrict_object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
+        restrict_object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
         ]
         | NotGiven = NOT_GIVEN,
         role_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -644,7 +650,7 @@ class AsyncACLsResource(AsyncAPIResource):
         ],
         ending_before: str | NotGiven = NOT_GIVEN,
         ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: int | NotGiven = NOT_GIVEN,
+        limit: Optional[int] | NotGiven = NOT_GIVEN,
         starting_after: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -828,22 +834,24 @@ class AsyncACLsResource(AsyncAPIResource):
             "org_project",
         ],
         group_id: Optional[str] | NotGiven = NOT_GIVEN,
-        permission: Literal[
-            "create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"
+        permission: Optional[
+            Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
         ]
         | NotGiven = NOT_GIVEN,
-        restrict_object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
+        restrict_object_type: Optional[
+            Literal[
+                "organization",
+                "project",
+                "experiment",
+                "dataset",
+                "prompt",
+                "prompt_session",
+                "group",
+                "role",
+                "org_member",
+                "project_log",
+                "org_project",
+            ]
         ]
         | NotGiven = NOT_GIVEN,
         role_id: Optional[str] | NotGiven = NOT_GIVEN,

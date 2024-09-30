@@ -18,7 +18,7 @@ class FeedbackDatasetItem(TypedDict, total=False):
     comment: Optional[str]
     """An optional comment string to log about the dataset event"""
 
-    metadata: Optional[Dict[str, object]]
+    metadata: Optional[Dict[str, Optional[object]]]
     """A dictionary with additional data about the feedback.
 
     If you have a `user_id`, you can log it here and access it in the Braintrust UI.
