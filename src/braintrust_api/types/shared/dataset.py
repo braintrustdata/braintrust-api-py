@@ -15,6 +15,9 @@ class Dataset(BaseModel):
     name: str
     """Name of the dataset. Within a project, dataset names are unique"""
 
+    project_id: str
+    """Unique identifier for the project that the dataset belongs under"""
+
     created: Optional[datetime] = None
     """Date of dataset creation"""
 
@@ -24,11 +27,8 @@ class Dataset(BaseModel):
     description: Optional[str] = None
     """Textual description of the dataset"""
 
-    metadata: Optional[Dict[str, object]] = None
+    metadata: Optional[Dict[str, Optional[object]]] = None
     """User-controlled metadata about the dataset"""
-
-    project_id: Optional[str] = None
-    """Unique identifier for the project that the dataset belongs under"""
 
     user_id: Optional[str] = None
     """Identifies the user who created the dataset"""

@@ -30,7 +30,7 @@ class ExperimentUpdateParams(TypedDict, total=False):
     description: Optional[str]
     """Textual description of the experiment"""
 
-    metadata: Optional[Dict[str, object]]
+    metadata: Optional[Dict[str, Optional[object]]]
     """User-controlled metadata about the experiment"""
 
     name: Optional[str]

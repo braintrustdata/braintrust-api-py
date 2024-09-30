@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List
+from typing import List, Optional
 from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["PathLookupFilter"]
@@ -19,7 +19,7 @@ class PathLookupFilter(TypedDict, total=False):
     type: Required[Literal["path_lookup"]]
     """Denotes the type of filter as a path-lookup filter"""
 
-    value: object
+    value: Optional[object]
     """
     The value to compare equality-wise against the event value at the specified
     `path`. The value must be a "primitive", that is, any JSON-serializable object

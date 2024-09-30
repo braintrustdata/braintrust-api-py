@@ -47,7 +47,7 @@ class DatasetFetchPostParams(TypedDict, total=False):
     events containing traces.
     """
 
-    max_root_span_id: str
+    max_root_span_id: Optional[str]
     """
     DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
     favor of the explicit 'cursor' returned by object fetch requests. Please prefer
@@ -61,7 +61,7 @@ class DatasetFetchPostParams(TypedDict, total=False):
     for an overview of paginating fetch queries.
     """
 
-    max_xact_id: str
+    max_xact_id: Optional[str]
     """
     DEPRECATION NOTICE: The manually-constructed pagination cursor is deprecated in
     favor of the explicit 'cursor' returned by object fetch requests. Please prefer
@@ -75,7 +75,7 @@ class DatasetFetchPostParams(TypedDict, total=False):
     for an overview of paginating fetch queries.
     """
 
-    version: str
+    version: Optional[str]
     """Retrieve a snapshot of events from a past time
 
     The version id is essentially a filter on the latest event transaction id. You

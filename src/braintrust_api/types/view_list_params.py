@@ -43,7 +43,7 @@ class ViewListParams(TypedDict, total=False):
     To specify a list of IDs, include the query param multiple times
     """
 
-    limit: int
+    limit: Optional[int]
     """Limit the number of objects to return"""
 
     starting_after: str

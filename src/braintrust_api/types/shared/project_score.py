@@ -5,10 +5,10 @@ from datetime import datetime
 from typing_extensions import Literal, TypeAlias
 
 from ..._models import BaseModel
-from .online_score_config import OnlineScoreConfig
+from .project_score_config import ProjectScoreConfig
 from .project_score_category import ProjectScoreCategory
 
-__all__ = ["ProjectScore", "Categories", "CategoriesNullableVariant", "Config"]
+__all__ = ["ProjectScore", "Categories", "CategoriesNullableVariant"]
 
 
 class CategoriesNullableVariant(BaseModel):
@@ -18,14 +18,6 @@ class CategoriesNullableVariant(BaseModel):
 Categories: TypeAlias = Union[
     List[ProjectScoreCategory], Dict[str, float], List[str], Optional[CategoriesNullableVariant]
 ]
-
-
-class Config(BaseModel):
-    destination: Optional[Literal["expected"]] = None
-
-    multi_select: Optional[bool] = None
-
-    online: Optional[OnlineScoreConfig] = None
 
 
 class ProjectScore(BaseModel):
@@ -46,7 +38,7 @@ class ProjectScore(BaseModel):
     categories: Optional[Categories] = None
     """For categorical-type project scores, the list of all categories"""
 
-    config: Optional[Config] = None
+    config: Optional[ProjectScoreConfig] = None
 
     created: Optional[datetime] = None
     """Date of project score creation"""

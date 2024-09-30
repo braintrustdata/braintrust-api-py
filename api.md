@@ -15,6 +15,7 @@ from braintrust_api.types import (
     DataSummary,
     Dataset,
     DatasetEvent,
+    EnvVar,
     Experiment,
     ExperimentEvent,
     FeedbackDatasetItem,
@@ -42,6 +43,7 @@ from braintrust_api.types import (
     ProjectLogsEvent,
     ProjectScore,
     ProjectScoreCategory,
+    ProjectScoreConfig,
     ProjectSettings,
     ProjectTag,
     Prompt,
@@ -257,3 +259,26 @@ Methods:
 - <code title="delete /v1/ai_secret/{ai_secret_id}">client.ai_secrets.<a href="./src/braintrust_api/resources/ai_secrets.py">delete</a>(ai_secret_id) -> <a href="./src/braintrust_api/types/shared/a_i_secret.py">AISecret</a></code>
 - <code title="delete /v1/ai_secret">client.ai_secrets.<a href="./src/braintrust_api/resources/ai_secrets.py">find_and_delete</a>(\*\*<a href="src/braintrust_api/types/ai_secret_find_and_delete_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/a_i_secret.py">AISecret</a></code>
 - <code title="put /v1/ai_secret">client.ai_secrets.<a href="./src/braintrust_api/resources/ai_secrets.py">replace</a>(\*\*<a href="src/braintrust_api/types/ai_secret_replace_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/a_i_secret.py">AISecret</a></code>
+
+# EnvVars
+
+Types:
+
+```python
+from braintrust_api.types import EnvVarListResponse
+```
+
+Methods:
+
+- <code title="post /v1/env_var">client.env_vars.<a href="./src/braintrust_api/resources/env_vars.py">create</a>(\*\*<a href="src/braintrust_api/types/env_var_create_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/env_var.py">EnvVar</a></code>
+- <code title="get /v1/env_var/{env_var_id}">client.env_vars.<a href="./src/braintrust_api/resources/env_vars.py">retrieve</a>(env_var_id) -> <a href="./src/braintrust_api/types/shared/env_var.py">EnvVar</a></code>
+- <code title="patch /v1/env_var/{env_var_id}">client.env_vars.<a href="./src/braintrust_api/resources/env_vars.py">update</a>(env_var_id, \*\*<a href="src/braintrust_api/types/env_var_update_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/env_var.py">EnvVar</a></code>
+- <code title="get /v1/env_var">client.env_vars.<a href="./src/braintrust_api/resources/env_vars.py">list</a>(\*\*<a href="src/braintrust_api/types/env_var_list_params.py">params</a>) -> <a href="./src/braintrust_api/types/env_var_list_response.py">EnvVarListResponse</a></code>
+- <code title="delete /v1/env_var/{env_var_id}">client.env_vars.<a href="./src/braintrust_api/resources/env_vars.py">delete</a>(env_var_id) -> <a href="./src/braintrust_api/types/shared/env_var.py">EnvVar</a></code>
+- <code title="put /v1/env_var">client.env_vars.<a href="./src/braintrust_api/resources/env_vars.py">replace</a>(\*\*<a href="src/braintrust_api/types/env_var_replace_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/env_var.py">EnvVar</a></code>
+
+# Evals
+
+Methods:
+
+- <code title="post /v1/eval">client.evals.<a href="./src/braintrust_api/resources/evals.py">create</a>(\*\*<a href="src/braintrust_api/types/eval_create_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/summarize_experiment_response.py">SummarizeExperimentResponse</a></code>

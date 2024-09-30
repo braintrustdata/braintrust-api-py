@@ -69,7 +69,7 @@ class InsertDatasetEventReplace(BaseModel):
     object)
     """
 
-    metadata: Optional[Dict[str, object]] = None
+    metadata: Optional[Dict[str, Optional[object]]] = None
     """
     A dictionary with additional data about the test example, model outputs, or just
     about anything else that's relevant, that you can use to help find and analyze

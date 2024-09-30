@@ -58,19 +58,19 @@ class InsertDatasetEventReplace(TypedDict, total=False):
     created: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """The timestamp the dataset event was created"""
 
-    expected: object
+    expected: Optional[object]
     """
     The output of your application, including post-processing (an arbitrary, JSON
     serializable object)
     """
 
-    input: object
+    input: Optional[object]
     """
     The argument that uniquely define an input case (an arbitrary, JSON serializable
     object)
     """
 
-    metadata: Optional[Dict[str, object]]
+    metadata: Optional[Dict[str, Optional[object]]]
     """
     A dictionary with additional data about the test example, model outputs, or just
     about anything else that's relevant, that you can use to help find and analyze
