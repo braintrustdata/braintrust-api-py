@@ -137,7 +137,7 @@ class Function(BaseModel):
 
     function_type: Optional[Literal["llm", "scorer", "task", "tool"]] = None
 
-    metadata: Optional[Dict[str, object]] = None
+    metadata: Optional[Dict[str, Optional[object]]] = None
     """User-controlled metadata about the prompt"""
 
     origin: Optional[Origin] = None

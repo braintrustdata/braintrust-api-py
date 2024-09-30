@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Dict, List, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
+from .shared_params.project_score_config import ProjectScoreConfig
 from .shared_params.project_score_category import ProjectScoreCategory
 
 __all__ = ["ProjectScoreCreateParams", "Categories", "CategoriesNullableVariant"]
@@ -22,6 +23,8 @@ class ProjectScoreCreateParams(TypedDict, total=False):
 
     categories: Categories
     """For categorical-type project scores, the list of all categories"""
+
+    config: Optional[ProjectScoreConfig]
 
     description: Optional[str]
     """Textual description of the project score"""

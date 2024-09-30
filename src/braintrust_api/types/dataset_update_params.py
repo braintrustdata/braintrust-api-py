@@ -12,7 +12,7 @@ class DatasetUpdateParams(TypedDict, total=False):
     description: Optional[str]
     """Textual description of the dataset"""
 
-    metadata: Optional[Dict[str, object]]
+    metadata: Optional[Dict[str, Optional[object]]]
     """User-controlled metadata about the dataset"""
 
     name: Optional[str]

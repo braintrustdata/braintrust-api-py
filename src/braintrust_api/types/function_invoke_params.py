@@ -27,7 +27,7 @@ __all__ = [
 
 
 class FunctionInvokeParams(TypedDict, total=False):
-    input: object
+    input: Optional[object]
     """Argument to the function, which can be any JSON serializable value"""
 
     messages: Iterable[Message]
@@ -128,7 +128,7 @@ class ParentSpanParentStruct(TypedDict, total=False):
 
     object_type: Required[Literal["project_logs", "experiment"]]
 
-    propagated_event: Optional[Dict[str, object]]
+    propagated_event: Optional[Dict[str, Optional[object]]]
     """Include these properties in every span created under this parent"""
 
     row_ids: Optional[ParentSpanParentStructRowIDs]

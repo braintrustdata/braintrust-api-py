@@ -47,6 +47,29 @@ class TestProjectScores:
                     "value": 0,
                 },
             ],
+            config={
+                "destination": "expected",
+                "multi_select": True,
+                "online": {
+                    "sampling_rate": 0,
+                    "scorers": [
+                        {
+                            "id": "id",
+                            "type": "function",
+                        },
+                        {
+                            "id": "id",
+                            "type": "function",
+                        },
+                        {
+                            "id": "id",
+                            "type": "function",
+                        },
+                    ],
+                    "apply_to_root_span": True,
+                    "apply_to_span_names": ["string", "string", "string"],
+                },
+            },
             description="description",
         )
         assert_matches_type(ProjectScore, project_score, path=["response"])
@@ -142,6 +165,29 @@ class TestProjectScores:
                     "value": 0,
                 },
             ],
+            config={
+                "destination": "expected",
+                "multi_select": True,
+                "online": {
+                    "sampling_rate": 0,
+                    "scorers": [
+                        {
+                            "id": "id",
+                            "type": "function",
+                        },
+                        {
+                            "id": "id",
+                            "type": "function",
+                        },
+                        {
+                            "id": "id",
+                            "type": "function",
+                        },
+                    ],
+                    "apply_to_root_span": True,
+                    "apply_to_span_names": ["string", "string", "string"],
+                },
+            },
             description="description",
             name="name",
             score_type="slider",
@@ -286,6 +332,29 @@ class TestProjectScores:
                     "value": 0,
                 },
             ],
+            config={
+                "destination": "expected",
+                "multi_select": True,
+                "online": {
+                    "sampling_rate": 0,
+                    "scorers": [
+                        {
+                            "id": "id",
+                            "type": "function",
+                        },
+                        {
+                            "id": "id",
+                            "type": "function",
+                        },
+                        {
+                            "id": "id",
+                            "type": "function",
+                        },
+                    ],
+                    "apply_to_root_span": True,
+                    "apply_to_span_names": ["string", "string", "string"],
+                },
+            },
             description="description",
         )
         assert_matches_type(ProjectScore, project_score, path=["response"])
@@ -351,6 +420,29 @@ class TestAsyncProjectScores:
                     "value": 0,
                 },
             ],
+            config={
+                "destination": "expected",
+                "multi_select": True,
+                "online": {
+                    "sampling_rate": 0,
+                    "scorers": [
+                        {
+                            "id": "id",
+                            "type": "function",
+                        },
+                        {
+                            "id": "id",
+                            "type": "function",
+                        },
+                        {
+                            "id": "id",
+                            "type": "function",
+                        },
+                    ],
+                    "apply_to_root_span": True,
+                    "apply_to_span_names": ["string", "string", "string"],
+                },
+            },
             description="description",
         )
         assert_matches_type(ProjectScore, project_score, path=["response"])
@@ -446,6 +538,29 @@ class TestAsyncProjectScores:
                     "value": 0,
                 },
             ],
+            config={
+                "destination": "expected",
+                "multi_select": True,
+                "online": {
+                    "sampling_rate": 0,
+                    "scorers": [
+                        {
+                            "id": "id",
+                            "type": "function",
+                        },
+                        {
+                            "id": "id",
+                            "type": "function",
+                        },
+                        {
+                            "id": "id",
+                            "type": "function",
+                        },
+                    ],
+                    "apply_to_root_span": True,
+                    "apply_to_span_names": ["string", "string", "string"],
+                },
+            },
             description="description",
             name="name",
             score_type="slider",
@@ -590,6 +705,29 @@ class TestAsyncProjectScores:
                     "value": 0,
                 },
             ],
+            config={
+                "destination": "expected",
+                "multi_select": True,
+                "online": {
+                    "sampling_rate": 0,
+                    "scorers": [
+                        {
+                            "id": "id",
+                            "type": "function",
+                        },
+                        {
+                            "id": "id",
+                            "type": "function",
+                        },
+                        {
+                            "id": "id",
+                            "type": "function",
+                        },
+                    ],
+                    "apply_to_root_span": True,
+                    "apply_to_span_names": ["string", "string", "string"],
+                },
+            },
             description="description",
         )
         assert_matches_type(ProjectScore, project_score, path=["response"])

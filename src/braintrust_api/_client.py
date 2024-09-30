@@ -62,6 +62,8 @@ class Braintrust(SyncAPIClient):
     organizations: resources.OrganizationsResource
     api_keys: resources.APIKeysResource
     ai_secrets: resources.AISecretsResource
+    env_vars: resources.EnvVarsResource
+    evals: resources.EvalsResource
     with_raw_response: BraintrustWithRawResponse
     with_streaming_response: BraintrustWithStreamedResponse
 
@@ -131,6 +133,8 @@ class Braintrust(SyncAPIClient):
         self.organizations = resources.OrganizationsResource(self)
         self.api_keys = resources.APIKeysResource(self)
         self.ai_secrets = resources.AISecretsResource(self)
+        self.env_vars = resources.EnvVarsResource(self)
+        self.evals = resources.EvalsResource(self)
         self.with_raw_response = BraintrustWithRawResponse(self)
         self.with_streaming_response = BraintrustWithStreamedResponse(self)
 
@@ -258,6 +262,8 @@ class AsyncBraintrust(AsyncAPIClient):
     organizations: resources.AsyncOrganizationsResource
     api_keys: resources.AsyncAPIKeysResource
     ai_secrets: resources.AsyncAISecretsResource
+    env_vars: resources.AsyncEnvVarsResource
+    evals: resources.AsyncEvalsResource
     with_raw_response: AsyncBraintrustWithRawResponse
     with_streaming_response: AsyncBraintrustWithStreamedResponse
 
@@ -327,6 +333,8 @@ class AsyncBraintrust(AsyncAPIClient):
         self.organizations = resources.AsyncOrganizationsResource(self)
         self.api_keys = resources.AsyncAPIKeysResource(self)
         self.ai_secrets = resources.AsyncAISecretsResource(self)
+        self.env_vars = resources.AsyncEnvVarsResource(self)
+        self.evals = resources.AsyncEvalsResource(self)
         self.with_raw_response = AsyncBraintrustWithRawResponse(self)
         self.with_streaming_response = AsyncBraintrustWithStreamedResponse(self)
 
@@ -455,6 +463,8 @@ class BraintrustWithRawResponse:
         self.organizations = resources.OrganizationsResourceWithRawResponse(client.organizations)
         self.api_keys = resources.APIKeysResourceWithRawResponse(client.api_keys)
         self.ai_secrets = resources.AISecretsResourceWithRawResponse(client.ai_secrets)
+        self.env_vars = resources.EnvVarsResourceWithRawResponse(client.env_vars)
+        self.evals = resources.EvalsResourceWithRawResponse(client.evals)
 
 
 class AsyncBraintrustWithRawResponse:
@@ -475,6 +485,8 @@ class AsyncBraintrustWithRawResponse:
         self.organizations = resources.AsyncOrganizationsResourceWithRawResponse(client.organizations)
         self.api_keys = resources.AsyncAPIKeysResourceWithRawResponse(client.api_keys)
         self.ai_secrets = resources.AsyncAISecretsResourceWithRawResponse(client.ai_secrets)
+        self.env_vars = resources.AsyncEnvVarsResourceWithRawResponse(client.env_vars)
+        self.evals = resources.AsyncEvalsResourceWithRawResponse(client.evals)
 
 
 class BraintrustWithStreamedResponse:
@@ -495,6 +507,8 @@ class BraintrustWithStreamedResponse:
         self.organizations = resources.OrganizationsResourceWithStreamingResponse(client.organizations)
         self.api_keys = resources.APIKeysResourceWithStreamingResponse(client.api_keys)
         self.ai_secrets = resources.AISecretsResourceWithStreamingResponse(client.ai_secrets)
+        self.env_vars = resources.EnvVarsResourceWithStreamingResponse(client.env_vars)
+        self.evals = resources.EvalsResourceWithStreamingResponse(client.evals)
 
 
 class AsyncBraintrustWithStreamedResponse:
@@ -515,6 +529,8 @@ class AsyncBraintrustWithStreamedResponse:
         self.organizations = resources.AsyncOrganizationsResourceWithStreamingResponse(client.organizations)
         self.api_keys = resources.AsyncAPIKeysResourceWithStreamingResponse(client.api_keys)
         self.ai_secrets = resources.AsyncAISecretsResourceWithStreamingResponse(client.ai_secrets)
+        self.env_vars = resources.AsyncEnvVarsResourceWithStreamingResponse(client.env_vars)
+        self.evals = resources.AsyncEvalsResourceWithStreamingResponse(client.evals)
 
 
 Client = Braintrust

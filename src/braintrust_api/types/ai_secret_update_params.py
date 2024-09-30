@@ -9,7 +9,7 @@ __all__ = ["AISecretUpdateParams"]
 
 
 class AISecretUpdateParams(TypedDict, total=False):
-    metadata: Optional[Dict[str, object]]
+    metadata: Optional[Dict[str, Optional[object]]]
 
     name: Optional[str]
     """Name of the AI secret"""

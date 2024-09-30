@@ -9,6 +9,7 @@ from .shared import (
     View as View,
     Group as Group,
     APIKey as APIKey,
+    EnvVar as EnvVar,
     Prompt as Prompt,
     Dataset as Dataset,
     Project as Project,
@@ -34,6 +35,7 @@ from .shared import (
     ProjectLogsEvent as ProjectLogsEvent,
     OnlineScoreConfig as OnlineScoreConfig,
     CreateAPIKeyOutput as CreateAPIKeyOutput,
+    ProjectScoreConfig as ProjectScoreConfig,
     FeedbackDatasetItem as FeedbackDatasetItem,
     InsertEventsResponse as InsertEventsResponse,
     ProjectScoreCategory as ProjectScoreCategory,
@@ -64,6 +66,7 @@ from .user_list_params import UserListParams as UserListParams
 from .view_list_params import ViewListParams as ViewListParams
 from .acl_create_params import ACLCreateParams as ACLCreateParams
 from .group_list_params import GroupListParams as GroupListParams
+from .eval_create_params import EvalCreateParams as EvalCreateParams
 from .prompt_list_params import PromptListParams as PromptListParams
 from .role_create_params import RoleCreateParams as RoleCreateParams
 from .role_update_params import RoleUpdateParams as RoleUpdateParams
@@ -72,6 +75,7 @@ from .view_delete_params import ViewDeleteParams as ViewDeleteParams
 from .view_update_params import ViewUpdateParams as ViewUpdateParams
 from .api_key_list_params import APIKeyListParams as APIKeyListParams
 from .dataset_list_params import DatasetListParams as DatasetListParams
+from .env_var_list_params import EnvVarListParams as EnvVarListParams
 from .group_create_params import GroupCreateParams as GroupCreateParams
 from .group_update_params import GroupUpdateParams as GroupUpdateParams
 from .project_list_params import ProjectListParams as ProjectListParams
@@ -88,9 +92,13 @@ from .api_key_create_params import APIKeyCreateParams as APIKeyCreateParams
 from .dataset_create_params import DatasetCreateParams as DatasetCreateParams
 from .dataset_insert_params import DatasetInsertParams as DatasetInsertParams
 from .dataset_update_params import DatasetUpdateParams as DatasetUpdateParams
+from .env_var_create_params import EnvVarCreateParams as EnvVarCreateParams
+from .env_var_list_response import EnvVarListResponse as EnvVarListResponse
+from .env_var_update_params import EnvVarUpdateParams as EnvVarUpdateParams
 from .project_create_params import ProjectCreateParams as ProjectCreateParams
 from .project_update_params import ProjectUpdateParams as ProjectUpdateParams
 from .prompt_replace_params import PromptReplaceParams as PromptReplaceParams
+from .env_var_replace_params import EnvVarReplaceParams as EnvVarReplaceParams
 from .experiment_list_params import ExperimentListParams as ExperimentListParams
 from .function_create_params import FunctionCreateParams as FunctionCreateParams
 from .function_invoke_params import FunctionInvokeParams as FunctionInvokeParams

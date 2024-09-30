@@ -12,8 +12,8 @@ class DatasetCreateParams(TypedDict, total=False):
     name: Required[str]
     """Name of the dataset. Within a project, dataset names are unique"""
 
+    project_id: Required[str]
+    """Unique identifier for the project that the dataset belongs under"""
+
     description: Optional[str]
     """Textual description of the dataset"""
-
-    project_id: Optional[str]
-    """Unique identifier for the project that the dataset belongs under"""
