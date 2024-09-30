@@ -41,7 +41,7 @@ class ExperimentCreateParams(TypedDict, total=False):
     conflict.
     """
 
-    metadata: Optional[Dict[str, object]]
+    metadata: Optional[Dict[str, Optional[object]]]
     """User-controlled metadata about the experiment"""
 
     name: Optional[str]

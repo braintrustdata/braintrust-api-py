@@ -21,7 +21,7 @@ class AISecret(BaseModel):
     created: Optional[datetime] = None
     """Date of AI secret creation"""
 
-    metadata: Optional[Dict[str, object]] = None
+    metadata: Optional[Dict[str, Optional[object]]] = None
 
     preview_secret: Optional[str] = None
 

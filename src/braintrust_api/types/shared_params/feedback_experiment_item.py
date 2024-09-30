@@ -18,13 +18,13 @@ class FeedbackExperimentItem(TypedDict, total=False):
     comment: Optional[str]
     """An optional comment string to log about the experiment event"""
 
-    expected: object
+    expected: Optional[object]
     """
     The ground truth value (an arbitrary, JSON serializable object) that you'd
     compare to `output` to determine if your `output` value is correct or not
     """
 
-    metadata: Optional[Dict[str, object]]
+    metadata: Optional[Dict[str, Optional[object]]]
     """A dictionary with additional data about the feedback.
 
     If you have a `user_id`, you can log it here and access it in the Braintrust UI.

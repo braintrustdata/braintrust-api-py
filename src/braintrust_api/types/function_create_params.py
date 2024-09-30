@@ -88,9 +88,9 @@ FunctionData: TypeAlias = Union[FunctionDataPrompt, FunctionDataCode, FunctionDa
 
 
 class FunctionSchema(TypedDict, total=False):
-    parameters: object
+    parameters: Optional[object]
 
-    returns: object
+    returns: Optional[object]
 
 
 class Origin(TypedDict, total=False):

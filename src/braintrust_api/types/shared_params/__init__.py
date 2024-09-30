@@ -8,6 +8,8 @@ from .view_options import ViewOptions as ViewOptions
 from .project_settings import ProjectSettings as ProjectSettings
 from .view_data_search import ViewDataSearch as ViewDataSearch
 from .path_lookup_filter import PathLookupFilter as PathLookupFilter
+from .online_score_config import OnlineScoreConfig as OnlineScoreConfig
+from .project_score_config import ProjectScoreConfig as ProjectScoreConfig
 from .feedback_dataset_item import FeedbackDatasetItem as FeedbackDatasetItem
 from .project_score_category import ProjectScoreCategory as ProjectScoreCategory
 from .feedback_experiment_item import FeedbackExperimentItem as FeedbackExperimentItem

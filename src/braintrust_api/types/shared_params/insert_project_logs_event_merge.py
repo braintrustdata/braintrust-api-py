@@ -22,7 +22,7 @@ class ContextTyped(TypedDict, total=False):
     """Line of code where the project logs event was created"""
 
 
-Context: TypeAlias = Union[ContextTyped, Dict[str, object]]
+Context: TypeAlias = Union[ContextTyped, Dict[str, Optional[object]]]
 
 
 class MetricsTyped(TypedDict, total=False):
@@ -54,7 +54,7 @@ class MetricsTyped(TypedDict, total=False):
     """The total number of tokens in the input and output of the project logs event."""
 
 
-Metrics: TypeAlias = Union[MetricsTyped, Dict[str, object]]
+Metrics: TypeAlias = Union[MetricsTyped, Dict[str, Optional[object]]]
 
 
 class SpanAttributesTyped(TypedDict, total=False):
@@ -65,7 +65,7 @@ class SpanAttributesTyped(TypedDict, total=False):
     """Type of the span, for display purposes only"""
 
 
-SpanAttributes: TypeAlias = Union[SpanAttributesTyped, Dict[str, object]]
+SpanAttributes: TypeAlias = Union[SpanAttributesTyped, Dict[str, Optional[object]]]
 
 
 class InsertProjectLogsEventMerge(TypedDict, total=False):
@@ -124,10 +124,10 @@ class InsertProjectLogsEventMerge(TypedDict, total=False):
     created: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """The timestamp the project logs event was created"""
 
-    error: object
+    error: Optional[object]
     """The error that occurred, if any."""
 
-    expected: object
+    expected: Optional[object]
     """
     The ground truth value (an arbitrary, JSON serializable object) that you'd
     compare to `output` to determine if your `output` value is correct or not.
@@ -137,13 +137,13 @@ class InsertProjectLogsEventMerge(TypedDict, total=False):
     later use these values to re-score outputs or fine-tune your models.
     """
 
-    input: object
+    input: Optional[object]
     """
     The arguments that uniquely define a user input (an arbitrary, JSON serializable
     object).
     """
 
-    metadata: Optional[Dict[str, object]]
+    metadata: Optional[Dict[str, Optional[object]]]
     """
     A dictionary with additional data about the test example, model outputs, or just
     about anything else that's relevant, that you can use to help find and analyze
@@ -159,7 +159,7 @@ class InsertProjectLogsEventMerge(TypedDict, total=False):
     over which the project logs event was produced
     """
 
-    output: object
+    output: Optional[object]
     """
     The output of your application, including post-processing (an arbitrary, JSON
     serializable object), that allows you to determine whether the result is correct

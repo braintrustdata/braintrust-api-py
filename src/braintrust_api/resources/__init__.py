@@ -8,6 +8,14 @@ from .acls import (
     ACLsResourceWithStreamingResponse,
     AsyncACLsResourceWithStreamingResponse,
 )
+from .evals import (
+    EvalsResource,
+    AsyncEvalsResource,
+    EvalsResourceWithRawResponse,
+    AsyncEvalsResourceWithRawResponse,
+    EvalsResourceWithStreamingResponse,
+    AsyncEvalsResourceWithStreamingResponse,
+)
 from .roles import (
     RolesResource,
     AsyncRolesResource,
@@ -63,6 +71,14 @@ from .datasets import (
     AsyncDatasetsResourceWithRawResponse,
     DatasetsResourceWithStreamingResponse,
     AsyncDatasetsResourceWithStreamingResponse,
+)
+from .env_vars import (
+    EnvVarsResource,
+    AsyncEnvVarsResource,
+    EnvVarsResourceWithRawResponse,
+    AsyncEnvVarsResourceWithRawResponse,
+    EnvVarsResourceWithStreamingResponse,
+    AsyncEnvVarsResourceWithStreamingResponse,
 )
 from .projects import (
     ProjectsResource,
@@ -226,4 +242,16 @@ __all__ = [
     "AsyncAISecretsResourceWithRawResponse",
     "AISecretsResourceWithStreamingResponse",
     "AsyncAISecretsResourceWithStreamingResponse",
+    "EnvVarsResource",
+    "AsyncEnvVarsResource",
+    "EnvVarsResourceWithRawResponse",
+    "AsyncEnvVarsResourceWithRawResponse",
+    "EnvVarsResourceWithStreamingResponse",
+    "AsyncEnvVarsResourceWithStreamingResponse",
+    "EvalsResource",
+    "AsyncEvalsResource",
+    "EvalsResourceWithRawResponse",
+    "AsyncEvalsResourceWithRawResponse",
+    "EvalsResourceWithStreamingResponse",
+    "AsyncEvalsResourceWithStreamingResponse",
 ]

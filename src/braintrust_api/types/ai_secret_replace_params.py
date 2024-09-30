@@ -12,7 +12,7 @@ class AISecretReplaceParams(TypedDict, total=False):
     name: Required[str]
     """Name of the AI secret"""
 
-    metadata: Optional[Dict[str, object]]
+    metadata: Optional[Dict[str, Optional[object]]]
 
     org_name: Optional[str]
     """For nearly all users, this parameter should be unnecessary.

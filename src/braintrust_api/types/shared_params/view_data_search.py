@@ -9,10 +9,10 @@ __all__ = ["ViewDataSearch"]
 
 
 class ViewDataSearch(TypedDict, total=False):
-    filter: Optional[Iterable[object]]
+    filter: Optional[Iterable[Optional[object]]]
 
-    match: Optional[Iterable[object]]
+    match: Optional[Iterable[Optional[object]]]
 
-    sort: Optional[Iterable[object]]
+    sort: Optional[Iterable[Optional[object]]]
 
-    tag: Optional[Iterable[object]]
+    tag: Optional[Iterable[Optional[object]]]
