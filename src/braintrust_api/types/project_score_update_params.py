@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 from typing import Dict, List, Union, Iterable, Optional
-from typing_extensions import Literal, TypeAlias, TypedDict
+from typing_extensions import TypeAlias, TypedDict
 
+from .shared.project_score_type import ProjectScoreType
 from .shared_params.project_score_config import ProjectScoreConfig
 from .shared_params.project_score_category import ProjectScoreCategory
 
@@ -23,7 +24,7 @@ class ProjectScoreUpdateParams(TypedDict, total=False):
     name: Optional[str]
     """Name of the project score"""
 
-    score_type: Optional[Literal["slider", "categorical", "weighted", "minimum", "online"]]
+    score_type: Optional[ProjectScoreType]
     """The type of the configured score"""
 
 

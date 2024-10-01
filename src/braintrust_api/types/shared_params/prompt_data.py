@@ -6,6 +6,7 @@ from typing import Dict, List, Union, Iterable, Optional
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
+from .tool_choice import ToolChoice
 from .chat_completion_content_part_text import ChatCompletionContentPartText
 from .chat_completion_message_tool_call import ChatCompletionMessageToolCall
 from .chat_completion_content_part_image import ChatCompletionContentPartImage
@@ -18,9 +19,6 @@ __all__ = [
     "OptionsParamsOpenAIModelParamsFunctionCall",
     "OptionsParamsOpenAIModelParamsFunctionCallFunction",
     "OptionsParamsOpenAIModelParamsResponseFormat",
-    "OptionsParamsOpenAIModelParamsToolChoice",
-    "OptionsParamsOpenAIModelParamsToolChoiceFunction",
-    "OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction",
     "OptionsParamsAnthropicModelParams",
     "OptionsParamsGoogleModelParams",
     "OptionsParamsWindowAIModelParams",
@@ -59,21 +57,6 @@ class OptionsParamsOpenAIModelParamsResponseFormat(TypedDict, total=False):
     type: Required[Literal["json_object"]]
 
 
-class OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction(TypedDict, total=False):
-    name: Required[str]
-
-
-class OptionsParamsOpenAIModelParamsToolChoiceFunction(TypedDict, total=False):
-    function: Required[OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction]
-
-    type: Required[Literal["function"]]
-
-
-OptionsParamsOpenAIModelParamsToolChoice: TypeAlias = Union[
-    Literal["auto"], Literal["none"], OptionsParamsOpenAIModelParamsToolChoiceFunction
-]
-
-
 class OptionsParamsOpenAIModelParams(TypedDict, total=False):
     frequency_penalty: float
 
@@ -91,7 +74,7 @@ class OptionsParamsOpenAIModelParams(TypedDict, total=False):
 
     temperature: float
 
-    tool_choice: OptionsParamsOpenAIModelParamsToolChoice
+    tool_choice: ToolChoice
 
     top_p: float
 
