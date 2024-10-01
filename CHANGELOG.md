@@ -1,5 +1,39 @@
 # Changelog
 
+## 0.5.0 (2024-10-01)
+
+Full Changelog: [v0.4.0...v0.5.0](https://github.com/braintrustdata/braintrust-api-py/compare/v0.4.0...v0.5.0)
+
+### Features
+
+* **api:** deduplication ([#40](https://github.com/braintrustdata/braintrust-api-py/issues/40)) ([cfb6df3](https://github.com/braintrustdata/braintrust-api-py/commit/cfb6df32f085499136ba3774044e9b19767b0494))
+* **api:** manual updates ([#41](https://github.com/braintrustdata/braintrust-api-py/issues/41)) ([024919b](https://github.com/braintrustdata/braintrust-api-py/commit/024919b2bd3e4d8d62cd6cdd268ea0e30e80ebe3))
+* **api:** manual updates ([#42](https://github.com/braintrustdata/braintrust-api-py/issues/42)) ([d9a79c3](https://github.com/braintrustdata/braintrust-api-py/commit/d9a79c3cb6c10266ecdb28a3c662ded703143b25))
+* **api:** manual updates ([#43](https://github.com/braintrustdata/braintrust-api-py/issues/43)) ([7220cd8](https://github.com/braintrustdata/braintrust-api-py/commit/7220cd8673b8391380410608acf381c39169c543))
+* **api:** update via SDK Studio ([#25](https://github.com/braintrustdata/braintrust-api-py/issues/25)) ([769692c](https://github.com/braintrustdata/braintrust-api-py/commit/769692cb6eaf64bd0ccdb7542a1782bf77f4fca3))
+* **api:** update via SDK Studio ([#30](https://github.com/braintrustdata/braintrust-api-py/issues/30)) ([0eaa454](https://github.com/braintrustdata/braintrust-api-py/commit/0eaa4541bdcaf64e0c5eb4e2b6940561da151d5e))
+* **api:** update via SDK Studio ([#32](https://github.com/braintrustdata/braintrust-api-py/issues/32)) ([bac36b3](https://github.com/braintrustdata/braintrust-api-py/commit/bac36b3f1873b8915175798b21f475f0c91ce604))
+* **api:** update via SDK Studio ([#33](https://github.com/braintrustdata/braintrust-api-py/issues/33)) ([dbb8d87](https://github.com/braintrustdata/braintrust-api-py/commit/dbb8d87d7e73757e82e6833d81932bb33a9e6e08))
+* **api:** update via SDK Studio ([#34](https://github.com/braintrustdata/braintrust-api-py/issues/34)) ([dc8a983](https://github.com/braintrustdata/braintrust-api-py/commit/dc8a983807041c6da27175d9c5a158922d7d0e53))
+* **api:** update via SDK Studio ([#35](https://github.com/braintrustdata/braintrust-api-py/issues/35)) ([2706ee9](https://github.com/braintrustdata/braintrust-api-py/commit/2706ee90a84d6577f63996502791095244a85ec6))
+* **api:** update via SDK Studio ([#36](https://github.com/braintrustdata/braintrust-api-py/issues/36)) ([5bcdf52](https://github.com/braintrustdata/braintrust-api-py/commit/5bcdf522dca40ec9558160dbf1f9e0966cb7669e))
+* **api:** update via SDK Studio ([#37](https://github.com/braintrustdata/braintrust-api-py/issues/37)) ([7b9b827](https://github.com/braintrustdata/braintrust-api-py/commit/7b9b827633a145eb5f396b0a243ac850864c7526))
+* **client:** send retry count header ([#29](https://github.com/braintrustdata/braintrust-api-py/issues/29)) ([bffa1a1](https://github.com/braintrustdata/braintrust-api-py/commit/bffa1a121cf8c1fcfaf5ceb5273c98dc95a4c1f6))
+
+
+### Bug Fixes
+
+* **api:** fix go build ([#39](https://github.com/braintrustdata/braintrust-api-py/issues/39)) ([d72ac01](https://github.com/braintrustdata/braintrust-api-py/commit/d72ac01dd5a9dce5f84d304c1816765d8bace953))
+* **api:** fix import bug ([8ea7257](https://github.com/braintrustdata/braintrust-api-py/commit/8ea7257a6d7cd40669a47665b784b3276dfbc479))
+* **client:** handle domains with underscores ([#28](https://github.com/braintrustdata/braintrust-api-py/issues/28)) ([227a7b0](https://github.com/braintrustdata/braintrust-api-py/commit/227a7b0e14492670970c83636ad13f03b3f68fbe))
+
+
+### Chores
+
+* **internal:** codegen related update ([#26](https://github.com/braintrustdata/braintrust-api-py/issues/26)) ([6501ee7](https://github.com/braintrustdata/braintrust-api-py/commit/6501ee74269a56dacb3b0ba33068c3b43a0341d0))
+* **internal:** codegen related update ([#38](https://github.com/braintrustdata/braintrust-api-py/issues/38)) ([e612fe4](https://github.com/braintrustdata/braintrust-api-py/commit/e612fe42607c0020803fd22f7776ba981a87d4d6))
+* **internal:** update pydantic v1 compat helpers ([#31](https://github.com/braintrustdata/braintrust-api-py/issues/31)) ([b1af15f](https://github.com/braintrustdata/braintrust-api-py/commit/b1af15faa99d0a19c1af8343b99c94175cfa1ab9))
+
 ## 0.4.0 (2024-08-09)
 
 Full Changelog: [v0.3.0...v0.4.0](https://github.com/braintrustdata/braintrust-api-py/compare/v0.3.0...v0.4.0)
