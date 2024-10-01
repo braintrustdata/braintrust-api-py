@@ -3,6 +3,8 @@
 from typing import Union, Optional
 from typing_extensions import Literal, TypeAlias
 
+from .task import Task
+from .scorer import Scorer
 from ..._models import BaseModel
 
 __all__ = [
@@ -10,24 +12,11 @@ __all__ = [
     "Location",
     "LocationExperiment",
     "LocationExperimentPosition",
-    "LocationExperimentPositionType",
-    "LocationExperimentPositionScorer",
     "LocationFunction",
     "RuntimeContext",
 ]
 
-
-class LocationExperimentPositionType(BaseModel):
-    type: Literal["task"]
-
-
-class LocationExperimentPositionScorer(BaseModel):
-    index: int
-
-    type: Literal["scorer"]
-
-
-LocationExperimentPosition: TypeAlias = Union[LocationExperimentPositionType, LocationExperimentPositionScorer]
+LocationExperimentPosition: TypeAlias = Union[Task, Scorer]
 
 
 class LocationExperiment(BaseModel):
