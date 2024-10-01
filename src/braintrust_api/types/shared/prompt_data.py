@@ -6,6 +6,7 @@ from typing_extensions import Literal, TypeAlias
 from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
+from .tool_choice import ToolChoice
 from .chat_completion_content_part_text import ChatCompletionContentPartText
 from .chat_completion_message_tool_call import ChatCompletionMessageToolCall
 from .chat_completion_content_part_image import ChatCompletionContentPartImage
@@ -18,9 +19,6 @@ __all__ = [
     "OptionsParamsOpenAIModelParamsFunctionCall",
     "OptionsParamsOpenAIModelParamsFunctionCallFunction",
     "OptionsParamsOpenAIModelParamsResponseFormat",
-    "OptionsParamsOpenAIModelParamsToolChoice",
-    "OptionsParamsOpenAIModelParamsToolChoiceFunction",
-    "OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction",
     "OptionsParamsAnthropicModelParams",
     "OptionsParamsGoogleModelParams",
     "OptionsParamsWindowAIModelParams",
@@ -59,21 +57,6 @@ class OptionsParamsOpenAIModelParamsResponseFormat(BaseModel):
     type: Literal["json_object"]
 
 
-class OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction(BaseModel):
-    name: str
-
-
-class OptionsParamsOpenAIModelParamsToolChoiceFunction(BaseModel):
-    function: OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction
-
-    type: Literal["function"]
-
-
-OptionsParamsOpenAIModelParamsToolChoice: TypeAlias = Union[
-    Literal["auto"], Literal["none"], OptionsParamsOpenAIModelParamsToolChoiceFunction
-]
-
-
 class OptionsParamsOpenAIModelParams(BaseModel):
     frequency_penalty: Optional[float] = None
 
@@ -91,7 +74,7 @@ class OptionsParamsOpenAIModelParams(BaseModel):
 
     temperature: Optional[float] = None
 
-    tool_choice: Optional[OptionsParamsOpenAIModelParamsToolChoice] = None
+    tool_choice: Optional[ToolChoice] = None
 
     top_p: Optional[float] = None
 

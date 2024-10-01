@@ -2,9 +2,10 @@
 
 from typing import Dict, List, Union, Optional
 from datetime import datetime
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import TypeAlias
 
 from ..._models import BaseModel
+from .project_score_type import ProjectScoreType
 from .project_score_config import ProjectScoreConfig
 from .project_score_category import ProjectScoreCategory
 
@@ -30,7 +31,7 @@ class ProjectScore(BaseModel):
     project_id: str
     """Unique identifier for the project that the project score belongs under"""
 
-    score_type: Literal["slider", "categorical", "weighted", "minimum", "online"]
+    score_type: ProjectScoreType
     """The type of the configured score"""
 
     user_id: str
