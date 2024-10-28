@@ -7,9 +7,8 @@ from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
 from .tool_choice import ToolChoice
-from .chat_completion_content_part_text import ChatCompletionContentPartText
+from .chat_completion_content_part import ChatCompletionContentPart
 from .chat_completion_message_tool_call import ChatCompletionMessageToolCall
-from .chat_completion_content_part_image import ChatCompletionContentPartImage
 
 __all__ = [
     "PromptData",
@@ -31,7 +30,6 @@ __all__ = [
     "PromptChatMessage",
     "PromptChatMessageSystem",
     "PromptChatMessageUser",
-    "PromptChatMessageUserContentArray",
     "PromptChatMessageAssistant",
     "PromptChatMessageAssistantFunctionCall",
     "PromptChatMessageTool",
@@ -169,13 +167,10 @@ class PromptChatMessageSystem(BaseModel):
     name: Optional[str] = None
 
 
-PromptChatMessageUserContentArray: TypeAlias = Union[ChatCompletionContentPartText, ChatCompletionContentPartImage]
-
-
 class PromptChatMessageUser(BaseModel):
     role: Literal["user"]
 
-    content: Union[str, List[PromptChatMessageUserContentArray], None] = None
+    content: Union[str, List[ChatCompletionContentPart], None] = None
 
     name: Optional[str] = None
 

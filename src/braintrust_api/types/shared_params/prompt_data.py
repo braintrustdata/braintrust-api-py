@@ -7,9 +7,8 @@ from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
 from .tool_choice import ToolChoice
-from .chat_completion_content_part_text import ChatCompletionContentPartText
+from .chat_completion_content_part import ChatCompletionContentPart
 from .chat_completion_message_tool_call import ChatCompletionMessageToolCall
-from .chat_completion_content_part_image import ChatCompletionContentPartImage
 
 __all__ = [
     "PromptData",
@@ -31,7 +30,6 @@ __all__ = [
     "PromptChatMessage",
     "PromptChatMessageSystem",
     "PromptChatMessageUser",
-    "PromptChatMessageUserContentArray",
     "PromptChatMessageAssistant",
     "PromptChatMessageAssistantFunctionCall",
     "PromptChatMessageTool",
@@ -169,13 +167,10 @@ class PromptChatMessageSystem(TypedDict, total=False):
     name: str
 
 
-PromptChatMessageUserContentArray: TypeAlias = Union[ChatCompletionContentPartText, ChatCompletionContentPartImage]
-
-
 class PromptChatMessageUser(TypedDict, total=False):
     role: Required[Literal["user"]]
 
-    content: Union[str, Iterable[PromptChatMessageUserContentArray]]
+    content: Union[str, Iterable[ChatCompletionContentPart]]
 
     name: str
 

@@ -50,6 +50,7 @@ from .shared import (
     FeedbackProjectLogsItem as FeedbackProjectLogsItem,
     InsertDatasetEventMerge as InsertDatasetEventMerge,
     SummarizeDatasetResponse as SummarizeDatasetResponse,
+    ChatCompletionContentPart as ChatCompletionContentPart,
     CrossObjectInsertResponse as CrossObjectInsertResponse,
     InsertDatasetEventReplace as InsertDatasetEventReplace,
     FetchDatasetEventsResponse as FetchDatasetEventsResponse,
