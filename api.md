@@ -6,6 +6,7 @@ from braintrust_api.types import (
     ACL,
     ACLBatchUpdateResponse,
     APIKey,
+    ChatCompletionContentPart,
     ChatCompletionContentPartImage,
     ChatCompletionContentPartText,
     ChatCompletionMessageToolCall,
