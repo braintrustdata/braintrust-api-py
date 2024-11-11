@@ -28,8 +28,7 @@ import os
 from braintrust_api import Braintrust
 
 client = Braintrust(
-    # This is the default and can be omitted
-    api_key=os.environ.get("BRAINTRUST_API_KEY"),
+    api_key=os.environ.get("BRAINTRUST_API_KEY"),  # This is the default and can be omitted
 )
 
 project = client.projects.create(
@@ -53,8 +52,7 @@ import asyncio
 from braintrust_api import AsyncBraintrust
 
 client = AsyncBraintrust(
-    # This is the default and can be omitted
-    api_key=os.environ.get("BRAINTRUST_API_KEY"),
+    api_key=os.environ.get("BRAINTRUST_API_KEY"),  # This is the default and can be omitted
 )
 
 
