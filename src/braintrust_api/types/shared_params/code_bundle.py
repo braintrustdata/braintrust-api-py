@@ -5,19 +5,29 @@ from __future__ import annotations
 from typing import Union, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from .task import Task
-from .scorer import Scorer
-
 __all__ = [
     "CodeBundle",
     "Location",
     "LocationExperiment",
     "LocationExperimentPosition",
+    "LocationExperimentPositionType",
+    "LocationExperimentPositionScorer",
     "LocationFunction",
     "RuntimeContext",
 ]
 
-LocationExperimentPosition: TypeAlias = Union[Task, Scorer]
+
+class LocationExperimentPositionType(TypedDict, total=False):
+    type: Required[Literal["task"]]
+
+
+class LocationExperimentPositionScorer(TypedDict, total=False):
+    index: Required[int]
+
+    type: Required[Literal["scorer"]]
+
+
+LocationExperimentPosition: TypeAlias = Union[LocationExperimentPositionType, LocationExperimentPositionScorer]
 
 
 class LocationExperiment(TypedDict, total=False):

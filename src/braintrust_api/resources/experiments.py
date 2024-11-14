@@ -33,7 +33,7 @@ from ..pagination import SyncListObjects, AsyncListObjects
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.experiment import Experiment
 from ..types.shared_params.repo_info import RepoInfo
-from ..types.shared.insert_events_response import InsertEventsResponse
+from ..types.experiment_insert_response import ExperimentInsertResponse
 from ..types.shared.feedback_response_schema import FeedbackResponseSchema
 from ..types.shared_params.path_lookup_filter import PathLookupFilter
 from ..types.shared.summarize_experiment_response import SummarizeExperimentResponse
@@ -633,7 +633,7 @@ class ExperimentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> InsertEventsResponse:
+    ) -> ExperimentInsertResponse:
         """
         Insert a set of events into the experiment
 
@@ -658,7 +658,7 @@ class ExperimentsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=InsertEventsResponse,
+            cast_to=ExperimentInsertResponse,
         )
 
     def summarize(
@@ -1309,7 +1309,7 @@ class AsyncExperimentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> InsertEventsResponse:
+    ) -> ExperimentInsertResponse:
         """
         Insert a set of events into the experiment
 
@@ -1334,7 +1334,7 @@ class AsyncExperimentsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=InsertEventsResponse,
+            cast_to=ExperimentInsertResponse,
         )
 
     async def summarize(

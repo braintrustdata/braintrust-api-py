@@ -57,6 +57,7 @@ class Braintrust(SyncAPIClient):
     users: resources.UsersResource
     project_scores: resources.ProjectScoresResource
     project_tags: resources.ProjectTagsResource
+    span_iframes: resources.SpanIframesResource
     functions: resources.FunctionsResource
     views: resources.ViewsResource
     organizations: resources.OrganizationsResource
@@ -128,6 +129,7 @@ class Braintrust(SyncAPIClient):
         self.users = resources.UsersResource(self)
         self.project_scores = resources.ProjectScoresResource(self)
         self.project_tags = resources.ProjectTagsResource(self)
+        self.span_iframes = resources.SpanIframesResource(self)
         self.functions = resources.FunctionsResource(self)
         self.views = resources.ViewsResource(self)
         self.organizations = resources.OrganizationsResource(self)
@@ -257,6 +259,7 @@ class AsyncBraintrust(AsyncAPIClient):
     users: resources.AsyncUsersResource
     project_scores: resources.AsyncProjectScoresResource
     project_tags: resources.AsyncProjectTagsResource
+    span_iframes: resources.AsyncSpanIframesResource
     functions: resources.AsyncFunctionsResource
     views: resources.AsyncViewsResource
     organizations: resources.AsyncOrganizationsResource
@@ -328,6 +331,7 @@ class AsyncBraintrust(AsyncAPIClient):
         self.users = resources.AsyncUsersResource(self)
         self.project_scores = resources.AsyncProjectScoresResource(self)
         self.project_tags = resources.AsyncProjectTagsResource(self)
+        self.span_iframes = resources.AsyncSpanIframesResource(self)
         self.functions = resources.AsyncFunctionsResource(self)
         self.views = resources.AsyncViewsResource(self)
         self.organizations = resources.AsyncOrganizationsResource(self)
@@ -458,6 +462,7 @@ class BraintrustWithRawResponse:
         self.users = resources.UsersResourceWithRawResponse(client.users)
         self.project_scores = resources.ProjectScoresResourceWithRawResponse(client.project_scores)
         self.project_tags = resources.ProjectTagsResourceWithRawResponse(client.project_tags)
+        self.span_iframes = resources.SpanIframesResourceWithRawResponse(client.span_iframes)
         self.functions = resources.FunctionsResourceWithRawResponse(client.functions)
         self.views = resources.ViewsResourceWithRawResponse(client.views)
         self.organizations = resources.OrganizationsResourceWithRawResponse(client.organizations)
@@ -480,6 +485,7 @@ class AsyncBraintrustWithRawResponse:
         self.users = resources.AsyncUsersResourceWithRawResponse(client.users)
         self.project_scores = resources.AsyncProjectScoresResourceWithRawResponse(client.project_scores)
         self.project_tags = resources.AsyncProjectTagsResourceWithRawResponse(client.project_tags)
+        self.span_iframes = resources.AsyncSpanIframesResourceWithRawResponse(client.span_iframes)
         self.functions = resources.AsyncFunctionsResourceWithRawResponse(client.functions)
         self.views = resources.AsyncViewsResourceWithRawResponse(client.views)
         self.organizations = resources.AsyncOrganizationsResourceWithRawResponse(client.organizations)
@@ -502,6 +508,7 @@ class BraintrustWithStreamedResponse:
         self.users = resources.UsersResourceWithStreamingResponse(client.users)
         self.project_scores = resources.ProjectScoresResourceWithStreamingResponse(client.project_scores)
         self.project_tags = resources.ProjectTagsResourceWithStreamingResponse(client.project_tags)
+        self.span_iframes = resources.SpanIframesResourceWithStreamingResponse(client.span_iframes)
         self.functions = resources.FunctionsResourceWithStreamingResponse(client.functions)
         self.views = resources.ViewsResourceWithStreamingResponse(client.views)
         self.organizations = resources.OrganizationsResourceWithStreamingResponse(client.organizations)
@@ -524,6 +531,7 @@ class AsyncBraintrustWithStreamedResponse:
         self.users = resources.AsyncUsersResourceWithStreamingResponse(client.users)
         self.project_scores = resources.AsyncProjectScoresResourceWithStreamingResponse(client.project_scores)
         self.project_tags = resources.AsyncProjectTagsResourceWithStreamingResponse(client.project_tags)
+        self.span_iframes = resources.AsyncSpanIframesResourceWithStreamingResponse(client.span_iframes)
         self.functions = resources.AsyncFunctionsResourceWithStreamingResponse(client.functions)
         self.views = resources.AsyncViewsResourceWithStreamingResponse(client.views)
         self.organizations = resources.AsyncOrganizationsResourceWithStreamingResponse(client.organizations)

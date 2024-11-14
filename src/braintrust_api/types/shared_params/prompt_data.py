@@ -6,9 +6,9 @@ from typing import Dict, List, Union, Iterable, Optional
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
-from .tool_choice import ToolChoice
-from .chat_completion_content_part import ChatCompletionContentPart
+from .chat_completion_content_part_text import ChatCompletionContentPartText
 from .chat_completion_message_tool_call import ChatCompletionMessageToolCall
+from .chat_completion_content_part_image import ChatCompletionContentPartImage
 
 __all__ = [
     "PromptData",
@@ -18,6 +18,14 @@ __all__ = [
     "OptionsParamsOpenAIModelParamsFunctionCall",
     "OptionsParamsOpenAIModelParamsFunctionCallFunction",
     "OptionsParamsOpenAIModelParamsResponseFormat",
+    "OptionsParamsOpenAIModelParamsResponseFormatJsonObject",
+    "OptionsParamsOpenAIModelParamsResponseFormatJsonSchema",
+    "OptionsParamsOpenAIModelParamsResponseFormatJsonSchemaJsonSchema",
+    "OptionsParamsOpenAIModelParamsResponseFormatText",
+    "OptionsParamsOpenAIModelParamsResponseFormatNullableVariant",
+    "OptionsParamsOpenAIModelParamsToolChoice",
+    "OptionsParamsOpenAIModelParamsToolChoiceFunction",
+    "OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction",
     "OptionsParamsAnthropicModelParams",
     "OptionsParamsGoogleModelParams",
     "OptionsParamsWindowAIModelParams",
@@ -30,6 +38,7 @@ __all__ = [
     "PromptChatMessage",
     "PromptChatMessageSystem",
     "PromptChatMessageUser",
+    "PromptChatMessageUserContentArray",
     "PromptChatMessageAssistant",
     "PromptChatMessageAssistantFunctionCall",
     "PromptChatMessageTool",
@@ -51,8 +60,55 @@ OptionsParamsOpenAIModelParamsFunctionCall: TypeAlias = Union[
 ]
 
 
-class OptionsParamsOpenAIModelParamsResponseFormat(TypedDict, total=False):
+class OptionsParamsOpenAIModelParamsResponseFormatJsonObject(TypedDict, total=False):
     type: Required[Literal["json_object"]]
+
+
+class OptionsParamsOpenAIModelParamsResponseFormatJsonSchemaJsonSchema(TypedDict, total=False):
+    name: Required[str]
+
+    description: str
+
+    schema: Dict[str, Optional[object]]
+
+    strict: Optional[bool]
+
+
+class OptionsParamsOpenAIModelParamsResponseFormatJsonSchema(TypedDict, total=False):
+    json_schema: Required[OptionsParamsOpenAIModelParamsResponseFormatJsonSchemaJsonSchema]
+
+    type: Required[Literal["json_schema"]]
+
+
+class OptionsParamsOpenAIModelParamsResponseFormatText(TypedDict, total=False):
+    type: Required[Literal["text"]]
+
+
+class OptionsParamsOpenAIModelParamsResponseFormatNullableVariant(TypedDict, total=False):
+    pass
+
+
+OptionsParamsOpenAIModelParamsResponseFormat: TypeAlias = Union[
+    OptionsParamsOpenAIModelParamsResponseFormatJsonObject,
+    OptionsParamsOpenAIModelParamsResponseFormatJsonSchema,
+    OptionsParamsOpenAIModelParamsResponseFormatText,
+    Optional[OptionsParamsOpenAIModelParamsResponseFormatNullableVariant],
+]
+
+
+class OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction(TypedDict, total=False):
+    name: Required[str]
+
+
+class OptionsParamsOpenAIModelParamsToolChoiceFunction(TypedDict, total=False):
+    function: Required[OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction]
+
+    type: Required[Literal["function"]]
+
+
+OptionsParamsOpenAIModelParamsToolChoice: TypeAlias = Union[
+    Literal["auto"], Literal["none"], Literal["required"], OptionsParamsOpenAIModelParamsToolChoiceFunction
+]
 
 
 class OptionsParamsOpenAIModelParams(TypedDict, total=False):
@@ -66,13 +122,13 @@ class OptionsParamsOpenAIModelParams(TypedDict, total=False):
 
     presence_penalty: float
 
-    response_format: Optional[OptionsParamsOpenAIModelParamsResponseFormat]
+    response_format: OptionsParamsOpenAIModelParamsResponseFormat
 
     stop: List[str]
 
     temperature: float
 
-    tool_choice: ToolChoice
+    tool_choice: OptionsParamsOpenAIModelParamsToolChoice
 
     top_p: float
 
@@ -167,10 +223,13 @@ class PromptChatMessageSystem(TypedDict, total=False):
     name: str
 
 
+PromptChatMessageUserContentArray: TypeAlias = Union[ChatCompletionContentPartText, ChatCompletionContentPartImage]
+
+
 class PromptChatMessageUser(TypedDict, total=False):
     role: Required[Literal["user"]]
 
-    content: Union[str, Iterable[ChatCompletionContentPart]]
+    content: Union[str, Iterable[PromptChatMessageUserContentArray]]
 
     name: str
 

@@ -3,9 +3,8 @@
 from __future__ import annotations
 
 from typing import Dict, List, Union, Iterable, Optional
-from typing_extensions import Required, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from .shared.project_score_type import ProjectScoreType
 from .shared_params.project_score_config import ProjectScoreConfig
 from .shared_params.project_score_category import ProjectScoreCategory
 
@@ -19,7 +18,7 @@ class ProjectScoreReplaceParams(TypedDict, total=False):
     project_id: Required[str]
     """Unique identifier for the project that the project score belongs under"""
 
-    score_type: Required[ProjectScoreType]
+    score_type: Required[Literal["slider", "categorical", "weighted", "minimum", "maximum", "online"]]
     """The type of the configured score"""
 
     categories: Categories

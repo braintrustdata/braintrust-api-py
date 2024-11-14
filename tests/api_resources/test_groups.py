@@ -21,14 +21,14 @@ class TestGroups:
     @parametrize
     def test_method_create(self, client: Braintrust) -> None:
         group = client.groups.create(
-            name="name",
+            name="x",
         )
         assert_matches_type(Group, group, path=["response"])
 
     @parametrize
     def test_method_create_with_all_params(self, client: Braintrust) -> None:
         group = client.groups.create(
-            name="name",
+            name="x",
             description="description",
             member_groups=[
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -47,7 +47,7 @@ class TestGroups:
     @parametrize
     def test_raw_response_create(self, client: Braintrust) -> None:
         response = client.groups.with_raw_response.create(
-            name="name",
+            name="x",
         )
 
         assert response.is_closed is True
@@ -58,7 +58,7 @@ class TestGroups:
     @parametrize
     def test_streaming_response_create(self, client: Braintrust) -> None:
         with client.groups.with_streaming_response.create(
-            name="name",
+            name="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -128,7 +128,7 @@ class TestGroups:
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             ],
             description="description",
-            name="name",
+            name="x",
             remove_member_groups=[
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -251,14 +251,14 @@ class TestGroups:
     @parametrize
     def test_method_replace(self, client: Braintrust) -> None:
         group = client.groups.replace(
-            name="name",
+            name="x",
         )
         assert_matches_type(Group, group, path=["response"])
 
     @parametrize
     def test_method_replace_with_all_params(self, client: Braintrust) -> None:
         group = client.groups.replace(
-            name="name",
+            name="x",
             description="description",
             member_groups=[
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -277,7 +277,7 @@ class TestGroups:
     @parametrize
     def test_raw_response_replace(self, client: Braintrust) -> None:
         response = client.groups.with_raw_response.replace(
-            name="name",
+            name="x",
         )
 
         assert response.is_closed is True
@@ -288,7 +288,7 @@ class TestGroups:
     @parametrize
     def test_streaming_response_replace(self, client: Braintrust) -> None:
         with client.groups.with_streaming_response.replace(
-            name="name",
+            name="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -305,14 +305,14 @@ class TestAsyncGroups:
     @parametrize
     async def test_method_create(self, async_client: AsyncBraintrust) -> None:
         group = await async_client.groups.create(
-            name="name",
+            name="x",
         )
         assert_matches_type(Group, group, path=["response"])
 
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncBraintrust) -> None:
         group = await async_client.groups.create(
-            name="name",
+            name="x",
             description="description",
             member_groups=[
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -331,7 +331,7 @@ class TestAsyncGroups:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.groups.with_raw_response.create(
-            name="name",
+            name="x",
         )
 
         assert response.is_closed is True
@@ -342,7 +342,7 @@ class TestAsyncGroups:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncBraintrust) -> None:
         async with async_client.groups.with_streaming_response.create(
-            name="name",
+            name="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -412,7 +412,7 @@ class TestAsyncGroups:
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             ],
             description="description",
-            name="name",
+            name="x",
             remove_member_groups=[
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -535,14 +535,14 @@ class TestAsyncGroups:
     @parametrize
     async def test_method_replace(self, async_client: AsyncBraintrust) -> None:
         group = await async_client.groups.replace(
-            name="name",
+            name="x",
         )
         assert_matches_type(Group, group, path=["response"])
 
     @parametrize
     async def test_method_replace_with_all_params(self, async_client: AsyncBraintrust) -> None:
         group = await async_client.groups.replace(
-            name="name",
+            name="x",
             description="description",
             member_groups=[
                 "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -561,7 +561,7 @@ class TestAsyncGroups:
     @parametrize
     async def test_raw_response_replace(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.groups.with_raw_response.replace(
-            name="name",
+            name="x",
         )
 
         assert response.is_closed is True
@@ -572,7 +572,7 @@ class TestAsyncGroups:
     @parametrize
     async def test_streaming_response_replace(self, async_client: AsyncBraintrust) -> None:
         async with async_client.groups.with_streaming_response.replace(
-            name="name",
+            name="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

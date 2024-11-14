@@ -5,14 +5,12 @@ from __future__ import annotations
 from .shared import (
     ACL as ACL,
     Role as Role,
-    Task as Task,
     User as User,
     View as View,
     Group as Group,
     APIKey as APIKey,
     EnvVar as EnvVar,
     Prompt as Prompt,
-    Scorer as Scorer,
     Dataset as Dataset,
     Project as Project,
     AISecret as AISecret,
@@ -23,7 +21,7 @@ from .shared import (
     Experiment as Experiment,
     ProjectTag as ProjectTag,
     PromptData as PromptData,
-    ToolChoice as ToolChoice,
+    SpanIFrame as SpanIFrame,
     DataSummary as DataSummary,
     ViewOptions as ViewOptions,
     DatasetEvent as DatasetEvent,
@@ -36,10 +34,8 @@ from .shared import (
     ProjectSettings as ProjectSettings,
     PathLookupFilter as PathLookupFilter,
     ProjectLogsEvent as ProjectLogsEvent,
-    ProjectScoreType as ProjectScoreType,
     OnlineScoreConfig as OnlineScoreConfig,
     CreateAPIKeyOutput as CreateAPIKeyOutput,
-    FunctionToolChoice as FunctionToolChoice,
     ProjectScoreConfig as ProjectScoreConfig,
     FeedbackDatasetItem as FeedbackDatasetItem,
     InsertEventsResponse as InsertEventsResponse,
@@ -50,7 +46,6 @@ from .shared import (
     FeedbackProjectLogsItem as FeedbackProjectLogsItem,
     InsertDatasetEventMerge as InsertDatasetEventMerge,
     SummarizeDatasetResponse as SummarizeDatasetResponse,
-    ChatCompletionContentPart as ChatCompletionContentPart,
     CrossObjectInsertResponse as CrossObjectInsertResponse,
     InsertDatasetEventReplace as InsertDatasetEventReplace,
     FetchDatasetEventsResponse as FetchDatasetEventsResponse,
@@ -116,6 +111,7 @@ from .dataset_feedback_params import DatasetFeedbackParams as DatasetFeedbackPar
 from .experiment_fetch_params import ExperimentFetchParams as ExperimentFetchParams
 from .function_replace_params import FunctionReplaceParams as FunctionReplaceParams
 from .project_tag_list_params import ProjectTagListParams as ProjectTagListParams
+from .span_iframe_list_params import SpanIframeListParams as SpanIframeListParams
 from .ai_secret_replace_params import AISecretReplaceParams as AISecretReplaceParams
 from .dataset_summarize_params import DatasetSummarizeParams as DatasetSummarizeParams
 from .experiment_create_params import ExperimentCreateParams as ExperimentCreateParams
@@ -126,10 +122,14 @@ from .dataset_fetch_post_params import DatasetFetchPostParams as DatasetFetchPos
 from .project_score_list_params import ProjectScoreListParams as ProjectScoreListParams
 from .project_tag_create_params import ProjectTagCreateParams as ProjectTagCreateParams
 from .project_tag_update_params import ProjectTagUpdateParams as ProjectTagUpdateParams
+from .span_iframe_create_params import SpanIframeCreateParams as SpanIframeCreateParams
+from .span_iframe_update_params import SpanIframeUpdateParams as SpanIframeUpdateParams
 from .acl_find_and_delete_params import ACLFindAndDeleteParams as ACLFindAndDeleteParams
 from .experiment_feedback_params import ExperimentFeedbackParams as ExperimentFeedbackParams
+from .experiment_insert_response import ExperimentInsertResponse as ExperimentInsertResponse
 from .organization_update_params import OrganizationUpdateParams as OrganizationUpdateParams
 from .project_tag_replace_params import ProjectTagReplaceParams as ProjectTagReplaceParams
+from .span_iframe_replace_params import SpanIframeReplaceParams as SpanIframeReplaceParams
 from .experiment_summarize_params import ExperimentSummarizeParams as ExperimentSummarizeParams
 from .project_score_create_params import ProjectScoreCreateParams as ProjectScoreCreateParams
 from .project_score_update_params import ProjectScoreUpdateParams as ProjectScoreUpdateParams

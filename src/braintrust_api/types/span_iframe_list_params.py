@@ -3,12 +3,12 @@
 from __future__ import annotations
 
 from typing import List, Union, Optional
-from typing_extensions import Literal, TypedDict
+from typing_extensions import TypedDict
 
-__all__ = ["ProjectScoreListParams"]
+__all__ = ["SpanIframeListParams"]
 
 
-class ProjectScoreListParams(TypedDict, total=False):
+class SpanIframeListParams(TypedDict, total=False):
     ending_before: str
     """Pagination cursor id.
 
@@ -29,20 +29,8 @@ class ProjectScoreListParams(TypedDict, total=False):
     org_name: str
     """Filter search results to within a particular organization"""
 
-    project_id: str
-    """Project id"""
-
-    project_name: str
-    """Name of the project to search for"""
-
-    project_score_name: str
-    """Name of the project_score to search for"""
-
-    score_type: Union[
-        Literal["slider", "categorical", "weighted", "minimum", "maximum", "online"],
-        List[Literal["slider", "categorical", "weighted", "minimum", "maximum", "online"]],
-    ]
-    """The type of the configured score"""
+    span_iframe_name: str
+    """Name of the span_iframe to search for"""
 
     starting_after: str
     """Pagination cursor id.

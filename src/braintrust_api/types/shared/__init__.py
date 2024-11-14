@@ -2,12 +2,10 @@
 
 from .acl import ACL as ACL
 from .role import Role as Role
-from .task import Task as Task
 from .user import User as User
 from .view import View as View
 from .group import Group as Group
 from .prompt import Prompt as Prompt
-from .scorer import Scorer as Scorer
 from .api_key import APIKey as APIKey
 from .dataset import Dataset as Dataset
 from .env_var import EnvVar as EnvVar
@@ -20,9 +18,9 @@ from .experiment import Experiment as Experiment
 from .code_bundle import CodeBundle as CodeBundle
 from .project_tag import ProjectTag as ProjectTag
 from .prompt_data import PromptData as PromptData
-from .tool_choice import ToolChoice as ToolChoice
 from .data_summary import DataSummary as DataSummary
 from .organization import Organization as Organization
+from .span_i_frame import SpanIFrame as SpanIFrame
 from .view_options import ViewOptions as ViewOptions
 from .dataset_event import DatasetEvent as DatasetEvent
 from .project_score import ProjectScore as ProjectScore
@@ -33,9 +31,7 @@ from .project_settings import ProjectSettings as ProjectSettings
 from .view_data_search import ViewDataSearch as ViewDataSearch
 from .path_lookup_filter import PathLookupFilter as PathLookupFilter
 from .project_logs_event import ProjectLogsEvent as ProjectLogsEvent
-from .project_score_type import ProjectScoreType as ProjectScoreType
 from .online_score_config import OnlineScoreConfig as OnlineScoreConfig
-from .function_tool_choice import FunctionToolChoice as FunctionToolChoice
 from .project_score_config import ProjectScoreConfig as ProjectScoreConfig
 from .create_api_key_output import CreateAPIKeyOutput as CreateAPIKeyOutput
 from .feedback_dataset_item import FeedbackDatasetItem as FeedbackDatasetItem
@@ -47,7 +43,6 @@ from .acl_batch_update_response import ACLBatchUpdateResponse as ACLBatchUpdateR
 from .feedback_project_logs_item import FeedbackProjectLogsItem as FeedbackProjectLogsItem
 from .insert_dataset_event_merge import InsertDatasetEventMerge as InsertDatasetEventMerge
 from .summarize_dataset_response import SummarizeDatasetResponse as SummarizeDatasetResponse
-from .chat_completion_content_part import ChatCompletionContentPart as ChatCompletionContentPart
 from .cross_object_insert_response import CrossObjectInsertResponse as CrossObjectInsertResponse
 from .insert_dataset_event_replace import InsertDatasetEventReplace as InsertDatasetEventReplace
 from .fetch_dataset_events_response import FetchDatasetEventsResponse as FetchDatasetEventsResponse

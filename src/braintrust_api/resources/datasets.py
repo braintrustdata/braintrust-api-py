@@ -68,6 +68,7 @@ class DatasetsResource(SyncAPIResource):
         name: str,
         project_id: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
+        metadata: Optional[Dict[str, Optional[object]]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -88,6 +89,8 @@ class DatasetsResource(SyncAPIResource):
 
           description: Textual description of the dataset
 
+          metadata: User-controlled metadata about the dataset
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -103,6 +106,7 @@ class DatasetsResource(SyncAPIResource):
                     "name": name,
                     "project_id": project_id,
                     "description": description,
+                    "metadata": metadata,
                 },
                 dataset_create_params.DatasetCreateParams,
             ),
@@ -675,6 +679,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         name: str,
         project_id: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
+        metadata: Optional[Dict[str, Optional[object]]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -695,6 +700,8 @@ class AsyncDatasetsResource(AsyncAPIResource):
 
           description: Textual description of the dataset
 
+          metadata: User-controlled metadata about the dataset
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -710,6 +717,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
                     "name": name,
                     "project_id": project_id,
                     "description": description,
+                    "metadata": metadata,
                 },
                 dataset_create_params.DatasetCreateParams,
             ),
