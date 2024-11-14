@@ -27,7 +27,7 @@ class TestDatasets:
     @parametrize
     def test_method_create(self, client: Braintrust) -> None:
         dataset = client.datasets.create(
-            name="name",
+            name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(Dataset, dataset, path=["response"])
@@ -35,16 +35,17 @@ class TestDatasets:
     @parametrize
     def test_method_create_with_all_params(self, client: Braintrust) -> None:
         dataset = client.datasets.create(
-            name="name",
+            name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             description="description",
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     def test_raw_response_create(self, client: Braintrust) -> None:
         response = client.datasets.with_raw_response.create(
-            name="name",
+            name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -56,7 +57,7 @@ class TestDatasets:
     @parametrize
     def test_streaming_response_create(self, client: Braintrust) -> None:
         with client.datasets.with_streaming_response.create(
-            name="name",
+            name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed
@@ -483,7 +484,7 @@ class TestAsyncDatasets:
     @parametrize
     async def test_method_create(self, async_client: AsyncBraintrust) -> None:
         dataset = await async_client.datasets.create(
-            name="name",
+            name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
         assert_matches_type(Dataset, dataset, path=["response"])
@@ -491,16 +492,17 @@ class TestAsyncDatasets:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncBraintrust) -> None:
         dataset = await async_client.datasets.create(
-            name="name",
+            name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             description="description",
+            metadata={"foo": "bar"},
         )
         assert_matches_type(Dataset, dataset, path=["response"])
 
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.datasets.with_raw_response.create(
-            name="name",
+            name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         )
 
@@ -512,7 +514,7 @@ class TestAsyncDatasets:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncBraintrust) -> None:
         async with async_client.datasets.with_streaming_response.create(
-            name="name",
+            name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
         ) as response:
             assert not response.is_closed

@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable, Optional
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing import Dict, List, Union, Iterable, Optional
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
+from .._utils import PropertyInfo
+from .shared_params.repo_info import RepoInfo
 from .shared_params.prompt_data import PromptData
 
 __all__ = [
@@ -28,6 +30,7 @@ __all__ = [
     "TaskInlineCode",
     "TaskInlineCodeInlineContext",
     "TaskInlinePrompt",
+    "GitMetadataSettings",
 ]
 
 
@@ -44,11 +47,40 @@ class EvalCreateParams(TypedDict, total=False):
     task: Required[Task]
     """The function to evaluate"""
 
+    base_experiment_id: Optional[str]
+    """An optional experiment id to use as a base.
+
+    If specified, the new experiment will be summarized and compared to this
+    experiment.
+    """
+
+    base_experiment_name: Optional[str]
+    """An optional experiment name to use as a base.
+
+    If specified, the new experiment will be summarized and compared to this
+    experiment.
+    """
+
     experiment_name: str
     """An optional name for the experiment created by this eval.
 
     If it conflicts with an existing experiment, it will be suffixed with a unique
     identifier.
+    """
+
+    git_metadata_settings: Optional[GitMetadataSettings]
+    """Optional settings for collecting git metadata.
+
+    By default, will collect all git metadata fields allowed in org-level settings.
+    """
+
+    is_public: Optional[bool]
+    """Whether the experiment should be public. Defaults to false."""
+
+    max_concurrency: Optional[float]
+    """The maximum number of tasks/scorers that will be run concurrently.
+
+    Defaults to undefined, in which case there is no max concurrency.
     """
 
     metadata: Dict[str, Optional[object]]
@@ -57,12 +89,29 @@ class EvalCreateParams(TypedDict, total=False):
     You can later use this to slice & dice across experiments.
     """
 
+    repo_info: Optional[RepoInfo]
+    """Metadata about the state of the repo when the experiment was created"""
+
     stream: bool
     """Whether to stream the results of the eval.
 
     If true, the request will return two events: one to indicate the experiment has
     started, and another upon completion. If false, the request will return the
     evaluation's summary upon completion.
+    """
+
+    api_timeout: Annotated[Optional[float], PropertyInfo(alias="timeout")]
+    """The maximum duration, in milliseconds, to run the evaluation.
+
+    Defaults to undefined, in which case there is no timeout.
+    """
+
+    trial_count: Optional[float]
+    """The number of times to run the evaluator per input.
+
+    This is useful for evaluating applications that have non-deterministic behavior
+    and gives you both a stronger aggregate measure and a sense of the variance in
+    the results.
     """
 
 
@@ -211,3 +260,21 @@ class TaskInlinePrompt(TypedDict, total=False):
 Task: TypeAlias = Union[
     TaskFunctionID, TaskProjectSlug, TaskGlobalFunction, TaskPromptSessionID, TaskInlineCode, TaskInlinePrompt
 ]
+
+
+class GitMetadataSettings(TypedDict, total=False):
+    collect: Required[Literal["all", "none", "some"]]
+
+    fields: List[
+        Literal[
+            "commit",
+            "branch",
+            "tag",
+            "dirty",
+            "author_name",
+            "author_email",
+            "commit_message",
+            "commit_time",
+            "git_diff",
+        ]
+    ]

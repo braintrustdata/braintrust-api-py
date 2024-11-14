@@ -21,6 +21,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.shared_params.repo_info import RepoInfo
 from ..types.shared.summarize_experiment_response import SummarizeExperimentResponse
 
 __all__ = ["EvalsResource", "AsyncEvalsResource"]
@@ -53,9 +54,17 @@ class EvalsResource(SyncAPIResource):
         project_id: str,
         scores: Iterable[eval_create_params.Score],
         task: eval_create_params.Task,
+        base_experiment_id: Optional[str] | NotGiven = NOT_GIVEN,
+        base_experiment_name: Optional[str] | NotGiven = NOT_GIVEN,
         experiment_name: str | NotGiven = NOT_GIVEN,
+        git_metadata_settings: Optional[eval_create_params.GitMetadataSettings] | NotGiven = NOT_GIVEN,
+        is_public: Optional[bool] | NotGiven = NOT_GIVEN,
+        max_concurrency: Optional[float] | NotGiven = NOT_GIVEN,
         metadata: Dict[str, Optional[object]] | NotGiven = NOT_GIVEN,
+        repo_info: Optional[RepoInfo] | NotGiven = NOT_GIVEN,
         stream: bool | NotGiven = NOT_GIVEN,
+        api_timeout: Optional[float] | NotGiven = NOT_GIVEN,
+        trial_count: Optional[float] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -81,15 +90,38 @@ class EvalsResource(SyncAPIResource):
 
           task: The function to evaluate
 
+          base_experiment_id: An optional experiment id to use as a base. If specified, the new experiment
+              will be summarized and compared to this experiment.
+
+          base_experiment_name: An optional experiment name to use as a base. If specified, the new experiment
+              will be summarized and compared to this experiment.
+
           experiment_name: An optional name for the experiment created by this eval. If it conflicts with
               an existing experiment, it will be suffixed with a unique identifier.
+
+          git_metadata_settings: Optional settings for collecting git metadata. By default, will collect all git
+              metadata fields allowed in org-level settings.
+
+          is_public: Whether the experiment should be public. Defaults to false.
+
+          max_concurrency: The maximum number of tasks/scorers that will be run concurrently. Defaults to
+              undefined, in which case there is no max concurrency.
 
           metadata: Optional experiment-level metadata to store about the evaluation. You can later
               use this to slice & dice across experiments.
 
+          repo_info: Metadata about the state of the repo when the experiment was created
+
           stream: Whether to stream the results of the eval. If true, the request will return two
               events: one to indicate the experiment has started, and another upon completion.
               If false, the request will return the evaluation's summary upon completion.
+
+          api_timeout: The maximum duration, in milliseconds, to run the evaluation. Defaults to
+              undefined, in which case there is no timeout.
+
+          trial_count: The number of times to run the evaluator per input. This is useful for
+              evaluating applications that have non-deterministic behavior and gives you both
+              a stronger aggregate measure and a sense of the variance in the results.
 
           extra_headers: Send extra headers
 
@@ -107,9 +139,17 @@ class EvalsResource(SyncAPIResource):
                     "project_id": project_id,
                     "scores": scores,
                     "task": task,
+                    "base_experiment_id": base_experiment_id,
+                    "base_experiment_name": base_experiment_name,
                     "experiment_name": experiment_name,
+                    "git_metadata_settings": git_metadata_settings,
+                    "is_public": is_public,
+                    "max_concurrency": max_concurrency,
                     "metadata": metadata,
+                    "repo_info": repo_info,
                     "stream": stream,
+                    "api_timeout": api_timeout,
+                    "trial_count": trial_count,
                 },
                 eval_create_params.EvalCreateParams,
             ),
@@ -147,9 +187,17 @@ class AsyncEvalsResource(AsyncAPIResource):
         project_id: str,
         scores: Iterable[eval_create_params.Score],
         task: eval_create_params.Task,
+        base_experiment_id: Optional[str] | NotGiven = NOT_GIVEN,
+        base_experiment_name: Optional[str] | NotGiven = NOT_GIVEN,
         experiment_name: str | NotGiven = NOT_GIVEN,
+        git_metadata_settings: Optional[eval_create_params.GitMetadataSettings] | NotGiven = NOT_GIVEN,
+        is_public: Optional[bool] | NotGiven = NOT_GIVEN,
+        max_concurrency: Optional[float] | NotGiven = NOT_GIVEN,
         metadata: Dict[str, Optional[object]] | NotGiven = NOT_GIVEN,
+        repo_info: Optional[RepoInfo] | NotGiven = NOT_GIVEN,
         stream: bool | NotGiven = NOT_GIVEN,
+        api_timeout: Optional[float] | NotGiven = NOT_GIVEN,
+        trial_count: Optional[float] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -175,15 +223,38 @@ class AsyncEvalsResource(AsyncAPIResource):
 
           task: The function to evaluate
 
+          base_experiment_id: An optional experiment id to use as a base. If specified, the new experiment
+              will be summarized and compared to this experiment.
+
+          base_experiment_name: An optional experiment name to use as a base. If specified, the new experiment
+              will be summarized and compared to this experiment.
+
           experiment_name: An optional name for the experiment created by this eval. If it conflicts with
               an existing experiment, it will be suffixed with a unique identifier.
+
+          git_metadata_settings: Optional settings for collecting git metadata. By default, will collect all git
+              metadata fields allowed in org-level settings.
+
+          is_public: Whether the experiment should be public. Defaults to false.
+
+          max_concurrency: The maximum number of tasks/scorers that will be run concurrently. Defaults to
+              undefined, in which case there is no max concurrency.
 
           metadata: Optional experiment-level metadata to store about the evaluation. You can later
               use this to slice & dice across experiments.
 
+          repo_info: Metadata about the state of the repo when the experiment was created
+
           stream: Whether to stream the results of the eval. If true, the request will return two
               events: one to indicate the experiment has started, and another upon completion.
               If false, the request will return the evaluation's summary upon completion.
+
+          api_timeout: The maximum duration, in milliseconds, to run the evaluation. Defaults to
+              undefined, in which case there is no timeout.
+
+          trial_count: The number of times to run the evaluator per input. This is useful for
+              evaluating applications that have non-deterministic behavior and gives you both
+              a stronger aggregate measure and a sense of the variance in the results.
 
           extra_headers: Send extra headers
 
@@ -201,9 +272,17 @@ class AsyncEvalsResource(AsyncAPIResource):
                     "project_id": project_id,
                     "scores": scores,
                     "task": task,
+                    "base_experiment_id": base_experiment_id,
+                    "base_experiment_name": base_experiment_name,
                     "experiment_name": experiment_name,
+                    "git_metadata_settings": git_metadata_settings,
+                    "is_public": is_public,
+                    "max_concurrency": max_concurrency,
                     "metadata": metadata,
+                    "repo_info": repo_info,
                     "stream": stream,
+                    "api_timeout": api_timeout,
+                    "trial_count": trial_count,
                 },
                 eval_create_params.EvalCreateParams,
             ),

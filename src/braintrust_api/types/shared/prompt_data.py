@@ -6,9 +6,9 @@ from typing_extensions import Literal, TypeAlias
 from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
-from .tool_choice import ToolChoice
-from .chat_completion_content_part import ChatCompletionContentPart
+from .chat_completion_content_part_text import ChatCompletionContentPartText
 from .chat_completion_message_tool_call import ChatCompletionMessageToolCall
+from .chat_completion_content_part_image import ChatCompletionContentPartImage
 
 __all__ = [
     "PromptData",
@@ -18,6 +18,14 @@ __all__ = [
     "OptionsParamsOpenAIModelParamsFunctionCall",
     "OptionsParamsOpenAIModelParamsFunctionCallFunction",
     "OptionsParamsOpenAIModelParamsResponseFormat",
+    "OptionsParamsOpenAIModelParamsResponseFormatJsonObject",
+    "OptionsParamsOpenAIModelParamsResponseFormatJsonSchema",
+    "OptionsParamsOpenAIModelParamsResponseFormatJsonSchemaJsonSchema",
+    "OptionsParamsOpenAIModelParamsResponseFormatText",
+    "OptionsParamsOpenAIModelParamsResponseFormatNullableVariant",
+    "OptionsParamsOpenAIModelParamsToolChoice",
+    "OptionsParamsOpenAIModelParamsToolChoiceFunction",
+    "OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction",
     "OptionsParamsAnthropicModelParams",
     "OptionsParamsGoogleModelParams",
     "OptionsParamsWindowAIModelParams",
@@ -30,6 +38,7 @@ __all__ = [
     "PromptChatMessage",
     "PromptChatMessageSystem",
     "PromptChatMessageUser",
+    "PromptChatMessageUserContentArray",
     "PromptChatMessageAssistant",
     "PromptChatMessageAssistantFunctionCall",
     "PromptChatMessageTool",
@@ -51,8 +60,55 @@ OptionsParamsOpenAIModelParamsFunctionCall: TypeAlias = Union[
 ]
 
 
-class OptionsParamsOpenAIModelParamsResponseFormat(BaseModel):
+class OptionsParamsOpenAIModelParamsResponseFormatJsonObject(BaseModel):
     type: Literal["json_object"]
+
+
+class OptionsParamsOpenAIModelParamsResponseFormatJsonSchemaJsonSchema(BaseModel):
+    name: str
+
+    description: Optional[str] = None
+
+    schema_: Optional[Dict[str, Optional[object]]] = FieldInfo(alias="schema", default=None)
+
+    strict: Optional[bool] = None
+
+
+class OptionsParamsOpenAIModelParamsResponseFormatJsonSchema(BaseModel):
+    json_schema: OptionsParamsOpenAIModelParamsResponseFormatJsonSchemaJsonSchema
+
+    type: Literal["json_schema"]
+
+
+class OptionsParamsOpenAIModelParamsResponseFormatText(BaseModel):
+    type: Literal["text"]
+
+
+class OptionsParamsOpenAIModelParamsResponseFormatNullableVariant(BaseModel):
+    pass
+
+
+OptionsParamsOpenAIModelParamsResponseFormat: TypeAlias = Union[
+    OptionsParamsOpenAIModelParamsResponseFormatJsonObject,
+    OptionsParamsOpenAIModelParamsResponseFormatJsonSchema,
+    OptionsParamsOpenAIModelParamsResponseFormatText,
+    Optional[OptionsParamsOpenAIModelParamsResponseFormatNullableVariant],
+]
+
+
+class OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction(BaseModel):
+    name: str
+
+
+class OptionsParamsOpenAIModelParamsToolChoiceFunction(BaseModel):
+    function: OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction
+
+    type: Literal["function"]
+
+
+OptionsParamsOpenAIModelParamsToolChoice: TypeAlias = Union[
+    Literal["auto"], Literal["none"], Literal["required"], OptionsParamsOpenAIModelParamsToolChoiceFunction
+]
 
 
 class OptionsParamsOpenAIModelParams(BaseModel):
@@ -72,7 +128,7 @@ class OptionsParamsOpenAIModelParams(BaseModel):
 
     temperature: Optional[float] = None
 
-    tool_choice: Optional[ToolChoice] = None
+    tool_choice: Optional[OptionsParamsOpenAIModelParamsToolChoice] = None
 
     top_p: Optional[float] = None
 
@@ -167,10 +223,13 @@ class PromptChatMessageSystem(BaseModel):
     name: Optional[str] = None
 
 
+PromptChatMessageUserContentArray: TypeAlias = Union[ChatCompletionContentPartText, ChatCompletionContentPartImage]
+
+
 class PromptChatMessageUser(BaseModel):
     role: Literal["user"]
 
-    content: Union[str, List[ChatCompletionContentPart], None] = None
+    content: Union[str, List[PromptChatMessageUserContentArray], None] = None
 
     name: Optional[str] = None
 
