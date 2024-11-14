@@ -21,7 +21,7 @@ from ..._response import (
 )
 from ..._base_client import make_request_options
 from ...types.projects import log_fetch_params, log_insert_params, log_feedback_params, log_fetch_post_params
-from ...types.shared.insert_events_response import InsertEventsResponse
+from ...types.projects.log_insert_response import LogInsertResponse
 from ...types.shared.feedback_response_schema import FeedbackResponseSchema
 from ...types.shared_params.path_lookup_filter import PathLookupFilter
 from ...types.shared_params.feedback_project_logs_item import FeedbackProjectLogsItem
@@ -306,7 +306,7 @@ class LogsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> InsertEventsResponse:
+    ) -> LogInsertResponse:
         """
         Insert a set of events into the project logs
 
@@ -331,7 +331,7 @@ class LogsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=InsertEventsResponse,
+            cast_to=LogInsertResponse,
         )
 
 
@@ -611,7 +611,7 @@ class AsyncLogsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> InsertEventsResponse:
+    ) -> LogInsertResponse:
         """
         Insert a set of events into the project logs
 
@@ -636,7 +636,7 @@ class AsyncLogsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=InsertEventsResponse,
+            cast_to=LogInsertResponse,
         )
 
 

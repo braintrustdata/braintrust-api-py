@@ -68,10 +68,9 @@ class AddACL(TypedDict, total=False):
     permission: Optional[
         Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
     ]
-    """Each permission permits a certain type of operation on an object in the system
+    """Permission the ACL grants.
 
-    Permissions can be assigned to to objects on an individual basis, or grouped
-    into roles
+    Exactly one of `permission` and `role_id` will be provided
     """
 
     restrict_object_type: Optional[
@@ -89,7 +88,10 @@ class AddACL(TypedDict, total=False):
             "org_project",
         ]
     ]
-    """The object type that the ACL applies to"""
+    """
+    When setting a permission directly, optionally restricts the permission grant to
+    just the specified object type. Cannot be set alongside a `role_id`.
+    """
 
     role_id: Optional[str]
     """Id of the role the ACL grants.
@@ -134,10 +136,9 @@ class RemoveACL(TypedDict, total=False):
     permission: Optional[
         Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
     ]
-    """Each permission permits a certain type of operation on an object in the system
+    """Permission the ACL grants.
 
-    Permissions can be assigned to to objects on an individual basis, or grouped
-    into roles
+    Exactly one of `permission` and `role_id` will be provided
     """
 
     restrict_object_type: Optional[
@@ -155,7 +156,10 @@ class RemoveACL(TypedDict, total=False):
             "org_project",
         ]
     ]
-    """The object type that the ACL applies to"""
+    """
+    When setting a permission directly, optionally restricts the permission grant to
+    just the specified object type. Cannot be set alongside a `role_id`.
+    """
 
     role_id: Optional[str]
     """Id of the role the ACL grants.

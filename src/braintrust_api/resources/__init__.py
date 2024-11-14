@@ -128,6 +128,14 @@ from .project_tags import (
     ProjectTagsResourceWithStreamingResponse,
     AsyncProjectTagsResourceWithStreamingResponse,
 )
+from .span_iframes import (
+    SpanIframesResource,
+    AsyncSpanIframesResource,
+    SpanIframesResourceWithRawResponse,
+    AsyncSpanIframesResourceWithRawResponse,
+    SpanIframesResourceWithStreamingResponse,
+    AsyncSpanIframesResourceWithStreamingResponse,
+)
 from .organizations import (
     OrganizationsResource,
     AsyncOrganizationsResource,
@@ -212,6 +220,12 @@ __all__ = [
     "AsyncProjectTagsResourceWithRawResponse",
     "ProjectTagsResourceWithStreamingResponse",
     "AsyncProjectTagsResourceWithStreamingResponse",
+    "SpanIframesResource",
+    "AsyncSpanIframesResource",
+    "SpanIframesResourceWithRawResponse",
+    "AsyncSpanIframesResourceWithRawResponse",
+    "SpanIframesResourceWithStreamingResponse",
+    "AsyncSpanIframesResourceWithStreamingResponse",
     "FunctionsResource",
     "AsyncFunctionsResource",
     "FunctionsResourceWithRawResponse",

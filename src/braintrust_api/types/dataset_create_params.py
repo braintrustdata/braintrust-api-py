@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Dict, Optional
 from typing_extensions import Required, TypedDict
 
 __all__ = ["DatasetCreateParams"]
@@ -17,3 +17,6 @@ class DatasetCreateParams(TypedDict, total=False):
 
     description: Optional[str]
     """Textual description of the dataset"""
+
+    metadata: Optional[Dict[str, Optional[object]]]
+    """User-controlled metadata about the dataset"""
