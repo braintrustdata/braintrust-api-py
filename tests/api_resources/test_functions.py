@@ -22,9 +22,9 @@ class TestFunctions:
     def test_method_create(self, client: Braintrust) -> None:
         function = client.functions.create(
             function_data={"type": "prompt"},
-            name="name",
+            name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            slug="slug",
+            slug="x",
         )
         assert_matches_type(Function, function, path=["response"])
 
@@ -32,9 +32,9 @@ class TestFunctions:
     def test_method_create_with_all_params(self, client: Braintrust) -> None:
         function = client.functions.create(
             function_data={"type": "prompt"},
-            name="name",
+            name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            slug="slug",
+            slug="x",
             description="description",
             function_schema={
                 "parameters": {},
@@ -101,9 +101,9 @@ class TestFunctions:
     def test_raw_response_create(self, client: Braintrust) -> None:
         response = client.functions.with_raw_response.create(
             function_data={"type": "prompt"},
-            name="name",
+            name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            slug="slug",
+            slug="x",
         )
 
         assert response.is_closed is True
@@ -115,9 +115,9 @@ class TestFunctions:
     def test_streaming_response_create(self, client: Braintrust) -> None:
         with client.functions.with_streaming_response.create(
             function_data={"type": "prompt"},
-            name="name",
+            name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            slug="slug",
+            slug="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -420,9 +420,9 @@ class TestFunctions:
     def test_method_replace(self, client: Braintrust) -> None:
         function = client.functions.replace(
             function_data={"type": "prompt"},
-            name="name",
+            name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            slug="slug",
+            slug="x",
         )
         assert_matches_type(Function, function, path=["response"])
 
@@ -430,9 +430,9 @@ class TestFunctions:
     def test_method_replace_with_all_params(self, client: Braintrust) -> None:
         function = client.functions.replace(
             function_data={"type": "prompt"},
-            name="name",
+            name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            slug="slug",
+            slug="x",
             description="description",
             function_schema={
                 "parameters": {},
@@ -499,9 +499,9 @@ class TestFunctions:
     def test_raw_response_replace(self, client: Braintrust) -> None:
         response = client.functions.with_raw_response.replace(
             function_data={"type": "prompt"},
-            name="name",
+            name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            slug="slug",
+            slug="x",
         )
 
         assert response.is_closed is True
@@ -513,9 +513,9 @@ class TestFunctions:
     def test_streaming_response_replace(self, client: Braintrust) -> None:
         with client.functions.with_streaming_response.replace(
             function_data={"type": "prompt"},
-            name="name",
+            name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            slug="slug",
+            slug="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -533,9 +533,9 @@ class TestAsyncFunctions:
     async def test_method_create(self, async_client: AsyncBraintrust) -> None:
         function = await async_client.functions.create(
             function_data={"type": "prompt"},
-            name="name",
+            name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            slug="slug",
+            slug="x",
         )
         assert_matches_type(Function, function, path=["response"])
 
@@ -543,9 +543,9 @@ class TestAsyncFunctions:
     async def test_method_create_with_all_params(self, async_client: AsyncBraintrust) -> None:
         function = await async_client.functions.create(
             function_data={"type": "prompt"},
-            name="name",
+            name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            slug="slug",
+            slug="x",
             description="description",
             function_schema={
                 "parameters": {},
@@ -612,9 +612,9 @@ class TestAsyncFunctions:
     async def test_raw_response_create(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.functions.with_raw_response.create(
             function_data={"type": "prompt"},
-            name="name",
+            name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            slug="slug",
+            slug="x",
         )
 
         assert response.is_closed is True
@@ -626,9 +626,9 @@ class TestAsyncFunctions:
     async def test_streaming_response_create(self, async_client: AsyncBraintrust) -> None:
         async with async_client.functions.with_streaming_response.create(
             function_data={"type": "prompt"},
-            name="name",
+            name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            slug="slug",
+            slug="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -931,9 +931,9 @@ class TestAsyncFunctions:
     async def test_method_replace(self, async_client: AsyncBraintrust) -> None:
         function = await async_client.functions.replace(
             function_data={"type": "prompt"},
-            name="name",
+            name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            slug="slug",
+            slug="x",
         )
         assert_matches_type(Function, function, path=["response"])
 
@@ -941,9 +941,9 @@ class TestAsyncFunctions:
     async def test_method_replace_with_all_params(self, async_client: AsyncBraintrust) -> None:
         function = await async_client.functions.replace(
             function_data={"type": "prompt"},
-            name="name",
+            name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            slug="slug",
+            slug="x",
             description="description",
             function_schema={
                 "parameters": {},
@@ -1010,9 +1010,9 @@ class TestAsyncFunctions:
     async def test_raw_response_replace(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.functions.with_raw_response.replace(
             function_data={"type": "prompt"},
-            name="name",
+            name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            slug="slug",
+            slug="x",
         )
 
         assert response.is_closed is True
@@ -1024,9 +1024,9 @@ class TestAsyncFunctions:
     async def test_streaming_response_replace(self, async_client: AsyncBraintrust) -> None:
         async with async_client.functions.with_streaming_response.replace(
             function_data={"type": "prompt"},
-            name="name",
+            name="x",
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            slug="slug",
+            slug="x",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

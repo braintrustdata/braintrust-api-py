@@ -3,15 +3,14 @@
 from __future__ import annotations
 
 from typing import List, Union, Optional
-from typing_extensions import Literal
 
 import httpx
 
 from ..types import (
-    project_score_list_params,
-    project_score_create_params,
-    project_score_update_params,
-    project_score_replace_params,
+    span_iframe_list_params,
+    span_iframe_create_params,
+    span_iframe_update_params,
+    span_iframe_replace_params,
 )
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
@@ -28,64 +27,63 @@ from .._response import (
 )
 from ..pagination import SyncListObjects, AsyncListObjects
 from .._base_client import AsyncPaginator, make_request_options
-from ..types.shared.project_score import ProjectScore
-from ..types.shared_params.project_score_config import ProjectScoreConfig
+from ..types.shared.span_i_frame import SpanIFrame
 
-__all__ = ["ProjectScoresResource", "AsyncProjectScoresResource"]
+__all__ = ["SpanIframesResource", "AsyncSpanIframesResource"]
 
 
-class ProjectScoresResource(SyncAPIResource):
+class SpanIframesResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> ProjectScoresResourceWithRawResponse:
+    def with_raw_response(self) -> SpanIframesResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return the
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
         """
-        return ProjectScoresResourceWithRawResponse(self)
+        return SpanIframesResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> ProjectScoresResourceWithStreamingResponse:
+    def with_streaming_response(self) -> SpanIframesResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/braintrustdata/braintrust-api-py#with_streaming_response
         """
-        return ProjectScoresResourceWithStreamingResponse(self)
+        return SpanIframesResourceWithStreamingResponse(self)
 
     def create(
         self,
         *,
         name: str,
         project_id: str,
-        score_type: Literal["slider", "categorical", "weighted", "minimum", "maximum", "online"],
-        categories: project_score_create_params.Categories | NotGiven = NOT_GIVEN,
-        config: Optional[ProjectScoreConfig] | NotGiven = NOT_GIVEN,
+        url: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
+        post_message: Optional[bool] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ProjectScore:
-        """Create a new project_score.
+    ) -> SpanIFrame:
+        """Create a new span_iframe.
 
-        If there is an existing project_score in the project
-        with the same name as the one specified in the request, will return the existing
-        project_score unmodified
+        If there is an existing span_iframe with the same name
+        as the one specified in the request, will return the existing span_iframe
+        unmodified
 
         Args:
-          name: Name of the project score
+          name: Name of the span iframe
 
-          project_id: Unique identifier for the project that the project score belongs under
+          project_id: Unique identifier for the project that the span iframe belongs under
 
-          score_type: The type of the configured score
+          url: URL to embed the project viewer in an iframe
 
-          categories: For categorical-type project scores, the list of all categories
+          description: Textual description of the span iframe
 
-          description: Textual description of the project score
+          post_message: Whether to post messages to the iframe containing the span's data. This is
+              useful when you want to render more data than fits in the URL.
 
           extra_headers: Send extra headers
 
@@ -96,27 +94,26 @@ class ProjectScoresResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/v1/project_score",
+            "/v1/span_iframe",
             body=maybe_transform(
                 {
                     "name": name,
                     "project_id": project_id,
-                    "score_type": score_type,
-                    "categories": categories,
-                    "config": config,
+                    "url": url,
                     "description": description,
+                    "post_message": post_message,
                 },
-                project_score_create_params.ProjectScoreCreateParams,
+                span_iframe_create_params.SpanIframeCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ProjectScore,
+            cast_to=SpanIFrame,
         )
 
     def retrieve(
         self,
-        project_score_id: str,
+        span_iframe_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -124,12 +121,12 @@ class ProjectScoresResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ProjectScore:
+    ) -> SpanIFrame:
         """
-        Get a project_score object by its id
+        Get a span_iframe object by its id
 
         Args:
-          project_score_id: ProjectScore id
+          span_iframe_id: SpanIframe id
 
           extra_headers: Send extra headers
 
@@ -139,49 +136,45 @@ class ProjectScoresResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not project_score_id:
-            raise ValueError(f"Expected a non-empty value for `project_score_id` but received {project_score_id!r}")
+        if not span_iframe_id:
+            raise ValueError(f"Expected a non-empty value for `span_iframe_id` but received {span_iframe_id!r}")
         return self._get(
-            f"/v1/project_score/{project_score_id}",
+            f"/v1/span_iframe/{span_iframe_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ProjectScore,
+            cast_to=SpanIFrame,
         )
 
     def update(
         self,
-        project_score_id: str,
+        span_iframe_id: str,
         *,
-        categories: project_score_update_params.Categories | NotGiven = NOT_GIVEN,
-        config: Optional[ProjectScoreConfig] | NotGiven = NOT_GIVEN,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
-        score_type: Optional[Literal["slider", "categorical", "weighted", "minimum", "maximum", "online"]]
-        | NotGiven = NOT_GIVEN,
+        post_message: Optional[bool] | NotGiven = NOT_GIVEN,
+        url: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ProjectScore:
-        """Partially update a project_score object.
+    ) -> SpanIFrame:
+        """Partially update a span_iframe object.
 
         Specify the fields to update in the
         payload. Any object-type fields will be deep-merged with existing content.
         Currently we do not support removing fields or setting them to null.
 
         Args:
-          project_score_id: ProjectScore id
+          span_iframe_id: SpanIframe id
 
-          categories: For categorical-type project scores, the list of all categories
+          name: Name of the span iframe
 
-          description: Textual description of the project score
+          post_message: Whether to post messages to the iframe containing the span's data. This is
+              useful when you want to render more data than fits in the URL.
 
-          name: Name of the project score
-
-          score_type: The type of the configured score
+          url: URL to embed the project viewer in an iframe
 
           extra_headers: Send extra headers
 
@@ -191,24 +184,22 @@ class ProjectScoresResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not project_score_id:
-            raise ValueError(f"Expected a non-empty value for `project_score_id` but received {project_score_id!r}")
+        if not span_iframe_id:
+            raise ValueError(f"Expected a non-empty value for `span_iframe_id` but received {span_iframe_id!r}")
         return self._patch(
-            f"/v1/project_score/{project_score_id}",
+            f"/v1/span_iframe/{span_iframe_id}",
             body=maybe_transform(
                 {
-                    "categories": categories,
-                    "config": config,
-                    "description": description,
                     "name": name,
-                    "score_type": score_type,
+                    "post_message": post_message,
+                    "url": url,
                 },
-                project_score_update_params.ProjectScoreUpdateParams,
+                span_iframe_update_params.SpanIframeUpdateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ProjectScore,
+            cast_to=SpanIFrame,
         )
 
     def list(
@@ -218,14 +209,7 @@ class ProjectScoresResource(SyncAPIResource):
         ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         org_name: str | NotGiven = NOT_GIVEN,
-        project_id: str | NotGiven = NOT_GIVEN,
-        project_name: str | NotGiven = NOT_GIVEN,
-        project_score_name: str | NotGiven = NOT_GIVEN,
-        score_type: Union[
-            Literal["slider", "categorical", "weighted", "minimum", "maximum", "online"],
-            List[Literal["slider", "categorical", "weighted", "minimum", "maximum", "online"]],
-        ]
-        | NotGiven = NOT_GIVEN,
+        span_iframe_name: str | NotGiven = NOT_GIVEN,
         starting_after: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -233,11 +217,11 @@ class ProjectScoresResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> SyncListObjects[ProjectScore]:
-        """List out all project_scores.
+    ) -> SyncListObjects[SpanIFrame]:
+        """List out all span_iframes.
 
-        The project_scores are sorted by creation date,
-        with the most recently-created project_scores coming first
+        The span_iframes are sorted by creation date, with
+        the most recently-created span_iframes coming first
 
         Args:
           ending_before: Pagination cursor id.
@@ -253,13 +237,7 @@ class ProjectScoresResource(SyncAPIResource):
 
           org_name: Filter search results to within a particular organization
 
-          project_id: Project id
-
-          project_name: Name of the project to search for
-
-          project_score_name: Name of the project_score to search for
-
-          score_type: The type of the configured score
+          span_iframe_name: Name of the span_iframe to search for
 
           starting_after: Pagination cursor id.
 
@@ -276,8 +254,8 @@ class ProjectScoresResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/v1/project_score",
-            page=SyncListObjects[ProjectScore],
+            "/v1/span_iframe",
+            page=SyncListObjects[SpanIFrame],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -289,21 +267,18 @@ class ProjectScoresResource(SyncAPIResource):
                         "ids": ids,
                         "limit": limit,
                         "org_name": org_name,
-                        "project_id": project_id,
-                        "project_name": project_name,
-                        "project_score_name": project_score_name,
-                        "score_type": score_type,
+                        "span_iframe_name": span_iframe_name,
                         "starting_after": starting_after,
                     },
-                    project_score_list_params.ProjectScoreListParams,
+                    span_iframe_list_params.SpanIframeListParams,
                 ),
             ),
-            model=ProjectScore,
+            model=SpanIFrame,
         )
 
     def delete(
         self,
-        project_score_id: str,
+        span_iframe_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -311,12 +286,12 @@ class ProjectScoresResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ProjectScore:
+    ) -> SpanIFrame:
         """
-        Delete a project_score object by its id
+        Delete a span_iframe object by its id
 
         Args:
-          project_score_id: ProjectScore id
+          span_iframe_id: SpanIframe id
 
           extra_headers: Send extra headers
 
@@ -326,14 +301,14 @@ class ProjectScoresResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not project_score_id:
-            raise ValueError(f"Expected a non-empty value for `project_score_id` but received {project_score_id!r}")
+        if not span_iframe_id:
+            raise ValueError(f"Expected a non-empty value for `span_iframe_id` but received {span_iframe_id!r}")
         return self._delete(
-            f"/v1/project_score/{project_score_id}",
+            f"/v1/span_iframe/{span_iframe_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ProjectScore,
+            cast_to=SpanIFrame,
         )
 
     def replace(
@@ -341,33 +316,33 @@ class ProjectScoresResource(SyncAPIResource):
         *,
         name: str,
         project_id: str,
-        score_type: Literal["slider", "categorical", "weighted", "minimum", "maximum", "online"],
-        categories: project_score_replace_params.Categories | NotGiven = NOT_GIVEN,
-        config: Optional[ProjectScoreConfig] | NotGiven = NOT_GIVEN,
+        url: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
+        post_message: Optional[bool] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ProjectScore:
-        """Create or replace project_score.
+    ) -> SpanIFrame:
+        """Create or replace span_iframe.
 
-        If there is an existing project_score in the
-        project with the same name as the one specified in the request, will replace the
-        existing project_score with the provided fields
+        If there is an existing span_iframe with the same
+        name as the one specified in the request, will replace the existing span_iframe
+        with the provided fields
 
         Args:
-          name: Name of the project score
+          name: Name of the span iframe
 
-          project_id: Unique identifier for the project that the project score belongs under
+          project_id: Unique identifier for the project that the span iframe belongs under
 
-          score_type: The type of the configured score
+          url: URL to embed the project viewer in an iframe
 
-          categories: For categorical-type project scores, the list of all categories
+          description: Textual description of the span iframe
 
-          description: Textual description of the project score
+          post_message: Whether to post messages to the iframe containing the span's data. This is
+              useful when you want to render more data than fits in the URL.
 
           extra_headers: Send extra headers
 
@@ -378,77 +353,76 @@ class ProjectScoresResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._put(
-            "/v1/project_score",
+            "/v1/span_iframe",
             body=maybe_transform(
                 {
                     "name": name,
                     "project_id": project_id,
-                    "score_type": score_type,
-                    "categories": categories,
-                    "config": config,
+                    "url": url,
                     "description": description,
+                    "post_message": post_message,
                 },
-                project_score_replace_params.ProjectScoreReplaceParams,
+                span_iframe_replace_params.SpanIframeReplaceParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ProjectScore,
+            cast_to=SpanIFrame,
         )
 
 
-class AsyncProjectScoresResource(AsyncAPIResource):
+class AsyncSpanIframesResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncProjectScoresResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncSpanIframesResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return the
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
         """
-        return AsyncProjectScoresResourceWithRawResponse(self)
+        return AsyncSpanIframesResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncProjectScoresResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncSpanIframesResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/braintrustdata/braintrust-api-py#with_streaming_response
         """
-        return AsyncProjectScoresResourceWithStreamingResponse(self)
+        return AsyncSpanIframesResourceWithStreamingResponse(self)
 
     async def create(
         self,
         *,
         name: str,
         project_id: str,
-        score_type: Literal["slider", "categorical", "weighted", "minimum", "maximum", "online"],
-        categories: project_score_create_params.Categories | NotGiven = NOT_GIVEN,
-        config: Optional[ProjectScoreConfig] | NotGiven = NOT_GIVEN,
+        url: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
+        post_message: Optional[bool] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ProjectScore:
-        """Create a new project_score.
+    ) -> SpanIFrame:
+        """Create a new span_iframe.
 
-        If there is an existing project_score in the project
-        with the same name as the one specified in the request, will return the existing
-        project_score unmodified
+        If there is an existing span_iframe with the same name
+        as the one specified in the request, will return the existing span_iframe
+        unmodified
 
         Args:
-          name: Name of the project score
+          name: Name of the span iframe
 
-          project_id: Unique identifier for the project that the project score belongs under
+          project_id: Unique identifier for the project that the span iframe belongs under
 
-          score_type: The type of the configured score
+          url: URL to embed the project viewer in an iframe
 
-          categories: For categorical-type project scores, the list of all categories
+          description: Textual description of the span iframe
 
-          description: Textual description of the project score
+          post_message: Whether to post messages to the iframe containing the span's data. This is
+              useful when you want to render more data than fits in the URL.
 
           extra_headers: Send extra headers
 
@@ -459,27 +433,26 @@ class AsyncProjectScoresResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/v1/project_score",
+            "/v1/span_iframe",
             body=await async_maybe_transform(
                 {
                     "name": name,
                     "project_id": project_id,
-                    "score_type": score_type,
-                    "categories": categories,
-                    "config": config,
+                    "url": url,
                     "description": description,
+                    "post_message": post_message,
                 },
-                project_score_create_params.ProjectScoreCreateParams,
+                span_iframe_create_params.SpanIframeCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ProjectScore,
+            cast_to=SpanIFrame,
         )
 
     async def retrieve(
         self,
-        project_score_id: str,
+        span_iframe_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -487,12 +460,12 @@ class AsyncProjectScoresResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ProjectScore:
+    ) -> SpanIFrame:
         """
-        Get a project_score object by its id
+        Get a span_iframe object by its id
 
         Args:
-          project_score_id: ProjectScore id
+          span_iframe_id: SpanIframe id
 
           extra_headers: Send extra headers
 
@@ -502,49 +475,45 @@ class AsyncProjectScoresResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not project_score_id:
-            raise ValueError(f"Expected a non-empty value for `project_score_id` but received {project_score_id!r}")
+        if not span_iframe_id:
+            raise ValueError(f"Expected a non-empty value for `span_iframe_id` but received {span_iframe_id!r}")
         return await self._get(
-            f"/v1/project_score/{project_score_id}",
+            f"/v1/span_iframe/{span_iframe_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ProjectScore,
+            cast_to=SpanIFrame,
         )
 
     async def update(
         self,
-        project_score_id: str,
+        span_iframe_id: str,
         *,
-        categories: project_score_update_params.Categories | NotGiven = NOT_GIVEN,
-        config: Optional[ProjectScoreConfig] | NotGiven = NOT_GIVEN,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
-        score_type: Optional[Literal["slider", "categorical", "weighted", "minimum", "maximum", "online"]]
-        | NotGiven = NOT_GIVEN,
+        post_message: Optional[bool] | NotGiven = NOT_GIVEN,
+        url: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ProjectScore:
-        """Partially update a project_score object.
+    ) -> SpanIFrame:
+        """Partially update a span_iframe object.
 
         Specify the fields to update in the
         payload. Any object-type fields will be deep-merged with existing content.
         Currently we do not support removing fields or setting them to null.
 
         Args:
-          project_score_id: ProjectScore id
+          span_iframe_id: SpanIframe id
 
-          categories: For categorical-type project scores, the list of all categories
+          name: Name of the span iframe
 
-          description: Textual description of the project score
+          post_message: Whether to post messages to the iframe containing the span's data. This is
+              useful when you want to render more data than fits in the URL.
 
-          name: Name of the project score
-
-          score_type: The type of the configured score
+          url: URL to embed the project viewer in an iframe
 
           extra_headers: Send extra headers
 
@@ -554,24 +523,22 @@ class AsyncProjectScoresResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not project_score_id:
-            raise ValueError(f"Expected a non-empty value for `project_score_id` but received {project_score_id!r}")
+        if not span_iframe_id:
+            raise ValueError(f"Expected a non-empty value for `span_iframe_id` but received {span_iframe_id!r}")
         return await self._patch(
-            f"/v1/project_score/{project_score_id}",
+            f"/v1/span_iframe/{span_iframe_id}",
             body=await async_maybe_transform(
                 {
-                    "categories": categories,
-                    "config": config,
-                    "description": description,
                     "name": name,
-                    "score_type": score_type,
+                    "post_message": post_message,
+                    "url": url,
                 },
-                project_score_update_params.ProjectScoreUpdateParams,
+                span_iframe_update_params.SpanIframeUpdateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ProjectScore,
+            cast_to=SpanIFrame,
         )
 
     def list(
@@ -581,14 +548,7 @@ class AsyncProjectScoresResource(AsyncAPIResource):
         ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         org_name: str | NotGiven = NOT_GIVEN,
-        project_id: str | NotGiven = NOT_GIVEN,
-        project_name: str | NotGiven = NOT_GIVEN,
-        project_score_name: str | NotGiven = NOT_GIVEN,
-        score_type: Union[
-            Literal["slider", "categorical", "weighted", "minimum", "maximum", "online"],
-            List[Literal["slider", "categorical", "weighted", "minimum", "maximum", "online"]],
-        ]
-        | NotGiven = NOT_GIVEN,
+        span_iframe_name: str | NotGiven = NOT_GIVEN,
         starting_after: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -596,11 +556,11 @@ class AsyncProjectScoresResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> AsyncPaginator[ProjectScore, AsyncListObjects[ProjectScore]]:
-        """List out all project_scores.
+    ) -> AsyncPaginator[SpanIFrame, AsyncListObjects[SpanIFrame]]:
+        """List out all span_iframes.
 
-        The project_scores are sorted by creation date,
-        with the most recently-created project_scores coming first
+        The span_iframes are sorted by creation date, with
+        the most recently-created span_iframes coming first
 
         Args:
           ending_before: Pagination cursor id.
@@ -616,13 +576,7 @@ class AsyncProjectScoresResource(AsyncAPIResource):
 
           org_name: Filter search results to within a particular organization
 
-          project_id: Project id
-
-          project_name: Name of the project to search for
-
-          project_score_name: Name of the project_score to search for
-
-          score_type: The type of the configured score
+          span_iframe_name: Name of the span_iframe to search for
 
           starting_after: Pagination cursor id.
 
@@ -639,8 +593,8 @@ class AsyncProjectScoresResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get_api_list(
-            "/v1/project_score",
-            page=AsyncListObjects[ProjectScore],
+            "/v1/span_iframe",
+            page=AsyncListObjects[SpanIFrame],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -652,21 +606,18 @@ class AsyncProjectScoresResource(AsyncAPIResource):
                         "ids": ids,
                         "limit": limit,
                         "org_name": org_name,
-                        "project_id": project_id,
-                        "project_name": project_name,
-                        "project_score_name": project_score_name,
-                        "score_type": score_type,
+                        "span_iframe_name": span_iframe_name,
                         "starting_after": starting_after,
                     },
-                    project_score_list_params.ProjectScoreListParams,
+                    span_iframe_list_params.SpanIframeListParams,
                 ),
             ),
-            model=ProjectScore,
+            model=SpanIFrame,
         )
 
     async def delete(
         self,
-        project_score_id: str,
+        span_iframe_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -674,12 +625,12 @@ class AsyncProjectScoresResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ProjectScore:
+    ) -> SpanIFrame:
         """
-        Delete a project_score object by its id
+        Delete a span_iframe object by its id
 
         Args:
-          project_score_id: ProjectScore id
+          span_iframe_id: SpanIframe id
 
           extra_headers: Send extra headers
 
@@ -689,14 +640,14 @@ class AsyncProjectScoresResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not project_score_id:
-            raise ValueError(f"Expected a non-empty value for `project_score_id` but received {project_score_id!r}")
+        if not span_iframe_id:
+            raise ValueError(f"Expected a non-empty value for `span_iframe_id` but received {span_iframe_id!r}")
         return await self._delete(
-            f"/v1/project_score/{project_score_id}",
+            f"/v1/span_iframe/{span_iframe_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ProjectScore,
+            cast_to=SpanIFrame,
         )
 
     async def replace(
@@ -704,33 +655,33 @@ class AsyncProjectScoresResource(AsyncAPIResource):
         *,
         name: str,
         project_id: str,
-        score_type: Literal["slider", "categorical", "weighted", "minimum", "maximum", "online"],
-        categories: project_score_replace_params.Categories | NotGiven = NOT_GIVEN,
-        config: Optional[ProjectScoreConfig] | NotGiven = NOT_GIVEN,
+        url: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
+        post_message: Optional[bool] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> ProjectScore:
-        """Create or replace project_score.
+    ) -> SpanIFrame:
+        """Create or replace span_iframe.
 
-        If there is an existing project_score in the
-        project with the same name as the one specified in the request, will replace the
-        existing project_score with the provided fields
+        If there is an existing span_iframe with the same
+        name as the one specified in the request, will replace the existing span_iframe
+        with the provided fields
 
         Args:
-          name: Name of the project score
+          name: Name of the span iframe
 
-          project_id: Unique identifier for the project that the project score belongs under
+          project_id: Unique identifier for the project that the span iframe belongs under
 
-          score_type: The type of the configured score
+          url: URL to embed the project viewer in an iframe
 
-          categories: For categorical-type project scores, the list of all categories
+          description: Textual description of the span iframe
 
-          description: Textual description of the project score
+          post_message: Whether to post messages to the iframe containing the span's data. This is
+              useful when you want to render more data than fits in the URL.
 
           extra_headers: Send extra headers
 
@@ -741,116 +692,115 @@ class AsyncProjectScoresResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._put(
-            "/v1/project_score",
+            "/v1/span_iframe",
             body=await async_maybe_transform(
                 {
                     "name": name,
                     "project_id": project_id,
-                    "score_type": score_type,
-                    "categories": categories,
-                    "config": config,
+                    "url": url,
                     "description": description,
+                    "post_message": post_message,
                 },
-                project_score_replace_params.ProjectScoreReplaceParams,
+                span_iframe_replace_params.SpanIframeReplaceParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ProjectScore,
+            cast_to=SpanIFrame,
         )
 
 
-class ProjectScoresResourceWithRawResponse:
-    def __init__(self, project_scores: ProjectScoresResource) -> None:
-        self._project_scores = project_scores
+class SpanIframesResourceWithRawResponse:
+    def __init__(self, span_iframes: SpanIframesResource) -> None:
+        self._span_iframes = span_iframes
 
         self.create = to_raw_response_wrapper(
-            project_scores.create,
+            span_iframes.create,
         )
         self.retrieve = to_raw_response_wrapper(
-            project_scores.retrieve,
+            span_iframes.retrieve,
         )
         self.update = to_raw_response_wrapper(
-            project_scores.update,
+            span_iframes.update,
         )
         self.list = to_raw_response_wrapper(
-            project_scores.list,
+            span_iframes.list,
         )
         self.delete = to_raw_response_wrapper(
-            project_scores.delete,
+            span_iframes.delete,
         )
         self.replace = to_raw_response_wrapper(
-            project_scores.replace,
+            span_iframes.replace,
         )
 
 
-class AsyncProjectScoresResourceWithRawResponse:
-    def __init__(self, project_scores: AsyncProjectScoresResource) -> None:
-        self._project_scores = project_scores
+class AsyncSpanIframesResourceWithRawResponse:
+    def __init__(self, span_iframes: AsyncSpanIframesResource) -> None:
+        self._span_iframes = span_iframes
 
         self.create = async_to_raw_response_wrapper(
-            project_scores.create,
+            span_iframes.create,
         )
         self.retrieve = async_to_raw_response_wrapper(
-            project_scores.retrieve,
+            span_iframes.retrieve,
         )
         self.update = async_to_raw_response_wrapper(
-            project_scores.update,
+            span_iframes.update,
         )
         self.list = async_to_raw_response_wrapper(
-            project_scores.list,
+            span_iframes.list,
         )
         self.delete = async_to_raw_response_wrapper(
-            project_scores.delete,
+            span_iframes.delete,
         )
         self.replace = async_to_raw_response_wrapper(
-            project_scores.replace,
+            span_iframes.replace,
         )
 
 
-class ProjectScoresResourceWithStreamingResponse:
-    def __init__(self, project_scores: ProjectScoresResource) -> None:
-        self._project_scores = project_scores
+class SpanIframesResourceWithStreamingResponse:
+    def __init__(self, span_iframes: SpanIframesResource) -> None:
+        self._span_iframes = span_iframes
 
         self.create = to_streamed_response_wrapper(
-            project_scores.create,
+            span_iframes.create,
         )
         self.retrieve = to_streamed_response_wrapper(
-            project_scores.retrieve,
+            span_iframes.retrieve,
         )
         self.update = to_streamed_response_wrapper(
-            project_scores.update,
+            span_iframes.update,
         )
         self.list = to_streamed_response_wrapper(
-            project_scores.list,
+            span_iframes.list,
         )
         self.delete = to_streamed_response_wrapper(
-            project_scores.delete,
+            span_iframes.delete,
         )
         self.replace = to_streamed_response_wrapper(
-            project_scores.replace,
+            span_iframes.replace,
         )
 
 
-class AsyncProjectScoresResourceWithStreamingResponse:
-    def __init__(self, project_scores: AsyncProjectScoresResource) -> None:
-        self._project_scores = project_scores
+class AsyncSpanIframesResourceWithStreamingResponse:
+    def __init__(self, span_iframes: AsyncSpanIframesResource) -> None:
+        self._span_iframes = span_iframes
 
         self.create = async_to_streamed_response_wrapper(
-            project_scores.create,
+            span_iframes.create,
         )
         self.retrieve = async_to_streamed_response_wrapper(
-            project_scores.retrieve,
+            span_iframes.retrieve,
         )
         self.update = async_to_streamed_response_wrapper(
-            project_scores.update,
+            span_iframes.update,
         )
         self.list = async_to_streamed_response_wrapper(
-            project_scores.list,
+            span_iframes.list,
         )
         self.delete = async_to_streamed_response_wrapper(
-            project_scores.delete,
+            span_iframes.delete,
         )
         self.replace = async_to_streamed_response_wrapper(
-            project_scores.replace,
+            span_iframes.replace,
         )

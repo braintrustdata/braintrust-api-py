@@ -114,12 +114,11 @@ class ACLsResource(SyncAPIResource):
           group_id: Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
               be provided
 
-          permission: Each permission permits a certain type of operation on an object in the system
+          permission: Permission the ACL grants. Exactly one of `permission` and `role_id` will be
+              provided
 
-              Permissions can be assigned to to objects on an individual basis, or grouped
-              into roles
-
-          restrict_object_type: The object type that the ACL applies to
+          restrict_object_type: When setting a permission directly, optionally restricts the permission grant to
+              just the specified object type. Cannot be set alongside a `role_id`.
 
           role_id: Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
               provided
@@ -433,12 +432,11 @@ class ACLsResource(SyncAPIResource):
           group_id: Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
               be provided
 
-          permission: Each permission permits a certain type of operation on an object in the system
+          permission: Permission the ACL grants. Exactly one of `permission` and `role_id` will be
+              provided
 
-              Permissions can be assigned to to objects on an individual basis, or grouped
-              into roles
-
-          restrict_object_type: The object type that the ACL applies to
+          restrict_object_type: When setting a permission directly, optionally restricts the permission grant to
+              just the specified object type. Cannot be set alongside a `role_id`.
 
           role_id: Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
               provided
@@ -555,12 +553,11 @@ class AsyncACLsResource(AsyncAPIResource):
           group_id: Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
               be provided
 
-          permission: Each permission permits a certain type of operation on an object in the system
+          permission: Permission the ACL grants. Exactly one of `permission` and `role_id` will be
+              provided
 
-              Permissions can be assigned to to objects on an individual basis, or grouped
-              into roles
-
-          restrict_object_type: The object type that the ACL applies to
+          restrict_object_type: When setting a permission directly, optionally restricts the permission grant to
+              just the specified object type. Cannot be set alongside a `role_id`.
 
           role_id: Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
               provided
@@ -874,12 +871,11 @@ class AsyncACLsResource(AsyncAPIResource):
           group_id: Id of the group the ACL applies to. Exactly one of `user_id` and `group_id` will
               be provided
 
-          permission: Each permission permits a certain type of operation on an object in the system
+          permission: Permission the ACL grants. Exactly one of `permission` and `role_id` will be
+              provided
 
-              Permissions can be assigned to to objects on an individual basis, or grouped
-              into roles
-
-          restrict_object_type: The object type that the ACL applies to
+          restrict_object_type: When setting a permission directly, optionally restricts the permission grant to
+              just the specified object type. Cannot be set alongside a `role_id`.
 
           role_id: Id of the role the ACL grants. Exactly one of `permission` and `role_id` will be
               provided

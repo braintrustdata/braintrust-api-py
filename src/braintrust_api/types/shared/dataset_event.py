@@ -2,12 +2,27 @@
 
 from typing import Dict, List, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
 
-__all__ = ["DatasetEvent"]
+__all__ = ["DatasetEvent", "Origin"]
+
+
+class Origin(BaseModel):
+    id: str
+    """ID of the original event."""
+
+    xact_id: str = FieldInfo(alias="_xact_id")
+    """Transaction ID of the original event."""
+
+    object_id: str
+    """ID of the object the event is originating from."""
+
+    object_type: Literal["experiment", "dataset", "prompt", "function", "prompt_session", "project_logs"]
+    """Type of the object the event is originating from."""
 
 
 class DatasetEvent(BaseModel):
@@ -57,6 +72,9 @@ class DatasetEvent(BaseModel):
     object)
     """
 
+    is_root: Optional[bool] = None
+    """Whether this span is a root span"""
+
     metadata: Optional[Dict[str, Optional[object]]] = None
     """
     A dictionary with additional data about the test example, model outputs, or just
@@ -65,6 +83,9 @@ class DatasetEvent(BaseModel):
     anything else that would be useful to slice/dice later. The values in `metadata`
     can be any JSON-serializable type, but its keys must be strings
     """
+
+    origin: Optional[Origin] = None
+    """Indicates the event was copied from another object."""
 
     tags: Optional[List[str]] = None
     """A list of tags to log"""

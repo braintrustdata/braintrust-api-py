@@ -9,10 +9,12 @@ import pytest
 
 from tests.utils import assert_matches_type
 from braintrust_api import Braintrust, AsyncBraintrust
+from braintrust_api.types import (
+    ExperimentInsertResponse,
+)
 from braintrust_api.pagination import SyncListObjects, AsyncListObjects
 from braintrust_api.types.shared import (
     Experiment,
-    InsertEventsResponse,
     FeedbackResponseSchema,
     SummarizeExperimentResponse,
     FetchExperimentEventsResponse,
@@ -41,7 +43,7 @@ class TestExperiments:
             description="description",
             ensure_new=True,
             metadata={"foo": "bar"},
-            name="name",
+            name="x",
             public=True,
             repo_info={
                 "author_email": "author_email",
@@ -423,7 +425,7 @@ class TestExperiments:
             experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             events=[{}, {}, {}],
         )
-        assert_matches_type(InsertEventsResponse, experiment, path=["response"])
+        assert_matches_type(ExperimentInsertResponse, experiment, path=["response"])
 
     @parametrize
     def test_raw_response_insert(self, client: Braintrust) -> None:
@@ -435,7 +437,7 @@ class TestExperiments:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         experiment = response.parse()
-        assert_matches_type(InsertEventsResponse, experiment, path=["response"])
+        assert_matches_type(ExperimentInsertResponse, experiment, path=["response"])
 
     @parametrize
     def test_streaming_response_insert(self, client: Braintrust) -> None:
@@ -447,7 +449,7 @@ class TestExperiments:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             experiment = response.parse()
-            assert_matches_type(InsertEventsResponse, experiment, path=["response"])
+            assert_matches_type(ExperimentInsertResponse, experiment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -527,7 +529,7 @@ class TestAsyncExperiments:
             description="description",
             ensure_new=True,
             metadata={"foo": "bar"},
-            name="name",
+            name="x",
             public=True,
             repo_info={
                 "author_email": "author_email",
@@ -909,7 +911,7 @@ class TestAsyncExperiments:
             experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             events=[{}, {}, {}],
         )
-        assert_matches_type(InsertEventsResponse, experiment, path=["response"])
+        assert_matches_type(ExperimentInsertResponse, experiment, path=["response"])
 
     @parametrize
     async def test_raw_response_insert(self, async_client: AsyncBraintrust) -> None:
@@ -921,7 +923,7 @@ class TestAsyncExperiments:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         experiment = await response.parse()
-        assert_matches_type(InsertEventsResponse, experiment, path=["response"])
+        assert_matches_type(ExperimentInsertResponse, experiment, path=["response"])
 
     @parametrize
     async def test_streaming_response_insert(self, async_client: AsyncBraintrust) -> None:
@@ -933,7 +935,7 @@ class TestAsyncExperiments:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             experiment = await response.parse()
-            assert_matches_type(InsertEventsResponse, experiment, path=["response"])
+            assert_matches_type(ExperimentInsertResponse, experiment, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
