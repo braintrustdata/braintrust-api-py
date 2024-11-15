@@ -36,6 +36,7 @@ from ..types.shared.insert_events_response import InsertEventsResponse
 from ..types.shared.feedback_response_schema import FeedbackResponseSchema
 from ..types.shared_params.path_lookup_filter import PathLookupFilter
 from ..types.shared.summarize_dataset_response import SummarizeDatasetResponse
+from ..types.shared_params.insert_dataset_event import InsertDatasetEvent
 from ..types.shared_params.feedback_dataset_item import FeedbackDatasetItem
 from ..types.shared.fetch_dataset_events_response import FetchDatasetEventsResponse
 
@@ -572,7 +573,7 @@ class DatasetsResource(SyncAPIResource):
         self,
         dataset_id: str,
         *,
-        events: Iterable[dataset_insert_params.Event],
+        events: Iterable[InsertDatasetEvent],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1183,7 +1184,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         self,
         dataset_id: str,
         *,
-        events: Iterable[dataset_insert_params.Event],
+        events: Iterable[InsertDatasetEvent],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

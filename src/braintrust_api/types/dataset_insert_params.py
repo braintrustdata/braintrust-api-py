@@ -2,18 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable
-from typing_extensions import Required, TypeAlias, TypedDict
+from typing import Iterable
+from typing_extensions import Required, TypedDict
 
-from .shared_params.insert_dataset_event_merge import InsertDatasetEventMerge
-from .shared_params.insert_dataset_event_replace import InsertDatasetEventReplace
+from .shared_params.insert_dataset_event import InsertDatasetEvent
 
-__all__ = ["DatasetInsertParams", "Event"]
+__all__ = ["DatasetInsertParams"]
 
 
 class DatasetInsertParams(TypedDict, total=False):
-    events: Required[Iterable[Event]]
+    events: Required[Iterable[InsertDatasetEvent]]
     """A list of dataset events to insert"""
-
-
-Event: TypeAlias = Union[InsertDatasetEventReplace, InsertDatasetEventMerge]
