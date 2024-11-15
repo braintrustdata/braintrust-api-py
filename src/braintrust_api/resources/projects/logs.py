@@ -24,6 +24,7 @@ from ...types.projects import log_fetch_params, log_insert_params, log_feedback_
 from ...types.projects.log_insert_response import LogInsertResponse
 from ...types.shared.feedback_response_schema import FeedbackResponseSchema
 from ...types.shared_params.path_lookup_filter import PathLookupFilter
+from ...types.shared_params.insert_project_logs_event import InsertProjectLogsEvent
 from ...types.shared_params.feedback_project_logs_item import FeedbackProjectLogsItem
 from ...types.shared.fetch_project_logs_events_response import FetchProjectLogsEventsResponse
 
@@ -299,7 +300,7 @@ class LogsResource(SyncAPIResource):
         self,
         project_id: str,
         *,
-        events: Iterable[log_insert_params.Event],
+        events: Iterable[InsertProjectLogsEvent],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -604,7 +605,7 @@ class AsyncLogsResource(AsyncAPIResource):
         self,
         project_id: str,
         *,
-        events: Iterable[log_insert_params.Event],
+        events: Iterable[InsertProjectLogsEvent],
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

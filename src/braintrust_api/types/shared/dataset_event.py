@@ -50,7 +50,7 @@ class DatasetEvent(BaseModel):
     """Unique identifier for the project that the dataset belongs under"""
 
     root_span_id: str
-    """The `span_id` of the root of the trace this dataset event belongs to"""
+    """A unique identifier for the trace this dataset event belongs to"""
 
     span_id: str
     """
