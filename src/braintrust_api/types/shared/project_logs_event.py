@@ -7,8 +7,9 @@ from typing_extensions import Literal
 from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
+from .span_attributes import SpanAttributes
 
-__all__ = ["ProjectLogsEvent", "Context", "Metrics", "Origin", "SpanAttributes"]
+__all__ = ["ProjectLogsEvent", "Context", "Metrics", "Origin"]
 
 
 class Context(BaseModel):
@@ -86,20 +87,6 @@ class Origin(BaseModel):
     """Type of the object the event is originating from."""
 
 
-class SpanAttributes(BaseModel):
-    name: Optional[str] = None
-    """Name of the span, for display purposes only"""
-
-    type: Optional[Literal["llm", "score", "function", "eval", "task", "tool"]] = None
-    """Type of the span, for display purposes only"""
-
-    if TYPE_CHECKING:
-        # Stub to indicate that arbitrary properties are accepted.
-        # To access properties that are not valid identifiers you can use `getattr`, e.g.
-        # `getattr(obj, '$type')`
-        def __getattr__(self, attr: str) -> Optional[object]: ...
-
-
 class ProjectLogsEvent(BaseModel):
     id: str
     """A unique identifier for the project logs event.
@@ -128,7 +115,7 @@ class ProjectLogsEvent(BaseModel):
     """Unique identifier for the project"""
 
     root_span_id: str
-    """The `span_id` of the root of the trace this project logs event belongs to"""
+    """A unique identifier for the trace this project logs event belongs to"""
 
     span_id: str
     """

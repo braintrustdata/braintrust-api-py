@@ -2,18 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable
-from typing_extensions import Required, TypeAlias, TypedDict
+from typing import Iterable
+from typing_extensions import Required, TypedDict
 
-from .shared_params.insert_experiment_event_merge import InsertExperimentEventMerge
-from .shared_params.insert_experiment_event_replace import InsertExperimentEventReplace
+from .shared_params.insert_experiment_event import InsertExperimentEvent
 
-__all__ = ["ExperimentInsertParams", "Event"]
+__all__ = ["ExperimentInsertParams"]
 
 
 class ExperimentInsertParams(TypedDict, total=False):
-    events: Required[Iterable[Event]]
+    events: Required[Iterable[InsertExperimentEvent]]
     """A list of experiment events to insert"""
-
-
-Event: TypeAlias = Union[InsertExperimentEventReplace, InsertExperimentEventMerge]
