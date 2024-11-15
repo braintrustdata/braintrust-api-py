@@ -2,34 +2,16 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
-from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+from typing import Dict, Union, Iterable, Optional
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from ..._utils import PropertyInfo
+from .prompt_options import PromptOptions
 from .chat_completion_content_part_text import ChatCompletionContentPartText
 from .chat_completion_message_tool_call import ChatCompletionMessageToolCall
 from .chat_completion_content_part_image import ChatCompletionContentPartImage
 
 __all__ = [
     "PromptData",
-    "Options",
-    "OptionsParams",
-    "OptionsParamsOpenAIModelParams",
-    "OptionsParamsOpenAIModelParamsFunctionCall",
-    "OptionsParamsOpenAIModelParamsFunctionCallFunction",
-    "OptionsParamsOpenAIModelParamsResponseFormat",
-    "OptionsParamsOpenAIModelParamsResponseFormatJsonObject",
-    "OptionsParamsOpenAIModelParamsResponseFormatJsonSchema",
-    "OptionsParamsOpenAIModelParamsResponseFormatJsonSchemaJsonSchema",
-    "OptionsParamsOpenAIModelParamsResponseFormatText",
-    "OptionsParamsOpenAIModelParamsResponseFormatNullableVariant",
-    "OptionsParamsOpenAIModelParamsToolChoice",
-    "OptionsParamsOpenAIModelParamsToolChoiceFunction",
-    "OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction",
-    "OptionsParamsAnthropicModelParams",
-    "OptionsParamsGoogleModelParams",
-    "OptionsParamsWindowAIModelParams",
-    "OptionsParamsJsCompletionParams",
     "Origin",
     "Parser",
     "Prompt",
@@ -49,148 +31,6 @@ __all__ = [
     "ToolFunctionFunction",
     "ToolFunctionGlobal",
 ]
-
-
-class OptionsParamsOpenAIModelParamsFunctionCallFunction(TypedDict, total=False):
-    name: Required[str]
-
-
-OptionsParamsOpenAIModelParamsFunctionCall: TypeAlias = Union[
-    Literal["auto"], Literal["none"], OptionsParamsOpenAIModelParamsFunctionCallFunction
-]
-
-
-class OptionsParamsOpenAIModelParamsResponseFormatJsonObject(TypedDict, total=False):
-    type: Required[Literal["json_object"]]
-
-
-class OptionsParamsOpenAIModelParamsResponseFormatJsonSchemaJsonSchema(TypedDict, total=False):
-    name: Required[str]
-
-    description: str
-
-    schema: Dict[str, Optional[object]]
-
-    strict: Optional[bool]
-
-
-class OptionsParamsOpenAIModelParamsResponseFormatJsonSchema(TypedDict, total=False):
-    json_schema: Required[OptionsParamsOpenAIModelParamsResponseFormatJsonSchemaJsonSchema]
-
-    type: Required[Literal["json_schema"]]
-
-
-class OptionsParamsOpenAIModelParamsResponseFormatText(TypedDict, total=False):
-    type: Required[Literal["text"]]
-
-
-class OptionsParamsOpenAIModelParamsResponseFormatNullableVariant(TypedDict, total=False):
-    pass
-
-
-OptionsParamsOpenAIModelParamsResponseFormat: TypeAlias = Union[
-    OptionsParamsOpenAIModelParamsResponseFormatJsonObject,
-    OptionsParamsOpenAIModelParamsResponseFormatJsonSchema,
-    OptionsParamsOpenAIModelParamsResponseFormatText,
-    Optional[OptionsParamsOpenAIModelParamsResponseFormatNullableVariant],
-]
-
-
-class OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction(TypedDict, total=False):
-    name: Required[str]
-
-
-class OptionsParamsOpenAIModelParamsToolChoiceFunction(TypedDict, total=False):
-    function: Required[OptionsParamsOpenAIModelParamsToolChoiceFunctionFunction]
-
-    type: Required[Literal["function"]]
-
-
-OptionsParamsOpenAIModelParamsToolChoice: TypeAlias = Union[
-    Literal["auto"], Literal["none"], Literal["required"], OptionsParamsOpenAIModelParamsToolChoiceFunction
-]
-
-
-class OptionsParamsOpenAIModelParams(TypedDict, total=False):
-    frequency_penalty: float
-
-    function_call: OptionsParamsOpenAIModelParamsFunctionCall
-
-    max_tokens: float
-
-    n: float
-
-    presence_penalty: float
-
-    response_format: OptionsParamsOpenAIModelParamsResponseFormat
-
-    stop: List[str]
-
-    temperature: float
-
-    tool_choice: OptionsParamsOpenAIModelParamsToolChoice
-
-    top_p: float
-
-    use_cache: bool
-
-
-class OptionsParamsAnthropicModelParams(TypedDict, total=False):
-    max_tokens: Required[float]
-
-    temperature: Required[float]
-
-    max_tokens_to_sample: float
-    """This is a legacy parameter that should not be used."""
-
-    stop_sequences: List[str]
-
-    top_k: float
-
-    top_p: float
-
-    use_cache: bool
-
-
-class OptionsParamsGoogleModelParams(TypedDict, total=False):
-    max_output_tokens: Annotated[float, PropertyInfo(alias="maxOutputTokens")]
-
-    temperature: float
-
-    top_k: Annotated[float, PropertyInfo(alias="topK")]
-
-    top_p: Annotated[float, PropertyInfo(alias="topP")]
-
-    use_cache: bool
-
-
-class OptionsParamsWindowAIModelParams(TypedDict, total=False):
-    temperature: float
-
-    top_k: Annotated[float, PropertyInfo(alias="topK")]
-
-    use_cache: bool
-
-
-class OptionsParamsJsCompletionParams(TypedDict, total=False):
-    use_cache: bool
-
-
-OptionsParams: TypeAlias = Union[
-    OptionsParamsOpenAIModelParams,
-    OptionsParamsAnthropicModelParams,
-    OptionsParamsGoogleModelParams,
-    OptionsParamsWindowAIModelParams,
-    OptionsParamsJsCompletionParams,
-]
-
-
-class Options(TypedDict, total=False):
-    model: str
-
-    params: OptionsParams
-
-    position: str
 
 
 class Origin(TypedDict, total=False):
@@ -315,7 +155,7 @@ ToolFunction: TypeAlias = Union[ToolFunctionFunction, ToolFunctionGlobal]
 
 
 class PromptData(TypedDict, total=False):
-    options: Optional[Options]
+    options: Optional[PromptOptions]
 
     origin: Optional[Origin]
 

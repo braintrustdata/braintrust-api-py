@@ -2,13 +2,14 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Optional
+from typing import Dict, List, Union, Iterable, Optional
 from datetime import datetime
-from typing_extensions import Literal, Annotated, TypeAlias, TypedDict
+from typing_extensions import Annotated, TypeAlias, TypedDict
 
 from ..._utils import PropertyInfo
+from .span_attributes import SpanAttributes
 
-__all__ = ["InsertExperimentEventReplace", "Context", "Metrics", "SpanAttributes"]
+__all__ = ["InsertExperimentEvent", "Context", "Metrics"]
 
 
 class ContextTyped(TypedDict, total=False):
@@ -66,18 +67,7 @@ class MetricsTyped(TypedDict, total=False):
 Metrics: TypeAlias = Union[MetricsTyped, Dict[str, float]]
 
 
-class SpanAttributesTyped(TypedDict, total=False):
-    name: Optional[str]
-    """Name of the span, for display purposes only"""
-
-    type: Optional[Literal["llm", "score", "function", "eval", "task", "tool"]]
-    """Type of the span, for display purposes only"""
-
-
-SpanAttributes: TypeAlias = Union[SpanAttributesTyped, Dict[str, Optional[object]]]
-
-
-class InsertExperimentEventReplace(TypedDict, total=False):
+class InsertExperimentEvent(TypedDict, total=False):
     id: Optional[str]
     """A unique identifier for the experiment event.
 
@@ -89,7 +79,8 @@ class InsertExperimentEventReplace(TypedDict, total=False):
     The `_is_merge` field controls how the row is merged with any existing row with
     the same id in the DB. By default (or when set to `false`), the existing row is
     completely replaced by the new row. When set to `true`, the new row is
-    deep-merged into the existing row
+    deep-merged into the existing row, if one is found. If no existing row is found,
+    the new row is inserted as is.
 
     For example, say there is an existing row in the DB
     `{"id": "foo", "input": {"a": 5, "b": 10}}`. If we merge a new row as
@@ -97,6 +88,23 @@ class InsertExperimentEventReplace(TypedDict, total=False):
     will be `{"id": "foo", "input": {"a": 5, "b": 11, "c": 20}}`. If we replace the
     new row as `{"id": "foo", "input": {"b": 11, "c": 20}}`, the new row will be
     `{"id": "foo", "input": {"b": 11, "c": 20}}`
+    """
+
+    _merge_paths: Optional[Iterable[List[str]]]
+    """
+    The `_merge_paths` field allows controlling the depth of the merge, when
+    `_is_merge=true`. `_merge_paths` is a list of paths, where each path is a list
+    of field names. The deep merge will not descend below any of the specified merge
+    paths.
+
+    For example, say there is an existing row in the DB
+    `{"id": "foo", "input": {"a": {"b": 10}, "c": {"d": 20}}, "output": {"a": 20}}`.
+    If we merge a new row as
+    `{"_is_merge": true, "_merge_paths": [["input", "a"], ["output"]], "input": {"a": {"q": 30}, "c": {"e": 30}, "bar": "baz"}, "output": {"d": 40}}`,
+    the new row will be
+    `{"id": "foo": "input": {"a": {"q": 30}, "c": {"d": 20, "e": 30}, "bar": "baz"}, "output": {"d": 40}}`.
+    In this case, due to the merge paths, we have replaced `input.a` and `output`,
+    but have still deep-merged `input` and `input.c`.
     """
 
     _object_delete: Optional[bool]
@@ -108,8 +116,7 @@ class InsertExperimentEventReplace(TypedDict, total=False):
     _parent_id: Optional[str]
     """Use the `_parent_id` field to create this row as a subspan of an existing row.
 
-    It cannot be specified alongside `_is_merge=true`. Tracking hierarchical
-    relationships are important for tracing (see the
+    Tracking hierarchical relationships are important for tracing (see the
     [guide](https://www.braintrust.dev/docs/guides/tracing) for full details).
 
     For example, say we have logged a row
@@ -119,6 +126,8 @@ class InsertExperimentEventReplace(TypedDict, total=False):
     In the webapp, only the root span row `"abc"` will show up in the summary view.
     You can view the full trace hierarchy (in this case, the `"llm_call"` row) by
     clicking on the "abc" row.
+
+    If the row is being merged into an existing row, this field will be ignored.
     """
 
     context: Optional[Context]
@@ -186,6 +195,25 @@ class InsertExperimentEventReplace(TypedDict, total=False):
     because there may be multiple valid queries that answer a single question
     """
 
+    root_span_id: Optional[str]
+    """
+    Use span_id, root_span_id, and span_parents as a more explicit alternative to
+    \\__parent_id. The span_id is a unique identifier describing the row's place in
+    the a trace, and the root_span_id is a unique identifier for the whole trace.
+    See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
+    details.
+
+    For example, say we have logged a row
+    `{"id": "abc", "span_id": "span0", "root_span_id": "root_span0", "input": "foo", "output": "bar", "expected": "boo", "scores": {"correctness": 0.33}}`.
+    We can create a sub-span of the parent row by logging
+    `{"id": "llm_call", "span_id": "span1", "root_span_id": "root_span0", "span_parents": ["span0"], "input": {"prompt": "What comes after foo?"}, "output": "bar", "metrics": {"tokens": 1}}`.
+    In the webapp, only the root span row `"abc"` will show up in the summary view.
+    You can view the full trace hierarchy (in this case, the `"llm_call"` row) by
+    clicking on the "abc" row.
+
+    If the row is being merged into an existing row, this field will be ignored.
+    """
+
     scores: Optional[Dict[str, Optional[float]]]
     """A dictionary of numeric values (between 0 and 1) to log.
 
@@ -200,6 +228,44 @@ class InsertExperimentEventReplace(TypedDict, total=False):
 
     span_attributes: Optional[SpanAttributes]
     """Human-identifying attributes of the span, such as name, type, etc."""
+
+    span_id: Optional[str]
+    """
+    Use span_id, root_span_id, and span_parents as a more explicit alternative to
+    \\__parent_id. The span_id is a unique identifier describing the row's place in
+    the a trace, and the root_span_id is a unique identifier for the whole trace.
+    See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
+    details.
+
+    For example, say we have logged a row
+    `{"id": "abc", "span_id": "span0", "root_span_id": "root_span0", "input": "foo", "output": "bar", "expected": "boo", "scores": {"correctness": 0.33}}`.
+    We can create a sub-span of the parent row by logging
+    `{"id": "llm_call", "span_id": "span1", "root_span_id": "root_span0", "span_parents": ["span0"], "input": {"prompt": "What comes after foo?"}, "output": "bar", "metrics": {"tokens": 1}}`.
+    In the webapp, only the root span row `"abc"` will show up in the summary view.
+    You can view the full trace hierarchy (in this case, the `"llm_call"` row) by
+    clicking on the "abc" row.
+
+    If the row is being merged into an existing row, this field will be ignored.
+    """
+
+    span_parents: Optional[List[str]]
+    """
+    Use span_id, root_span_id, and span_parents as a more explicit alternative to
+    \\__parent_id. The span_id is a unique identifier describing the row's place in
+    the a trace, and the root_span_id is a unique identifier for the whole trace.
+    See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
+    details.
+
+    For example, say we have logged a row
+    `{"id": "abc", "span_id": "span0", "root_span_id": "root_span0", "input": "foo", "output": "bar", "expected": "boo", "scores": {"correctness": 0.33}}`.
+    We can create a sub-span of the parent row by logging
+    `{"id": "llm_call", "span_id": "span1", "root_span_id": "root_span0", "span_parents": ["span0"], "input": {"prompt": "What comes after foo?"}, "output": "bar", "metrics": {"tokens": 1}}`.
+    In the webapp, only the root span row `"abc"` will show up in the summary view.
+    You can view the full trace hierarchy (in this case, the `"llm_call"` row) by
+    clicking on the "abc" row.
+
+    If the row is being merged into an existing row, this field will be ignored.
+    """
 
     tags: Optional[List[str]]
     """A list of tags to log"""
