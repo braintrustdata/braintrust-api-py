@@ -56,7 +56,7 @@ class TestFunctions:
                         "n": 0,
                         "presence_penalty": 0,
                         "response_format": {"type": "json_object"},
-                        "stop": ["string", "string", "string"],
+                        "stop": ["string"],
                         "temperature": 0,
                         "tool_choice": "auto",
                         "top_p": 0,
@@ -82,18 +82,10 @@ class TestFunctions:
                     {
                         "id": "id",
                         "type": "function",
-                    },
-                    {
-                        "id": "id",
-                        "type": "function",
-                    },
-                    {
-                        "id": "id",
-                        "type": "function",
-                    },
+                    }
                 ],
             },
-            tags=["string", "string", "string"],
+            tags=["string"],
         )
         assert_matches_type(Function, function, path=["response"])
 
@@ -189,7 +181,7 @@ class TestFunctions:
                         "n": 0,
                         "presence_penalty": 0,
                         "response_format": {"type": "json_object"},
-                        "stop": ["string", "string", "string"],
+                        "stop": ["string"],
                         "temperature": 0,
                         "tool_choice": "auto",
                         "top_p": 0,
@@ -215,18 +207,10 @@ class TestFunctions:
                     {
                         "id": "id",
                         "type": "function",
-                    },
-                    {
-                        "id": "id",
-                        "type": "function",
-                    },
-                    {
-                        "id": "id",
-                        "type": "function",
-                    },
+                    }
                 ],
             },
-            tags=["string", "string", "string"],
+            tags=["string"],
         )
         assert_matches_type(Function, function, path=["response"])
 
@@ -357,17 +341,7 @@ class TestFunctions:
                     "role": "system",
                     "content": "content",
                     "name": "name",
-                },
-                {
-                    "role": "system",
-                    "content": "content",
-                    "name": "name",
-                },
-                {
-                    "role": "system",
-                    "content": "content",
-                    "name": "name",
-                },
+                }
             ],
             mode="auto",
             parent={
@@ -454,7 +428,7 @@ class TestFunctions:
                         "n": 0,
                         "presence_penalty": 0,
                         "response_format": {"type": "json_object"},
-                        "stop": ["string", "string", "string"],
+                        "stop": ["string"],
                         "temperature": 0,
                         "tool_choice": "auto",
                         "top_p": 0,
@@ -480,18 +454,10 @@ class TestFunctions:
                     {
                         "id": "id",
                         "type": "function",
-                    },
-                    {
-                        "id": "id",
-                        "type": "function",
-                    },
-                    {
-                        "id": "id",
-                        "type": "function",
-                    },
+                    }
                 ],
             },
-            tags=["string", "string", "string"],
+            tags=["string"],
         )
         assert_matches_type(Function, function, path=["response"])
 
@@ -567,7 +533,7 @@ class TestAsyncFunctions:
                         "n": 0,
                         "presence_penalty": 0,
                         "response_format": {"type": "json_object"},
-                        "stop": ["string", "string", "string"],
+                        "stop": ["string"],
                         "temperature": 0,
                         "tool_choice": "auto",
                         "top_p": 0,
@@ -593,18 +559,10 @@ class TestAsyncFunctions:
                     {
                         "id": "id",
                         "type": "function",
-                    },
-                    {
-                        "id": "id",
-                        "type": "function",
-                    },
-                    {
-                        "id": "id",
-                        "type": "function",
-                    },
+                    }
                 ],
             },
-            tags=["string", "string", "string"],
+            tags=["string"],
         )
         assert_matches_type(Function, function, path=["response"])
 
@@ -700,7 +658,7 @@ class TestAsyncFunctions:
                         "n": 0,
                         "presence_penalty": 0,
                         "response_format": {"type": "json_object"},
-                        "stop": ["string", "string", "string"],
+                        "stop": ["string"],
                         "temperature": 0,
                         "tool_choice": "auto",
                         "top_p": 0,
@@ -726,18 +684,10 @@ class TestAsyncFunctions:
                     {
                         "id": "id",
                         "type": "function",
-                    },
-                    {
-                        "id": "id",
-                        "type": "function",
-                    },
-                    {
-                        "id": "id",
-                        "type": "function",
-                    },
+                    }
                 ],
             },
-            tags=["string", "string", "string"],
+            tags=["string"],
         )
         assert_matches_type(Function, function, path=["response"])
 
@@ -868,17 +818,7 @@ class TestAsyncFunctions:
                     "role": "system",
                     "content": "content",
                     "name": "name",
-                },
-                {
-                    "role": "system",
-                    "content": "content",
-                    "name": "name",
-                },
-                {
-                    "role": "system",
-                    "content": "content",
-                    "name": "name",
-                },
+                }
             ],
             mode="auto",
             parent={
@@ -965,7 +905,7 @@ class TestAsyncFunctions:
                         "n": 0,
                         "presence_penalty": 0,
                         "response_format": {"type": "json_object"},
-                        "stop": ["string", "string", "string"],
+                        "stop": ["string"],
                         "temperature": 0,
                         "tool_choice": "auto",
                         "top_p": 0,
@@ -991,18 +931,10 @@ class TestAsyncFunctions:
                     {
                         "id": "id",
                         "type": "function",
-                    },
-                    {
-                        "id": "id",
-                        "type": "function",
-                    },
-                    {
-                        "id": "id",
-                        "type": "function",
-                    },
+                    }
                 ],
             },
-            tags=["string", "string", "string"],
+            tags=["string"],
         )
         assert_matches_type(Function, function, path=["response"])
 

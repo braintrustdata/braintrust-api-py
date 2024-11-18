@@ -204,25 +204,7 @@ class TestACLs:
                     "restrict_object_type": "organization",
                     "role_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "user_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                },
-                {
-                    "object_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "object_type": "organization",
-                    "group_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "permission": "create",
-                    "restrict_object_type": "organization",
-                    "role_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "user_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                },
-                {
-                    "object_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "object_type": "organization",
-                    "group_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "permission": "create",
-                    "restrict_object_type": "organization",
-                    "role_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "user_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                },
+                }
             ],
             remove_acls=[
                 {
@@ -233,25 +215,7 @@ class TestACLs:
                     "restrict_object_type": "organization",
                     "role_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "user_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                },
-                {
-                    "object_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "object_type": "organization",
-                    "group_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "permission": "create",
-                    "restrict_object_type": "organization",
-                    "role_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "user_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                },
-                {
-                    "object_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "object_type": "organization",
-                    "group_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "permission": "create",
-                    "restrict_object_type": "organization",
-                    "role_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "user_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                },
+                }
             ],
         )
         assert_matches_type(ACLBatchUpdateResponse, acl, path=["response"])
@@ -513,25 +477,7 @@ class TestAsyncACLs:
                     "restrict_object_type": "organization",
                     "role_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "user_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                },
-                {
-                    "object_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "object_type": "organization",
-                    "group_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "permission": "create",
-                    "restrict_object_type": "organization",
-                    "role_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "user_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                },
-                {
-                    "object_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "object_type": "organization",
-                    "group_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "permission": "create",
-                    "restrict_object_type": "organization",
-                    "role_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "user_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                },
+                }
             ],
             remove_acls=[
                 {
@@ -542,25 +488,7 @@ class TestAsyncACLs:
                     "restrict_object_type": "organization",
                     "role_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
                     "user_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                },
-                {
-                    "object_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "object_type": "organization",
-                    "group_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "permission": "create",
-                    "restrict_object_type": "organization",
-                    "role_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "user_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                },
-                {
-                    "object_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "object_type": "organization",
-                    "group_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "permission": "create",
-                    "restrict_object_type": "organization",
-                    "role_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                    "user_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                },
+                }
             ],
         )
         assert_matches_type(ACLBatchUpdateResponse, acl, path=["response"])

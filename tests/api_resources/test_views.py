@@ -38,17 +38,17 @@ class TestViews:
             view_type="projects",
             deleted_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             options={
-                "column_order": ["string", "string", "string"],
+                "column_order": ["string"],
                 "column_sizing": {"foo": 0},
                 "column_visibility": {"foo": True},
             },
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_data={
                 "search": {
-                    "filter": [{}, {}, {}],
-                    "match": [{}, {}, {}],
-                    "sort": [{}, {}, {}],
-                    "tag": [{}, {}, {}],
+                    "filter": [{}],
+                    "match": [{}],
+                    "sort": [{}],
+                    "tag": [{}],
                 }
             },
         )
@@ -147,17 +147,17 @@ class TestViews:
             object_type="organization",
             name="name",
             options={
-                "column_order": ["string", "string", "string"],
+                "column_order": ["string"],
                 "column_sizing": {"foo": 0},
                 "column_visibility": {"foo": True},
             },
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_data={
                 "search": {
-                    "filter": [{}, {}, {}],
-                    "match": [{}, {}, {}],
-                    "sort": [{}, {}, {}],
-                    "tag": [{}, {}, {}],
+                    "filter": [{}],
+                    "match": [{}],
+                    "sort": [{}],
+                    "tag": [{}],
                 }
             },
             view_type="projects",
@@ -314,17 +314,17 @@ class TestViews:
             view_type="projects",
             deleted_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             options={
-                "column_order": ["string", "string", "string"],
+                "column_order": ["string"],
                 "column_sizing": {"foo": 0},
                 "column_visibility": {"foo": True},
             },
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_data={
                 "search": {
-                    "filter": [{}, {}, {}],
-                    "match": [{}, {}, {}],
-                    "sort": [{}, {}, {}],
-                    "tag": [{}, {}, {}],
+                    "filter": [{}],
+                    "match": [{}],
+                    "sort": [{}],
+                    "tag": [{}],
                 }
             },
         )
@@ -383,17 +383,17 @@ class TestAsyncViews:
             view_type="projects",
             deleted_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             options={
-                "column_order": ["string", "string", "string"],
+                "column_order": ["string"],
                 "column_sizing": {"foo": 0},
                 "column_visibility": {"foo": True},
             },
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_data={
                 "search": {
-                    "filter": [{}, {}, {}],
-                    "match": [{}, {}, {}],
-                    "sort": [{}, {}, {}],
-                    "tag": [{}, {}, {}],
+                    "filter": [{}],
+                    "match": [{}],
+                    "sort": [{}],
+                    "tag": [{}],
                 }
             },
         )
@@ -492,17 +492,17 @@ class TestAsyncViews:
             object_type="organization",
             name="name",
             options={
-                "column_order": ["string", "string", "string"],
+                "column_order": ["string"],
                 "column_sizing": {"foo": 0},
                 "column_visibility": {"foo": True},
             },
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_data={
                 "search": {
-                    "filter": [{}, {}, {}],
-                    "match": [{}, {}, {}],
-                    "sort": [{}, {}, {}],
-                    "tag": [{}, {}, {}],
+                    "filter": [{}],
+                    "match": [{}],
+                    "sort": [{}],
+                    "tag": [{}],
                 }
             },
             view_type="projects",
@@ -659,17 +659,17 @@ class TestAsyncViews:
             view_type="projects",
             deleted_at=parse_datetime("2019-12-27T18:11:19.117Z"),
             options={
-                "column_order": ["string", "string", "string"],
+                "column_order": ["string"],
                 "column_sizing": {"foo": 0},
                 "column_visibility": {"foo": True},
             },
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_data={
                 "search": {
-                    "filter": [{}, {}, {}],
-                    "match": [{}, {}, {}],
-                    "sort": [{}, {}, {}],
-                    "tag": [{}, {}, {}],
+                    "filter": [{}],
+                    "match": [{}],
+                    "sort": [{}],
+                    "tag": [{}],
                 }
             },
         )
