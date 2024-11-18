@@ -37,15 +37,7 @@ class TestProjectScores:
                 {
                     "name": "name",
                     "value": 0,
-                },
-                {
-                    "name": "name",
-                    "value": 0,
-                },
-                {
-                    "name": "name",
-                    "value": 0,
-                },
+                }
             ],
             config={
                 "destination": "expected",
@@ -56,18 +48,10 @@ class TestProjectScores:
                         {
                             "id": "id",
                             "type": "function",
-                        },
-                        {
-                            "id": "id",
-                            "type": "function",
-                        },
-                        {
-                            "id": "id",
-                            "type": "function",
-                        },
+                        }
                     ],
                     "apply_to_root_span": True,
-                    "apply_to_span_names": ["string", "string", "string"],
+                    "apply_to_span_names": ["string"],
                 },
             },
             description="description",
@@ -155,15 +139,7 @@ class TestProjectScores:
                 {
                     "name": "name",
                     "value": 0,
-                },
-                {
-                    "name": "name",
-                    "value": 0,
-                },
-                {
-                    "name": "name",
-                    "value": 0,
-                },
+                }
             ],
             config={
                 "destination": "expected",
@@ -174,18 +150,10 @@ class TestProjectScores:
                         {
                             "id": "id",
                             "type": "function",
-                        },
-                        {
-                            "id": "id",
-                            "type": "function",
-                        },
-                        {
-                            "id": "id",
-                            "type": "function",
-                        },
+                        }
                     ],
                     "apply_to_root_span": True,
-                    "apply_to_span_names": ["string", "string", "string"],
+                    "apply_to_span_names": ["string"],
                 },
             },
             description="description",
@@ -322,15 +290,7 @@ class TestProjectScores:
                 {
                     "name": "name",
                     "value": 0,
-                },
-                {
-                    "name": "name",
-                    "value": 0,
-                },
-                {
-                    "name": "name",
-                    "value": 0,
-                },
+                }
             ],
             config={
                 "destination": "expected",
@@ -341,18 +301,10 @@ class TestProjectScores:
                         {
                             "id": "id",
                             "type": "function",
-                        },
-                        {
-                            "id": "id",
-                            "type": "function",
-                        },
-                        {
-                            "id": "id",
-                            "type": "function",
-                        },
+                        }
                     ],
                     "apply_to_root_span": True,
-                    "apply_to_span_names": ["string", "string", "string"],
+                    "apply_to_span_names": ["string"],
                 },
             },
             description="description",
@@ -410,15 +362,7 @@ class TestAsyncProjectScores:
                 {
                     "name": "name",
                     "value": 0,
-                },
-                {
-                    "name": "name",
-                    "value": 0,
-                },
-                {
-                    "name": "name",
-                    "value": 0,
-                },
+                }
             ],
             config={
                 "destination": "expected",
@@ -429,18 +373,10 @@ class TestAsyncProjectScores:
                         {
                             "id": "id",
                             "type": "function",
-                        },
-                        {
-                            "id": "id",
-                            "type": "function",
-                        },
-                        {
-                            "id": "id",
-                            "type": "function",
-                        },
+                        }
                     ],
                     "apply_to_root_span": True,
-                    "apply_to_span_names": ["string", "string", "string"],
+                    "apply_to_span_names": ["string"],
                 },
             },
             description="description",
@@ -528,15 +464,7 @@ class TestAsyncProjectScores:
                 {
                     "name": "name",
                     "value": 0,
-                },
-                {
-                    "name": "name",
-                    "value": 0,
-                },
-                {
-                    "name": "name",
-                    "value": 0,
-                },
+                }
             ],
             config={
                 "destination": "expected",
@@ -547,18 +475,10 @@ class TestAsyncProjectScores:
                         {
                             "id": "id",
                             "type": "function",
-                        },
-                        {
-                            "id": "id",
-                            "type": "function",
-                        },
-                        {
-                            "id": "id",
-                            "type": "function",
-                        },
+                        }
                     ],
                     "apply_to_root_span": True,
-                    "apply_to_span_names": ["string", "string", "string"],
+                    "apply_to_span_names": ["string"],
                 },
             },
             description="description",
@@ -695,15 +615,7 @@ class TestAsyncProjectScores:
                 {
                     "name": "name",
                     "value": 0,
-                },
-                {
-                    "name": "name",
-                    "value": 0,
-                },
-                {
-                    "name": "name",
-                    "value": 0,
-                },
+                }
             ],
             config={
                 "destination": "expected",
@@ -714,18 +626,10 @@ class TestAsyncProjectScores:
                         {
                             "id": "id",
                             "type": "function",
-                        },
-                        {
-                            "id": "id",
-                            "type": "function",
-                        },
-                        {
-                            "id": "id",
-                            "type": "function",
-                        },
+                        }
                     ],
                     "apply_to_root_span": True,
-                    "apply_to_span_names": ["string", "string", "string"],
+                    "apply_to_span_names": ["string"],
                 },
             },
             description="description",

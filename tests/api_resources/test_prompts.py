@@ -45,7 +45,7 @@ class TestPrompts:
                         "n": 0,
                         "presence_penalty": 0,
                         "response_format": {"type": "json_object"},
-                        "stop": ["string", "string", "string"],
+                        "stop": ["string"],
                         "temperature": 0,
                         "tool_choice": "auto",
                         "top_p": 0,
@@ -71,18 +71,10 @@ class TestPrompts:
                     {
                         "id": "id",
                         "type": "function",
-                    },
-                    {
-                        "id": "id",
-                        "type": "function",
-                    },
-                    {
-                        "id": "id",
-                        "type": "function",
-                    },
+                    }
                 ],
             },
-            tags=["string", "string", "string"],
+            tags=["string"],
         )
         assert_matches_type(Prompt, prompt, path=["response"])
 
@@ -175,7 +167,7 @@ class TestPrompts:
                         "n": 0,
                         "presence_penalty": 0,
                         "response_format": {"type": "json_object"},
-                        "stop": ["string", "string", "string"],
+                        "stop": ["string"],
                         "temperature": 0,
                         "tool_choice": "auto",
                         "top_p": 0,
@@ -201,19 +193,11 @@ class TestPrompts:
                     {
                         "id": "id",
                         "type": "function",
-                    },
-                    {
-                        "id": "id",
-                        "type": "function",
-                    },
-                    {
-                        "id": "id",
-                        "type": "function",
-                    },
+                    }
                 ],
             },
             slug="slug",
-            tags=["string", "string", "string"],
+            tags=["string"],
         )
         assert_matches_type(Prompt, prompt, path=["response"])
 
@@ -354,7 +338,7 @@ class TestPrompts:
                         "n": 0,
                         "presence_penalty": 0,
                         "response_format": {"type": "json_object"},
-                        "stop": ["string", "string", "string"],
+                        "stop": ["string"],
                         "temperature": 0,
                         "tool_choice": "auto",
                         "top_p": 0,
@@ -380,18 +364,10 @@ class TestPrompts:
                     {
                         "id": "id",
                         "type": "function",
-                    },
-                    {
-                        "id": "id",
-                        "type": "function",
-                    },
-                    {
-                        "id": "id",
-                        "type": "function",
-                    },
+                    }
                 ],
             },
-            tags=["string", "string", "string"],
+            tags=["string"],
         )
         assert_matches_type(Prompt, prompt, path=["response"])
 
@@ -454,7 +430,7 @@ class TestAsyncPrompts:
                         "n": 0,
                         "presence_penalty": 0,
                         "response_format": {"type": "json_object"},
-                        "stop": ["string", "string", "string"],
+                        "stop": ["string"],
                         "temperature": 0,
                         "tool_choice": "auto",
                         "top_p": 0,
@@ -480,18 +456,10 @@ class TestAsyncPrompts:
                     {
                         "id": "id",
                         "type": "function",
-                    },
-                    {
-                        "id": "id",
-                        "type": "function",
-                    },
-                    {
-                        "id": "id",
-                        "type": "function",
-                    },
+                    }
                 ],
             },
-            tags=["string", "string", "string"],
+            tags=["string"],
         )
         assert_matches_type(Prompt, prompt, path=["response"])
 
@@ -584,7 +552,7 @@ class TestAsyncPrompts:
                         "n": 0,
                         "presence_penalty": 0,
                         "response_format": {"type": "json_object"},
-                        "stop": ["string", "string", "string"],
+                        "stop": ["string"],
                         "temperature": 0,
                         "tool_choice": "auto",
                         "top_p": 0,
@@ -610,19 +578,11 @@ class TestAsyncPrompts:
                     {
                         "id": "id",
                         "type": "function",
-                    },
-                    {
-                        "id": "id",
-                        "type": "function",
-                    },
-                    {
-                        "id": "id",
-                        "type": "function",
-                    },
+                    }
                 ],
             },
             slug="slug",
-            tags=["string", "string", "string"],
+            tags=["string"],
         )
         assert_matches_type(Prompt, prompt, path=["response"])
 
@@ -763,7 +723,7 @@ class TestAsyncPrompts:
                         "n": 0,
                         "presence_penalty": 0,
                         "response_format": {"type": "json_object"},
-                        "stop": ["string", "string", "string"],
+                        "stop": ["string"],
                         "temperature": 0,
                         "tool_choice": "auto",
                         "top_p": 0,
@@ -789,18 +749,10 @@ class TestAsyncPrompts:
                     {
                         "id": "id",
                         "type": "function",
-                    },
-                    {
-                        "id": "id",
-                        "type": "function",
-                    },
-                    {
-                        "id": "id",
-                        "type": "function",
-                    },
+                    }
                 ],
             },
-            tags=["string", "string", "string"],
+            tags=["string"],
         )
         assert_matches_type(Prompt, prompt, path=["response"])
 

@@ -235,7 +235,7 @@ class TestDatasets:
     def test_method_feedback(self, client: Braintrust) -> None:
         dataset = client.datasets.feedback(
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
+            feedback=[{"id": "id"}],
         )
         assert_matches_type(FeedbackResponseSchema, dataset, path=["response"])
 
@@ -243,7 +243,7 @@ class TestDatasets:
     def test_raw_response_feedback(self, client: Braintrust) -> None:
         response = client.datasets.with_raw_response.feedback(
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
+            feedback=[{"id": "id"}],
         )
 
         assert response.is_closed is True
@@ -255,7 +255,7 @@ class TestDatasets:
     def test_streaming_response_feedback(self, client: Braintrust) -> None:
         with client.datasets.with_streaming_response.feedback(
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
+            feedback=[{"id": "id"}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -270,7 +270,7 @@ class TestDatasets:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `dataset_id` but received ''"):
             client.datasets.with_raw_response.feedback(
                 dataset_id="",
-                feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
+                feedback=[{"id": "id"}],
             )
 
     @parametrize
@@ -336,20 +336,10 @@ class TestDatasets:
             cursor="cursor",
             filters=[
                 {
-                    "path": ["string", "string", "string"],
+                    "path": ["string"],
                     "type": "path_lookup",
                     "value": {},
-                },
-                {
-                    "path": ["string", "string", "string"],
-                    "type": "path_lookup",
-                    "value": {},
-                },
-                {
-                    "path": ["string", "string", "string"],
-                    "type": "path_lookup",
-                    "value": {},
-                },
+                }
             ],
             limit=0,
             max_root_span_id="max_root_span_id",
@@ -393,7 +383,7 @@ class TestDatasets:
     def test_method_insert(self, client: Braintrust) -> None:
         dataset = client.datasets.insert(
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            events=[{}, {}, {}],
+            events=[{}],
         )
         assert_matches_type(InsertEventsResponse, dataset, path=["response"])
 
@@ -401,7 +391,7 @@ class TestDatasets:
     def test_raw_response_insert(self, client: Braintrust) -> None:
         response = client.datasets.with_raw_response.insert(
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            events=[{}, {}, {}],
+            events=[{}],
         )
 
         assert response.is_closed is True
@@ -413,7 +403,7 @@ class TestDatasets:
     def test_streaming_response_insert(self, client: Braintrust) -> None:
         with client.datasets.with_streaming_response.insert(
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            events=[{}, {}, {}],
+            events=[{}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -428,7 +418,7 @@ class TestDatasets:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `dataset_id` but received ''"):
             client.datasets.with_raw_response.insert(
                 dataset_id="",
-                events=[{}, {}, {}],
+                events=[{}],
             )
 
     @parametrize
@@ -692,7 +682,7 @@ class TestAsyncDatasets:
     async def test_method_feedback(self, async_client: AsyncBraintrust) -> None:
         dataset = await async_client.datasets.feedback(
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
+            feedback=[{"id": "id"}],
         )
         assert_matches_type(FeedbackResponseSchema, dataset, path=["response"])
 
@@ -700,7 +690,7 @@ class TestAsyncDatasets:
     async def test_raw_response_feedback(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.datasets.with_raw_response.feedback(
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
+            feedback=[{"id": "id"}],
         )
 
         assert response.is_closed is True
@@ -712,7 +702,7 @@ class TestAsyncDatasets:
     async def test_streaming_response_feedback(self, async_client: AsyncBraintrust) -> None:
         async with async_client.datasets.with_streaming_response.feedback(
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
+            feedback=[{"id": "id"}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -727,7 +717,7 @@ class TestAsyncDatasets:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `dataset_id` but received ''"):
             await async_client.datasets.with_raw_response.feedback(
                 dataset_id="",
-                feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
+                feedback=[{"id": "id"}],
             )
 
     @parametrize
@@ -793,20 +783,10 @@ class TestAsyncDatasets:
             cursor="cursor",
             filters=[
                 {
-                    "path": ["string", "string", "string"],
+                    "path": ["string"],
                     "type": "path_lookup",
                     "value": {},
-                },
-                {
-                    "path": ["string", "string", "string"],
-                    "type": "path_lookup",
-                    "value": {},
-                },
-                {
-                    "path": ["string", "string", "string"],
-                    "type": "path_lookup",
-                    "value": {},
-                },
+                }
             ],
             limit=0,
             max_root_span_id="max_root_span_id",
@@ -850,7 +830,7 @@ class TestAsyncDatasets:
     async def test_method_insert(self, async_client: AsyncBraintrust) -> None:
         dataset = await async_client.datasets.insert(
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            events=[{}, {}, {}],
+            events=[{}],
         )
         assert_matches_type(InsertEventsResponse, dataset, path=["response"])
 
@@ -858,7 +838,7 @@ class TestAsyncDatasets:
     async def test_raw_response_insert(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.datasets.with_raw_response.insert(
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            events=[{}, {}, {}],
+            events=[{}],
         )
 
         assert response.is_closed is True
@@ -870,7 +850,7 @@ class TestAsyncDatasets:
     async def test_streaming_response_insert(self, async_client: AsyncBraintrust) -> None:
         async with async_client.datasets.with_streaming_response.insert(
             dataset_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            events=[{}, {}, {}],
+            events=[{}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -885,7 +865,7 @@ class TestAsyncDatasets:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `dataset_id` but received ''"):
             await async_client.datasets.with_raw_response.insert(
                 dataset_id="",
-                events=[{}, {}, {}],
+                events=[{}],
             )
 
     @parametrize
