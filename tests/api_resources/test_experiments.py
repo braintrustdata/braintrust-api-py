@@ -265,7 +265,7 @@ class TestExperiments:
     def test_method_feedback(self, client: Braintrust) -> None:
         experiment = client.experiments.feedback(
             experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
+            feedback=[{"id": "id"}],
         )
         assert_matches_type(FeedbackResponseSchema, experiment, path=["response"])
 
@@ -273,7 +273,7 @@ class TestExperiments:
     def test_raw_response_feedback(self, client: Braintrust) -> None:
         response = client.experiments.with_raw_response.feedback(
             experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
+            feedback=[{"id": "id"}],
         )
 
         assert response.is_closed is True
@@ -285,7 +285,7 @@ class TestExperiments:
     def test_streaming_response_feedback(self, client: Braintrust) -> None:
         with client.experiments.with_streaming_response.feedback(
             experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
+            feedback=[{"id": "id"}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -300,7 +300,7 @@ class TestExperiments:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
             client.experiments.with_raw_response.feedback(
                 experiment_id="",
-                feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
+                feedback=[{"id": "id"}],
             )
 
     @parametrize
@@ -366,20 +366,10 @@ class TestExperiments:
             cursor="cursor",
             filters=[
                 {
-                    "path": ["string", "string", "string"],
+                    "path": ["string"],
                     "type": "path_lookup",
                     "value": {},
-                },
-                {
-                    "path": ["string", "string", "string"],
-                    "type": "path_lookup",
-                    "value": {},
-                },
-                {
-                    "path": ["string", "string", "string"],
-                    "type": "path_lookup",
-                    "value": {},
-                },
+                }
             ],
             limit=0,
             max_root_span_id="max_root_span_id",
@@ -423,7 +413,7 @@ class TestExperiments:
     def test_method_insert(self, client: Braintrust) -> None:
         experiment = client.experiments.insert(
             experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            events=[{}, {}, {}],
+            events=[{}],
         )
         assert_matches_type(ExperimentInsertResponse, experiment, path=["response"])
 
@@ -431,7 +421,7 @@ class TestExperiments:
     def test_raw_response_insert(self, client: Braintrust) -> None:
         response = client.experiments.with_raw_response.insert(
             experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            events=[{}, {}, {}],
+            events=[{}],
         )
 
         assert response.is_closed is True
@@ -443,7 +433,7 @@ class TestExperiments:
     def test_streaming_response_insert(self, client: Braintrust) -> None:
         with client.experiments.with_streaming_response.insert(
             experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            events=[{}, {}, {}],
+            events=[{}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -458,7 +448,7 @@ class TestExperiments:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
             client.experiments.with_raw_response.insert(
                 experiment_id="",
-                events=[{}, {}, {}],
+                events=[{}],
             )
 
     @parametrize
@@ -751,7 +741,7 @@ class TestAsyncExperiments:
     async def test_method_feedback(self, async_client: AsyncBraintrust) -> None:
         experiment = await async_client.experiments.feedback(
             experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
+            feedback=[{"id": "id"}],
         )
         assert_matches_type(FeedbackResponseSchema, experiment, path=["response"])
 
@@ -759,7 +749,7 @@ class TestAsyncExperiments:
     async def test_raw_response_feedback(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.experiments.with_raw_response.feedback(
             experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
+            feedback=[{"id": "id"}],
         )
 
         assert response.is_closed is True
@@ -771,7 +761,7 @@ class TestAsyncExperiments:
     async def test_streaming_response_feedback(self, async_client: AsyncBraintrust) -> None:
         async with async_client.experiments.with_streaming_response.feedback(
             experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
+            feedback=[{"id": "id"}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -786,7 +776,7 @@ class TestAsyncExperiments:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
             await async_client.experiments.with_raw_response.feedback(
                 experiment_id="",
-                feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
+                feedback=[{"id": "id"}],
             )
 
     @parametrize
@@ -852,20 +842,10 @@ class TestAsyncExperiments:
             cursor="cursor",
             filters=[
                 {
-                    "path": ["string", "string", "string"],
+                    "path": ["string"],
                     "type": "path_lookup",
                     "value": {},
-                },
-                {
-                    "path": ["string", "string", "string"],
-                    "type": "path_lookup",
-                    "value": {},
-                },
-                {
-                    "path": ["string", "string", "string"],
-                    "type": "path_lookup",
-                    "value": {},
-                },
+                }
             ],
             limit=0,
             max_root_span_id="max_root_span_id",
@@ -909,7 +889,7 @@ class TestAsyncExperiments:
     async def test_method_insert(self, async_client: AsyncBraintrust) -> None:
         experiment = await async_client.experiments.insert(
             experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            events=[{}, {}, {}],
+            events=[{}],
         )
         assert_matches_type(ExperimentInsertResponse, experiment, path=["response"])
 
@@ -917,7 +897,7 @@ class TestAsyncExperiments:
     async def test_raw_response_insert(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.experiments.with_raw_response.insert(
             experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            events=[{}, {}, {}],
+            events=[{}],
         )
 
         assert response.is_closed is True
@@ -929,7 +909,7 @@ class TestAsyncExperiments:
     async def test_streaming_response_insert(self, async_client: AsyncBraintrust) -> None:
         async with async_client.experiments.with_streaming_response.insert(
             experiment_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            events=[{}, {}, {}],
+            events=[{}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -944,7 +924,7 @@ class TestAsyncExperiments:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `experiment_id` but received ''"):
             await async_client.experiments.with_raw_response.insert(
                 experiment_id="",
-                events=[{}, {}, {}],
+                events=[{}],
             )
 
     @parametrize

@@ -34,21 +34,9 @@ class TestRoles:
                 {
                     "permission": "create",
                     "restrict_object_type": "organization",
-                },
-                {
-                    "permission": "create",
-                    "restrict_object_type": "organization",
-                },
-                {
-                    "permission": "create",
-                    "restrict_object_type": "organization",
-                },
+                }
             ],
-            member_roles=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
+            member_roles=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             org_name="org_name",
         )
         assert_matches_type(Role, role, path=["response"])
@@ -130,42 +118,18 @@ class TestRoles:
                 {
                     "permission": "create",
                     "restrict_object_type": "organization",
-                },
-                {
-                    "permission": "create",
-                    "restrict_object_type": "organization",
-                },
-                {
-                    "permission": "create",
-                    "restrict_object_type": "organization",
-                },
+                }
             ],
-            add_member_roles=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
+            add_member_roles=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             description="description",
             name="x",
             remove_member_permissions=[
                 {
                     "permission": "create",
                     "restrict_object_type": "organization",
-                },
-                {
-                    "permission": "create",
-                    "restrict_object_type": "organization",
-                },
-                {
-                    "permission": "create",
-                    "restrict_object_type": "organization",
-                },
+                }
             ],
-            remove_member_roles=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
+            remove_member_roles=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
         assert_matches_type(Role, role, path=["response"])
 
@@ -291,21 +255,9 @@ class TestRoles:
                 {
                     "permission": "create",
                     "restrict_object_type": "organization",
-                },
-                {
-                    "permission": "create",
-                    "restrict_object_type": "organization",
-                },
-                {
-                    "permission": "create",
-                    "restrict_object_type": "organization",
-                },
+                }
             ],
-            member_roles=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
+            member_roles=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             org_name="org_name",
         )
         assert_matches_type(Role, role, path=["response"])
@@ -354,21 +306,9 @@ class TestAsyncRoles:
                 {
                     "permission": "create",
                     "restrict_object_type": "organization",
-                },
-                {
-                    "permission": "create",
-                    "restrict_object_type": "organization",
-                },
-                {
-                    "permission": "create",
-                    "restrict_object_type": "organization",
-                },
+                }
             ],
-            member_roles=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
+            member_roles=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             org_name="org_name",
         )
         assert_matches_type(Role, role, path=["response"])
@@ -450,42 +390,18 @@ class TestAsyncRoles:
                 {
                     "permission": "create",
                     "restrict_object_type": "organization",
-                },
-                {
-                    "permission": "create",
-                    "restrict_object_type": "organization",
-                },
-                {
-                    "permission": "create",
-                    "restrict_object_type": "organization",
-                },
+                }
             ],
-            add_member_roles=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
+            add_member_roles=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             description="description",
             name="x",
             remove_member_permissions=[
                 {
                     "permission": "create",
                     "restrict_object_type": "organization",
-                },
-                {
-                    "permission": "create",
-                    "restrict_object_type": "organization",
-                },
-                {
-                    "permission": "create",
-                    "restrict_object_type": "organization",
-                },
+                }
             ],
-            remove_member_roles=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
+            remove_member_roles=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
         assert_matches_type(Role, role, path=["response"])
 
@@ -611,21 +527,9 @@ class TestAsyncRoles:
                 {
                     "permission": "create",
                     "restrict_object_type": "organization",
-                },
-                {
-                    "permission": "create",
-                    "restrict_object_type": "organization",
-                },
-                {
-                    "permission": "create",
-                    "restrict_object_type": "organization",
-                },
+                }
             ],
-            member_roles=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
+            member_roles=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             org_name="org_name",
         )
         assert_matches_type(Role, role, path=["response"])

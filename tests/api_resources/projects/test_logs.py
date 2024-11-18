@@ -24,7 +24,7 @@ class TestLogs:
     def test_method_feedback(self, client: Braintrust) -> None:
         log = client.projects.logs.feedback(
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
+            feedback=[{"id": "id"}],
         )
         assert_matches_type(FeedbackResponseSchema, log, path=["response"])
 
@@ -32,7 +32,7 @@ class TestLogs:
     def test_raw_response_feedback(self, client: Braintrust) -> None:
         response = client.projects.logs.with_raw_response.feedback(
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
+            feedback=[{"id": "id"}],
         )
 
         assert response.is_closed is True
@@ -44,7 +44,7 @@ class TestLogs:
     def test_streaming_response_feedback(self, client: Braintrust) -> None:
         with client.projects.logs.with_streaming_response.feedback(
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
+            feedback=[{"id": "id"}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -59,7 +59,7 @@ class TestLogs:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_id` but received ''"):
             client.projects.logs.with_raw_response.feedback(
                 project_id="",
-                feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
+                feedback=[{"id": "id"}],
             )
 
     @parametrize
@@ -125,20 +125,10 @@ class TestLogs:
             cursor="cursor",
             filters=[
                 {
-                    "path": ["string", "string", "string"],
+                    "path": ["string"],
                     "type": "path_lookup",
                     "value": {},
-                },
-                {
-                    "path": ["string", "string", "string"],
-                    "type": "path_lookup",
-                    "value": {},
-                },
-                {
-                    "path": ["string", "string", "string"],
-                    "type": "path_lookup",
-                    "value": {},
-                },
+                }
             ],
             limit=0,
             max_root_span_id="max_root_span_id",
@@ -182,7 +172,7 @@ class TestLogs:
     def test_method_insert(self, client: Braintrust) -> None:
         log = client.projects.logs.insert(
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            events=[{}, {}, {}],
+            events=[{}],
         )
         assert_matches_type(LogInsertResponse, log, path=["response"])
 
@@ -190,7 +180,7 @@ class TestLogs:
     def test_raw_response_insert(self, client: Braintrust) -> None:
         response = client.projects.logs.with_raw_response.insert(
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            events=[{}, {}, {}],
+            events=[{}],
         )
 
         assert response.is_closed is True
@@ -202,7 +192,7 @@ class TestLogs:
     def test_streaming_response_insert(self, client: Braintrust) -> None:
         with client.projects.logs.with_streaming_response.insert(
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            events=[{}, {}, {}],
+            events=[{}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -217,7 +207,7 @@ class TestLogs:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_id` but received ''"):
             client.projects.logs.with_raw_response.insert(
                 project_id="",
-                events=[{}, {}, {}],
+                events=[{}],
             )
 
 
@@ -228,7 +218,7 @@ class TestAsyncLogs:
     async def test_method_feedback(self, async_client: AsyncBraintrust) -> None:
         log = await async_client.projects.logs.feedback(
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
+            feedback=[{"id": "id"}],
         )
         assert_matches_type(FeedbackResponseSchema, log, path=["response"])
 
@@ -236,7 +226,7 @@ class TestAsyncLogs:
     async def test_raw_response_feedback(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.projects.logs.with_raw_response.feedback(
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
+            feedback=[{"id": "id"}],
         )
 
         assert response.is_closed is True
@@ -248,7 +238,7 @@ class TestAsyncLogs:
     async def test_streaming_response_feedback(self, async_client: AsyncBraintrust) -> None:
         async with async_client.projects.logs.with_streaming_response.feedback(
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
+            feedback=[{"id": "id"}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -263,7 +253,7 @@ class TestAsyncLogs:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_id` but received ''"):
             await async_client.projects.logs.with_raw_response.feedback(
                 project_id="",
-                feedback=[{"id": "id"}, {"id": "id"}, {"id": "id"}],
+                feedback=[{"id": "id"}],
             )
 
     @parametrize
@@ -329,20 +319,10 @@ class TestAsyncLogs:
             cursor="cursor",
             filters=[
                 {
-                    "path": ["string", "string", "string"],
+                    "path": ["string"],
                     "type": "path_lookup",
                     "value": {},
-                },
-                {
-                    "path": ["string", "string", "string"],
-                    "type": "path_lookup",
-                    "value": {},
-                },
-                {
-                    "path": ["string", "string", "string"],
-                    "type": "path_lookup",
-                    "value": {},
-                },
+                }
             ],
             limit=0,
             max_root_span_id="max_root_span_id",
@@ -386,7 +366,7 @@ class TestAsyncLogs:
     async def test_method_insert(self, async_client: AsyncBraintrust) -> None:
         log = await async_client.projects.logs.insert(
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            events=[{}, {}, {}],
+            events=[{}],
         )
         assert_matches_type(LogInsertResponse, log, path=["response"])
 
@@ -394,7 +374,7 @@ class TestAsyncLogs:
     async def test_raw_response_insert(self, async_client: AsyncBraintrust) -> None:
         response = await async_client.projects.logs.with_raw_response.insert(
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            events=[{}, {}, {}],
+            events=[{}],
         )
 
         assert response.is_closed is True
@@ -406,7 +386,7 @@ class TestAsyncLogs:
     async def test_streaming_response_insert(self, async_client: AsyncBraintrust) -> None:
         async with async_client.projects.logs.with_streaming_response.insert(
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            events=[{}, {}, {}],
+            events=[{}],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -421,5 +401,5 @@ class TestAsyncLogs:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `project_id` but received ''"):
             await async_client.projects.logs.with_raw_response.insert(
                 project_id="",
-                events=[{}, {}, {}],
+                events=[{}],
             )

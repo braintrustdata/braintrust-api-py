@@ -22,7 +22,7 @@ class TestEvals:
         eval = client.evals.create(
             data={"dataset_id": "dataset_id"},
             project_id="project_id",
-            scores=[{"function_id": "function_id"}, {"function_id": "function_id"}, {"function_id": "function_id"}],
+            scores=[{"function_id": "function_id"}],
             task={"function_id": "function_id"},
         )
         assert_matches_type(SummarizeExperimentResponse, eval, path=["response"])
@@ -36,15 +36,7 @@ class TestEvals:
                 {
                     "function_id": "function_id",
                     "version": "version",
-                },
-                {
-                    "function_id": "function_id",
-                    "version": "version",
-                },
-                {
-                    "function_id": "function_id",
-                    "version": "version",
-                },
+                }
             ],
             task={
                 "function_id": "function_id",
@@ -55,7 +47,7 @@ class TestEvals:
             experiment_name="experiment_name",
             git_metadata_settings={
                 "collect": "all",
-                "fields": ["commit", "branch", "tag"],
+                "fields": ["commit"],
             },
             is_public=True,
             max_concurrency=0,
@@ -82,7 +74,7 @@ class TestEvals:
         response = client.evals.with_raw_response.create(
             data={"dataset_id": "dataset_id"},
             project_id="project_id",
-            scores=[{"function_id": "function_id"}, {"function_id": "function_id"}, {"function_id": "function_id"}],
+            scores=[{"function_id": "function_id"}],
             task={"function_id": "function_id"},
         )
 
@@ -96,7 +88,7 @@ class TestEvals:
         with client.evals.with_streaming_response.create(
             data={"dataset_id": "dataset_id"},
             project_id="project_id",
-            scores=[{"function_id": "function_id"}, {"function_id": "function_id"}, {"function_id": "function_id"}],
+            scores=[{"function_id": "function_id"}],
             task={"function_id": "function_id"},
         ) as response:
             assert not response.is_closed
@@ -116,7 +108,7 @@ class TestAsyncEvals:
         eval = await async_client.evals.create(
             data={"dataset_id": "dataset_id"},
             project_id="project_id",
-            scores=[{"function_id": "function_id"}, {"function_id": "function_id"}, {"function_id": "function_id"}],
+            scores=[{"function_id": "function_id"}],
             task={"function_id": "function_id"},
         )
         assert_matches_type(SummarizeExperimentResponse, eval, path=["response"])
@@ -130,15 +122,7 @@ class TestAsyncEvals:
                 {
                     "function_id": "function_id",
                     "version": "version",
-                },
-                {
-                    "function_id": "function_id",
-                    "version": "version",
-                },
-                {
-                    "function_id": "function_id",
-                    "version": "version",
-                },
+                }
             ],
             task={
                 "function_id": "function_id",
@@ -149,7 +133,7 @@ class TestAsyncEvals:
             experiment_name="experiment_name",
             git_metadata_settings={
                 "collect": "all",
-                "fields": ["commit", "branch", "tag"],
+                "fields": ["commit"],
             },
             is_public=True,
             max_concurrency=0,
@@ -176,7 +160,7 @@ class TestAsyncEvals:
         response = await async_client.evals.with_raw_response.create(
             data={"dataset_id": "dataset_id"},
             project_id="project_id",
-            scores=[{"function_id": "function_id"}, {"function_id": "function_id"}, {"function_id": "function_id"}],
+            scores=[{"function_id": "function_id"}],
             task={"function_id": "function_id"},
         )
 
@@ -190,7 +174,7 @@ class TestAsyncEvals:
         async with async_client.evals.with_streaming_response.create(
             data={"dataset_id": "dataset_id"},
             project_id="project_id",
-            scores=[{"function_id": "function_id"}, {"function_id": "function_id"}, {"function_id": "function_id"}],
+            scores=[{"function_id": "function_id"}],
             task={"function_id": "function_id"},
         ) as response:
             assert not response.is_closed
