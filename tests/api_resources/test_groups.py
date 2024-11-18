@@ -30,16 +30,8 @@ class TestGroups:
         group = client.groups.create(
             name="x",
             description="description",
-            member_groups=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
-            member_users=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
+            member_groups=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            member_users=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             org_name="org_name",
         )
         assert_matches_type(Group, group, path=["response"])
@@ -117,28 +109,12 @@ class TestGroups:
     def test_method_update_with_all_params(self, client: Braintrust) -> None:
         group = client.groups.update(
             group_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            add_member_groups=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
-            add_member_users=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
+            add_member_groups=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            add_member_users=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             description="description",
             name="x",
-            remove_member_groups=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
-            remove_member_users=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
+            remove_member_groups=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            remove_member_users=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
         assert_matches_type(Group, group, path=["response"])
 
@@ -260,16 +236,8 @@ class TestGroups:
         group = client.groups.replace(
             name="x",
             description="description",
-            member_groups=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
-            member_users=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
+            member_groups=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            member_users=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             org_name="org_name",
         )
         assert_matches_type(Group, group, path=["response"])
@@ -314,16 +282,8 @@ class TestAsyncGroups:
         group = await async_client.groups.create(
             name="x",
             description="description",
-            member_groups=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
-            member_users=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
+            member_groups=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            member_users=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             org_name="org_name",
         )
         assert_matches_type(Group, group, path=["response"])
@@ -401,28 +361,12 @@ class TestAsyncGroups:
     async def test_method_update_with_all_params(self, async_client: AsyncBraintrust) -> None:
         group = await async_client.groups.update(
             group_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            add_member_groups=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
-            add_member_users=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
+            add_member_groups=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            add_member_users=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             description="description",
             name="x",
-            remove_member_groups=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
-            remove_member_users=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
+            remove_member_groups=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            remove_member_users=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
         )
         assert_matches_type(Group, group, path=["response"])
 
@@ -544,16 +488,8 @@ class TestAsyncGroups:
         group = await async_client.groups.replace(
             name="x",
             description="description",
-            member_groups=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
-            member_users=[
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-                "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-            ],
+            member_groups=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
+            member_users=["182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e"],
             org_name="org_name",
         )
         assert_matches_type(Group, group, path=["response"])
