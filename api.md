@@ -10,6 +10,7 @@ from braintrust_api.types import (
     ChatCompletionContentPart,
     ChatCompletionContentPartImage,
     ChatCompletionContentPartText,
+    ChatCompletionMessage,
     ChatCompletionMessageToolCall,
     CodeBundle,
     CreateAPIKeyOutput,

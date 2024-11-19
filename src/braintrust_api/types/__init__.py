@@ -44,6 +44,7 @@ from .shared import (
     InsertEventsResponse as InsertEventsResponse,
     ProjectScoreCategory as ProjectScoreCategory,
     ChatCompletionContent as ChatCompletionContent,
+    ChatCompletionMessage as ChatCompletionMessage,
     InsertExperimentEvent as InsertExperimentEvent,
     ACLBatchUpdateResponse as ACLBatchUpdateResponse,
     FeedbackExperimentItem as FeedbackExperimentItem,
