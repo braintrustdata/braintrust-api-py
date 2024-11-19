@@ -5,8 +5,7 @@ from typing_extensions import Literal, TypeAlias
 
 from ..._models import BaseModel
 from .prompt_options import PromptOptions
-from .chat_completion_content import ChatCompletionContent
-from .chat_completion_message_tool_call import ChatCompletionMessageToolCall
+from .chat_completion_message import ChatCompletionMessage
 
 __all__ = [
     "PromptData",
@@ -15,14 +14,6 @@ __all__ = [
     "Prompt",
     "PromptCompletion",
     "PromptChat",
-    "PromptChatMessage",
-    "PromptChatMessageSystem",
-    "PromptChatMessageUser",
-    "PromptChatMessageAssistant",
-    "PromptChatMessageAssistantFunctionCall",
-    "PromptChatMessageTool",
-    "PromptChatMessageFunction",
-    "PromptChatMessageFallback",
     "PromptNullableVariant",
     "ToolFunction",
     "ToolFunctionFunction",
@@ -52,74 +43,8 @@ class PromptCompletion(BaseModel):
     type: Literal["completion"]
 
 
-class PromptChatMessageSystem(BaseModel):
-    role: Literal["system"]
-
-    content: Optional[str] = None
-
-    name: Optional[str] = None
-
-
-class PromptChatMessageUser(BaseModel):
-    role: Literal["user"]
-
-    content: Optional[ChatCompletionContent] = None
-
-    name: Optional[str] = None
-
-
-class PromptChatMessageAssistantFunctionCall(BaseModel):
-    arguments: str
-
-    name: str
-
-
-class PromptChatMessageAssistant(BaseModel):
-    role: Literal["assistant"]
-
-    content: Optional[str] = None
-
-    function_call: Optional[PromptChatMessageAssistantFunctionCall] = None
-
-    name: Optional[str] = None
-
-    tool_calls: Optional[List[ChatCompletionMessageToolCall]] = None
-
-
-class PromptChatMessageTool(BaseModel):
-    role: Literal["tool"]
-
-    content: Optional[str] = None
-
-    tool_call_id: Optional[str] = None
-
-
-class PromptChatMessageFunction(BaseModel):
-    name: str
-
-    role: Literal["function"]
-
-    content: Optional[str] = None
-
-
-class PromptChatMessageFallback(BaseModel):
-    role: Literal["model"]
-
-    content: Optional[str] = None
-
-
-PromptChatMessage: TypeAlias = Union[
-    PromptChatMessageSystem,
-    PromptChatMessageUser,
-    PromptChatMessageAssistant,
-    PromptChatMessageTool,
-    PromptChatMessageFunction,
-    PromptChatMessageFallback,
-]
-
-
 class PromptChat(BaseModel):
-    messages: List[PromptChatMessage]
+    messages: List[ChatCompletionMessage]
 
     type: Literal["chat"]
 
