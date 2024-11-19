@@ -5,8 +5,11 @@ from __future__ import annotations
 from typing import Union, Iterable
 from typing_extensions import TypeAlias
 
-from .chat_completion_content_part import ChatCompletionContentPart
+from .chat_completion_content_part_text import ChatCompletionContentPartText
+from .chat_completion_content_part_image import ChatCompletionContentPartImage
 
-__all__ = ["ChatCompletionContent"]
+__all__ = ["ChatCompletionContent", "Array"]
 
-ChatCompletionContent: TypeAlias = Union[str, Iterable[ChatCompletionContentPart]]
+Array: TypeAlias = Union[ChatCompletionContentPartText, ChatCompletionContentPartImage]
+
+ChatCompletionContent: TypeAlias = Union[str, Iterable[Array]]

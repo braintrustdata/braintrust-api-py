@@ -3,8 +3,11 @@
 from typing import List, Union
 from typing_extensions import TypeAlias
 
-from .chat_completion_content_part import ChatCompletionContentPart
+from .chat_completion_content_part_text import ChatCompletionContentPartText
+from .chat_completion_content_part_image import ChatCompletionContentPartImage
 
-__all__ = ["ChatCompletionContent"]
+__all__ = ["ChatCompletionContent", "Array"]
 
-ChatCompletionContent: TypeAlias = Union[str, List[ChatCompletionContentPart]]
+Array: TypeAlias = Union[ChatCompletionContentPartText, ChatCompletionContentPartImage]
+
+ChatCompletionContent: TypeAlias = Union[str, List[Array]]

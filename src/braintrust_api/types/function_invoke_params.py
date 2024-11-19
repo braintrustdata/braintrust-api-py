@@ -5,16 +5,30 @@ from __future__ import annotations
 from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from .shared_params.chat_completion_message import ChatCompletionMessage
+from .shared_params.chat_completion_content import ChatCompletionContent
+from .shared_params.chat_completion_message_tool_call import ChatCompletionMessageToolCall
 
-__all__ = ["FunctionInvokeParams", "Parent", "ParentSpanParentStruct", "ParentSpanParentStructRowIDs"]
+__all__ = [
+    "FunctionInvokeParams",
+    "Message",
+    "MessageSystem",
+    "MessageUser",
+    "MessageAssistant",
+    "MessageAssistantFunctionCall",
+    "MessageTool",
+    "MessageFunction",
+    "MessageFallback",
+    "Parent",
+    "ParentSpanParentStruct",
+    "ParentSpanParentStructRowIDs",
+]
 
 
 class FunctionInvokeParams(TypedDict, total=False):
     input: Optional[object]
     """Argument to the function, which can be any JSON serializable value"""
 
-    messages: Iterable[ChatCompletionMessage]
+    messages: Iterable[Message]
     """If the function is an LLM, additional messages to pass along to it"""
 
     mode: Optional[Literal["auto", "parallel"]]
@@ -31,6 +45,65 @@ class FunctionInvokeParams(TypedDict, total=False):
 
     version: str
     """The version of the function"""
+
+
+class MessageSystem(TypedDict, total=False):
+    role: Required[Literal["system"]]
+
+    content: str
+
+    name: str
+
+
+class MessageUser(TypedDict, total=False):
+    role: Required[Literal["user"]]
+
+    content: ChatCompletionContent
+
+    name: str
+
+
+class MessageAssistantFunctionCall(TypedDict, total=False):
+    arguments: Required[str]
+
+    name: Required[str]
+
+
+class MessageAssistant(TypedDict, total=False):
+    role: Required[Literal["assistant"]]
+
+    content: Optional[str]
+
+    function_call: Optional[MessageAssistantFunctionCall]
+
+    name: Optional[str]
+
+    tool_calls: Optional[Iterable[ChatCompletionMessageToolCall]]
+
+
+class MessageTool(TypedDict, total=False):
+    role: Required[Literal["tool"]]
+
+    content: str
+
+    tool_call_id: str
+
+
+class MessageFunction(TypedDict, total=False):
+    name: Required[str]
+
+    role: Required[Literal["function"]]
+
+    content: str
+
+
+class MessageFallback(TypedDict, total=False):
+    role: Required[Literal["model"]]
+
+    content: Optional[str]
+
+
+Message: TypeAlias = Union[MessageSystem, MessageUser, MessageAssistant, MessageTool, MessageFunction, MessageFallback]
 
 
 class ParentSpanParentStructRowIDs(TypedDict, total=False):
