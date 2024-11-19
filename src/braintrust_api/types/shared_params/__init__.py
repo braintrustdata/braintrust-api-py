@@ -16,6 +16,7 @@ from .project_score_config import ProjectScoreConfig as ProjectScoreConfig
 from .feedback_dataset_item import FeedbackDatasetItem as FeedbackDatasetItem
 from .project_score_category import ProjectScoreCategory as ProjectScoreCategory
 from .chat_completion_content import ChatCompletionContent as ChatCompletionContent
+from .chat_completion_message import ChatCompletionMessage as ChatCompletionMessage
 from .insert_experiment_event import InsertExperimentEvent as InsertExperimentEvent
 from .feedback_experiment_item import FeedbackExperimentItem as FeedbackExperimentItem
 from .insert_project_logs_event import InsertProjectLogsEvent as InsertProjectLogsEvent

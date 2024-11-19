@@ -41,6 +41,7 @@ from .feedback_dataset_item import FeedbackDatasetItem as FeedbackDatasetItem
 from .insert_events_response import InsertEventsResponse as InsertEventsResponse
 from .project_score_category import ProjectScoreCategory as ProjectScoreCategory
 from .chat_completion_content import ChatCompletionContent as ChatCompletionContent
+from .chat_completion_message import ChatCompletionMessage as ChatCompletionMessage
 from .insert_experiment_event import InsertExperimentEvent as InsertExperimentEvent
 from .feedback_experiment_item import FeedbackExperimentItem as FeedbackExperimentItem
 from .feedback_response_schema import FeedbackResponseSchema as FeedbackResponseSchema
