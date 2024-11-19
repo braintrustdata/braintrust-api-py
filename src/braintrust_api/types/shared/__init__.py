@@ -40,6 +40,7 @@ from .create_api_key_output import CreateAPIKeyOutput as CreateAPIKeyOutput
 from .feedback_dataset_item import FeedbackDatasetItem as FeedbackDatasetItem
 from .insert_events_response import InsertEventsResponse as InsertEventsResponse
 from .project_score_category import ProjectScoreCategory as ProjectScoreCategory
+from .chat_completion_content import ChatCompletionContent as ChatCompletionContent
 from .insert_experiment_event import InsertExperimentEvent as InsertExperimentEvent
 from .feedback_experiment_item import FeedbackExperimentItem as FeedbackExperimentItem
 from .feedback_response_schema import FeedbackResponseSchema as FeedbackResponseSchema
@@ -47,6 +48,7 @@ from .acl_batch_update_response import ACLBatchUpdateResponse as ACLBatchUpdateR
 from .insert_project_logs_event import InsertProjectLogsEvent as InsertProjectLogsEvent
 from .feedback_project_logs_item import FeedbackProjectLogsItem as FeedbackProjectLogsItem
 from .summarize_dataset_response import SummarizeDatasetResponse as SummarizeDatasetResponse
+from .chat_completion_content_part import ChatCompletionContentPart as ChatCompletionContentPart
 from .cross_object_insert_response import CrossObjectInsertResponse as CrossObjectInsertResponse
 from .fetch_dataset_events_response import FetchDatasetEventsResponse as FetchDatasetEventsResponse
 from .summarize_experiment_response import SummarizeExperimentResponse as SummarizeExperimentResponse
