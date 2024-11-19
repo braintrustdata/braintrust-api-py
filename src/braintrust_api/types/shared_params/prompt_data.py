@@ -6,7 +6,8 @@ from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .prompt_options import PromptOptions
-from .chat_completion_message import ChatCompletionMessage
+from .chat_completion_content import ChatCompletionContent
+from .chat_completion_message_tool_call import ChatCompletionMessageToolCall
 
 __all__ = [
     "PromptData",
@@ -15,6 +16,14 @@ __all__ = [
     "Prompt",
     "PromptCompletion",
     "PromptChat",
+    "PromptChatMessage",
+    "PromptChatMessageSystem",
+    "PromptChatMessageUser",
+    "PromptChatMessageAssistant",
+    "PromptChatMessageAssistantFunctionCall",
+    "PromptChatMessageTool",
+    "PromptChatMessageFunction",
+    "PromptChatMessageFallback",
     "PromptNullableVariant",
     "ToolFunction",
     "ToolFunctionFunction",
@@ -44,8 +53,74 @@ class PromptCompletion(TypedDict, total=False):
     type: Required[Literal["completion"]]
 
 
+class PromptChatMessageSystem(TypedDict, total=False):
+    role: Required[Literal["system"]]
+
+    content: str
+
+    name: str
+
+
+class PromptChatMessageUser(TypedDict, total=False):
+    role: Required[Literal["user"]]
+
+    content: ChatCompletionContent
+
+    name: str
+
+
+class PromptChatMessageAssistantFunctionCall(TypedDict, total=False):
+    arguments: Required[str]
+
+    name: Required[str]
+
+
+class PromptChatMessageAssistant(TypedDict, total=False):
+    role: Required[Literal["assistant"]]
+
+    content: Optional[str]
+
+    function_call: Optional[PromptChatMessageAssistantFunctionCall]
+
+    name: Optional[str]
+
+    tool_calls: Optional[Iterable[ChatCompletionMessageToolCall]]
+
+
+class PromptChatMessageTool(TypedDict, total=False):
+    role: Required[Literal["tool"]]
+
+    content: str
+
+    tool_call_id: str
+
+
+class PromptChatMessageFunction(TypedDict, total=False):
+    name: Required[str]
+
+    role: Required[Literal["function"]]
+
+    content: str
+
+
+class PromptChatMessageFallback(TypedDict, total=False):
+    role: Required[Literal["model"]]
+
+    content: Optional[str]
+
+
+PromptChatMessage: TypeAlias = Union[
+    PromptChatMessageSystem,
+    PromptChatMessageUser,
+    PromptChatMessageAssistant,
+    PromptChatMessageTool,
+    PromptChatMessageFunction,
+    PromptChatMessageFallback,
+]
+
+
 class PromptChat(TypedDict, total=False):
-    messages: Required[Iterable[ChatCompletionMessage]]
+    messages: Required[Iterable[PromptChatMessage]]
 
     type: Required[Literal["chat"]]
 
