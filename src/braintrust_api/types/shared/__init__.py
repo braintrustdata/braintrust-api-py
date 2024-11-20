@@ -31,7 +31,6 @@ from .span_attributes import SpanAttributes as SpanAttributes
 from .experiment_event import ExperimentEvent as ExperimentEvent
 from .project_settings import ProjectSettings as ProjectSettings
 from .view_data_search import ViewDataSearch as ViewDataSearch
-from .path_lookup_filter import PathLookupFilter as PathLookupFilter
 from .project_logs_event import ProjectLogsEvent as ProjectLogsEvent
 from .online_score_config import OnlineScoreConfig as OnlineScoreConfig
 from .insert_dataset_event import InsertDatasetEvent as InsertDatasetEvent
@@ -40,7 +39,6 @@ from .create_api_key_output import CreateAPIKeyOutput as CreateAPIKeyOutput
 from .feedback_dataset_item import FeedbackDatasetItem as FeedbackDatasetItem
 from .insert_events_response import InsertEventsResponse as InsertEventsResponse
 from .project_score_category import ProjectScoreCategory as ProjectScoreCategory
-from .chat_completion_content import ChatCompletionContent as ChatCompletionContent
 from .insert_experiment_event import InsertExperimentEvent as InsertExperimentEvent
 from .feedback_experiment_item import FeedbackExperimentItem as FeedbackExperimentItem
 from .feedback_response_schema import FeedbackResponseSchema as FeedbackResponseSchema
