@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["FeedbackExperimentItem"]
@@ -28,8 +28,6 @@ class FeedbackExperimentItem(TypedDict, total=False):
     """A dictionary with additional data about the feedback.
 
     If you have a `user_id`, you can log it here and access it in the Braintrust UI.
-    Note, this metadata does not correspond to the main event itself, but rather the
-    audit log attached to the event.
     """
 
     scores: Optional[Dict[str, Optional[float]]]
@@ -43,6 +41,3 @@ class FeedbackExperimentItem(TypedDict, total=False):
 
     Must be one of "external" (default), "app", or "api"
     """
-
-    tags: Optional[List[str]]
-    """A list of tags to log"""
