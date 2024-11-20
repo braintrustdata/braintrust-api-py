@@ -9,13 +9,11 @@ from .prompt_options import PromptOptions as PromptOptions
 from .span_attributes import SpanAttributes as SpanAttributes
 from .project_settings import ProjectSettings as ProjectSettings
 from .view_data_search import ViewDataSearch as ViewDataSearch
-from .path_lookup_filter import PathLookupFilter as PathLookupFilter
 from .online_score_config import OnlineScoreConfig as OnlineScoreConfig
 from .insert_dataset_event import InsertDatasetEvent as InsertDatasetEvent
 from .project_score_config import ProjectScoreConfig as ProjectScoreConfig
 from .feedback_dataset_item import FeedbackDatasetItem as FeedbackDatasetItem
 from .project_score_category import ProjectScoreCategory as ProjectScoreCategory
-from .chat_completion_content import ChatCompletionContent as ChatCompletionContent
 from .insert_experiment_event import InsertExperimentEvent as InsertExperimentEvent
 from .feedback_experiment_item import FeedbackExperimentItem as FeedbackExperimentItem
 from .insert_project_logs_event import InsertProjectLogsEvent as InsertProjectLogsEvent

@@ -6,8 +6,9 @@ from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .prompt_options import PromptOptions
-from .chat_completion_content import ChatCompletionContent
+from .chat_completion_content_part_text import ChatCompletionContentPartText
 from .chat_completion_message_tool_call import ChatCompletionMessageToolCall
+from .chat_completion_content_part_image import ChatCompletionContentPartImage
 
 __all__ = [
     "PromptData",
@@ -19,6 +20,7 @@ __all__ = [
     "PromptChatMessage",
     "PromptChatMessageSystem",
     "PromptChatMessageUser",
+    "PromptChatMessageUserContentArray",
     "PromptChatMessageAssistant",
     "PromptChatMessageAssistantFunctionCall",
     "PromptChatMessageTool",
@@ -61,10 +63,13 @@ class PromptChatMessageSystem(TypedDict, total=False):
     name: str
 
 
+PromptChatMessageUserContentArray: TypeAlias = Union[ChatCompletionContentPartText, ChatCompletionContentPartImage]
+
+
 class PromptChatMessageUser(TypedDict, total=False):
     role: Required[Literal["user"]]
 
-    content: ChatCompletionContent
+    content: Union[str, Iterable[PromptChatMessageUserContentArray]]
 
     name: str
 
