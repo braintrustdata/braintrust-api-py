@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from typing import Iterable, Optional
 from typing_extensions import TypedDict
+
+from .shared_params.path_lookup_filter import PathLookupFilter
 
 __all__ = ["ExperimentFetchPostParams"]
 
@@ -16,6 +18,16 @@ class ExperimentFetchPostParams(TypedDict, total=False):
 
     The string can be obtained directly from the `cursor` property of the previous
     fetch query
+    """
+
+    filters: Optional[Iterable[PathLookupFilter]]
+    """NOTE: This parameter is deprecated and will be removed in a future revision.
+
+    Consider using the `/btql` endpoint
+    (https://www.braintrust.dev/docs/reference/btql) for more advanced filtering.
+
+    A list of filters on the events to fetch. Currently, only path-lookup type
+    filters are supported.
     """
 
     limit: Optional[int]

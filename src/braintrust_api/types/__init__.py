@@ -34,6 +34,7 @@ from .shared import (
     ViewDataSearch as ViewDataSearch,
     ExperimentEvent as ExperimentEvent,
     ProjectSettings as ProjectSettings,
+    PathLookupFilter as PathLookupFilter,
     ProjectLogsEvent as ProjectLogsEvent,
     OnlineScoreConfig as OnlineScoreConfig,
     CreateAPIKeyOutput as CreateAPIKeyOutput,
@@ -42,6 +43,7 @@ from .shared import (
     FeedbackDatasetItem as FeedbackDatasetItem,
     InsertEventsResponse as InsertEventsResponse,
     ProjectScoreCategory as ProjectScoreCategory,
+    ChatCompletionContent as ChatCompletionContent,
     InsertExperimentEvent as InsertExperimentEvent,
     ACLBatchUpdateResponse as ACLBatchUpdateResponse,
     FeedbackExperimentItem as FeedbackExperimentItem,
@@ -124,6 +126,7 @@ from .span_iframe_create_params import SpanIframeCreateParams as SpanIframeCreat
 from .span_iframe_update_params import SpanIframeUpdateParams as SpanIframeUpdateParams
 from .acl_find_and_delete_params import ACLFindAndDeleteParams as ACLFindAndDeleteParams
 from .experiment_feedback_params import ExperimentFeedbackParams as ExperimentFeedbackParams
+from .experiment_insert_response import ExperimentInsertResponse as ExperimentInsertResponse
 from .organization_update_params import OrganizationUpdateParams as OrganizationUpdateParams
 from .project_tag_replace_params import ProjectTagReplaceParams as ProjectTagReplaceParams
 from .span_iframe_replace_params import SpanIframeReplaceParams as SpanIframeReplaceParams

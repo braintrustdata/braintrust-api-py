@@ -34,6 +34,7 @@ from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.dataset import Dataset
 from ..types.shared.insert_events_response import InsertEventsResponse
 from ..types.shared.feedback_response_schema import FeedbackResponseSchema
+from ..types.shared_params.path_lookup_filter import PathLookupFilter
 from ..types.shared.summarize_dataset_response import SummarizeDatasetResponse
 from ..types.shared_params.insert_dataset_event import InsertDatasetEvent
 from ..types.shared_params.feedback_dataset_item import FeedbackDatasetItem
@@ -380,8 +381,7 @@ class DatasetsResource(SyncAPIResource):
         """Fetch the events in a dataset.
 
         Equivalent to the POST form of the same path, but
-        with the parameters in the URL query rather than in the request body. For more
-        complex queries, use the `POST /btql` endpoint.
+        with the parameters in the URL query rather than in the request body
 
         Args:
           dataset_id: Dataset id
@@ -464,6 +464,7 @@ class DatasetsResource(SyncAPIResource):
         dataset_id: str,
         *,
         cursor: Optional[str] | NotGiven = NOT_GIVEN,
+        filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
         max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -478,8 +479,7 @@ class DatasetsResource(SyncAPIResource):
         """Fetch the events in a dataset.
 
         Equivalent to the GET form of the same path, but
-        with the parameters in the request body rather than in the URL query. For more
-        complex queries, use the `POST /btql` endpoint.
+        with the parameters in the request body rather than in the URL query
 
         Args:
           dataset_id: Dataset id
@@ -489,6 +489,13 @@ class DatasetsResource(SyncAPIResource):
 
               The string can be obtained directly from the `cursor` property of the previous
               fetch query
+
+          filters: NOTE: This parameter is deprecated and will be removed in a future revision.
+              Consider using the `/btql` endpoint
+              (https://www.braintrust.dev/docs/reference/btql) for more advanced filtering.
+
+              A list of filters on the events to fetch. Currently, only path-lookup type
+              filters are supported.
 
           limit: limit the number of traces fetched
 
@@ -548,6 +555,7 @@ class DatasetsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "cursor": cursor,
+                    "filters": filters,
                     "limit": limit,
                     "max_root_span_id": max_root_span_id,
                     "max_xact_id": max_xact_id,
@@ -984,8 +992,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         """Fetch the events in a dataset.
 
         Equivalent to the POST form of the same path, but
-        with the parameters in the URL query rather than in the request body. For more
-        complex queries, use the `POST /btql` endpoint.
+        with the parameters in the URL query rather than in the request body
 
         Args:
           dataset_id: Dataset id
@@ -1068,6 +1075,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         dataset_id: str,
         *,
         cursor: Optional[str] | NotGiven = NOT_GIVEN,
+        filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
         max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -1082,8 +1090,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         """Fetch the events in a dataset.
 
         Equivalent to the GET form of the same path, but
-        with the parameters in the request body rather than in the URL query. For more
-        complex queries, use the `POST /btql` endpoint.
+        with the parameters in the request body rather than in the URL query
 
         Args:
           dataset_id: Dataset id
@@ -1093,6 +1100,13 @@ class AsyncDatasetsResource(AsyncAPIResource):
 
               The string can be obtained directly from the `cursor` property of the previous
               fetch query
+
+          filters: NOTE: This parameter is deprecated and will be removed in a future revision.
+              Consider using the `/btql` endpoint
+              (https://www.braintrust.dev/docs/reference/btql) for more advanced filtering.
+
+              A list of filters on the events to fetch. Currently, only path-lookup type
+              filters are supported.
 
           limit: limit the number of traces fetched
 
@@ -1152,6 +1166,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "cursor": cursor,
+                    "filters": filters,
                     "limit": limit,
                     "max_root_span_id": max_root_span_id,
                     "max_xact_id": max_xact_id,

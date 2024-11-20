@@ -33,8 +33,9 @@ from ..pagination import SyncListObjects, AsyncListObjects
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.experiment import Experiment
 from ..types.shared_params.repo_info import RepoInfo
-from ..types.shared.insert_events_response import InsertEventsResponse
+from ..types.experiment_insert_response import ExperimentInsertResponse
 from ..types.shared.feedback_response_schema import FeedbackResponseSchema
+from ..types.shared_params.path_lookup_filter import PathLookupFilter
 from ..types.shared.summarize_experiment_response import SummarizeExperimentResponse
 from ..types.shared_params.insert_experiment_event import InsertExperimentEvent
 from ..types.shared_params.feedback_experiment_item import FeedbackExperimentItem
@@ -434,8 +435,7 @@ class ExperimentsResource(SyncAPIResource):
         """Fetch the events in an experiment.
 
         Equivalent to the POST form of the same path,
-        but with the parameters in the URL query rather than in the request body. For
-        more complex queries, use the `POST /btql` endpoint.
+        but with the parameters in the URL query rather than in the request body
 
         Args:
           experiment_id: Experiment id
@@ -518,6 +518,7 @@ class ExperimentsResource(SyncAPIResource):
         experiment_id: str,
         *,
         cursor: Optional[str] | NotGiven = NOT_GIVEN,
+        filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
         max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -532,8 +533,7 @@ class ExperimentsResource(SyncAPIResource):
         """Fetch the events in an experiment.
 
         Equivalent to the GET form of the same path,
-        but with the parameters in the request body rather than in the URL query. For
-        more complex queries, use the `POST /btql` endpoint.
+        but with the parameters in the request body rather than in the URL query
 
         Args:
           experiment_id: Experiment id
@@ -543,6 +543,13 @@ class ExperimentsResource(SyncAPIResource):
 
               The string can be obtained directly from the `cursor` property of the previous
               fetch query
+
+          filters: NOTE: This parameter is deprecated and will be removed in a future revision.
+              Consider using the `/btql` endpoint
+              (https://www.braintrust.dev/docs/reference/btql) for more advanced filtering.
+
+              A list of filters on the events to fetch. Currently, only path-lookup type
+              filters are supported.
 
           limit: limit the number of traces fetched
 
@@ -602,6 +609,7 @@ class ExperimentsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "cursor": cursor,
+                    "filters": filters,
                     "limit": limit,
                     "max_root_span_id": max_root_span_id,
                     "max_xact_id": max_xact_id,
@@ -626,7 +634,7 @@ class ExperimentsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> InsertEventsResponse:
+    ) -> ExperimentInsertResponse:
         """
         Insert a set of events into the experiment
 
@@ -651,7 +659,7 @@ class ExperimentsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=InsertEventsResponse,
+            cast_to=ExperimentInsertResponse,
         )
 
     def summarize(
@@ -1103,8 +1111,7 @@ class AsyncExperimentsResource(AsyncAPIResource):
         """Fetch the events in an experiment.
 
         Equivalent to the POST form of the same path,
-        but with the parameters in the URL query rather than in the request body. For
-        more complex queries, use the `POST /btql` endpoint.
+        but with the parameters in the URL query rather than in the request body
 
         Args:
           experiment_id: Experiment id
@@ -1187,6 +1194,7 @@ class AsyncExperimentsResource(AsyncAPIResource):
         experiment_id: str,
         *,
         cursor: Optional[str] | NotGiven = NOT_GIVEN,
+        filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
         max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -1201,8 +1209,7 @@ class AsyncExperimentsResource(AsyncAPIResource):
         """Fetch the events in an experiment.
 
         Equivalent to the GET form of the same path,
-        but with the parameters in the request body rather than in the URL query. For
-        more complex queries, use the `POST /btql` endpoint.
+        but with the parameters in the request body rather than in the URL query
 
         Args:
           experiment_id: Experiment id
@@ -1212,6 +1219,13 @@ class AsyncExperimentsResource(AsyncAPIResource):
 
               The string can be obtained directly from the `cursor` property of the previous
               fetch query
+
+          filters: NOTE: This parameter is deprecated and will be removed in a future revision.
+              Consider using the `/btql` endpoint
+              (https://www.braintrust.dev/docs/reference/btql) for more advanced filtering.
+
+              A list of filters on the events to fetch. Currently, only path-lookup type
+              filters are supported.
 
           limit: limit the number of traces fetched
 
@@ -1271,6 +1285,7 @@ class AsyncExperimentsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "cursor": cursor,
+                    "filters": filters,
                     "limit": limit,
                     "max_root_span_id": max_root_span_id,
                     "max_xact_id": max_xact_id,
@@ -1295,7 +1310,7 @@ class AsyncExperimentsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> InsertEventsResponse:
+    ) -> ExperimentInsertResponse:
         """
         Insert a set of events into the experiment
 
@@ -1320,7 +1335,7 @@ class AsyncExperimentsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=InsertEventsResponse,
+            cast_to=ExperimentInsertResponse,
         )
 
     async def summarize(
