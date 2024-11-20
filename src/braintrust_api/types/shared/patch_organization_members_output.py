@@ -9,6 +9,9 @@ __all__ = ["PatchOrganizationMembersOutput"]
 
 
 class PatchOrganizationMembersOutput(BaseModel):
+    org_id: str
+    """The id of the org that was modified."""
+
     status: Literal["success"]
 
     send_email_error: Optional[str] = None
