@@ -5,14 +5,16 @@ from __future__ import annotations
 from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from .shared_params.chat_completion_content import ChatCompletionContent
+from .shared_params.chat_completion_content_part_text import ChatCompletionContentPartText
 from .shared_params.chat_completion_message_tool_call import ChatCompletionMessageToolCall
+from .shared_params.chat_completion_content_part_image import ChatCompletionContentPartImage
 
 __all__ = [
     "FunctionInvokeParams",
     "Message",
     "MessageSystem",
     "MessageUser",
+    "MessageUserContentArray",
     "MessageAssistant",
     "MessageAssistantFunctionCall",
     "MessageTool",
@@ -55,10 +57,13 @@ class MessageSystem(TypedDict, total=False):
     name: str
 
 
+MessageUserContentArray: TypeAlias = Union[ChatCompletionContentPartText, ChatCompletionContentPartImage]
+
+
 class MessageUser(TypedDict, total=False):
     role: Required[Literal["user"]]
 
-    content: ChatCompletionContent
+    content: Union[str, Iterable[MessageUserContentArray]]
 
     name: str
 
