@@ -6,7 +6,6 @@ from braintrust_api.types import (
     ACL,
     ACLBatchUpdateResponse,
     APIKey,
-    ChatCompletionContent,
     ChatCompletionContentPartImage,
     ChatCompletionContentPartText,
     ChatCompletionMessageToolCall,
@@ -36,7 +35,6 @@ from braintrust_api.types import (
     OnlineScoreConfig,
     Organization,
     PatchOrganizationMembersOutput,
-    PathLookupFilter,
     Project,
     ProjectLogsEvent,
     ProjectScore,
@@ -86,26 +84,14 @@ Methods:
 
 ## Logs
 
-Types:
-
-```python
-from braintrust_api.types.projects import LogInsertResponse
-```
-
 Methods:
 
 - <code title="post /v1/project_logs/{project_id}/feedback">client.projects.logs.<a href="./src/braintrust_api/resources/projects/logs.py">feedback</a>(project_id, \*\*<a href="src/braintrust_api/types/projects/log_feedback_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/feedback_response_schema.py">FeedbackResponseSchema</a></code>
 - <code title="get /v1/project_logs/{project_id}/fetch">client.projects.logs.<a href="./src/braintrust_api/resources/projects/logs.py">fetch</a>(project_id, \*\*<a href="src/braintrust_api/types/projects/log_fetch_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/fetch_project_logs_events_response.py">FetchProjectLogsEventsResponse</a></code>
 - <code title="post /v1/project_logs/{project_id}/fetch">client.projects.logs.<a href="./src/braintrust_api/resources/projects/logs.py">fetch_post</a>(project_id, \*\*<a href="src/braintrust_api/types/projects/log_fetch_post_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/fetch_project_logs_events_response.py">FetchProjectLogsEventsResponse</a></code>
-- <code title="post /v1/project_logs/{project_id}/insert">client.projects.logs.<a href="./src/braintrust_api/resources/projects/logs.py">insert</a>(project_id, \*\*<a href="src/braintrust_api/types/projects/log_insert_params.py">params</a>) -> <a href="./src/braintrust_api/types/projects/log_insert_response.py">LogInsertResponse</a></code>
+- <code title="post /v1/project_logs/{project_id}/insert">client.projects.logs.<a href="./src/braintrust_api/resources/projects/logs.py">insert</a>(project_id, \*\*<a href="src/braintrust_api/types/projects/log_insert_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/insert_events_response.py">InsertEventsResponse</a></code>
 
 # Experiments
-
-Types:
-
-```python
-from braintrust_api.types import ExperimentInsertResponse
-```
 
 Methods:
 
@@ -117,7 +103,7 @@ Methods:
 - <code title="post /v1/experiment/{experiment_id}/feedback">client.experiments.<a href="./src/braintrust_api/resources/experiments.py">feedback</a>(experiment_id, \*\*<a href="src/braintrust_api/types/experiment_feedback_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/feedback_response_schema.py">FeedbackResponseSchema</a></code>
 - <code title="get /v1/experiment/{experiment_id}/fetch">client.experiments.<a href="./src/braintrust_api/resources/experiments.py">fetch</a>(experiment_id, \*\*<a href="src/braintrust_api/types/experiment_fetch_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/fetch_experiment_events_response.py">FetchExperimentEventsResponse</a></code>
 - <code title="post /v1/experiment/{experiment_id}/fetch">client.experiments.<a href="./src/braintrust_api/resources/experiments.py">fetch_post</a>(experiment_id, \*\*<a href="src/braintrust_api/types/experiment_fetch_post_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/fetch_experiment_events_response.py">FetchExperimentEventsResponse</a></code>
-- <code title="post /v1/experiment/{experiment_id}/insert">client.experiments.<a href="./src/braintrust_api/resources/experiments.py">insert</a>(experiment_id, \*\*<a href="src/braintrust_api/types/experiment_insert_params.py">params</a>) -> <a href="./src/braintrust_api/types/experiment_insert_response.py">ExperimentInsertResponse</a></code>
+- <code title="post /v1/experiment/{experiment_id}/insert">client.experiments.<a href="./src/braintrust_api/resources/experiments.py">insert</a>(experiment_id, \*\*<a href="src/braintrust_api/types/experiment_insert_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/insert_events_response.py">InsertEventsResponse</a></code>
 - <code title="get /v1/experiment/{experiment_id}/summarize">client.experiments.<a href="./src/braintrust_api/resources/experiments.py">summarize</a>(experiment_id, \*\*<a href="src/braintrust_api/types/experiment_summarize_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/summarize_experiment_response.py">SummarizeExperimentResponse</a></code>
 
 # Datasets

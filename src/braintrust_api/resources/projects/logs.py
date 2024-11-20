@@ -21,9 +21,8 @@ from ..._response import (
 )
 from ..._base_client import make_request_options
 from ...types.projects import log_fetch_params, log_insert_params, log_feedback_params, log_fetch_post_params
-from ...types.projects.log_insert_response import LogInsertResponse
+from ...types.shared.insert_events_response import InsertEventsResponse
 from ...types.shared.feedback_response_schema import FeedbackResponseSchema
-from ...types.shared_params.path_lookup_filter import PathLookupFilter
 from ...types.shared_params.insert_project_logs_event import InsertProjectLogsEvent
 from ...types.shared_params.feedback_project_logs_item import FeedbackProjectLogsItem
 from ...types.shared.fetch_project_logs_events_response import FetchProjectLogsEventsResponse
@@ -108,7 +107,8 @@ class LogsResource(SyncAPIResource):
         """Fetch the events in a project logs.
 
         Equivalent to the POST form of the same
-        path, but with the parameters in the URL query rather than in the request body
+        path, but with the parameters in the URL query rather than in the request body.
+        For more complex queries, use the `POST /btql` endpoint.
 
         Args:
           project_id: Project id
@@ -191,7 +191,6 @@ class LogsResource(SyncAPIResource):
         project_id: str,
         *,
         cursor: Optional[str] | NotGiven = NOT_GIVEN,
-        filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
         max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -206,7 +205,8 @@ class LogsResource(SyncAPIResource):
         """Fetch the events in a project logs.
 
         Equivalent to the GET form of the same path,
-        but with the parameters in the request body rather than in the URL query
+        but with the parameters in the request body rather than in the URL query. For
+        more complex queries, use the `POST /btql` endpoint.
 
         Args:
           project_id: Project id
@@ -216,13 +216,6 @@ class LogsResource(SyncAPIResource):
 
               The string can be obtained directly from the `cursor` property of the previous
               fetch query
-
-          filters: NOTE: This parameter is deprecated and will be removed in a future revision.
-              Consider using the `/btql` endpoint
-              (https://www.braintrust.dev/docs/reference/btql) for more advanced filtering.
-
-              A list of filters on the events to fetch. Currently, only path-lookup type
-              filters are supported.
 
           limit: limit the number of traces fetched
 
@@ -282,7 +275,6 @@ class LogsResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "cursor": cursor,
-                    "filters": filters,
                     "limit": limit,
                     "max_root_span_id": max_root_span_id,
                     "max_xact_id": max_xact_id,
@@ -307,7 +299,7 @@ class LogsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> LogInsertResponse:
+    ) -> InsertEventsResponse:
         """
         Insert a set of events into the project logs
 
@@ -332,7 +324,7 @@ class LogsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=LogInsertResponse,
+            cast_to=InsertEventsResponse,
         )
 
 
@@ -413,7 +405,8 @@ class AsyncLogsResource(AsyncAPIResource):
         """Fetch the events in a project logs.
 
         Equivalent to the POST form of the same
-        path, but with the parameters in the URL query rather than in the request body
+        path, but with the parameters in the URL query rather than in the request body.
+        For more complex queries, use the `POST /btql` endpoint.
 
         Args:
           project_id: Project id
@@ -496,7 +489,6 @@ class AsyncLogsResource(AsyncAPIResource):
         project_id: str,
         *,
         cursor: Optional[str] | NotGiven = NOT_GIVEN,
-        filters: Optional[Iterable[PathLookupFilter]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
         max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -511,7 +503,8 @@ class AsyncLogsResource(AsyncAPIResource):
         """Fetch the events in a project logs.
 
         Equivalent to the GET form of the same path,
-        but with the parameters in the request body rather than in the URL query
+        but with the parameters in the request body rather than in the URL query. For
+        more complex queries, use the `POST /btql` endpoint.
 
         Args:
           project_id: Project id
@@ -521,13 +514,6 @@ class AsyncLogsResource(AsyncAPIResource):
 
               The string can be obtained directly from the `cursor` property of the previous
               fetch query
-
-          filters: NOTE: This parameter is deprecated and will be removed in a future revision.
-              Consider using the `/btql` endpoint
-              (https://www.braintrust.dev/docs/reference/btql) for more advanced filtering.
-
-              A list of filters on the events to fetch. Currently, only path-lookup type
-              filters are supported.
 
           limit: limit the number of traces fetched
 
@@ -587,7 +573,6 @@ class AsyncLogsResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "cursor": cursor,
-                    "filters": filters,
                     "limit": limit,
                     "max_root_span_id": max_root_span_id,
                     "max_xact_id": max_xact_id,
@@ -612,7 +597,7 @@ class AsyncLogsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> LogInsertResponse:
+    ) -> InsertEventsResponse:
         """
         Insert a set of events into the project logs
 
@@ -637,7 +622,7 @@ class AsyncLogsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=LogInsertResponse,
+            cast_to=InsertEventsResponse,
         )
 
 
