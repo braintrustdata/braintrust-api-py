@@ -1,5 +1,49 @@
 # Changelog
 
+## 0.6.0 (2024-11-28)
+
+Full Changelog: [v0.5.0...v0.6.0](https://github.com/braintrustdata/braintrust-api-py/compare/v0.5.0...v0.6.0)
+
+### Features
+
+* **api:** api update ([#45](https://github.com/braintrustdata/braintrust-api-py/issues/45)) ([5240c3b](https://github.com/braintrustdata/braintrust-api-py/commit/5240c3b1ac7c21c88d7ec901aedcb2e2020688d0))
+* **api:** manual updates ([#56](https://github.com/braintrustdata/braintrust-api-py/issues/56)) ([5d8fc1c](https://github.com/braintrustdata/braintrust-api-py/commit/5d8fc1cfc7d8e855aa190baba405d967948e7701))
+* **api:** manual updates ([#57](https://github.com/braintrustdata/braintrust-api-py/issues/57)) ([02d31da](https://github.com/braintrustdata/braintrust-api-py/commit/02d31da07fac7f5ab98db7606aafcaf9aa29a410))
+* **api:** manual updates ([#59](https://github.com/braintrustdata/braintrust-api-py/issues/59)) ([d1189cb](https://github.com/braintrustdata/braintrust-api-py/commit/d1189cb307b7c5539a74fbf13bb3719f700ea559))
+* **api:** manual updates ([#60](https://github.com/braintrustdata/braintrust-api-py/issues/60)) ([f23c2b7](https://github.com/braintrustdata/braintrust-api-py/commit/f23c2b726a01ce717d5ce5bf5408f3b29cf3e125))
+* **api:** manual updates ([#61](https://github.com/braintrustdata/braintrust-api-py/issues/61)) ([561a9df](https://github.com/braintrustdata/braintrust-api-py/commit/561a9df7c16c7e24e843aed8a2b38d6b69c0f0f3))
+* **api:** manual updates ([#63](https://github.com/braintrustdata/braintrust-api-py/issues/63)) ([2b8194b](https://github.com/braintrustdata/braintrust-api-py/commit/2b8194bfd2836abe0c3cb972572d008dea0170a5))
+* **api:** manual updates ([#64](https://github.com/braintrustdata/braintrust-api-py/issues/64)) ([9adb6de](https://github.com/braintrustdata/braintrust-api-py/commit/9adb6de5e711ee4892da6a9afcd236285fe3f725))
+* **api:** manual updates ([#65](https://github.com/braintrustdata/braintrust-api-py/issues/65)) ([668565b](https://github.com/braintrustdata/braintrust-api-py/commit/668565ba2a73deac607fedcab42ce728ed2d6207))
+
+
+### Bug Fixes
+
+* **client:** compat with new httpx 0.28.0 release ([#70](https://github.com/braintrustdata/braintrust-api-py/issues/70)) ([fecb2c9](https://github.com/braintrustdata/braintrust-api-py/commit/fecb2c9d2654b2e51c1979e8a70b361486f627d8))
+
+
+### Chores
+
+* **api:** manual updates ([#48](https://github.com/braintrustdata/braintrust-api-py/issues/48)) ([788fa24](https://github.com/braintrustdata/braintrust-api-py/commit/788fa24385808ca6adb1fb2ab944956d6c196bfa))
+* **internal:** exclude mypy from running on tests ([#69](https://github.com/braintrustdata/braintrust-api-py/issues/69)) ([e017f4d](https://github.com/braintrustdata/braintrust-api-py/commit/e017f4d06e0d529e7c8ead11826f9a09124c4358))
+* **internal:** fix compat model_dump method when warnings are passed ([#66](https://github.com/braintrustdata/braintrust-api-py/issues/66)) ([015cbf0](https://github.com/braintrustdata/braintrust-api-py/commit/015cbf08d0ed80ccf2a45d320f9618bdf0df268b))
+* rebuild project due to codegen change ([#47](https://github.com/braintrustdata/braintrust-api-py/issues/47)) ([9383958](https://github.com/braintrustdata/braintrust-api-py/commit/93839586abae5c0800a41ec07097739990fb5b59))
+* rebuild project due to codegen change ([#49](https://github.com/braintrustdata/braintrust-api-py/issues/49)) ([2a49159](https://github.com/braintrustdata/braintrust-api-py/commit/2a491598dcac8448483f55b0594a4c230e109b2d))
+* rebuild project due to codegen change ([#50](https://github.com/braintrustdata/braintrust-api-py/issues/50)) ([43596d5](https://github.com/braintrustdata/braintrust-api-py/commit/43596d558404219f7b6e24668e88c66ac4a290d6))
+* rebuild project due to codegen change ([#51](https://github.com/braintrustdata/braintrust-api-py/issues/51)) ([b4809a9](https://github.com/braintrustdata/braintrust-api-py/commit/b4809a910f59d9b122339c07a153dd4f1fe474eb))
+* rebuild project due to codegen change ([#52](https://github.com/braintrustdata/braintrust-api-py/issues/52)) ([f07d013](https://github.com/braintrustdata/braintrust-api-py/commit/f07d0135a7a728510d49466d7bc76a6e37cc09f2))
+* rebuild project due to codegen change ([#53](https://github.com/braintrustdata/braintrust-api-py/issues/53)) ([cbbaac1](https://github.com/braintrustdata/braintrust-api-py/commit/cbbaac15d47ad5b73a0e7dc9271a8905eaf28331))
+* rebuild project due to codegen change ([#54](https://github.com/braintrustdata/braintrust-api-py/issues/54)) ([a0b0eeb](https://github.com/braintrustdata/braintrust-api-py/commit/a0b0eebfb8212ad52e246d1c90f16bb60fdb7d48))
+* rebuild project due to codegen change ([#55](https://github.com/braintrustdata/braintrust-api-py/issues/55)) ([2a6e9c7](https://github.com/braintrustdata/braintrust-api-py/commit/2a6e9c7122066d9135d4bcef9eee851860e74e6a))
+* rebuild project due to codegen change ([#58](https://github.com/braintrustdata/braintrust-api-py/issues/58)) ([0aa1951](https://github.com/braintrustdata/braintrust-api-py/commit/0aa1951835671f76c35a5a614b326d6b60b121f0))
+* rebuild project due to codegen change ([#62](https://github.com/braintrustdata/braintrust-api-py/issues/62)) ([d67709a](https://github.com/braintrustdata/braintrust-api-py/commit/d67709a152147409b0f924372c75bf6e66719f65))
+* remove now unused `cached-property` dep ([#68](https://github.com/braintrustdata/braintrust-api-py/issues/68)) ([dfc0a35](https://github.com/braintrustdata/braintrust-api-py/commit/dfc0a353e633bd7b816b0b174bc95b07c31d6ac8))
+
+
+### Documentation
+
+* add info log level to readme ([#67](https://github.com/braintrustdata/braintrust-api-py/issues/67)) ([ee4b200](https://github.com/braintrustdata/braintrust-api-py/commit/ee4b2003a38af4189adbaeb6263379f72417021a))
+
 ## 0.5.0 (2024-10-01)
 
 Full Changelog: [v0.4.0...v0.5.0](https://github.com/braintrustdata/braintrust-api-py/compare/v0.4.0...v0.5.0)
