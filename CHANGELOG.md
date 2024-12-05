@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.6.1 (2024-12-05)
+
+Full Changelog: [v0.6.0...v0.6.1](https://github.com/braintrustdata/braintrust-api-py/compare/v0.6.0...v0.6.1)
+
+### Chores
+
+* **internal:** codegen related update ([#72](https://github.com/braintrustdata/braintrust-api-py/issues/72)) ([c8d3baf](https://github.com/braintrustdata/braintrust-api-py/commit/c8d3baf536473fc7b2d85e39ce8a498228c03bea))
+* make the `Omit` type public ([#74](https://github.com/braintrustdata/braintrust-api-py/issues/74)) ([e5ea14a](https://github.com/braintrustdata/braintrust-api-py/commit/e5ea14afcd44cb9562c9c0ccc557bbee5531f685))
+
 ## 0.6.0 (2024-11-28)
 
 Full Changelog: [v0.5.0...v0.6.0](https://github.com/braintrustdata/braintrust-api-py/compare/v0.5.0...v0.6.0)
