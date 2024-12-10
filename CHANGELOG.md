@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.6.1 (2024-12-10)
+
+Full Changelog: [v0.6.0...v0.6.1](https://github.com/braintrustdata/braintrust-api-py/compare/v0.6.0...v0.6.1)
+
+### Chores
+
+* **internal:** bump pydantic dependency ([#75](https://github.com/braintrustdata/braintrust-api-py/issues/75)) ([cee4d9d](https://github.com/braintrustdata/braintrust-api-py/commit/cee4d9d69b1cd28992af885f09392757af3e9859))
+* **internal:** codegen related update ([#72](https://github.com/braintrustdata/braintrust-api-py/issues/72)) ([c8d3baf](https://github.com/braintrustdata/braintrust-api-py/commit/c8d3baf536473fc7b2d85e39ce8a498228c03bea))
+* make the `Omit` type public ([#74](https://github.com/braintrustdata/braintrust-api-py/issues/74)) ([e5ea14a](https://github.com/braintrustdata/braintrust-api-py/commit/e5ea14afcd44cb9562c9c0ccc557bbee5531f685))
+
+
+### Documentation
+
+* **readme:** fix http client proxies example ([#76](https://github.com/braintrustdata/braintrust-api-py/issues/76)) ([eebb262](https://github.com/braintrustdata/braintrust-api-py/commit/eebb2621dc7c847f3ab458ef9292269df342ab04))
+
 ## 0.6.0 (2024-11-28)
 
 Full Changelog: [v0.5.0...v0.6.0](https://github.com/braintrustdata/braintrust-api-py/compare/v0.5.0...v0.6.0)
