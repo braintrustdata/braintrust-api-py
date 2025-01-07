@@ -27,13 +27,13 @@ Context: TypeAlias = Union[ContextTyped, Dict[str, Optional[object]]]
 
 
 class MetricsTyped(TypedDict, total=False):
-    caller_filename: Optional[object]
+    caller_filename: object
     """This metric is deprecated"""
 
-    caller_functionname: Optional[object]
+    caller_functionname: object
     """This metric is deprecated"""
 
-    caller_lineno: Optional[object]
+    caller_lineno: object
     """This metric is deprecated"""
 
     completion_tokens: Optional[int]
@@ -147,10 +147,10 @@ class InsertExperimentEvent(TypedDict, total=False):
     this experiment event is tied to
     """
 
-    error: Optional[object]
+    error: object
     """The error that occurred, if any."""
 
-    expected: Optional[object]
+    expected: object
     """
     The ground truth value (an arbitrary, JSON serializable object) that you'd
     compare to `output` to determine if your `output` value is correct or not.
@@ -161,7 +161,7 @@ class InsertExperimentEvent(TypedDict, total=False):
     models
     """
 
-    input: Optional[object]
+    input: object
     """
     The arguments that uniquely define a test case (an arbitrary, JSON serializable
     object). Later on, Braintrust will use the `input` to know whether two test
@@ -186,7 +186,7 @@ class InsertExperimentEvent(TypedDict, total=False):
     which the experiment event was produced
     """
 
-    output: Optional[object]
+    output: object
     """
     The output of your application, including post-processing (an arbitrary, JSON
     serializable object), that allows you to determine whether the result is correct

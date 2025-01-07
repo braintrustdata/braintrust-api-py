@@ -27,13 +27,13 @@ Context: TypeAlias = Union[ContextTyped, Dict[str, Optional[object]]]
 
 
 class MetricsTyped(TypedDict, total=False):
-    caller_filename: Optional[object]
+    caller_filename: object
     """This metric is deprecated"""
 
-    caller_functionname: Optional[object]
+    caller_functionname: object
     """This metric is deprecated"""
 
-    caller_lineno: Optional[object]
+    caller_lineno: object
     """This metric is deprecated"""
 
     completion_tokens: Optional[int]
@@ -141,10 +141,10 @@ class InsertProjectLogsEvent(TypedDict, total=False):
     created: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """The timestamp the project logs event was created"""
 
-    error: Optional[object]
+    error: object
     """The error that occurred, if any."""
 
-    expected: Optional[object]
+    expected: object
     """
     The ground truth value (an arbitrary, JSON serializable object) that you'd
     compare to `output` to determine if your `output` value is correct or not.
@@ -154,7 +154,7 @@ class InsertProjectLogsEvent(TypedDict, total=False):
     later use these values to re-score outputs or fine-tune your models.
     """
 
-    input: Optional[object]
+    input: object
     """
     The arguments that uniquely define a user input (an arbitrary, JSON serializable
     object).
@@ -176,7 +176,7 @@ class InsertProjectLogsEvent(TypedDict, total=False):
     over which the project logs event was produced
     """
 
-    output: Optional[object]
+    output: object
     """
     The output of your application, including post-processing (an arbitrary, JSON
     serializable object), that allows you to determine whether the result is correct
