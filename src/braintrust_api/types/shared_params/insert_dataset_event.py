@@ -77,13 +77,13 @@ class InsertDatasetEvent(TypedDict, total=False):
     created: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """The timestamp the dataset event was created"""
 
-    expected: Optional[object]
+    expected: object
     """
     The output of your application, including post-processing (an arbitrary, JSON
     serializable object)
     """
 
-    input: Optional[object]
+    input: object
     """
     The argument that uniquely define an input case (an arbitrary, JSON serializable
     object)

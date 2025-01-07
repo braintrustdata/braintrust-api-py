@@ -27,7 +27,7 @@ __all__ = [
 
 
 class FunctionInvokeParams(TypedDict, total=False):
-    input: Optional[object]
+    input: object
     """Argument to the function, which can be any JSON serializable value"""
 
     messages: Iterable[Message]
