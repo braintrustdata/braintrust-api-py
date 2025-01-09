@@ -170,7 +170,7 @@ except braintrust_api.APIStatusError as e:
     print(e.response)
 ```
 
-Error codes are as followed:
+Error codes are as follows:
 
 | Status Code | Error Type                 |
 | ----------- | -------------------------- |
@@ -309,8 +309,7 @@ If you need to access undocumented endpoints, params, or response properties, th
 #### Undocumented endpoints
 
 To make requests to undocumented endpoints, you can make requests using `client.get`, `client.post`, and other
-http verbs. Options on the client will be respected (such as retries) will be respected when making this
-request.
+http verbs. Options on the client will be respected (such as retries) when making this request.
 
 ```py
 import httpx
