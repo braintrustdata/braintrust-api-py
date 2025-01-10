@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import List, Union, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from ..types import function_create_params
+from .shared_params.code_bundle import CodeBundle
 from .shared_params.prompt_data import PromptData
 
 __all__ = [
@@ -14,6 +14,7 @@ __all__ = [
     "FunctionDataPrompt",
     "FunctionDataCode",
     "FunctionDataCodeData",
+    "FunctionDataCodeDataBundle",
     "FunctionDataCodeDataInline",
     "FunctionDataCodeDataInlineRuntimeContext",
     "FunctionDataGlobal",
@@ -55,6 +56,10 @@ class FunctionDataPrompt(TypedDict, total=False):
     type: Required[Literal["prompt"]]
 
 
+class FunctionDataCodeDataBundle(CodeBundle):
+    type: Required[Literal["bundle"]]
+
+
 class FunctionDataCodeDataInlineRuntimeContext(TypedDict, total=False):
     runtime: Required[Literal["node", "python"]]
 
@@ -69,7 +74,7 @@ class FunctionDataCodeDataInline(TypedDict, total=False):
     type: Required[Literal["inline"]]
 
 
-FunctionDataCodeData: TypeAlias = Union[function_create_params.FunctionDataCodeDataBundle, FunctionDataCodeDataInline]
+FunctionDataCodeData: TypeAlias = Union[FunctionDataCodeDataBundle, FunctionDataCodeDataInline]
 
 
 class FunctionDataCode(TypedDict, total=False):
