@@ -12,7 +12,6 @@ jobs:
   lint:
     name: lint
     runs-on: ubuntu-latest
-    
 
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
@@ -30,6 +29,7 @@ jobs:
 
       - name: Run lints
         run: ./scripts/lint
+
   test:
     name: test
     runs-on: ubuntu-latest
@@ -50,4 +50,3 @@ jobs:
 
       - name: Run tests
         run: ./scripts/test
-
