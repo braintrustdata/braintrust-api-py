@@ -34,7 +34,7 @@ class ParamsOpenAIModelParamsFunctionCallFunction(TypedDict, total=False):
 
 
 ParamsOpenAIModelParamsFunctionCall: TypeAlias = Union[
-    Literal["auto"], Literal["none"], ParamsOpenAIModelParamsFunctionCallFunction
+    Literal["auto", "none"], ParamsOpenAIModelParamsFunctionCallFunction
 ]
 
 
@@ -85,7 +85,7 @@ class ParamsOpenAIModelParamsToolChoiceFunction(TypedDict, total=False):
 
 
 ParamsOpenAIModelParamsToolChoice: TypeAlias = Union[
-    Literal["auto"], Literal["none"], Literal["required"], ParamsOpenAIModelParamsToolChoiceFunction
+    Literal["auto", "none", "required"], ParamsOpenAIModelParamsToolChoiceFunction
 ]
 
 
