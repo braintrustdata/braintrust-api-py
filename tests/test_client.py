@@ -23,6 +23,7 @@ from pydantic import ValidationError
 
 from braintrust_api import Braintrust, AsyncBraintrust, APIResponseValidationError
 from braintrust_api._types import Omit
+from braintrust_api._utils import maybe_transform
 from braintrust_api._models import BaseModel, FinalRequestOptions
 from braintrust_api._constants import RAW_RESPONSE_HEADER
 from braintrust_api._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
@@ -32,6 +33,7 @@ from braintrust_api._base_client import (
     BaseClient,
     make_request_options,
 )
+from braintrust_api.types.project_create_params import ProjectCreateParams
 
 from .utils import update_env
 
@@ -725,7 +727,7 @@ class TestBraintrust:
         with pytest.raises(APITimeoutError):
             self.client.post(
                 "/v1/project",
-                body=cast(object, dict(name="foobar")),
+                body=cast(object, maybe_transform(dict(name="foobar"), ProjectCreateParams)),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -740,7 +742,7 @@ class TestBraintrust:
         with pytest.raises(APIStatusError):
             self.client.post(
                 "/v1/project",
-                body=cast(object, dict(name="foobar")),
+                body=cast(object, maybe_transform(dict(name="foobar"), ProjectCreateParams)),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1501,7 +1503,7 @@ class TestAsyncBraintrust:
         with pytest.raises(APITimeoutError):
             await self.client.post(
                 "/v1/project",
-                body=cast(object, dict(name="foobar")),
+                body=cast(object, maybe_transform(dict(name="foobar"), ProjectCreateParams)),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
@@ -1516,7 +1518,7 @@ class TestAsyncBraintrust:
         with pytest.raises(APIStatusError):
             await self.client.post(
                 "/v1/project",
-                body=cast(object, dict(name="foobar")),
+                body=cast(object, maybe_transform(dict(name="foobar"), ProjectCreateParams)),
                 cast_to=httpx.Response,
                 options={"headers": {RAW_RESPONSE_HEADER: "stream"}},
             )
