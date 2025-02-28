@@ -114,7 +114,7 @@ class Braintrust(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous braintrust client instance.
+        """Construct a new synchronous Braintrust client instance.
 
         This automatically infers the `api_key` argument from the `BRAINTRUST_API_KEY` environment variable if it is not provided.
         """
@@ -316,7 +316,7 @@ class AsyncBraintrust(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async braintrust client instance.
+        """Construct a new async AsyncBraintrust client instance.
 
         This automatically infers the `api_key` argument from the `BRAINTRUST_API_KEY` environment variable if it is not provided.
         """
