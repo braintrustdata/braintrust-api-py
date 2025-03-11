@@ -140,6 +140,22 @@ for project in first_page.objects:
 # Remove `await` for non-async usage.
 ```
 
+## Nested params
+
+Nested parameters are dictionaries, typed using `TypedDict`, for example:
+
+```python
+from braintrust_api import Braintrust
+
+client = Braintrust()
+
+project = client.projects.update(
+    project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+    settings={"comparison_key": "comparison_key"},
+)
+print(project.settings)
+```
+
 ## Handling errors
 
 When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `braintrust_api.APIConnectionError` is raised.
