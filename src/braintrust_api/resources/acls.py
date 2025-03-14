@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from typing import List, Union, Iterable, Optional
-from typing_extensions import Literal
 
 import httpx
 
@@ -29,6 +28,8 @@ from .._response import (
 from ..pagination import SyncListObjects, AsyncListObjects
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.acl import ACL
+from ..types.shared.permission import Permission
+from ..types.shared.acl_object_type import ACLObjectType
 from ..types.shared.acl_batch_update_response import ACLBatchUpdateResponse
 
 __all__ = ["ACLsResource", "AsyncACLsResource"]
@@ -58,40 +59,10 @@ class ACLsResource(SyncAPIResource):
         self,
         *,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
+        object_type: ACLObjectType,
         group_id: Optional[str] | NotGiven = NOT_GIVEN,
-        permission: Optional[
-            Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
-        ]
-        | NotGiven = NOT_GIVEN,
-        restrict_object_type: Optional[
-            Literal[
-                "organization",
-                "project",
-                "experiment",
-                "dataset",
-                "prompt",
-                "prompt_session",
-                "group",
-                "role",
-                "org_member",
-                "project_log",
-                "org_project",
-            ]
-        ]
-        | NotGiven = NOT_GIVEN,
+        permission: Optional[Permission] | NotGiven = NOT_GIVEN,
+        restrict_object_type: Optional[ACLObjectType] | NotGiven = NOT_GIVEN,
         role_id: Optional[str] | NotGiven = NOT_GIVEN,
         user_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -193,19 +164,7 @@ class ACLsResource(SyncAPIResource):
         self,
         *,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
+        object_type: ACLObjectType,
         ending_before: str | NotGiven = NOT_GIVEN,
         ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
@@ -378,40 +337,10 @@ class ACLsResource(SyncAPIResource):
         self,
         *,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
+        object_type: ACLObjectType,
         group_id: Optional[str] | NotGiven = NOT_GIVEN,
-        permission: Optional[
-            Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
-        ]
-        | NotGiven = NOT_GIVEN,
-        restrict_object_type: Optional[
-            Literal[
-                "organization",
-                "project",
-                "experiment",
-                "dataset",
-                "prompt",
-                "prompt_session",
-                "group",
-                "role",
-                "org_member",
-                "project_log",
-                "org_project",
-            ]
-        ]
-        | NotGiven = NOT_GIVEN,
+        permission: Optional[Permission] | NotGiven = NOT_GIVEN,
+        restrict_object_type: Optional[ACLObjectType] | NotGiven = NOT_GIVEN,
         role_id: Optional[str] | NotGiven = NOT_GIVEN,
         user_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -497,40 +426,10 @@ class AsyncACLsResource(AsyncAPIResource):
         self,
         *,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
+        object_type: ACLObjectType,
         group_id: Optional[str] | NotGiven = NOT_GIVEN,
-        permission: Optional[
-            Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
-        ]
-        | NotGiven = NOT_GIVEN,
-        restrict_object_type: Optional[
-            Literal[
-                "organization",
-                "project",
-                "experiment",
-                "dataset",
-                "prompt",
-                "prompt_session",
-                "group",
-                "role",
-                "org_member",
-                "project_log",
-                "org_project",
-            ]
-        ]
-        | NotGiven = NOT_GIVEN,
+        permission: Optional[Permission] | NotGiven = NOT_GIVEN,
+        restrict_object_type: Optional[ACLObjectType] | NotGiven = NOT_GIVEN,
         role_id: Optional[str] | NotGiven = NOT_GIVEN,
         user_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -632,19 +531,7 @@ class AsyncACLsResource(AsyncAPIResource):
         self,
         *,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
+        object_type: ACLObjectType,
         ending_before: str | NotGiven = NOT_GIVEN,
         ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
@@ -817,40 +704,10 @@ class AsyncACLsResource(AsyncAPIResource):
         self,
         *,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
+        object_type: ACLObjectType,
         group_id: Optional[str] | NotGiven = NOT_GIVEN,
-        permission: Optional[
-            Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
-        ]
-        | NotGiven = NOT_GIVEN,
-        restrict_object_type: Optional[
-            Literal[
-                "organization",
-                "project",
-                "experiment",
-                "dataset",
-                "prompt",
-                "prompt_session",
-                "group",
-                "role",
-                "org_member",
-                "project_log",
-                "org_project",
-            ]
-        ]
-        | NotGiven = NOT_GIVEN,
+        permission: Optional[Permission] | NotGiven = NOT_GIVEN,
+        restrict_object_type: Optional[ACLObjectType] | NotGiven = NOT_GIVEN,
         role_id: Optional[str] | NotGiven = NOT_GIVEN,
         user_id: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.

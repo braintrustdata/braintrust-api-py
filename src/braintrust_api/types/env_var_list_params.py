@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 from typing import List, Union, Optional
-from typing_extensions import Literal, TypedDict
+from typing_extensions import TypedDict
+
+from .shared.env_var_object_type import EnvVarObjectType
 
 __all__ = ["EnvVarListParams"]
 
@@ -24,5 +26,5 @@ class EnvVarListParams(TypedDict, total=False):
     object_id: str
     """The id of the object the environment variable is scoped for"""
 
-    object_type: Literal["organization", "project", "function"]
+    object_type: EnvVarObjectType
     """The type of the object the environment variable is scoped for"""
