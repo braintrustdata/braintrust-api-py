@@ -1,9 +1,9 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import TYPE_CHECKING, Optional
-from typing_extensions import Literal
 
 from ..._models import BaseModel
+from .span_type import SpanType
 
 __all__ = ["SpanAttributes"]
 
@@ -12,7 +12,7 @@ class SpanAttributes(BaseModel):
     name: Optional[str] = None
     """Name of the span, for display purposes only"""
 
-    type: Optional[Literal["llm", "score", "function", "eval", "task", "tool"]] = None
+    type: Optional[SpanType] = None
     """Type of the span, for display purposes only"""
 
     if TYPE_CHECKING:

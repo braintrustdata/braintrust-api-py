@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 from typing import Dict, Union, Optional
-from typing_extensions import Literal, TypeAlias, TypedDict
+from typing_extensions import TypeAlias, TypedDict
+
+from ..shared.span_type import SpanType
 
 __all__ = ["SpanAttributes"]
 
@@ -12,7 +14,7 @@ class SpanAttributesTyped(TypedDict, total=False):
     name: Optional[str]
     """Name of the span, for display purposes only"""
 
-    type: Optional[Literal["llm", "score", "function", "eval", "task", "tool"]]
+    type: Optional[SpanType]
     """Type of the span, for display purposes only"""
 
 
