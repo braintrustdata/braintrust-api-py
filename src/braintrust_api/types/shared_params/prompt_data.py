@@ -26,7 +26,6 @@ __all__ = [
     "PromptChatMessageTool",
     "PromptChatMessageFunction",
     "PromptChatMessageFallback",
-    "PromptNullableVariant",
     "ToolFunction",
     "ToolFunctionFunction",
     "ToolFunctionGlobal",
@@ -132,11 +131,7 @@ class PromptChat(TypedDict, total=False):
     tools: str
 
 
-class PromptNullableVariant(TypedDict, total=False):
-    pass
-
-
-Prompt: TypeAlias = Union[PromptCompletion, PromptChat, Optional[PromptNullableVariant]]
+Prompt: TypeAlias = Union[PromptCompletion, PromptChat]
 
 
 class ToolFunctionFunction(TypedDict, total=False):
@@ -161,6 +156,6 @@ class PromptData(TypedDict, total=False):
 
     parser: Optional[Parser]
 
-    prompt: Prompt
+    prompt: Optional[Prompt]
 
     tool_functions: Optional[Iterable[ToolFunction]]

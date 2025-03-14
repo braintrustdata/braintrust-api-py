@@ -58,6 +58,18 @@ class ViewListParams(TypedDict, total=False):
     """Name of the view to search for"""
 
     view_type: Optional[
-        Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+        Literal[
+            "projects",
+            "experiments",
+            "experiment",
+            "playgrounds",
+            "playground",
+            "datasets",
+            "dataset",
+            "prompts",
+            "tools",
+            "scorers",
+            "logs",
+        ]
     ]
     """Type of table that the view corresponds to."""

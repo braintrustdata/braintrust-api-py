@@ -18,7 +18,6 @@ __all__ = [
     "ParamsOpenAIModelParamsResponseFormatJsonSchema",
     "ParamsOpenAIModelParamsResponseFormatJsonSchemaJsonSchema",
     "ParamsOpenAIModelParamsResponseFormatText",
-    "ParamsOpenAIModelParamsResponseFormatNullableVariant",
     "ParamsOpenAIModelParamsToolChoice",
     "ParamsOpenAIModelParamsToolChoiceFunction",
     "ParamsOpenAIModelParamsToolChoiceFunctionFunction",
@@ -47,7 +46,7 @@ class ParamsOpenAIModelParamsResponseFormatJsonSchemaJsonSchema(BaseModel):
 
     description: Optional[str] = None
 
-    schema_: Optional[Dict[str, Optional[object]]] = FieldInfo(alias="schema", default=None)
+    schema_: Union[Dict[str, Optional[object]], str, None] = FieldInfo(alias="schema", default=None)
 
     strict: Optional[bool] = None
 
@@ -62,15 +61,11 @@ class ParamsOpenAIModelParamsResponseFormatText(BaseModel):
     type: Literal["text"]
 
 
-class ParamsOpenAIModelParamsResponseFormatNullableVariant(BaseModel):
-    pass
-
-
 ParamsOpenAIModelParamsResponseFormat: TypeAlias = Union[
     ParamsOpenAIModelParamsResponseFormatJsonObject,
     ParamsOpenAIModelParamsResponseFormatJsonSchema,
     ParamsOpenAIModelParamsResponseFormatText,
-    Optional[ParamsOpenAIModelParamsResponseFormatNullableVariant],
+    None,
 ]
 
 
@@ -94,11 +89,16 @@ class ParamsOpenAIModelParams(BaseModel):
 
     function_call: Optional[ParamsOpenAIModelParamsFunctionCall] = None
 
+    max_completion_tokens: Optional[float] = None
+    """The successor to max_tokens"""
+
     max_tokens: Optional[float] = None
 
     n: Optional[float] = None
 
     presence_penalty: Optional[float] = None
+
+    reasoning_effort: Optional[Literal["low", "medium", "high"]] = None
 
     response_format: Optional[ParamsOpenAIModelParamsResponseFormat] = None
 

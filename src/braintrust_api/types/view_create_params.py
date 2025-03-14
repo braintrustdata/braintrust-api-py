@@ -39,7 +39,19 @@ class ViewCreateParams(TypedDict, total=False):
 
     view_type: Required[
         Optional[
-            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+            Literal[
+                "projects",
+                "experiments",
+                "experiment",
+                "playgrounds",
+                "playground",
+                "datasets",
+                "dataset",
+                "prompts",
+                "tools",
+                "scorers",
+                "logs",
+            ]
         ]
     ]
     """Type of table that the view corresponds to."""

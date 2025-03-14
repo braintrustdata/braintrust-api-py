@@ -52,9 +52,11 @@ class TestFunctions:
                     "params": {
                         "frequency_penalty": 0,
                         "function_call": "auto",
+                        "max_completion_tokens": 0,
                         "max_tokens": 0,
                         "n": 0,
                         "presence_penalty": 0,
+                        "reasoning_effort": "low",
                         "response_format": {"type": "json_object"},
                         "stop": ["string"],
                         "temperature": 0,
@@ -177,9 +179,11 @@ class TestFunctions:
                     "params": {
                         "frequency_penalty": 0,
                         "function_call": "auto",
+                        "max_completion_tokens": 0,
                         "max_tokens": 0,
                         "n": 0,
                         "presence_penalty": 0,
+                        "reasoning_effort": "low",
                         "response_format": {"type": "json_object"},
                         "stop": ["string"],
                         "temperature": 0,
@@ -335,6 +339,7 @@ class TestFunctions:
     def test_method_invoke_with_all_params(self, client: Braintrust) -> None:
         function = client.functions.invoke(
             function_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            expected={},
             input={},
             messages=[
                 {
@@ -343,6 +348,7 @@ class TestFunctions:
                     "name": "name",
                 }
             ],
+            metadata={"foo": "bar"},
             mode="auto",
             parent={
                 "object_id": "object_id",
@@ -424,9 +430,11 @@ class TestFunctions:
                     "params": {
                         "frequency_penalty": 0,
                         "function_call": "auto",
+                        "max_completion_tokens": 0,
                         "max_tokens": 0,
                         "n": 0,
                         "presence_penalty": 0,
+                        "reasoning_effort": "low",
                         "response_format": {"type": "json_object"},
                         "stop": ["string"],
                         "temperature": 0,
@@ -529,9 +537,11 @@ class TestAsyncFunctions:
                     "params": {
                         "frequency_penalty": 0,
                         "function_call": "auto",
+                        "max_completion_tokens": 0,
                         "max_tokens": 0,
                         "n": 0,
                         "presence_penalty": 0,
+                        "reasoning_effort": "low",
                         "response_format": {"type": "json_object"},
                         "stop": ["string"],
                         "temperature": 0,
@@ -654,9 +664,11 @@ class TestAsyncFunctions:
                     "params": {
                         "frequency_penalty": 0,
                         "function_call": "auto",
+                        "max_completion_tokens": 0,
                         "max_tokens": 0,
                         "n": 0,
                         "presence_penalty": 0,
+                        "reasoning_effort": "low",
                         "response_format": {"type": "json_object"},
                         "stop": ["string"],
                         "temperature": 0,
@@ -812,6 +824,7 @@ class TestAsyncFunctions:
     async def test_method_invoke_with_all_params(self, async_client: AsyncBraintrust) -> None:
         function = await async_client.functions.invoke(
             function_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            expected={},
             input={},
             messages=[
                 {
@@ -820,6 +833,7 @@ class TestAsyncFunctions:
                     "name": "name",
                 }
             ],
+            metadata={"foo": "bar"},
             mode="auto",
             parent={
                 "object_id": "object_id",
@@ -901,9 +915,11 @@ class TestAsyncFunctions:
                     "params": {
                         "frequency_penalty": 0,
                         "function_call": "auto",
+                        "max_completion_tokens": 0,
                         "max_tokens": 0,
                         "n": 0,
                         "presence_penalty": 0,
+                        "reasoning_effort": "low",
                         "response_format": {"type": "json_object"},
                         "stop": ["string"],
                         "temperature": 0,

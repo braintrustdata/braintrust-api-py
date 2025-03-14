@@ -39,8 +39,8 @@ class ProjectScoreListParams(TypedDict, total=False):
     """Name of the project_score to search for"""
 
     score_type: Union[
-        Literal["slider", "categorical", "weighted", "minimum", "maximum", "online"],
-        List[Literal["slider", "categorical", "weighted", "minimum", "maximum", "online"]],
+        Literal["slider", "categorical", "weighted", "minimum", "maximum", "online", "free-form"],
+        List[Literal["slider", "categorical", "weighted", "minimum", "maximum", "online", "free-form"]],
     ]
     """The type of the configured score"""
 
