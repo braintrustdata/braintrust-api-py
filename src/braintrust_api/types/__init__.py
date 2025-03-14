@@ -103,6 +103,7 @@ from .experiment_list_params import ExperimentListParams as ExperimentListParams
 from .function_create_params import FunctionCreateParams as FunctionCreateParams
 from .function_invoke_params import FunctionInvokeParams as FunctionInvokeParams
 from .function_update_params import FunctionUpdateParams as FunctionUpdateParams
+from .acl_batch_update_params import ACLBatchUpdateParams as ACLBatchUpdateParams
 from .ai_secret_create_params import AISecretCreateParams as AISecretCreateParams
 from .ai_secret_update_params import AISecretUpdateParams as AISecretUpdateParams
 from .dataset_feedback_params import DatasetFeedbackParams as DatasetFeedbackParams
