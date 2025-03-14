@@ -7,6 +7,7 @@ from datetime import datetime
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
+from .shared.acl_object_type import ACLObjectType
 from .shared_params.view_data import ViewData
 from .shared_params.view_options import ViewOptions
 
@@ -20,21 +21,7 @@ class ViewCreateParams(TypedDict, total=False):
     object_id: Required[str]
     """The id of the object the view applies to"""
 
-    object_type: Required[
-        Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ]
-    ]
+    object_type: Required[ACLObjectType]
     """The object type that the ACL applies to"""
 
     view_type: Required[

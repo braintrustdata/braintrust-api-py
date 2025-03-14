@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import List, Union, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
+from .shared.acl_object_type import ACLObjectType
 from .shared_params.code_bundle import CodeBundle
 from .shared_params.prompt_data import PromptData
 
@@ -102,21 +103,7 @@ class Origin(TypedDict, total=False):
     object_id: Required[str]
     """Id of the object the function is originating from"""
 
-    object_type: Required[
-        Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ]
-    ]
+    object_type: Required[ACLObjectType]
     """The object type that the ACL applies to"""
 
     internal: Optional[bool]

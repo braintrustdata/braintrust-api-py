@@ -32,6 +32,8 @@ from .._response import (
 from ..pagination import SyncListObjects, AsyncListObjects
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.view import View
+from ..types.shared.view_type import ViewType
+from ..types.shared.acl_object_type import ACLObjectType
 from ..types.shared_params.view_data import ViewData
 from ..types.shared_params.view_options import ViewOptions
 
@@ -63,19 +65,7 @@ class ViewsResource(SyncAPIResource):
         *,
         name: str,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
+        object_type: ACLObjectType,
         view_type: Optional[
             Literal[
                 "projects",
@@ -158,19 +148,7 @@ class ViewsResource(SyncAPIResource):
         view_id: str,
         *,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
+        object_type: ACLObjectType,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -221,19 +199,7 @@ class ViewsResource(SyncAPIResource):
         view_id: str,
         *,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
+        object_type: ACLObjectType,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
         user_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -318,40 +284,13 @@ class ViewsResource(SyncAPIResource):
         self,
         *,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
+        object_type: ACLObjectType,
         ending_before: str | NotGiven = NOT_GIVEN,
         ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         starting_after: str | NotGiven = NOT_GIVEN,
         view_name: str | NotGiven = NOT_GIVEN,
-        view_type: Optional[
-            Literal[
-                "projects",
-                "experiments",
-                "experiment",
-                "playgrounds",
-                "playground",
-                "datasets",
-                "dataset",
-                "prompts",
-                "tools",
-                "scorers",
-                "logs",
-            ]
-        ]
-        | NotGiven = NOT_GIVEN,
+        view_type: Optional[ViewType] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -428,19 +367,7 @@ class ViewsResource(SyncAPIResource):
         view_id: str,
         *,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
+        object_type: ACLObjectType,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -488,19 +415,7 @@ class ViewsResource(SyncAPIResource):
         *,
         name: str,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
+        object_type: ACLObjectType,
         view_type: Optional[
             Literal[
                 "projects",
@@ -605,19 +520,7 @@ class AsyncViewsResource(AsyncAPIResource):
         *,
         name: str,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
+        object_type: ACLObjectType,
         view_type: Optional[
             Literal[
                 "projects",
@@ -700,19 +603,7 @@ class AsyncViewsResource(AsyncAPIResource):
         view_id: str,
         *,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
+        object_type: ACLObjectType,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -763,19 +654,7 @@ class AsyncViewsResource(AsyncAPIResource):
         view_id: str,
         *,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
+        object_type: ACLObjectType,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
         user_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -860,40 +739,13 @@ class AsyncViewsResource(AsyncAPIResource):
         self,
         *,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
+        object_type: ACLObjectType,
         ending_before: str | NotGiven = NOT_GIVEN,
         ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         starting_after: str | NotGiven = NOT_GIVEN,
         view_name: str | NotGiven = NOT_GIVEN,
-        view_type: Optional[
-            Literal[
-                "projects",
-                "experiments",
-                "experiment",
-                "playgrounds",
-                "playground",
-                "datasets",
-                "dataset",
-                "prompts",
-                "tools",
-                "scorers",
-                "logs",
-            ]
-        ]
-        | NotGiven = NOT_GIVEN,
+        view_type: Optional[ViewType] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -970,19 +822,7 @@ class AsyncViewsResource(AsyncAPIResource):
         view_id: str,
         *,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
+        object_type: ACLObjectType,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1030,19 +870,7 @@ class AsyncViewsResource(AsyncAPIResource):
         *,
         name: str,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
+        object_type: ACLObjectType,
         view_type: Optional[
             Literal[
                 "projects",
