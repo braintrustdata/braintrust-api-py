@@ -15,3 +15,9 @@ class ViewOptions(BaseModel):
     column_sizing: Optional[Dict[str, float]] = FieldInfo(alias="columnSizing", default=None)
 
     column_visibility: Optional[Dict[str, bool]] = FieldInfo(alias="columnVisibility", default=None)
+
+    grouping: Optional[str] = None
+
+    layout: Optional[str] = None
+
+    row_height: Optional[str] = FieldInfo(alias="rowHeight", default=None)

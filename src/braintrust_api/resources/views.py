@@ -77,7 +77,19 @@ class ViewsResource(SyncAPIResource):
             "org_project",
         ],
         view_type: Optional[
-            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+            Literal[
+                "projects",
+                "experiments",
+                "experiment",
+                "playgrounds",
+                "playground",
+                "datasets",
+                "dataset",
+                "prompts",
+                "tools",
+                "scorers",
+                "logs",
+            ]
         ],
         deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
@@ -227,7 +239,19 @@ class ViewsResource(SyncAPIResource):
         user_id: Optional[str] | NotGiven = NOT_GIVEN,
         view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
         view_type: Optional[
-            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+            Literal[
+                "projects",
+                "experiments",
+                "experiment",
+                "playgrounds",
+                "playground",
+                "datasets",
+                "dataset",
+                "prompts",
+                "tools",
+                "scorers",
+                "logs",
+            ]
         ]
         | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -313,7 +337,19 @@ class ViewsResource(SyncAPIResource):
         starting_after: str | NotGiven = NOT_GIVEN,
         view_name: str | NotGiven = NOT_GIVEN,
         view_type: Optional[
-            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+            Literal[
+                "projects",
+                "experiments",
+                "experiment",
+                "playgrounds",
+                "playground",
+                "datasets",
+                "dataset",
+                "prompts",
+                "tools",
+                "scorers",
+                "logs",
+            ]
         ]
         | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -466,7 +502,19 @@ class ViewsResource(SyncAPIResource):
             "org_project",
         ],
         view_type: Optional[
-            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+            Literal[
+                "projects",
+                "experiments",
+                "experiment",
+                "playgrounds",
+                "playground",
+                "datasets",
+                "dataset",
+                "prompts",
+                "tools",
+                "scorers",
+                "logs",
+            ]
         ],
         deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
@@ -571,7 +619,19 @@ class AsyncViewsResource(AsyncAPIResource):
             "org_project",
         ],
         view_type: Optional[
-            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+            Literal[
+                "projects",
+                "experiments",
+                "experiment",
+                "playgrounds",
+                "playground",
+                "datasets",
+                "dataset",
+                "prompts",
+                "tools",
+                "scorers",
+                "logs",
+            ]
         ],
         deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
@@ -721,7 +781,19 @@ class AsyncViewsResource(AsyncAPIResource):
         user_id: Optional[str] | NotGiven = NOT_GIVEN,
         view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
         view_type: Optional[
-            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+            Literal[
+                "projects",
+                "experiments",
+                "experiment",
+                "playgrounds",
+                "playground",
+                "datasets",
+                "dataset",
+                "prompts",
+                "tools",
+                "scorers",
+                "logs",
+            ]
         ]
         | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -807,7 +879,19 @@ class AsyncViewsResource(AsyncAPIResource):
         starting_after: str | NotGiven = NOT_GIVEN,
         view_name: str | NotGiven = NOT_GIVEN,
         view_type: Optional[
-            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+            Literal[
+                "projects",
+                "experiments",
+                "experiment",
+                "playgrounds",
+                "playground",
+                "datasets",
+                "dataset",
+                "prompts",
+                "tools",
+                "scorers",
+                "logs",
+            ]
         ]
         | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -960,7 +1044,19 @@ class AsyncViewsResource(AsyncAPIResource):
             "org_project",
         ],
         view_type: Optional[
-            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+            Literal[
+                "projects",
+                "experiments",
+                "experiment",
+                "playgrounds",
+                "playground",
+                "datasets",
+                "dataset",
+                "prompts",
+                "tools",
+                "scorers",
+                "logs",
+            ]
         ],
         deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
         options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,

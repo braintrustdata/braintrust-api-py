@@ -150,6 +150,7 @@ class SpanIframesResource(SyncAPIResource):
         self,
         span_iframe_id: str,
         *,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         post_message: Optional[bool] | NotGiven = NOT_GIVEN,
         url: Optional[str] | NotGiven = NOT_GIVEN,
@@ -168,6 +169,8 @@ class SpanIframesResource(SyncAPIResource):
 
         Args:
           span_iframe_id: SpanIframe id
+
+          description: Textual description of the span iframe
 
           name: Name of the span iframe
 
@@ -190,6 +193,7 @@ class SpanIframesResource(SyncAPIResource):
             f"/v1/span_iframe/{span_iframe_id}",
             body=maybe_transform(
                 {
+                    "description": description,
                     "name": name,
                     "post_message": post_message,
                     "url": url,
@@ -489,6 +493,7 @@ class AsyncSpanIframesResource(AsyncAPIResource):
         self,
         span_iframe_id: str,
         *,
+        description: Optional[str] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         post_message: Optional[bool] | NotGiven = NOT_GIVEN,
         url: Optional[str] | NotGiven = NOT_GIVEN,
@@ -507,6 +512,8 @@ class AsyncSpanIframesResource(AsyncAPIResource):
 
         Args:
           span_iframe_id: SpanIframe id
+
+          description: Textual description of the span iframe
 
           name: Name of the span iframe
 
@@ -529,6 +536,7 @@ class AsyncSpanIframesResource(AsyncAPIResource):
             f"/v1/span_iframe/{span_iframe_id}",
             body=await async_maybe_transform(
                 {
+                    "description": description,
                     "name": name,
                     "post_message": post_message,
                     "url": url,

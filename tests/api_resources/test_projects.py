@@ -107,7 +107,18 @@ class TestProjects:
         project = client.projects.update(
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="name",
-            settings={"comparison_key": "comparison_key"},
+            settings={
+                "baseline_experiment_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "comparison_key": "comparison_key",
+                "span_field_order": [
+                    {
+                        "column_id": "column_id",
+                        "object_type": "object_type",
+                        "position": "position",
+                        "layout": "full",
+                    }
+                ],
+            },
         )
         assert_matches_type(Project, project, path=["response"])
 
@@ -310,7 +321,18 @@ class TestAsyncProjects:
         project = await async_client.projects.update(
             project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             name="name",
-            settings={"comparison_key": "comparison_key"},
+            settings={
+                "baseline_experiment_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+                "comparison_key": "comparison_key",
+                "span_field_order": [
+                    {
+                        "column_id": "column_id",
+                        "object_type": "object_type",
+                        "position": "position",
+                        "layout": "full",
+                    }
+                ],
+            },
         )
         assert_matches_type(Project, project, path=["response"])
 

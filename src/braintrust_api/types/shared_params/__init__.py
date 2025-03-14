@@ -7,6 +7,7 @@ from .prompt_data import PromptData as PromptData
 from .view_options import ViewOptions as ViewOptions
 from .prompt_options import PromptOptions as PromptOptions
 from .span_attributes import SpanAttributes as SpanAttributes
+from .object_reference import ObjectReference as ObjectReference
 from .project_settings import ProjectSettings as ProjectSettings
 from .view_data_search import ViewDataSearch as ViewDataSearch
 from .online_score_config import OnlineScoreConfig as OnlineScoreConfig

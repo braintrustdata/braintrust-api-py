@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
+from typing import Dict, List, Union, Iterable, Optional
 from typing_extensions import Literal
 
 import httpx
@@ -167,7 +167,7 @@ class FunctionsResource(SyncAPIResource):
         function_id: str,
         *,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        function_data: function_update_params.FunctionData | NotGiven = NOT_GIVEN,
+        function_data: Optional[function_update_params.FunctionData] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
@@ -355,8 +355,10 @@ class FunctionsResource(SyncAPIResource):
         self,
         function_id: str,
         *,
+        expected: object | NotGiven = NOT_GIVEN,
         input: object | NotGiven = NOT_GIVEN,
         messages: Iterable[function_invoke_params.Message] | NotGiven = NOT_GIVEN,
+        metadata: Optional[Dict[str, Optional[object]]] | NotGiven = NOT_GIVEN,
         mode: Optional[Literal["auto", "parallel"]] | NotGiven = NOT_GIVEN,
         parent: function_invoke_params.Parent | NotGiven = NOT_GIVEN,
         stream: Optional[bool] | NotGiven = NOT_GIVEN,
@@ -374,9 +376,13 @@ class FunctionsResource(SyncAPIResource):
         Args:
           function_id: Function id
 
+          expected: The expected output of the function
+
           input: Argument to the function, which can be any JSON serializable value
 
           messages: If the function is an LLM, additional messages to pass along to it
+
+          metadata: Any relevant metadata
 
           mode: The mode format of the returned value (defaults to 'auto')
 
@@ -401,8 +407,10 @@ class FunctionsResource(SyncAPIResource):
             f"/v1/function/{function_id}/invoke",
             body=maybe_transform(
                 {
+                    "expected": expected,
                     "input": input,
                     "messages": messages,
+                    "metadata": metadata,
                     "mode": mode,
                     "parent": parent,
                     "stream": stream,
@@ -621,7 +629,7 @@ class AsyncFunctionsResource(AsyncAPIResource):
         function_id: str,
         *,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        function_data: function_update_params.FunctionData | NotGiven = NOT_GIVEN,
+        function_data: Optional[function_update_params.FunctionData] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
         prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
         tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
@@ -809,8 +817,10 @@ class AsyncFunctionsResource(AsyncAPIResource):
         self,
         function_id: str,
         *,
+        expected: object | NotGiven = NOT_GIVEN,
         input: object | NotGiven = NOT_GIVEN,
         messages: Iterable[function_invoke_params.Message] | NotGiven = NOT_GIVEN,
+        metadata: Optional[Dict[str, Optional[object]]] | NotGiven = NOT_GIVEN,
         mode: Optional[Literal["auto", "parallel"]] | NotGiven = NOT_GIVEN,
         parent: function_invoke_params.Parent | NotGiven = NOT_GIVEN,
         stream: Optional[bool] | NotGiven = NOT_GIVEN,
@@ -828,9 +838,13 @@ class AsyncFunctionsResource(AsyncAPIResource):
         Args:
           function_id: Function id
 
+          expected: The expected output of the function
+
           input: Argument to the function, which can be any JSON serializable value
 
           messages: If the function is an LLM, additional messages to pass along to it
+
+          metadata: Any relevant metadata
 
           mode: The mode format of the returned value (defaults to 'auto')
 
@@ -855,8 +869,10 @@ class AsyncFunctionsResource(AsyncAPIResource):
             f"/v1/function/{function_id}/invoke",
             body=await async_maybe_transform(
                 {
+                    "expected": expected,
                     "input": input,
                     "messages": messages,
+                    "metadata": metadata,
                     "mode": mode,
                     "parent": parent,
                     "stream": stream,

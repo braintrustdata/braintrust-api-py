@@ -18,7 +18,6 @@ __all__ = [
     "ParamsOpenAIModelParamsResponseFormatJsonSchema",
     "ParamsOpenAIModelParamsResponseFormatJsonSchemaJsonSchema",
     "ParamsOpenAIModelParamsResponseFormatText",
-    "ParamsOpenAIModelParamsResponseFormatNullableVariant",
     "ParamsOpenAIModelParamsToolChoice",
     "ParamsOpenAIModelParamsToolChoiceFunction",
     "ParamsOpenAIModelParamsToolChoiceFunctionFunction",
@@ -47,7 +46,7 @@ class ParamsOpenAIModelParamsResponseFormatJsonSchemaJsonSchema(TypedDict, total
 
     description: str
 
-    schema: Dict[str, Optional[object]]
+    schema: Union[Dict[str, Optional[object]], str]
 
     strict: Optional[bool]
 
@@ -62,15 +61,10 @@ class ParamsOpenAIModelParamsResponseFormatText(TypedDict, total=False):
     type: Required[Literal["text"]]
 
 
-class ParamsOpenAIModelParamsResponseFormatNullableVariant(TypedDict, total=False):
-    pass
-
-
 ParamsOpenAIModelParamsResponseFormat: TypeAlias = Union[
     ParamsOpenAIModelParamsResponseFormatJsonObject,
     ParamsOpenAIModelParamsResponseFormatJsonSchema,
     ParamsOpenAIModelParamsResponseFormatText,
-    Optional[ParamsOpenAIModelParamsResponseFormatNullableVariant],
 ]
 
 
@@ -94,13 +88,18 @@ class ParamsOpenAIModelParams(TypedDict, total=False):
 
     function_call: ParamsOpenAIModelParamsFunctionCall
 
+    max_completion_tokens: float
+    """The successor to max_tokens"""
+
     max_tokens: float
 
     n: float
 
     presence_penalty: float
 
-    response_format: ParamsOpenAIModelParamsResponseFormat
+    reasoning_effort: Literal["low", "medium", "high"]
+
+    response_format: Optional[ParamsOpenAIModelParamsResponseFormat]
 
     stop: List[str]
 

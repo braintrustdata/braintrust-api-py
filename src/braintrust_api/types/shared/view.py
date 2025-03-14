@@ -37,7 +37,19 @@ class View(BaseModel):
     """The object type that the ACL applies to"""
 
     view_type: Optional[
-        Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+        Literal[
+            "projects",
+            "experiments",
+            "experiment",
+            "playgrounds",
+            "playground",
+            "datasets",
+            "dataset",
+            "prompts",
+            "tools",
+            "scorers",
+            "logs",
+        ]
     ] = None
     """Type of table that the view corresponds to."""
 

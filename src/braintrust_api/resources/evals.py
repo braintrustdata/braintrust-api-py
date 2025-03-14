@@ -61,6 +61,7 @@ class EvalsResource(SyncAPIResource):
         is_public: Optional[bool] | NotGiven = NOT_GIVEN,
         max_concurrency: Optional[float] | NotGiven = NOT_GIVEN,
         metadata: Dict[str, Optional[object]] | NotGiven = NOT_GIVEN,
+        parent: eval_create_params.Parent | NotGiven = NOT_GIVEN,
         repo_info: Optional[RepoInfo] | NotGiven = NOT_GIVEN,
         stream: bool | NotGiven = NOT_GIVEN,
         api_timeout: Optional[float] | NotGiven = NOT_GIVEN,
@@ -110,6 +111,8 @@ class EvalsResource(SyncAPIResource):
           metadata: Optional experiment-level metadata to store about the evaluation. You can later
               use this to slice & dice across experiments.
 
+          parent: Options for tracing the evaluation
+
           repo_info: Metadata about the state of the repo when the experiment was created
 
           stream: Whether to stream the results of the eval. If true, the request will return two
@@ -146,6 +149,7 @@ class EvalsResource(SyncAPIResource):
                     "is_public": is_public,
                     "max_concurrency": max_concurrency,
                     "metadata": metadata,
+                    "parent": parent,
                     "repo_info": repo_info,
                     "stream": stream,
                     "api_timeout": api_timeout,
@@ -194,6 +198,7 @@ class AsyncEvalsResource(AsyncAPIResource):
         is_public: Optional[bool] | NotGiven = NOT_GIVEN,
         max_concurrency: Optional[float] | NotGiven = NOT_GIVEN,
         metadata: Dict[str, Optional[object]] | NotGiven = NOT_GIVEN,
+        parent: eval_create_params.Parent | NotGiven = NOT_GIVEN,
         repo_info: Optional[RepoInfo] | NotGiven = NOT_GIVEN,
         stream: bool | NotGiven = NOT_GIVEN,
         api_timeout: Optional[float] | NotGiven = NOT_GIVEN,
@@ -243,6 +248,8 @@ class AsyncEvalsResource(AsyncAPIResource):
           metadata: Optional experiment-level metadata to store about the evaluation. You can later
               use this to slice & dice across experiments.
 
+          parent: Options for tracing the evaluation
+
           repo_info: Metadata about the state of the repo when the experiment was created
 
           stream: Whether to stream the results of the eval. If true, the request will return two
@@ -279,6 +286,7 @@ class AsyncEvalsResource(AsyncAPIResource):
                     "is_public": is_public,
                     "max_concurrency": max_concurrency,
                     "metadata": metadata,
+                    "parent": parent,
                     "repo_info": repo_info,
                     "stream": stream,
                     "api_timeout": api_timeout,

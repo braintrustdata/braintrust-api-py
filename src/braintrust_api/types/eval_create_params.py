@@ -14,6 +14,7 @@ __all__ = [
     "Data",
     "DataDatasetID",
     "DataProjectDatasetName",
+    "DataDatasetRows",
     "Score",
     "ScoreFunctionID",
     "ScoreProjectSlug",
@@ -31,6 +32,9 @@ __all__ = [
     "TaskInlineCodeInlineContext",
     "TaskInlinePrompt",
     "GitMetadataSettings",
+    "Parent",
+    "ParentSpanParentStruct",
+    "ParentSpanParentStructRowIDs",
 ]
 
 
@@ -89,6 +93,9 @@ class EvalCreateParams(TypedDict, total=False):
     You can later use this to slice & dice across experiments.
     """
 
+    parent: Parent
+    """Options for tracing the evaluation"""
+
     repo_info: Optional[RepoInfo]
     """Metadata about the state of the repo when the experiment was created"""
 
@@ -118,14 +125,22 @@ class EvalCreateParams(TypedDict, total=False):
 class DataDatasetID(TypedDict, total=False):
     dataset_id: Required[str]
 
+    _internal_btql: Optional[Dict[str, Optional[object]]]
+
 
 class DataProjectDatasetName(TypedDict, total=False):
     dataset_name: Required[str]
 
     project_name: Required[str]
 
+    _internal_btql: Optional[Dict[str, Optional[object]]]
 
-Data: TypeAlias = Union[DataDatasetID, DataProjectDatasetName]
+
+class DataDatasetRows(TypedDict, total=False):
+    data: Required[Iterable[Optional[object]]]
+
+
+Data: TypeAlias = Union[DataDatasetID, DataProjectDatasetName, DataDatasetRows]
 
 
 class ScoreFunctionID(TypedDict, total=False):
@@ -278,3 +293,30 @@ class GitMetadataSettings(TypedDict, total=False):
             "git_diff",
         ]
     ]
+
+
+class ParentSpanParentStructRowIDs(TypedDict, total=False):
+    id: Required[str]
+    """The id of the row"""
+
+    root_span_id: Required[str]
+    """The root_span_id of the row"""
+
+    span_id: Required[str]
+    """The span_id of the row"""
+
+
+class ParentSpanParentStruct(TypedDict, total=False):
+    object_id: Required[str]
+    """The id of the container object you are logging to"""
+
+    object_type: Required[Literal["project_logs", "experiment", "playground_logs"]]
+
+    propagated_event: Optional[Dict[str, Optional[object]]]
+    """Include these properties in every span created under this parent"""
+
+    row_ids: Optional[ParentSpanParentStructRowIDs]
+    """Identifiers for the row to to log a subspan under"""
+
+
+Parent: TypeAlias = Union[ParentSpanParentStruct, str]
