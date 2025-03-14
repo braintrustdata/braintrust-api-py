@@ -16,3 +16,9 @@ class ViewOptions(TypedDict, total=False):
     column_sizing: Annotated[Optional[Dict[str, float]], PropertyInfo(alias="columnSizing")]
 
     column_visibility: Annotated[Optional[Dict[str, bool]], PropertyInfo(alias="columnVisibility")]
+
+    grouping: Optional[str]
+
+    layout: Optional[str]
+
+    row_height: Annotated[Optional[str], PropertyInfo(alias="rowHeight")]

@@ -25,7 +25,6 @@ __all__ = [
     "PromptChatMessageTool",
     "PromptChatMessageFunction",
     "PromptChatMessageFallback",
-    "PromptNullableVariant",
     "ToolFunction",
     "ToolFunctionFunction",
     "ToolFunctionGlobal",
@@ -131,11 +130,7 @@ class PromptChat(BaseModel):
     tools: Optional[str] = None
 
 
-class PromptNullableVariant(BaseModel):
-    pass
-
-
-Prompt: TypeAlias = Union[PromptCompletion, PromptChat, Optional[PromptNullableVariant]]
+Prompt: TypeAlias = Union[PromptCompletion, PromptChat, None]
 
 
 class ToolFunctionFunction(BaseModel):

@@ -41,6 +41,9 @@ class TestViews:
                 "column_order": ["string"],
                 "column_sizing": {"foo": 0},
                 "column_visibility": {"foo": True},
+                "grouping": "grouping",
+                "layout": "layout",
+                "row_height": "rowHeight",
             },
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_data={
@@ -150,6 +153,9 @@ class TestViews:
                 "column_order": ["string"],
                 "column_sizing": {"foo": 0},
                 "column_visibility": {"foo": True},
+                "grouping": "grouping",
+                "layout": "layout",
+                "row_height": "rowHeight",
             },
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_data={
@@ -317,6 +323,9 @@ class TestViews:
                 "column_order": ["string"],
                 "column_sizing": {"foo": 0},
                 "column_visibility": {"foo": True},
+                "grouping": "grouping",
+                "layout": "layout",
+                "row_height": "rowHeight",
             },
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_data={
@@ -386,6 +395,9 @@ class TestAsyncViews:
                 "column_order": ["string"],
                 "column_sizing": {"foo": 0},
                 "column_visibility": {"foo": True},
+                "grouping": "grouping",
+                "layout": "layout",
+                "row_height": "rowHeight",
             },
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_data={
@@ -495,6 +507,9 @@ class TestAsyncViews:
                 "column_order": ["string"],
                 "column_sizing": {"foo": 0},
                 "column_visibility": {"foo": True},
+                "grouping": "grouping",
+                "layout": "layout",
+                "row_height": "rowHeight",
             },
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_data={
@@ -662,6 +677,9 @@ class TestAsyncViews:
                 "column_order": ["string"],
                 "column_sizing": {"foo": 0},
                 "column_visibility": {"foo": True},
+                "grouping": "grouping",
+                "layout": "layout",
+                "row_height": "rowHeight",
             },
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_data={

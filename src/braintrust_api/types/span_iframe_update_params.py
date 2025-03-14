@@ -9,6 +9,9 @@ __all__ = ["SpanIframeUpdateParams"]
 
 
 class SpanIframeUpdateParams(TypedDict, total=False):
+    description: Optional[str]
+    """Textual description of the span iframe"""
+
     name: Optional[str]
     """Name of the span iframe"""
 

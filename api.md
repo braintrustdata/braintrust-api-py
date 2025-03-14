@@ -32,6 +32,7 @@ from braintrust_api.types import (
     InsertExperimentEvent,
     InsertProjectLogsEvent,
     MetricSummary,
+    ObjectReference,
     OnlineScoreConfig,
     Organization,
     PatchOrganizationMembersOutput,
@@ -162,7 +163,6 @@ Methods:
 - <code title="get /v1/acl/{acl_id}">client.acls.<a href="./src/braintrust_api/resources/acls.py">retrieve</a>(acl_id) -> <a href="./src/braintrust_api/types/shared/acl.py">ACL</a></code>
 - <code title="get /v1/acl">client.acls.<a href="./src/braintrust_api/resources/acls.py">list</a>(\*\*<a href="src/braintrust_api/types/acl_list_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/acl.py">SyncListObjects[ACL]</a></code>
 - <code title="delete /v1/acl/{acl_id}">client.acls.<a href="./src/braintrust_api/resources/acls.py">delete</a>(acl_id) -> <a href="./src/braintrust_api/types/shared/acl.py">ACL</a></code>
-- <code title="post /v1/acl/batch-update">client.acls.<a href="./src/braintrust_api/resources/acls.py">batch_update</a>(\*\*<a href="src/braintrust_api/types/acl_batch_update_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/acl_batch_update_response.py">ACLBatchUpdateResponse</a></code>
 - <code title="delete /v1/acl">client.acls.<a href="./src/braintrust_api/resources/acls.py">find_and_delete</a>(\*\*<a href="src/braintrust_api/types/acl_find_and_delete_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/acl.py">ACL</a></code>
 
 # Users

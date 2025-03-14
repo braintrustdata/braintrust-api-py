@@ -27,11 +27,17 @@ __all__ = [
 
 
 class FunctionInvokeParams(TypedDict, total=False):
+    expected: object
+    """The expected output of the function"""
+
     input: object
     """Argument to the function, which can be any JSON serializable value"""
 
     messages: Iterable[Message]
     """If the function is an LLM, additional messages to pass along to it"""
+
+    metadata: Optional[Dict[str, Optional[object]]]
+    """Any relevant metadata"""
 
     mode: Optional[Literal["auto", "parallel"]]
     """The mode format of the returned value (defaults to 'auto')"""
@@ -126,7 +132,7 @@ class ParentSpanParentStruct(TypedDict, total=False):
     object_id: Required[str]
     """The id of the container object you are logging to"""
 
-    object_type: Required[Literal["project_logs", "experiment"]]
+    object_type: Required[Literal["project_logs", "experiment", "playground_logs"]]
 
     propagated_event: Optional[Dict[str, Optional[object]]]
     """Include these properties in every span created under this parent"""
