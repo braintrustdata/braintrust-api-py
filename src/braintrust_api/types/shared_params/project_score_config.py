@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Optional
-from typing_extensions import Literal, TypedDict
+from typing_extensions import TypedDict
 
 from .online_score_config import OnlineScoreConfig
 
@@ -11,7 +11,7 @@ __all__ = ["ProjectScoreConfig"]
 
 
 class ProjectScoreConfig(TypedDict, total=False):
-    destination: Optional[Literal["expected"]]
+    destination: Optional[str]
 
     multi_select: Optional[bool]
 

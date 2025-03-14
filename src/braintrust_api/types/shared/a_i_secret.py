@@ -26,3 +26,6 @@ class AISecret(BaseModel):
     preview_secret: Optional[str] = None
 
     type: Optional[str] = None
+
+    updated_at: Optional[datetime] = None
+    """Date of last AI secret update"""

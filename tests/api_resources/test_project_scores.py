@@ -40,7 +40,7 @@ class TestProjectScores:
                 }
             ],
             config={
-                "destination": "expected",
+                "destination": "destination",
                 "multi_select": True,
                 "online": {
                     "sampling_rate": 0,
@@ -142,7 +142,7 @@ class TestProjectScores:
                 }
             ],
             config={
-                "destination": "expected",
+                "destination": "destination",
                 "multi_select": True,
                 "online": {
                     "sampling_rate": 0,
@@ -293,7 +293,7 @@ class TestProjectScores:
                 }
             ],
             config={
-                "destination": "expected",
+                "destination": "destination",
                 "multi_select": True,
                 "online": {
                     "sampling_rate": 0,
@@ -365,7 +365,7 @@ class TestAsyncProjectScores:
                 }
             ],
             config={
-                "destination": "expected",
+                "destination": "destination",
                 "multi_select": True,
                 "online": {
                     "sampling_rate": 0,
@@ -467,7 +467,7 @@ class TestAsyncProjectScores:
                 }
             ],
             config={
-                "destination": "expected",
+                "destination": "destination",
                 "multi_select": True,
                 "online": {
                     "sampling_rate": 0,
@@ -618,7 +618,7 @@ class TestAsyncProjectScores:
                 }
             ],
             config={
-                "destination": "expected",
+                "destination": "destination",
                 "multi_select": True,
                 "online": {
                     "sampling_rate": 0,

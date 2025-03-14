@@ -8,8 +8,9 @@ from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
 from .span_attributes import SpanAttributes
+from .object_reference import ObjectReference
 
-__all__ = ["ProjectLogsEvent", "Context", "Metrics", "Origin"]
+__all__ = ["ProjectLogsEvent", "Context", "Metadata", "Metrics"]
 
 
 class Context(BaseModel):
@@ -21,6 +22,17 @@ class Context(BaseModel):
 
     caller_lineno: Optional[int] = None
     """Line of code where the project logs event was created"""
+
+    if TYPE_CHECKING:
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(self, attr: str) -> Optional[object]: ...
+
+
+class Metadata(BaseModel):
+    model: Optional[str] = None
+    """The model used for this example"""
 
     if TYPE_CHECKING:
         # Stub to indicate that arbitrary properties are accepted.
@@ -71,20 +83,6 @@ class Metrics(BaseModel):
         # To access properties that are not valid identifiers you can use `getattr`, e.g.
         # `getattr(obj, '$type')`
         def __getattr__(self, attr: str) -> float: ...
-
-
-class Origin(BaseModel):
-    id: str
-    """ID of the original event."""
-
-    xact_id: str = FieldInfo(alias="_xact_id")
-    """Transaction ID of the original event."""
-
-    object_id: str
-    """ID of the object the event is originating from."""
-
-    object_type: Literal["experiment", "dataset", "prompt", "function", "prompt_session", "project_logs"]
-    """Type of the object the event is originating from."""
 
 
 class ProjectLogsEvent(BaseModel):
@@ -155,7 +153,7 @@ class ProjectLogsEvent(BaseModel):
     is_root: Optional[bool] = None
     """Whether this span is a root span"""
 
-    metadata: Optional[Dict[str, Optional[object]]] = None
+    metadata: Optional[Metadata] = None
     """
     A dictionary with additional data about the test example, model outputs, or just
     about anything else that's relevant, that you can use to help find and analyze
@@ -171,7 +169,7 @@ class ProjectLogsEvent(BaseModel):
     over which the project logs event was produced
     """
 
-    origin: Optional[Origin] = None
+    origin: Optional[ObjectReference] = None
     """Indicates the event was copied from another object."""
 
     output: Optional[object] = None

@@ -29,6 +29,7 @@ from .metric_summary import MetricSummary as MetricSummary
 from .prompt_options import PromptOptions as PromptOptions
 from .span_attributes import SpanAttributes as SpanAttributes
 from .experiment_event import ExperimentEvent as ExperimentEvent
+from .object_reference import ObjectReference as ObjectReference
 from .project_settings import ProjectSettings as ProjectSettings
 from .view_data_search import ViewDataSearch as ViewDataSearch
 from .project_logs_event import ProjectLogsEvent as ProjectLogsEvent

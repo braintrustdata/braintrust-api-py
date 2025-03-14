@@ -18,7 +18,6 @@ __all__ = [
     "FunctionDataCodeDataInline",
     "FunctionDataCodeDataInlineRuntimeContext",
     "FunctionDataGlobal",
-    "FunctionDataNullableVariant",
 ]
 
 
@@ -26,7 +25,7 @@ class FunctionUpdateParams(TypedDict, total=False):
     description: Optional[str]
     """Textual description of the prompt"""
 
-    function_data: FunctionData
+    function_data: Optional[FunctionData]
 
     name: Optional[str]
     """Name of the prompt"""
@@ -75,10 +74,4 @@ class FunctionDataGlobal(TypedDict, total=False):
     type: Required[Literal["global"]]
 
 
-class FunctionDataNullableVariant(TypedDict, total=False):
-    pass
-
-
-FunctionData: TypeAlias = Union[
-    FunctionDataPrompt, FunctionDataCode, FunctionDataGlobal, Optional[FunctionDataNullableVariant]
-]
+FunctionData: TypeAlias = Union[FunctionDataPrompt, FunctionDataCode, FunctionDataGlobal]
