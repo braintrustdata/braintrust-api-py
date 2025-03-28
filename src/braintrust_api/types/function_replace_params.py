@@ -57,7 +57,7 @@ class FunctionDataPrompt(TypedDict, total=False):
     type: Required[Literal["prompt"]]
 
 
-class FunctionDataCodeDataBundle(CodeBundle):
+class FunctionDataCodeDataBundle(CodeBundle, total=False):
     type: Required[Literal["bundle"]]
 
 
