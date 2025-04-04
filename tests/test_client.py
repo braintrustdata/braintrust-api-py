@@ -1621,7 +1621,7 @@ class TestAsyncBraintrust:
         import threading
 
         from braintrust_api._utils import asyncify
-        from braintrust_api._base_client import get_platform 
+        from braintrust_api._base_client import get_platform
 
         async def test_main() -> None:
             result = await asyncify(get_platform)()
