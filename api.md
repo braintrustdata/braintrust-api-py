@@ -214,12 +214,6 @@ Methods:
 
 # Functions
 
-Types:
-
-```python
-from braintrust_api.types import FunctionInvokeResponse
-```
-
 Methods:
 
 - <code title="post /v1/function">client.functions.<a href="./src/braintrust_api/resources/functions.py">create</a>(\*\*<a href="src/braintrust_api/types/function_create_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/function.py">Function</a></code>
@@ -227,7 +221,7 @@ Methods:
 - <code title="patch /v1/function/{function_id}">client.functions.<a href="./src/braintrust_api/resources/functions.py">update</a>(function_id, \*\*<a href="src/braintrust_api/types/function_update_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/function.py">Function</a></code>
 - <code title="get /v1/function">client.functions.<a href="./src/braintrust_api/resources/functions.py">list</a>(\*\*<a href="src/braintrust_api/types/function_list_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/function.py">SyncListObjects[Function]</a></code>
 - <code title="delete /v1/function/{function_id}">client.functions.<a href="./src/braintrust_api/resources/functions.py">delete</a>(function_id) -> <a href="./src/braintrust_api/types/shared/function.py">Function</a></code>
-- <code title="post /v1/function/{function_id}/invoke">client.functions.<a href="./src/braintrust_api/resources/functions.py">invoke</a>(function_id, \*\*<a href="src/braintrust_api/types/function_invoke_params.py">params</a>) -> <a href="./src/braintrust_api/types/function_invoke_response.py">object</a></code>
+- <code title="post /v1/function/{function_id}/invoke">client.functions.<a href="./src/braintrust_api/resources/functions.py">invoke</a>(function_id, \*\*<a href="src/braintrust_api/types/function_invoke_params.py">params</a>) -> object</code>
 - <code title="put /v1/function">client.functions.<a href="./src/braintrust_api/resources/functions.py">replace</a>(\*\*<a href="src/braintrust_api/types/function_replace_params.py">params</a>) -> <a href="./src/braintrust_api/types/shared/function.py">Function</a></code>
 
 # Views
