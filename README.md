@@ -151,18 +151,7 @@ client = Braintrust()
 
 project = client.projects.update(
     project_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-    settings={
-        "baseline_experiment_id": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
-        "comparison_key": "comparison_key",
-        "span_field_order": [
-            {
-                "column_id": "column_id",
-                "object_type": "object_type",
-                "position": "position",
-                "layout": "full",
-            }
-        ],
-    },
+    settings={},
 )
 print(project.settings)
 ```
