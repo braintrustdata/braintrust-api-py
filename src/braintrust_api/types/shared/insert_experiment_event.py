@@ -22,6 +22,7 @@ class Context(BaseModel):
     caller_lineno: Optional[int] = None
     """Line of code where the experiment event was created"""
 
+    __pydantic_extra__: Dict[str, Optional[object]] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
     if TYPE_CHECKING:
         # Stub to indicate that arbitrary properties are accepted.
         # To access properties that are not valid identifiers you can use `getattr`, e.g.
@@ -33,6 +34,7 @@ class Metadata(BaseModel):
     model: Optional[str] = None
     """The model used for this example"""
 
+    __pydantic_extra__: Dict[str, Optional[object]] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
     if TYPE_CHECKING:
         # Stub to indicate that arbitrary properties are accepted.
         # To access properties that are not valid identifiers you can use `getattr`, e.g.
@@ -77,6 +79,7 @@ class Metrics(BaseModel):
     tokens: Optional[int] = None
     """The total number of tokens in the input and output of the experiment event."""
 
+    __pydantic_extra__: Dict[str, float] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
     if TYPE_CHECKING:
         # Stub to indicate that arbitrary properties are accepted.
         # To access properties that are not valid identifiers you can use `getattr`, e.g.
