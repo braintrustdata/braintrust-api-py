@@ -2,17 +2,19 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Optional
 from typing_extensions import TypedDict
+
+from .._types import SequenceNotStr
 
 __all__ = ["GroupUpdateParams"]
 
 
 class GroupUpdateParams(TypedDict, total=False):
-    add_member_groups: Optional[List[str]]
+    add_member_groups: Optional[SequenceNotStr[str]]
     """A list of group IDs to add to the group's inheriting-from set"""
 
-    add_member_users: Optional[List[str]]
+    add_member_users: Optional[SequenceNotStr[str]]
     """A list of user IDs to add to the group"""
 
     description: Optional[str]
@@ -21,8 +23,8 @@ class GroupUpdateParams(TypedDict, total=False):
     name: Optional[str]
     """Name of the group"""
 
-    remove_member_groups: Optional[List[str]]
+    remove_member_groups: Optional[SequenceNotStr[str]]
     """A list of group IDs to remove from the group's inheriting-from set"""
 
-    remove_member_users: Optional[List[str]]
+    remove_member_users: Optional[SequenceNotStr[str]]
     """A list of user IDs to remove from the group"""

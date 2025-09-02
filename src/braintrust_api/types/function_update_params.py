@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Union, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
+from .._types import SequenceNotStr
 from .shared_params.code_bundle import CodeBundle
 from .shared_params.prompt_data import PromptData
 
@@ -33,7 +34,7 @@ class FunctionUpdateParams(TypedDict, total=False):
     prompt_data: Optional[PromptData]
     """The prompt, model, and its parameters"""
 
-    tags: Optional[List[str]]
+    tags: Optional[SequenceNotStr[str]]
     """A list of tags for the prompt"""
 
 

@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Optional
 from typing_extensions import TypedDict
+
+from ..._types import SequenceNotStr
 
 __all__ = ["MemberUpdateParams", "InviteUsers", "RemoveUsers"]
 
@@ -33,22 +35,22 @@ class MemberUpdateParams(TypedDict, total=False):
 
 
 class InviteUsers(TypedDict, total=False):
-    emails: Optional[List[str]]
+    emails: Optional[SequenceNotStr[str]]
     """Emails of users to invite"""
 
     group_id: Optional[str]
     """Singular form of group_ids"""
 
-    group_ids: Optional[List[str]]
+    group_ids: Optional[SequenceNotStr[str]]
     """Optional list of group ids to add newly-invited users to."""
 
     group_name: Optional[str]
     """Singular form of group_names"""
 
-    group_names: Optional[List[str]]
+    group_names: Optional[SequenceNotStr[str]]
     """Optional list of group names to add newly-invited users to."""
 
-    ids: Optional[List[str]]
+    ids: Optional[SequenceNotStr[str]]
     """Ids of existing users to invite"""
 
     send_invite_emails: Optional[bool]
@@ -56,8 +58,8 @@ class InviteUsers(TypedDict, total=False):
 
 
 class RemoveUsers(TypedDict, total=False):
-    emails: Optional[List[str]]
+    emails: Optional[SequenceNotStr[str]]
     """Emails of users to remove"""
 
-    ids: Optional[List[str]]
+    ids: Optional[SequenceNotStr[str]]
     """Ids of users to remove"""

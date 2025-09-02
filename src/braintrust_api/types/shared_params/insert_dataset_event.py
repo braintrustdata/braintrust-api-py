@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
+from typing import Dict, Union, Iterable, Optional
 from datetime import datetime
 from typing_extensions import Annotated, TypeAlias, TypedDict
 
+from ..._types import SequenceNotStr
 from ..._utils import PropertyInfo
 from .object_reference import ObjectReference
 
@@ -43,7 +44,7 @@ class InsertDatasetEvent(TypedDict, total=False):
     `{"id": "foo", "input": {"b": 11, "c": 20}}`
     """
 
-    _merge_paths: Optional[Iterable[List[str]]]
+    _merge_paths: Optional[Iterable[SequenceNotStr[str]]]
     """
     The `_merge_paths` field allows controlling the depth of the merge, when
     `_is_merge=true`. `_merge_paths` is a list of paths, where each path is a list
@@ -152,7 +153,7 @@ class InsertDatasetEvent(TypedDict, total=False):
     If the row is being merged into an existing row, this field will be ignored.
     """
 
-    span_parents: Optional[List[str]]
+    span_parents: Optional[SequenceNotStr[str]]
     """
     Use `span_id`, `root_span_id`, and `span_parents` instead of `_parent_id`, which
     is now deprecated. The span_id is a unique identifier describing the row's place
@@ -171,5 +172,5 @@ class InsertDatasetEvent(TypedDict, total=False):
     If the row is being merged into an existing row, this field will be ignored.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[SequenceNotStr[str]]
     """A list of tags to log"""

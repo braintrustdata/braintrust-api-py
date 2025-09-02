@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Iterable, Optional
+from typing import Iterable, Optional
 from typing_extensions import Required, TypedDict
 
+from .._types import SequenceNotStr
 from .shared.permission import Permission
 from .shared.acl_object_type import ACLObjectType
 
@@ -15,7 +16,7 @@ class RoleUpdateParams(TypedDict, total=False):
     add_member_permissions: Optional[Iterable[AddMemberPermission]]
     """A list of permissions to add to the role"""
 
-    add_member_roles: Optional[List[str]]
+    add_member_roles: Optional[SequenceNotStr[str]]
     """A list of role IDs to add to the role's inheriting-from set"""
 
     description: Optional[str]
@@ -27,7 +28,7 @@ class RoleUpdateParams(TypedDict, total=False):
     remove_member_permissions: Optional[Iterable[RemoveMemberPermission]]
     """A list of permissions to remove from the role"""
 
-    remove_member_roles: Optional[List[str]]
+    remove_member_roles: Optional[SequenceNotStr[str]]
     """A list of role IDs to remove from the role's inheriting-from set"""
 
 

@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Optional
 from typing_extensions import Required, TypedDict
+
+from .._types import SequenceNotStr
 
 __all__ = ["GroupReplaceParams"]
 
@@ -15,14 +17,14 @@ class GroupReplaceParams(TypedDict, total=False):
     description: Optional[str]
     """Textual description of the group"""
 
-    member_groups: Optional[List[str]]
+    member_groups: Optional[SequenceNotStr[str]]
     """Ids of the groups this group inherits from
 
     An inheriting group has all the users contained in its member groups, as well as
     all of their inherited users
     """
 
-    member_users: Optional[List[str]]
+    member_users: Optional[SequenceNotStr[str]]
     """Ids of users which belong to this group"""
 
     org_name: Optional[str]

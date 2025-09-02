@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Iterable, Optional
+from typing import Iterable, Optional
 from typing_extensions import Required, TypedDict
 
+from .._types import SequenceNotStr
 from .shared.permission import Permission
 from .shared.acl_object_type import ACLObjectType
 
@@ -21,7 +22,7 @@ class RoleReplaceParams(TypedDict, total=False):
     member_permissions: Optional[Iterable[MemberPermission]]
     """(permission, restrict_object_type) tuples which belong to this role"""
 
-    member_roles: Optional[List[str]]
+    member_roles: Optional[SequenceNotStr[str]]
     """Ids of the roles this role inherits from
 
     An inheriting role has all the permissions contained in its member roles, as

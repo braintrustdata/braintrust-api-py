@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Union, Optional
 from typing_extensions import Literal
 
 import httpx
 
 from ..types import prompt_list_params, prompt_create_params, prompt_update_params, prompt_replace_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -55,7 +55,7 @@ class PromptsResource(SyncAPIResource):
         description: Optional[str] | NotGiven = NOT_GIVEN,
         function_type: Optional[Literal["llm", "scorer", "task", "tool"]] | NotGiven = NOT_GIVEN,
         prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
-        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        tags: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -153,7 +153,7 @@ class PromptsResource(SyncAPIResource):
         name: Optional[str] | NotGiven = NOT_GIVEN,
         prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
         slug: Optional[str] | NotGiven = NOT_GIVEN,
-        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        tags: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -212,7 +212,7 @@ class PromptsResource(SyncAPIResource):
         self,
         *,
         ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        ids: Union[str, SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         org_name: str | NotGiven = NOT_GIVEN,
         project_id: str | NotGiven = NOT_GIVEN,
@@ -345,7 +345,7 @@ class PromptsResource(SyncAPIResource):
         description: Optional[str] | NotGiven = NOT_GIVEN,
         function_type: Optional[Literal["llm", "scorer", "task", "tool"]] | NotGiven = NOT_GIVEN,
         prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
-        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        tags: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -430,7 +430,7 @@ class AsyncPromptsResource(AsyncAPIResource):
         description: Optional[str] | NotGiven = NOT_GIVEN,
         function_type: Optional[Literal["llm", "scorer", "task", "tool"]] | NotGiven = NOT_GIVEN,
         prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
-        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        tags: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -528,7 +528,7 @@ class AsyncPromptsResource(AsyncAPIResource):
         name: Optional[str] | NotGiven = NOT_GIVEN,
         prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
         slug: Optional[str] | NotGiven = NOT_GIVEN,
-        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        tags: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -587,7 +587,7 @@ class AsyncPromptsResource(AsyncAPIResource):
         self,
         *,
         ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        ids: Union[str, SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         org_name: str | NotGiven = NOT_GIVEN,
         project_id: str | NotGiven = NOT_GIVEN,
@@ -720,7 +720,7 @@ class AsyncPromptsResource(AsyncAPIResource):
         description: Optional[str] | NotGiven = NOT_GIVEN,
         function_type: Optional[Literal["llm", "scorer", "task", "tool"]] | NotGiven = NOT_GIVEN,
         prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
-        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        tags: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,

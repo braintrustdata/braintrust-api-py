@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Union, Optional
 from typing_extensions import Literal
 
 import httpx
 
 from ..types import env_var_list_params, env_var_create_params, env_var_update_params, env_var_replace_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -189,7 +189,7 @@ class EnvVarsResource(SyncAPIResource):
         self,
         *,
         env_var_name: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        ids: Union[str, SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         object_id: str | NotGiven = NOT_GIVEN,
         object_type: EnvVarObjectType | NotGiven = NOT_GIVEN,
@@ -499,7 +499,7 @@ class AsyncEnvVarsResource(AsyncAPIResource):
         self,
         *,
         env_var_name: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        ids: Union[str, SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         object_id: str | NotGiven = NOT_GIVEN,
         object_type: EnvVarObjectType | NotGiven = NOT_GIVEN,

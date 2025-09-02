@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Optional
 from typing_extensions import Literal, Required, TypedDict
 
+from .._types import SequenceNotStr
 from .shared_params.prompt_data import PromptData
 
 __all__ = ["PromptCreateParams"]
@@ -28,5 +29,5 @@ class PromptCreateParams(TypedDict, total=False):
     prompt_data: Optional[PromptData]
     """The prompt, model, and its parameters"""
 
-    tags: Optional[List[str]]
+    tags: Optional[SequenceNotStr[str]]
     """A list of tags for the prompt"""

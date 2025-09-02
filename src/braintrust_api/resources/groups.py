@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Union, Optional
 
 import httpx
 
 from ..types import group_list_params, group_create_params, group_update_params, group_replace_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -49,8 +49,8 @@ class GroupsResource(SyncAPIResource):
         *,
         name: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        member_groups: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        member_users: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        member_groups: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        member_users: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         org_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -145,12 +145,12 @@ class GroupsResource(SyncAPIResource):
         self,
         group_id: str,
         *,
-        add_member_groups: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        add_member_users: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        add_member_groups: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        add_member_users: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
-        remove_member_groups: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        remove_member_users: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        remove_member_groups: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        remove_member_users: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -213,7 +213,7 @@ class GroupsResource(SyncAPIResource):
         *,
         ending_before: str | NotGiven = NOT_GIVEN,
         group_name: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        ids: Union[str, SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         org_name: str | NotGiven = NOT_GIVEN,
         starting_after: str | NotGiven = NOT_GIVEN,
@@ -322,8 +322,8 @@ class GroupsResource(SyncAPIResource):
         *,
         name: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        member_groups: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        member_users: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        member_groups: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        member_users: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         org_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -406,8 +406,8 @@ class AsyncGroupsResource(AsyncAPIResource):
         *,
         name: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        member_groups: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        member_users: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        member_groups: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        member_users: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         org_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -502,12 +502,12 @@ class AsyncGroupsResource(AsyncAPIResource):
         self,
         group_id: str,
         *,
-        add_member_groups: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        add_member_users: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        add_member_groups: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        add_member_users: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
-        remove_member_groups: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        remove_member_users: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        remove_member_groups: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        remove_member_users: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -570,7 +570,7 @@ class AsyncGroupsResource(AsyncAPIResource):
         *,
         ending_before: str | NotGiven = NOT_GIVEN,
         group_name: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        ids: Union[str, SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         org_name: str | NotGiven = NOT_GIVEN,
         starting_after: str | NotGiven = NOT_GIVEN,
@@ -679,8 +679,8 @@ class AsyncGroupsResource(AsyncAPIResource):
         *,
         name: str,
         description: Optional[str] | NotGiven = NOT_GIVEN,
-        member_groups: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        member_users: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        member_groups: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        member_users: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         org_name: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
