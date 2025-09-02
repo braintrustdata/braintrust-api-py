@@ -12,7 +12,7 @@ from ..types import (
     project_score_update_params,
     project_score_replace_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -58,7 +58,8 @@ class ProjectScoresResource(SyncAPIResource):
         name: str,
         project_id: str,
         score_type: ProjectScoreType,
-        categories: Union[Iterable[ProjectScoreCategory], Dict[str, float], List[str], None] | NotGiven = NOT_GIVEN,
+        categories: Union[Iterable[ProjectScoreCategory], Dict[str, float], SequenceNotStr[str], None]
+        | NotGiven = NOT_GIVEN,
         config: Optional[ProjectScoreConfig] | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -151,7 +152,8 @@ class ProjectScoresResource(SyncAPIResource):
         self,
         project_score_id: str,
         *,
-        categories: Union[Iterable[ProjectScoreCategory], Dict[str, float], List[str], None] | NotGiven = NOT_GIVEN,
+        categories: Union[Iterable[ProjectScoreCategory], Dict[str, float], SequenceNotStr[str], None]
+        | NotGiven = NOT_GIVEN,
         config: Optional[ProjectScoreConfig] | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
@@ -212,7 +214,7 @@ class ProjectScoresResource(SyncAPIResource):
         self,
         *,
         ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        ids: Union[str, SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         org_name: str | NotGiven = NOT_GIVEN,
         project_id: str | NotGiven = NOT_GIVEN,
@@ -335,7 +337,8 @@ class ProjectScoresResource(SyncAPIResource):
         name: str,
         project_id: str,
         score_type: ProjectScoreType,
-        categories: Union[Iterable[ProjectScoreCategory], Dict[str, float], List[str], None] | NotGiven = NOT_GIVEN,
+        categories: Union[Iterable[ProjectScoreCategory], Dict[str, float], SequenceNotStr[str], None]
+        | NotGiven = NOT_GIVEN,
         config: Optional[ProjectScoreConfig] | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -416,7 +419,8 @@ class AsyncProjectScoresResource(AsyncAPIResource):
         name: str,
         project_id: str,
         score_type: ProjectScoreType,
-        categories: Union[Iterable[ProjectScoreCategory], Dict[str, float], List[str], None] | NotGiven = NOT_GIVEN,
+        categories: Union[Iterable[ProjectScoreCategory], Dict[str, float], SequenceNotStr[str], None]
+        | NotGiven = NOT_GIVEN,
         config: Optional[ProjectScoreConfig] | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -509,7 +513,8 @@ class AsyncProjectScoresResource(AsyncAPIResource):
         self,
         project_score_id: str,
         *,
-        categories: Union[Iterable[ProjectScoreCategory], Dict[str, float], List[str], None] | NotGiven = NOT_GIVEN,
+        categories: Union[Iterable[ProjectScoreCategory], Dict[str, float], SequenceNotStr[str], None]
+        | NotGiven = NOT_GIVEN,
         config: Optional[ProjectScoreConfig] | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         name: Optional[str] | NotGiven = NOT_GIVEN,
@@ -570,7 +575,7 @@ class AsyncProjectScoresResource(AsyncAPIResource):
         self,
         *,
         ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        ids: Union[str, SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         org_name: str | NotGiven = NOT_GIVEN,
         project_id: str | NotGiven = NOT_GIVEN,
@@ -693,7 +698,8 @@ class AsyncProjectScoresResource(AsyncAPIResource):
         name: str,
         project_id: str,
         score_type: ProjectScoreType,
-        categories: Union[Iterable[ProjectScoreCategory], Dict[str, float], List[str], None] | NotGiven = NOT_GIVEN,
+        categories: Union[Iterable[ProjectScoreCategory], Dict[str, float], SequenceNotStr[str], None]
+        | NotGiven = NOT_GIVEN,
         config: Optional[ProjectScoreConfig] | NotGiven = NOT_GIVEN,
         description: Optional[str] | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.

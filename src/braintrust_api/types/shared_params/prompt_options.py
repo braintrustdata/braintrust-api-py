@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Optional
+from typing import Dict, Union, Optional
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
+from ..._types import SequenceNotStr
 from ..._utils import PropertyInfo
 
 __all__ = [
@@ -101,7 +102,7 @@ class ParamsOpenAIModelParams(TypedDict, total=False):
 
     response_format: Optional[ParamsOpenAIModelParamsResponseFormat]
 
-    stop: List[str]
+    stop: SequenceNotStr[str]
 
     temperature: float
 
@@ -120,7 +121,7 @@ class ParamsAnthropicModelParams(TypedDict, total=False):
     max_tokens_to_sample: float
     """This is a legacy parameter that should not be used."""
 
-    stop_sequences: List[str]
+    stop_sequences: SequenceNotStr[str]
 
     top_k: float
 

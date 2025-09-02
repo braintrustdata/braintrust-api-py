@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
+from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Required, TypedDict
 
+from .._types import SequenceNotStr
 from .shared.project_score_type import ProjectScoreType
 from .shared_params.project_score_config import ProjectScoreConfig
 from .shared_params.project_score_category import ProjectScoreCategory
@@ -22,7 +23,7 @@ class ProjectScoreReplaceParams(TypedDict, total=False):
     score_type: Required[ProjectScoreType]
     """The type of the configured score"""
 
-    categories: Union[Iterable[ProjectScoreCategory], Dict[str, float], List[str], None]
+    categories: Union[Iterable[ProjectScoreCategory], Dict[str, float], SequenceNotStr[str], None]
     """For categorical-type project scores, the list of all categories"""
 
     config: Optional[ProjectScoreConfig]

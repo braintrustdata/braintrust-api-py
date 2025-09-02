@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Union, Optional
 
 import httpx
 
@@ -12,7 +12,7 @@ from ..types import (
     project_tag_update_params,
     project_tag_replace_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -197,7 +197,7 @@ class ProjectTagsResource(SyncAPIResource):
         self,
         *,
         ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        ids: Union[str, SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         org_name: str | NotGiven = NOT_GIVEN,
         project_id: str | NotGiven = NOT_GIVEN,
@@ -533,7 +533,7 @@ class AsyncProjectTagsResource(AsyncAPIResource):
         self,
         *,
         ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
+        ids: Union[str, SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
         limit: Optional[int] | NotGiven = NOT_GIVEN,
         org_name: str | NotGiven = NOT_GIVEN,
         project_id: str | NotGiven = NOT_GIVEN,
