@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..types import prompt_list_params, prompt_create_params, prompt_update_params, prompt_replace_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -52,16 +52,16 @@ class PromptsResource(SyncAPIResource):
         name: str,
         project_id: str,
         slug: str,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        function_type: Optional[Literal["llm", "scorer", "task", "tool"]] | NotGiven = NOT_GIVEN,
-        prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
-        tags: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        function_type: Optional[Literal["llm", "scorer", "task", "tool"]] | Omit = omit,
+        prompt_data: Optional[PromptData] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Prompt:
         """Create a new prompt.
 
@@ -119,7 +119,7 @@ class PromptsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Prompt:
         """
         Get a prompt object by its id
@@ -149,17 +149,17 @@ class PromptsResource(SyncAPIResource):
         self,
         prompt_id: str,
         *,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
-        slug: Optional[str] | NotGiven = NOT_GIVEN,
-        tags: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        prompt_data: Optional[PromptData] | Omit = omit,
+        slug: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Prompt:
         """Partially update a prompt object.
 
@@ -211,22 +211,22 @@ class PromptsResource(SyncAPIResource):
     def list(
         self,
         *,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        project_id: str | NotGiven = NOT_GIVEN,
-        project_name: str | NotGiven = NOT_GIVEN,
-        prompt_name: str | NotGiven = NOT_GIVEN,
-        slug: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
-        version: str | NotGiven = NOT_GIVEN,
+        ending_before: str | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        org_name: str | Omit = omit,
+        project_id: str | Omit = omit,
+        project_name: str | Omit = omit,
+        prompt_name: str | Omit = omit,
+        slug: str | Omit = omit,
+        starting_after: str | Omit = omit,
+        version: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncListObjects[Prompt]:
         """List out all prompts.
 
@@ -310,7 +310,7 @@ class PromptsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Prompt:
         """
         Delete a prompt object by its id
@@ -342,16 +342,16 @@ class PromptsResource(SyncAPIResource):
         name: str,
         project_id: str,
         slug: str,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        function_type: Optional[Literal["llm", "scorer", "task", "tool"]] | NotGiven = NOT_GIVEN,
-        prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
-        tags: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        function_type: Optional[Literal["llm", "scorer", "task", "tool"]] | Omit = omit,
+        prompt_data: Optional[PromptData] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Prompt:
         """Create or replace prompt.
 
@@ -427,16 +427,16 @@ class AsyncPromptsResource(AsyncAPIResource):
         name: str,
         project_id: str,
         slug: str,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        function_type: Optional[Literal["llm", "scorer", "task", "tool"]] | NotGiven = NOT_GIVEN,
-        prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
-        tags: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        function_type: Optional[Literal["llm", "scorer", "task", "tool"]] | Omit = omit,
+        prompt_data: Optional[PromptData] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Prompt:
         """Create a new prompt.
 
@@ -494,7 +494,7 @@ class AsyncPromptsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Prompt:
         """
         Get a prompt object by its id
@@ -524,17 +524,17 @@ class AsyncPromptsResource(AsyncAPIResource):
         self,
         prompt_id: str,
         *,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
-        slug: Optional[str] | NotGiven = NOT_GIVEN,
-        tags: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        prompt_data: Optional[PromptData] | Omit = omit,
+        slug: Optional[str] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Prompt:
         """Partially update a prompt object.
 
@@ -586,22 +586,22 @@ class AsyncPromptsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        project_id: str | NotGiven = NOT_GIVEN,
-        project_name: str | NotGiven = NOT_GIVEN,
-        prompt_name: str | NotGiven = NOT_GIVEN,
-        slug: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
-        version: str | NotGiven = NOT_GIVEN,
+        ending_before: str | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        org_name: str | Omit = omit,
+        project_id: str | Omit = omit,
+        project_name: str | Omit = omit,
+        prompt_name: str | Omit = omit,
+        slug: str | Omit = omit,
+        starting_after: str | Omit = omit,
+        version: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[Prompt, AsyncListObjects[Prompt]]:
         """List out all prompts.
 
@@ -685,7 +685,7 @@ class AsyncPromptsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Prompt:
         """
         Delete a prompt object by its id
@@ -717,16 +717,16 @@ class AsyncPromptsResource(AsyncAPIResource):
         name: str,
         project_id: str,
         slug: str,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        function_type: Optional[Literal["llm", "scorer", "task", "tool"]] | NotGiven = NOT_GIVEN,
-        prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
-        tags: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        function_type: Optional[Literal["llm", "scorer", "task", "tool"]] | Omit = omit,
+        prompt_data: Optional[PromptData] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Prompt:
         """Create or replace prompt.
 

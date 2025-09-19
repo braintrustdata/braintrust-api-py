@@ -7,7 +7,7 @@ from typing import Union, Optional
 import httpx
 
 from ..types import group_list_params, group_create_params, group_update_params, group_replace_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -48,16 +48,16 @@ class GroupsResource(SyncAPIResource):
         self,
         *,
         name: str,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        member_groups: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        member_users: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        org_name: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        member_groups: Optional[SequenceNotStr[str]] | Omit = omit,
+        member_users: Optional[SequenceNotStr[str]] | Omit = omit,
+        org_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Group:
         """Create a new group.
 
@@ -115,7 +115,7 @@ class GroupsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Group:
         """
         Get a group object by its id
@@ -145,18 +145,18 @@ class GroupsResource(SyncAPIResource):
         self,
         group_id: str,
         *,
-        add_member_groups: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        add_member_users: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        remove_member_groups: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        remove_member_users: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        add_member_groups: Optional[SequenceNotStr[str]] | Omit = omit,
+        add_member_users: Optional[SequenceNotStr[str]] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        remove_member_groups: Optional[SequenceNotStr[str]] | Omit = omit,
+        remove_member_users: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Group:
         """Partially update a group object.
 
@@ -211,18 +211,18 @@ class GroupsResource(SyncAPIResource):
     def list(
         self,
         *,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        group_name: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        ending_before: str | Omit = omit,
+        group_name: str | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        org_name: str | Omit = omit,
+        starting_after: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncListObjects[Group]:
         """List out all groups.
 
@@ -291,7 +291,7 @@ class GroupsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Group:
         """
         Delete a group object by its id
@@ -321,16 +321,16 @@ class GroupsResource(SyncAPIResource):
         self,
         *,
         name: str,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        member_groups: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        member_users: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        org_name: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        member_groups: Optional[SequenceNotStr[str]] | Omit = omit,
+        member_users: Optional[SequenceNotStr[str]] | Omit = omit,
+        org_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Group:
         """Create or replace group.
 
@@ -405,16 +405,16 @@ class AsyncGroupsResource(AsyncAPIResource):
         self,
         *,
         name: str,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        member_groups: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        member_users: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        org_name: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        member_groups: Optional[SequenceNotStr[str]] | Omit = omit,
+        member_users: Optional[SequenceNotStr[str]] | Omit = omit,
+        org_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Group:
         """Create a new group.
 
@@ -472,7 +472,7 @@ class AsyncGroupsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Group:
         """
         Get a group object by its id
@@ -502,18 +502,18 @@ class AsyncGroupsResource(AsyncAPIResource):
         self,
         group_id: str,
         *,
-        add_member_groups: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        add_member_users: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        remove_member_groups: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        remove_member_users: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
+        add_member_groups: Optional[SequenceNotStr[str]] | Omit = omit,
+        add_member_users: Optional[SequenceNotStr[str]] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        remove_member_groups: Optional[SequenceNotStr[str]] | Omit = omit,
+        remove_member_users: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Group:
         """Partially update a group object.
 
@@ -568,18 +568,18 @@ class AsyncGroupsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        group_name: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        ending_before: str | Omit = omit,
+        group_name: str | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        org_name: str | Omit = omit,
+        starting_after: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[Group, AsyncListObjects[Group]]:
         """List out all groups.
 
@@ -648,7 +648,7 @@ class AsyncGroupsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Group:
         """
         Delete a group object by its id
@@ -678,16 +678,16 @@ class AsyncGroupsResource(AsyncAPIResource):
         self,
         *,
         name: str,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        member_groups: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        member_users: Optional[SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        org_name: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        member_groups: Optional[SequenceNotStr[str]] | Omit = omit,
+        member_users: Optional[SequenceNotStr[str]] | Omit = omit,
+        org_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Group:
         """Create or replace group.
 

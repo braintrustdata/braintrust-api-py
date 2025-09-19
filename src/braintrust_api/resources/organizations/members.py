@@ -6,7 +6,7 @@ from typing import Optional
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -46,16 +46,16 @@ class MembersResource(SyncAPIResource):
     def update(
         self,
         *,
-        invite_users: Optional[member_update_params.InviteUsers] | NotGiven = NOT_GIVEN,
-        org_id: Optional[str] | NotGiven = NOT_GIVEN,
-        org_name: Optional[str] | NotGiven = NOT_GIVEN,
-        remove_users: Optional[member_update_params.RemoveUsers] | NotGiven = NOT_GIVEN,
+        invite_users: Optional[member_update_params.InviteUsers] | Omit = omit,
+        org_id: Optional[str] | Omit = omit,
+        org_name: Optional[str] | Omit = omit,
+        remove_users: Optional[member_update_params.RemoveUsers] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PatchOrganizationMembersOutput:
         """
         Modify organization membership
@@ -124,16 +124,16 @@ class AsyncMembersResource(AsyncAPIResource):
     async def update(
         self,
         *,
-        invite_users: Optional[member_update_params.InviteUsers] | NotGiven = NOT_GIVEN,
-        org_id: Optional[str] | NotGiven = NOT_GIVEN,
-        org_name: Optional[str] | NotGiven = NOT_GIVEN,
-        remove_users: Optional[member_update_params.RemoveUsers] | NotGiven = NOT_GIVEN,
+        invite_users: Optional[member_update_params.InviteUsers] | Omit = omit,
+        org_id: Optional[str] | Omit = omit,
+        org_name: Optional[str] | Omit = omit,
+        remove_users: Optional[member_update_params.RemoveUsers] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PatchOrganizationMembersOutput:
         """
         Modify organization membership

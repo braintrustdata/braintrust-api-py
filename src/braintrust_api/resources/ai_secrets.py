@@ -13,7 +13,7 @@ from ..types import (
     ai_secret_replace_params,
     ai_secret_find_and_delete_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -54,16 +54,16 @@ class AISecretsResource(SyncAPIResource):
         self,
         *,
         name: str,
-        metadata: Optional[Dict[str, Optional[object]]] | NotGiven = NOT_GIVEN,
-        org_name: Optional[str] | NotGiven = NOT_GIVEN,
-        secret: Optional[str] | NotGiven = NOT_GIVEN,
-        type: Optional[str] | NotGiven = NOT_GIVEN,
+        metadata: Optional[Dict[str, Optional[object]]] | Omit = omit,
+        org_name: Optional[str] | Omit = omit,
+        secret: Optional[str] | Omit = omit,
+        type: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AISecret:
         """Create a new ai_secret.
 
@@ -115,7 +115,7 @@ class AISecretsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AISecret:
         """
         Get an ai_secret object by its id
@@ -145,16 +145,16 @@ class AISecretsResource(SyncAPIResource):
         self,
         ai_secret_id: str,
         *,
-        metadata: Optional[Dict[str, Optional[object]]] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        secret: Optional[str] | NotGiven = NOT_GIVEN,
-        type: Optional[str] | NotGiven = NOT_GIVEN,
+        metadata: Optional[Dict[str, Optional[object]]] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        secret: Optional[str] | Omit = omit,
+        type: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AISecret:
         """Partially update an ai_secret object.
 
@@ -197,19 +197,19 @@ class AISecretsResource(SyncAPIResource):
     def list(
         self,
         *,
-        ai_secret_name: str | NotGiven = NOT_GIVEN,
-        ai_secret_type: Union[str, SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        ai_secret_name: str | Omit = omit,
+        ai_secret_type: Union[str, SequenceNotStr[str]] | Omit = omit,
+        ending_before: str | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        org_name: str | Omit = omit,
+        starting_after: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncListObjects[AISecret]:
         """List out all ai_secrets.
 
@@ -279,7 +279,7 @@ class AISecretsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AISecret:
         """
         Delete an ai_secret object by its id
@@ -309,13 +309,13 @@ class AISecretsResource(SyncAPIResource):
         self,
         *,
         name: str,
-        org_name: Optional[str] | NotGiven = NOT_GIVEN,
+        org_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AISecret:
         """
         Delete a single ai_secret
@@ -354,16 +354,16 @@ class AISecretsResource(SyncAPIResource):
         self,
         *,
         name: str,
-        metadata: Optional[Dict[str, Optional[object]]] | NotGiven = NOT_GIVEN,
-        org_name: Optional[str] | NotGiven = NOT_GIVEN,
-        secret: Optional[str] | NotGiven = NOT_GIVEN,
-        type: Optional[str] | NotGiven = NOT_GIVEN,
+        metadata: Optional[Dict[str, Optional[object]]] | Omit = omit,
+        org_name: Optional[str] | Omit = omit,
+        secret: Optional[str] | Omit = omit,
+        type: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AISecret:
         """Create or replace ai_secret.
 
@@ -432,16 +432,16 @@ class AsyncAISecretsResource(AsyncAPIResource):
         self,
         *,
         name: str,
-        metadata: Optional[Dict[str, Optional[object]]] | NotGiven = NOT_GIVEN,
-        org_name: Optional[str] | NotGiven = NOT_GIVEN,
-        secret: Optional[str] | NotGiven = NOT_GIVEN,
-        type: Optional[str] | NotGiven = NOT_GIVEN,
+        metadata: Optional[Dict[str, Optional[object]]] | Omit = omit,
+        org_name: Optional[str] | Omit = omit,
+        secret: Optional[str] | Omit = omit,
+        type: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AISecret:
         """Create a new ai_secret.
 
@@ -493,7 +493,7 @@ class AsyncAISecretsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AISecret:
         """
         Get an ai_secret object by its id
@@ -523,16 +523,16 @@ class AsyncAISecretsResource(AsyncAPIResource):
         self,
         ai_secret_id: str,
         *,
-        metadata: Optional[Dict[str, Optional[object]]] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        secret: Optional[str] | NotGiven = NOT_GIVEN,
-        type: Optional[str] | NotGiven = NOT_GIVEN,
+        metadata: Optional[Dict[str, Optional[object]]] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        secret: Optional[str] | Omit = omit,
+        type: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AISecret:
         """Partially update an ai_secret object.
 
@@ -575,19 +575,19 @@ class AsyncAISecretsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        ai_secret_name: str | NotGiven = NOT_GIVEN,
-        ai_secret_type: Union[str, SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        ai_secret_name: str | Omit = omit,
+        ai_secret_type: Union[str, SequenceNotStr[str]] | Omit = omit,
+        ending_before: str | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        org_name: str | Omit = omit,
+        starting_after: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[AISecret, AsyncListObjects[AISecret]]:
         """List out all ai_secrets.
 
@@ -657,7 +657,7 @@ class AsyncAISecretsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AISecret:
         """
         Delete an ai_secret object by its id
@@ -687,13 +687,13 @@ class AsyncAISecretsResource(AsyncAPIResource):
         self,
         *,
         name: str,
-        org_name: Optional[str] | NotGiven = NOT_GIVEN,
+        org_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AISecret:
         """
         Delete a single ai_secret
@@ -732,16 +732,16 @@ class AsyncAISecretsResource(AsyncAPIResource):
         self,
         *,
         name: str,
-        metadata: Optional[Dict[str, Optional[object]]] | NotGiven = NOT_GIVEN,
-        org_name: Optional[str] | NotGiven = NOT_GIVEN,
-        secret: Optional[str] | NotGiven = NOT_GIVEN,
-        type: Optional[str] | NotGiven = NOT_GIVEN,
+        metadata: Optional[Dict[str, Optional[object]]] | Omit = omit,
+        org_name: Optional[str] | Omit = omit,
+        secret: Optional[str] | Omit = omit,
+        type: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AISecret:
         """Create or replace ai_secret.
 

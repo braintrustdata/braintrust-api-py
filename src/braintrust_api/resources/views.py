@@ -16,7 +16,7 @@ from ..types import (
     view_replace_params,
     view_retrieve_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -78,16 +78,16 @@ class ViewsResource(SyncAPIResource):
                 "logs",
             ]
         ],
-        deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
-        user_id: Optional[str] | NotGiven = NOT_GIVEN,
-        view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
+        deleted_at: Union[str, datetime, None] | Omit = omit,
+        options: Optional[ViewOptions] | Omit = omit,
+        user_id: Optional[str] | Omit = omit,
+        view_data: Optional[ViewData] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> View:
         """Create a new view.
 
@@ -151,7 +151,7 @@ class ViewsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> View:
         """
         Get a view object by its id
@@ -197,10 +197,10 @@ class ViewsResource(SyncAPIResource):
         *,
         object_id: str,
         object_type: ACLObjectType,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
-        user_id: Optional[str] | NotGiven = NOT_GIVEN,
-        view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | Omit = omit,
+        options: Optional[ViewOptions] | Omit = omit,
+        user_id: Optional[str] | Omit = omit,
+        view_data: Optional[ViewData] | Omit = omit,
         view_type: Optional[
             Literal[
                 "projects",
@@ -216,13 +216,13 @@ class ViewsResource(SyncAPIResource):
                 "logs",
             ]
         ]
-        | NotGiven = NOT_GIVEN,
+        | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> View:
         """Partially update a view object.
 
@@ -282,18 +282,18 @@ class ViewsResource(SyncAPIResource):
         *,
         object_id: str,
         object_type: ACLObjectType,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
-        view_name: str | NotGiven = NOT_GIVEN,
-        view_type: Optional[ViewType] | NotGiven = NOT_GIVEN,
+        ending_before: str | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        starting_after: str | Omit = omit,
+        view_name: str | Omit = omit,
+        view_type: Optional[ViewType] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncListObjects[View]:
         """List out all views.
 
@@ -370,7 +370,7 @@ class ViewsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> View:
         """
         Delete a view object by its id
@@ -428,16 +428,16 @@ class ViewsResource(SyncAPIResource):
                 "logs",
             ]
         ],
-        deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
-        user_id: Optional[str] | NotGiven = NOT_GIVEN,
-        view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
+        deleted_at: Union[str, datetime, None] | Omit = omit,
+        options: Optional[ViewOptions] | Omit = omit,
+        user_id: Optional[str] | Omit = omit,
+        view_data: Optional[ViewData] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> View:
         """Create or replace view.
 
@@ -533,16 +533,16 @@ class AsyncViewsResource(AsyncAPIResource):
                 "logs",
             ]
         ],
-        deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
-        user_id: Optional[str] | NotGiven = NOT_GIVEN,
-        view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
+        deleted_at: Union[str, datetime, None] | Omit = omit,
+        options: Optional[ViewOptions] | Omit = omit,
+        user_id: Optional[str] | Omit = omit,
+        view_data: Optional[ViewData] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> View:
         """Create a new view.
 
@@ -606,7 +606,7 @@ class AsyncViewsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> View:
         """
         Get a view object by its id
@@ -652,10 +652,10 @@ class AsyncViewsResource(AsyncAPIResource):
         *,
         object_id: str,
         object_type: ACLObjectType,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
-        user_id: Optional[str] | NotGiven = NOT_GIVEN,
-        view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
+        name: Optional[str] | Omit = omit,
+        options: Optional[ViewOptions] | Omit = omit,
+        user_id: Optional[str] | Omit = omit,
+        view_data: Optional[ViewData] | Omit = omit,
         view_type: Optional[
             Literal[
                 "projects",
@@ -671,13 +671,13 @@ class AsyncViewsResource(AsyncAPIResource):
                 "logs",
             ]
         ]
-        | NotGiven = NOT_GIVEN,
+        | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> View:
         """Partially update a view object.
 
@@ -737,18 +737,18 @@ class AsyncViewsResource(AsyncAPIResource):
         *,
         object_id: str,
         object_type: ACLObjectType,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
-        view_name: str | NotGiven = NOT_GIVEN,
-        view_type: Optional[ViewType] | NotGiven = NOT_GIVEN,
+        ending_before: str | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        starting_after: str | Omit = omit,
+        view_name: str | Omit = omit,
+        view_type: Optional[ViewType] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[View, AsyncListObjects[View]]:
         """List out all views.
 
@@ -825,7 +825,7 @@ class AsyncViewsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> View:
         """
         Delete a view object by its id
@@ -883,16 +883,16 @@ class AsyncViewsResource(AsyncAPIResource):
                 "logs",
             ]
         ],
-        deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
-        user_id: Optional[str] | NotGiven = NOT_GIVEN,
-        view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
+        deleted_at: Union[str, datetime, None] | Omit = omit,
+        options: Optional[ViewOptions] | Omit = omit,
+        user_id: Optional[str] | Omit = omit,
+        view_data: Optional[ViewData] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> View:
         """Create or replace view.
 

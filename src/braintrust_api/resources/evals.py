@@ -7,7 +7,7 @@ from typing import Dict, Iterable, Optional
 import httpx
 
 from ..types import eval_create_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -51,24 +51,24 @@ class EvalsResource(SyncAPIResource):
         project_id: str,
         scores: Iterable[eval_create_params.Score],
         task: eval_create_params.Task,
-        base_experiment_id: Optional[str] | NotGiven = NOT_GIVEN,
-        base_experiment_name: Optional[str] | NotGiven = NOT_GIVEN,
-        experiment_name: str | NotGiven = NOT_GIVEN,
-        git_metadata_settings: Optional[eval_create_params.GitMetadataSettings] | NotGiven = NOT_GIVEN,
-        is_public: Optional[bool] | NotGiven = NOT_GIVEN,
-        max_concurrency: Optional[float] | NotGiven = NOT_GIVEN,
-        metadata: Dict[str, Optional[object]] | NotGiven = NOT_GIVEN,
-        parent: eval_create_params.Parent | NotGiven = NOT_GIVEN,
-        repo_info: Optional[RepoInfo] | NotGiven = NOT_GIVEN,
-        stream: bool | NotGiven = NOT_GIVEN,
-        api_timeout: Optional[float] | NotGiven = NOT_GIVEN,
-        trial_count: Optional[float] | NotGiven = NOT_GIVEN,
+        base_experiment_id: Optional[str] | Omit = omit,
+        base_experiment_name: Optional[str] | Omit = omit,
+        experiment_name: str | Omit = omit,
+        git_metadata_settings: Optional[eval_create_params.GitMetadataSettings] | Omit = omit,
+        is_public: Optional[bool] | Omit = omit,
+        max_concurrency: Optional[float] | Omit = omit,
+        metadata: Dict[str, Optional[object]] | Omit = omit,
+        parent: eval_create_params.Parent | Omit = omit,
+        repo_info: Optional[RepoInfo] | Omit = omit,
+        stream: bool | Omit = omit,
+        api_timeout: Optional[float] | Omit = omit,
+        trial_count: Optional[float] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SummarizeExperimentResponse:
         """Launch an evaluation.
 
@@ -188,24 +188,24 @@ class AsyncEvalsResource(AsyncAPIResource):
         project_id: str,
         scores: Iterable[eval_create_params.Score],
         task: eval_create_params.Task,
-        base_experiment_id: Optional[str] | NotGiven = NOT_GIVEN,
-        base_experiment_name: Optional[str] | NotGiven = NOT_GIVEN,
-        experiment_name: str | NotGiven = NOT_GIVEN,
-        git_metadata_settings: Optional[eval_create_params.GitMetadataSettings] | NotGiven = NOT_GIVEN,
-        is_public: Optional[bool] | NotGiven = NOT_GIVEN,
-        max_concurrency: Optional[float] | NotGiven = NOT_GIVEN,
-        metadata: Dict[str, Optional[object]] | NotGiven = NOT_GIVEN,
-        parent: eval_create_params.Parent | NotGiven = NOT_GIVEN,
-        repo_info: Optional[RepoInfo] | NotGiven = NOT_GIVEN,
-        stream: bool | NotGiven = NOT_GIVEN,
-        api_timeout: Optional[float] | NotGiven = NOT_GIVEN,
-        trial_count: Optional[float] | NotGiven = NOT_GIVEN,
+        base_experiment_id: Optional[str] | Omit = omit,
+        base_experiment_name: Optional[str] | Omit = omit,
+        experiment_name: str | Omit = omit,
+        git_metadata_settings: Optional[eval_create_params.GitMetadataSettings] | Omit = omit,
+        is_public: Optional[bool] | Omit = omit,
+        max_concurrency: Optional[float] | Omit = omit,
+        metadata: Dict[str, Optional[object]] | Omit = omit,
+        parent: eval_create_params.Parent | Omit = omit,
+        repo_info: Optional[RepoInfo] | Omit = omit,
+        stream: bool | Omit = omit,
+        api_timeout: Optional[float] | Omit = omit,
+        trial_count: Optional[float] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SummarizeExperimentResponse:
         """Launch an evaluation.
 

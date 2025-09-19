@@ -12,7 +12,7 @@ from ..types import (
     project_score_update_params,
     project_score_replace_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven, SequenceNotStr
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -58,16 +58,15 @@ class ProjectScoresResource(SyncAPIResource):
         name: str,
         project_id: str,
         score_type: ProjectScoreType,
-        categories: Union[Iterable[ProjectScoreCategory], Dict[str, float], SequenceNotStr[str], None]
-        | NotGiven = NOT_GIVEN,
-        config: Optional[ProjectScoreConfig] | NotGiven = NOT_GIVEN,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
+        categories: Union[Iterable[ProjectScoreCategory], Dict[str, float], SequenceNotStr[str], None] | Omit = omit,
+        config: Optional[ProjectScoreConfig] | Omit = omit,
+        description: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProjectScore:
         """Create a new project_score.
 
@@ -122,7 +121,7 @@ class ProjectScoresResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProjectScore:
         """
         Get a project_score object by its id
@@ -152,18 +151,17 @@ class ProjectScoresResource(SyncAPIResource):
         self,
         project_score_id: str,
         *,
-        categories: Union[Iterable[ProjectScoreCategory], Dict[str, float], SequenceNotStr[str], None]
-        | NotGiven = NOT_GIVEN,
-        config: Optional[ProjectScoreConfig] | NotGiven = NOT_GIVEN,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        score_type: Optional[ProjectScoreType] | NotGiven = NOT_GIVEN,
+        categories: Union[Iterable[ProjectScoreCategory], Dict[str, float], SequenceNotStr[str], None] | Omit = omit,
+        config: Optional[ProjectScoreConfig] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        score_type: Optional[ProjectScoreType] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProjectScore:
         """Partially update a project_score object.
 
@@ -213,21 +211,21 @@ class ProjectScoresResource(SyncAPIResource):
     def list(
         self,
         *,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        project_id: str | NotGiven = NOT_GIVEN,
-        project_name: str | NotGiven = NOT_GIVEN,
-        project_score_name: str | NotGiven = NOT_GIVEN,
-        score_type: Union[ProjectScoreType, List[ProjectScoreType]] | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        ending_before: str | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        org_name: str | Omit = omit,
+        project_id: str | Omit = omit,
+        project_name: str | Omit = omit,
+        project_score_name: str | Omit = omit,
+        score_type: Union[ProjectScoreType, List[ProjectScoreType]] | Omit = omit,
+        starting_after: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncListObjects[ProjectScore]:
         """List out all project_scores.
 
@@ -305,7 +303,7 @@ class ProjectScoresResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProjectScore:
         """
         Delete a project_score object by its id
@@ -337,16 +335,15 @@ class ProjectScoresResource(SyncAPIResource):
         name: str,
         project_id: str,
         score_type: ProjectScoreType,
-        categories: Union[Iterable[ProjectScoreCategory], Dict[str, float], SequenceNotStr[str], None]
-        | NotGiven = NOT_GIVEN,
-        config: Optional[ProjectScoreConfig] | NotGiven = NOT_GIVEN,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
+        categories: Union[Iterable[ProjectScoreCategory], Dict[str, float], SequenceNotStr[str], None] | Omit = omit,
+        config: Optional[ProjectScoreConfig] | Omit = omit,
+        description: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProjectScore:
         """Create or replace project_score.
 
@@ -419,16 +416,15 @@ class AsyncProjectScoresResource(AsyncAPIResource):
         name: str,
         project_id: str,
         score_type: ProjectScoreType,
-        categories: Union[Iterable[ProjectScoreCategory], Dict[str, float], SequenceNotStr[str], None]
-        | NotGiven = NOT_GIVEN,
-        config: Optional[ProjectScoreConfig] | NotGiven = NOT_GIVEN,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
+        categories: Union[Iterable[ProjectScoreCategory], Dict[str, float], SequenceNotStr[str], None] | Omit = omit,
+        config: Optional[ProjectScoreConfig] | Omit = omit,
+        description: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProjectScore:
         """Create a new project_score.
 
@@ -483,7 +479,7 @@ class AsyncProjectScoresResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProjectScore:
         """
         Get a project_score object by its id
@@ -513,18 +509,17 @@ class AsyncProjectScoresResource(AsyncAPIResource):
         self,
         project_score_id: str,
         *,
-        categories: Union[Iterable[ProjectScoreCategory], Dict[str, float], SequenceNotStr[str], None]
-        | NotGiven = NOT_GIVEN,
-        config: Optional[ProjectScoreConfig] | NotGiven = NOT_GIVEN,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        score_type: Optional[ProjectScoreType] | NotGiven = NOT_GIVEN,
+        categories: Union[Iterable[ProjectScoreCategory], Dict[str, float], SequenceNotStr[str], None] | Omit = omit,
+        config: Optional[ProjectScoreConfig] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        score_type: Optional[ProjectScoreType] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProjectScore:
         """Partially update a project_score object.
 
@@ -574,21 +569,21 @@ class AsyncProjectScoresResource(AsyncAPIResource):
     def list(
         self,
         *,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, SequenceNotStr[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        project_id: str | NotGiven = NOT_GIVEN,
-        project_name: str | NotGiven = NOT_GIVEN,
-        project_score_name: str | NotGiven = NOT_GIVEN,
-        score_type: Union[ProjectScoreType, List[ProjectScoreType]] | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        ending_before: str | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        org_name: str | Omit = omit,
+        project_id: str | Omit = omit,
+        project_name: str | Omit = omit,
+        project_score_name: str | Omit = omit,
+        score_type: Union[ProjectScoreType, List[ProjectScoreType]] | Omit = omit,
+        starting_after: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[ProjectScore, AsyncListObjects[ProjectScore]]:
         """List out all project_scores.
 
@@ -666,7 +661,7 @@ class AsyncProjectScoresResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProjectScore:
         """
         Delete a project_score object by its id
@@ -698,16 +693,15 @@ class AsyncProjectScoresResource(AsyncAPIResource):
         name: str,
         project_id: str,
         score_type: ProjectScoreType,
-        categories: Union[Iterable[ProjectScoreCategory], Dict[str, float], SequenceNotStr[str], None]
-        | NotGiven = NOT_GIVEN,
-        config: Optional[ProjectScoreConfig] | NotGiven = NOT_GIVEN,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
+        categories: Union[Iterable[ProjectScoreCategory], Dict[str, float], SequenceNotStr[str], None] | Omit = omit,
+        config: Optional[ProjectScoreConfig] | Omit = omit,
+        description: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProjectScore:
         """Create or replace project_score.
 
