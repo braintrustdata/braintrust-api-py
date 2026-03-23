@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import Optional
 from typing_extensions import TypedDict
 
+from .._types import SequenceNotStr
 from .shared_params.prompt_data import PromptData
 
 __all__ = ["PromptUpdateParams"]
@@ -23,5 +24,5 @@ class PromptUpdateParams(TypedDict, total=False):
     slug: Optional[str]
     """Unique identifier for the prompt"""
 
-    tags: Optional[List[str]]
+    tags: Optional[SequenceNotStr[str]]
     """A list of tags for the prompt"""

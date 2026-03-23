@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Union, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from ..types.shared import CodeBundle
+from .._types import SequenceNotStr
+from .shared.acl_object_type import ACLObjectType
+from .shared_params.code_bundle import CodeBundle
 from .shared_params.prompt_data import PromptData
 
 __all__ = [
@@ -14,6 +16,7 @@ __all__ = [
     "FunctionDataPrompt",
     "FunctionDataCode",
     "FunctionDataCodeData",
+    "FunctionDataCodeDataBundle",
     "FunctionDataCodeDataInline",
     "FunctionDataCodeDataInlineRuntimeContext",
     "FunctionDataGlobal",
@@ -47,12 +50,16 @@ class FunctionCreateParams(TypedDict, total=False):
     prompt_data: Optional[PromptData]
     """The prompt, model, and its parameters"""
 
-    tags: Optional[List[str]]
+    tags: Optional[SequenceNotStr[str]]
     """A list of tags for the prompt"""
 
 
 class FunctionDataPrompt(TypedDict, total=False):
     type: Required[Literal["prompt"]]
+
+
+class FunctionDataCodeDataBundle(CodeBundle, total=False):
+    type: Required[Literal["bundle"]]
 
 
 class FunctionDataCodeDataInlineRuntimeContext(TypedDict, total=False):
@@ -69,7 +76,7 @@ class FunctionDataCodeDataInline(TypedDict, total=False):
     type: Required[Literal["inline"]]
 
 
-FunctionDataCodeData: TypeAlias = Union[CodeBundle, FunctionDataCodeDataInline]
+FunctionDataCodeData: TypeAlias = Union[FunctionDataCodeDataBundle, FunctionDataCodeDataInline]
 
 
 class FunctionDataCode(TypedDict, total=False):
@@ -88,30 +95,16 @@ FunctionData: TypeAlias = Union[FunctionDataPrompt, FunctionDataCode, FunctionDa
 
 
 class FunctionSchema(TypedDict, total=False):
-    parameters: Optional[object]
+    parameters: object
 
-    returns: Optional[object]
+    returns: object
 
 
 class Origin(TypedDict, total=False):
     object_id: Required[str]
     """Id of the object the function is originating from"""
 
-    object_type: Required[
-        Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ]
-    ]
+    object_type: Required[ACLObjectType]
     """The object type that the ACL applies to"""
 
     internal: Optional[bool]

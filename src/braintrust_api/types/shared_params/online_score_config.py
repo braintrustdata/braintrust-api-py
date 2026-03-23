@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
+from typing import Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
+
+from ..._types import SequenceNotStr
 
 __all__ = ["OnlineScoreConfig", "Scorer", "ScorerFunction", "ScorerGlobal"]
 
@@ -33,5 +35,5 @@ class OnlineScoreConfig(TypedDict, total=False):
     apply_to_root_span: Optional[bool]
     """Whether to trigger online scoring on the root span of each trace"""
 
-    apply_to_span_names: Optional[List[str]]
+    apply_to_span_names: Optional[SequenceNotStr[str]]
     """Trigger online scoring on any spans with a name in this list"""

@@ -115,6 +115,7 @@ class TestSpanIframes:
     def test_method_update_with_all_params(self, client: Braintrust) -> None:
         span_iframe = client.span_iframes.update(
             span_iframe_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            description="description",
             name="name",
             post_message=True,
             url="url",
@@ -277,7 +278,9 @@ class TestSpanIframes:
 
 
 class TestAsyncSpanIframes:
-    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
     @parametrize
     async def test_method_create(self, async_client: AsyncBraintrust) -> None:
@@ -376,6 +379,7 @@ class TestAsyncSpanIframes:
     async def test_method_update_with_all_params(self, async_client: AsyncBraintrust) -> None:
         span_iframe = await async_client.span_iframes.update(
             span_iframe_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            description="description",
             name="name",
             post_message=True,
             url="url",

@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Union, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from ..types.shared import CodeBundle
+from .._types import SequenceNotStr
+from .shared_params.code_bundle import CodeBundle
 from .shared_params.prompt_data import PromptData
 
 __all__ = [
@@ -14,10 +15,10 @@ __all__ = [
     "FunctionDataPrompt",
     "FunctionDataCode",
     "FunctionDataCodeData",
+    "FunctionDataCodeDataBundle",
     "FunctionDataCodeDataInline",
     "FunctionDataCodeDataInlineRuntimeContext",
     "FunctionDataGlobal",
-    "FunctionDataNullableVariant",
 ]
 
 
@@ -25,7 +26,7 @@ class FunctionUpdateParams(TypedDict, total=False):
     description: Optional[str]
     """Textual description of the prompt"""
 
-    function_data: FunctionData
+    function_data: Optional[FunctionData]
 
     name: Optional[str]
     """Name of the prompt"""
@@ -33,12 +34,16 @@ class FunctionUpdateParams(TypedDict, total=False):
     prompt_data: Optional[PromptData]
     """The prompt, model, and its parameters"""
 
-    tags: Optional[List[str]]
+    tags: Optional[SequenceNotStr[str]]
     """A list of tags for the prompt"""
 
 
 class FunctionDataPrompt(TypedDict, total=False):
     type: Required[Literal["prompt"]]
+
+
+class FunctionDataCodeDataBundle(CodeBundle, total=False):
+    type: Required[Literal["bundle"]]
 
 
 class FunctionDataCodeDataInlineRuntimeContext(TypedDict, total=False):
@@ -55,7 +60,7 @@ class FunctionDataCodeDataInline(TypedDict, total=False):
     type: Required[Literal["inline"]]
 
 
-FunctionDataCodeData: TypeAlias = Union[CodeBundle, FunctionDataCodeDataInline]
+FunctionDataCodeData: TypeAlias = Union[FunctionDataCodeDataBundle, FunctionDataCodeDataInline]
 
 
 class FunctionDataCode(TypedDict, total=False):
@@ -70,10 +75,4 @@ class FunctionDataGlobal(TypedDict, total=False):
     type: Required[Literal["global"]]
 
 
-class FunctionDataNullableVariant(TypedDict, total=False):
-    pass
-
-
-FunctionData: TypeAlias = Union[
-    FunctionDataPrompt, FunctionDataCode, FunctionDataGlobal, Optional[FunctionDataNullableVariant]
-]
+FunctionData: TypeAlias = Union[FunctionDataPrompt, FunctionDataCode, FunctionDataGlobal]

@@ -9,6 +9,7 @@ from pydantic import Field as FieldInfo
 from ..._models import BaseModel
 from .code_bundle import CodeBundle
 from .prompt_data import PromptData
+from .acl_object_type import ACLObjectType
 
 __all__ = [
     "Function",
@@ -75,19 +76,7 @@ class Origin(BaseModel):
     object_id: str
     """Id of the object the function is originating from"""
 
-    object_type: Literal[
-        "organization",
-        "project",
-        "experiment",
-        "dataset",
-        "prompt",
-        "prompt_session",
-        "group",
-        "role",
-        "org_member",
-        "project_log",
-        "org_project",
-    ]
+    object_type: ACLObjectType
     """The object type that the ACL applies to"""
 
     internal: Optional[bool] = None

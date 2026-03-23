@@ -2,22 +2,14 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Union, Optional
 from typing_extensions import Literal
 
 import httpx
 
-from ..types import (
-    env_var_list_params,
-    env_var_create_params,
-    env_var_update_params,
-    env_var_replace_params,
-)
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from .._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
+from ..types import env_var_list_params, env_var_create_params, env_var_update_params, env_var_replace_params
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -29,6 +21,7 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.shared.env_var import EnvVar
 from ..types.env_var_list_response import EnvVarListResponse
+from ..types.shared.env_var_object_type import EnvVarObjectType
 
 __all__ = ["EnvVarsResource", "AsyncEnvVarsResource"]
 
@@ -37,7 +30,7 @@ class EnvVarsResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> EnvVarsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
@@ -59,13 +52,13 @@ class EnvVarsResource(SyncAPIResource):
         name: str,
         object_id: str,
         object_type: Literal["organization", "project", "function"],
-        value: Optional[str] | NotGiven = NOT_GIVEN,
+        value: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EnvVar:
         """Create a new env_var.
 
@@ -115,7 +108,7 @@ class EnvVarsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EnvVar:
         """
         Get an env_var object by its id
@@ -146,13 +139,13 @@ class EnvVarsResource(SyncAPIResource):
         env_var_id: str,
         *,
         name: str,
-        value: Optional[str] | NotGiven = NOT_GIVEN,
+        value: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EnvVar:
         """Partially update an env_var object.
 
@@ -195,17 +188,17 @@ class EnvVarsResource(SyncAPIResource):
     def list(
         self,
         *,
-        env_var_name: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        object_id: str | NotGiven = NOT_GIVEN,
-        object_type: Literal["organization", "project", "function"] | NotGiven = NOT_GIVEN,
+        env_var_name: str | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        object_id: str | Omit = omit,
+        object_type: EnvVarObjectType | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EnvVarListResponse:
         """List out all env_vars.
 
@@ -262,7 +255,7 @@ class EnvVarsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EnvVar:
         """
         Delete an env_var object by its id
@@ -294,13 +287,13 @@ class EnvVarsResource(SyncAPIResource):
         name: str,
         object_id: str,
         object_type: Literal["organization", "project", "function"],
-        value: Optional[str] | NotGiven = NOT_GIVEN,
+        value: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EnvVar:
         """Create or replace env_var.
 
@@ -347,7 +340,7 @@ class AsyncEnvVarsResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncEnvVarsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
@@ -369,13 +362,13 @@ class AsyncEnvVarsResource(AsyncAPIResource):
         name: str,
         object_id: str,
         object_type: Literal["organization", "project", "function"],
-        value: Optional[str] | NotGiven = NOT_GIVEN,
+        value: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EnvVar:
         """Create a new env_var.
 
@@ -425,7 +418,7 @@ class AsyncEnvVarsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EnvVar:
         """
         Get an env_var object by its id
@@ -456,13 +449,13 @@ class AsyncEnvVarsResource(AsyncAPIResource):
         env_var_id: str,
         *,
         name: str,
-        value: Optional[str] | NotGiven = NOT_GIVEN,
+        value: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EnvVar:
         """Partially update an env_var object.
 
@@ -505,17 +498,17 @@ class AsyncEnvVarsResource(AsyncAPIResource):
     async def list(
         self,
         *,
-        env_var_name: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        object_id: str | NotGiven = NOT_GIVEN,
-        object_type: Literal["organization", "project", "function"] | NotGiven = NOT_GIVEN,
+        env_var_name: str | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        object_id: str | Omit = omit,
+        object_type: EnvVarObjectType | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EnvVarListResponse:
         """List out all env_vars.
 
@@ -572,7 +565,7 @@ class AsyncEnvVarsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EnvVar:
         """
         Delete an env_var object by its id
@@ -604,13 +597,13 @@ class AsyncEnvVarsResource(AsyncAPIResource):
         name: str,
         object_id: str,
         object_type: Literal["organization", "project", "function"],
-        value: Optional[str] | NotGiven = NOT_GIVEN,
+        value: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> EnvVar:
         """Create or replace env_var.
 

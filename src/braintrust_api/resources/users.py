@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Union, Optional
 
 import httpx
 
 from ..types import user_list_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -28,7 +28,7 @@ class UsersResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> UsersResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
@@ -53,7 +53,7 @@ class UsersResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> User:
         """
         Get a user object by its id
@@ -82,20 +82,20 @@ class UsersResource(SyncAPIResource):
     def list(
         self,
         *,
-        email: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        family_name: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        given_name: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        email: Union[str, SequenceNotStr[str]] | Omit = omit,
+        ending_before: str | Omit = omit,
+        family_name: Union[str, SequenceNotStr[str]] | Omit = omit,
+        given_name: Union[str, SequenceNotStr[str]] | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        org_name: str | Omit = omit,
+        starting_after: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncListObjects[User]:
         """List out all users.
 
@@ -169,7 +169,7 @@ class AsyncUsersResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncUsersResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
@@ -194,7 +194,7 @@ class AsyncUsersResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> User:
         """
         Get a user object by its id
@@ -223,20 +223,20 @@ class AsyncUsersResource(AsyncAPIResource):
     def list(
         self,
         *,
-        email: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        family_name: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        given_name: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        email: Union[str, SequenceNotStr[str]] | Omit = omit,
+        ending_before: str | Omit = omit,
+        family_name: Union[str, SequenceNotStr[str]] | Omit = omit,
+        given_name: Union[str, SequenceNotStr[str]] | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        org_name: str | Omit = omit,
+        starting_after: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[User, AsyncListObjects[User]]:
         """List out all users.
 

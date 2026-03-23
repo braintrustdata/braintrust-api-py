@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
+from typing import Dict, Union, Iterable, Optional
 
 import httpx
 
@@ -16,11 +16,8 @@ from ..types import (
     dataset_summarize_params,
     dataset_fetch_post_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from .._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -46,7 +43,7 @@ class DatasetsResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> DatasetsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
@@ -67,14 +64,14 @@ class DatasetsResource(SyncAPIResource):
         *,
         name: str,
         project_id: str,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        metadata: Optional[Dict[str, Optional[object]]] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        metadata: Optional[Dict[str, Optional[object]]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Dataset:
         """Create a new dataset.
 
@@ -125,7 +122,7 @@ class DatasetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Dataset:
         """
         Get a dataset object by its id
@@ -155,15 +152,15 @@ class DatasetsResource(SyncAPIResource):
         self,
         dataset_id: str,
         *,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        metadata: Optional[Dict[str, Optional[object]]] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        metadata: Optional[Dict[str, Optional[object]]] | Omit = omit,
+        name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Dataset:
         """Partially update a dataset object.
 
@@ -209,20 +206,20 @@ class DatasetsResource(SyncAPIResource):
     def list(
         self,
         *,
-        dataset_name: str | NotGiven = NOT_GIVEN,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        project_id: str | NotGiven = NOT_GIVEN,
-        project_name: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        dataset_name: str | Omit = omit,
+        ending_before: str | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        org_name: str | Omit = omit,
+        project_id: str | Omit = omit,
+        project_name: str | Omit = omit,
+        starting_after: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncListObjects[Dataset]:
         """List out all datasets.
 
@@ -297,7 +294,7 @@ class DatasetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Dataset:
         """
         Delete a dataset object by its id
@@ -333,7 +330,7 @@ class DatasetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FeedbackResponseSchema:
         """
         Log feedback for a set of dataset events
@@ -366,16 +363,16 @@ class DatasetsResource(SyncAPIResource):
         self,
         dataset_id: str,
         *,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        max_root_span_id: str | NotGiven = NOT_GIVEN,
-        max_xact_id: str | NotGiven = NOT_GIVEN,
-        version: str | NotGiven = NOT_GIVEN,
+        limit: Optional[int] | Omit = omit,
+        max_root_span_id: str | Omit = omit,
+        max_xact_id: str | Omit = omit,
+        version: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FetchDatasetEventsResponse:
         """Fetch the events in a dataset.
 
@@ -463,17 +460,17 @@ class DatasetsResource(SyncAPIResource):
         self,
         dataset_id: str,
         *,
-        cursor: Optional[str] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
-        max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
-        version: Optional[str] | NotGiven = NOT_GIVEN,
+        cursor: Optional[str] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        max_root_span_id: Optional[str] | Omit = omit,
+        max_xact_id: Optional[str] | Omit = omit,
+        version: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FetchDatasetEventsResponse:
         """Fetch the events in a dataset.
 
@@ -571,7 +568,7 @@ class DatasetsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InsertEventsResponse:
         """
         Insert a set of events into the dataset
@@ -604,13 +601,13 @@ class DatasetsResource(SyncAPIResource):
         self,
         dataset_id: str,
         *,
-        summarize_data: Optional[bool] | NotGiven = NOT_GIVEN,
+        summarize_data: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SummarizeDatasetResponse:
         """
         Summarize dataset
@@ -650,7 +647,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncDatasetsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
@@ -671,14 +668,14 @@ class AsyncDatasetsResource(AsyncAPIResource):
         *,
         name: str,
         project_id: str,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        metadata: Optional[Dict[str, Optional[object]]] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        metadata: Optional[Dict[str, Optional[object]]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Dataset:
         """Create a new dataset.
 
@@ -729,7 +726,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Dataset:
         """
         Get a dataset object by its id
@@ -759,15 +756,15 @@ class AsyncDatasetsResource(AsyncAPIResource):
         self,
         dataset_id: str,
         *,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        metadata: Optional[Dict[str, Optional[object]]] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        metadata: Optional[Dict[str, Optional[object]]] | Omit = omit,
+        name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Dataset:
         """Partially update a dataset object.
 
@@ -813,20 +810,20 @@ class AsyncDatasetsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        dataset_name: str | NotGiven = NOT_GIVEN,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        project_id: str | NotGiven = NOT_GIVEN,
-        project_name: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        dataset_name: str | Omit = omit,
+        ending_before: str | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        org_name: str | Omit = omit,
+        project_id: str | Omit = omit,
+        project_name: str | Omit = omit,
+        starting_after: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[Dataset, AsyncListObjects[Dataset]]:
         """List out all datasets.
 
@@ -901,7 +898,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Dataset:
         """
         Delete a dataset object by its id
@@ -937,7 +934,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FeedbackResponseSchema:
         """
         Log feedback for a set of dataset events
@@ -970,16 +967,16 @@ class AsyncDatasetsResource(AsyncAPIResource):
         self,
         dataset_id: str,
         *,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        max_root_span_id: str | NotGiven = NOT_GIVEN,
-        max_xact_id: str | NotGiven = NOT_GIVEN,
-        version: str | NotGiven = NOT_GIVEN,
+        limit: Optional[int] | Omit = omit,
+        max_root_span_id: str | Omit = omit,
+        max_xact_id: str | Omit = omit,
+        version: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FetchDatasetEventsResponse:
         """Fetch the events in a dataset.
 
@@ -1067,17 +1064,17 @@ class AsyncDatasetsResource(AsyncAPIResource):
         self,
         dataset_id: str,
         *,
-        cursor: Optional[str] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        max_root_span_id: Optional[str] | NotGiven = NOT_GIVEN,
-        max_xact_id: Optional[str] | NotGiven = NOT_GIVEN,
-        version: Optional[str] | NotGiven = NOT_GIVEN,
+        cursor: Optional[str] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        max_root_span_id: Optional[str] | Omit = omit,
+        max_xact_id: Optional[str] | Omit = omit,
+        version: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FetchDatasetEventsResponse:
         """Fetch the events in a dataset.
 
@@ -1175,7 +1172,7 @@ class AsyncDatasetsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InsertEventsResponse:
         """
         Insert a set of events into the dataset
@@ -1208,13 +1205,13 @@ class AsyncDatasetsResource(AsyncAPIResource):
         self,
         dataset_id: str,
         *,
-        summarize_data: Optional[bool] | NotGiven = NOT_GIVEN,
+        summarize_data: Optional[bool] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SummarizeDatasetResponse:
         """
         Summarize dataset

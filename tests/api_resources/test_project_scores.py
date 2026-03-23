@@ -40,7 +40,7 @@ class TestProjectScores:
                 }
             ],
             config={
-                "destination": "expected",
+                "destination": "destination",
                 "multi_select": True,
                 "online": {
                     "sampling_rate": 0,
@@ -142,7 +142,7 @@ class TestProjectScores:
                 }
             ],
             config={
-                "destination": "expected",
+                "destination": "destination",
                 "multi_select": True,
                 "online": {
                     "sampling_rate": 0,
@@ -293,7 +293,7 @@ class TestProjectScores:
                 }
             ],
             config={
-                "destination": "expected",
+                "destination": "destination",
                 "multi_select": True,
                 "online": {
                     "sampling_rate": 0,
@@ -341,7 +341,9 @@ class TestProjectScores:
 
 
 class TestAsyncProjectScores:
-    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
     @parametrize
     async def test_method_create(self, async_client: AsyncBraintrust) -> None:
@@ -365,7 +367,7 @@ class TestAsyncProjectScores:
                 }
             ],
             config={
-                "destination": "expected",
+                "destination": "destination",
                 "multi_select": True,
                 "online": {
                     "sampling_rate": 0,
@@ -467,7 +469,7 @@ class TestAsyncProjectScores:
                 }
             ],
             config={
-                "destination": "expected",
+                "destination": "destination",
                 "multi_select": True,
                 "online": {
                     "sampling_rate": 0,
@@ -618,7 +620,7 @@ class TestAsyncProjectScores:
                 }
             ],
             config={
-                "destination": "expected",
+                "destination": "destination",
                 "multi_select": True,
                 "online": {
                     "sampling_rate": 0,

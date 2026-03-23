@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
+from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Literal
 
 import httpx
@@ -14,11 +14,8 @@ from ..types import (
     function_update_params,
     function_replace_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from .._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -39,7 +36,7 @@ class FunctionsResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> FunctionsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
@@ -62,18 +59,18 @@ class FunctionsResource(SyncAPIResource):
         name: str,
         project_id: str,
         slug: str,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        function_schema: Optional[function_create_params.FunctionSchema] | NotGiven = NOT_GIVEN,
-        function_type: Optional[Literal["llm", "scorer", "task", "tool"]] | NotGiven = NOT_GIVEN,
-        origin: Optional[function_create_params.Origin] | NotGiven = NOT_GIVEN,
-        prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
-        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        function_schema: Optional[function_create_params.FunctionSchema] | Omit = omit,
+        function_type: Optional[Literal["llm", "scorer", "task", "tool"]] | Omit = omit,
+        origin: Optional[function_create_params.Origin] | Omit = omit,
+        prompt_data: Optional[PromptData] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Function:
         """Create a new function.
 
@@ -136,7 +133,7 @@ class FunctionsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Function:
         """
         Get a function object by its id
@@ -166,17 +163,17 @@ class FunctionsResource(SyncAPIResource):
         self,
         function_id: str,
         *,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        function_data: function_update_params.FunctionData | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
-        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        function_data: Optional[function_update_params.FunctionData] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        prompt_data: Optional[PromptData] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Function:
         """Partially update a function object.
 
@@ -226,22 +223,22 @@ class FunctionsResource(SyncAPIResource):
     def list(
         self,
         *,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        function_name: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        project_id: str | NotGiven = NOT_GIVEN,
-        project_name: str | NotGiven = NOT_GIVEN,
-        slug: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
-        version: str | NotGiven = NOT_GIVEN,
+        ending_before: str | Omit = omit,
+        function_name: str | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        org_name: str | Omit = omit,
+        project_id: str | Omit = omit,
+        project_name: str | Omit = omit,
+        slug: str | Omit = omit,
+        starting_after: str | Omit = omit,
+        version: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncListObjects[Function]:
         """List out all functions.
 
@@ -325,7 +322,7 @@ class FunctionsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Function:
         """
         Delete a function object by its id
@@ -355,18 +352,20 @@ class FunctionsResource(SyncAPIResource):
         self,
         function_id: str,
         *,
-        input: Optional[object] | NotGiven = NOT_GIVEN,
-        messages: Iterable[function_invoke_params.Message] | NotGiven = NOT_GIVEN,
-        mode: Optional[Literal["auto", "parallel"]] | NotGiven = NOT_GIVEN,
-        parent: function_invoke_params.Parent | NotGiven = NOT_GIVEN,
-        stream: Optional[bool] | NotGiven = NOT_GIVEN,
-        version: str | NotGiven = NOT_GIVEN,
+        expected: object | Omit = omit,
+        input: object | Omit = omit,
+        messages: Iterable[function_invoke_params.Message] | Omit = omit,
+        metadata: Optional[Dict[str, Optional[object]]] | Omit = omit,
+        mode: Optional[Literal["auto", "parallel"]] | Omit = omit,
+        parent: function_invoke_params.Parent | Omit = omit,
+        stream: Optional[bool] | Omit = omit,
+        version: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
         """
         Invoke a function.
@@ -374,9 +373,13 @@ class FunctionsResource(SyncAPIResource):
         Args:
           function_id: Function id
 
+          expected: The expected output of the function
+
           input: Argument to the function, which can be any JSON serializable value
 
           messages: If the function is an LLM, additional messages to pass along to it
+
+          metadata: Any relevant metadata
 
           mode: The mode format of the returned value (defaults to 'auto')
 
@@ -401,8 +404,10 @@ class FunctionsResource(SyncAPIResource):
             f"/v1/function/{function_id}/invoke",
             body=maybe_transform(
                 {
+                    "expected": expected,
                     "input": input,
                     "messages": messages,
+                    "metadata": metadata,
                     "mode": mode,
                     "parent": parent,
                     "stream": stream,
@@ -423,18 +428,18 @@ class FunctionsResource(SyncAPIResource):
         name: str,
         project_id: str,
         slug: str,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        function_schema: Optional[function_replace_params.FunctionSchema] | NotGiven = NOT_GIVEN,
-        function_type: Optional[Literal["llm", "scorer", "task", "tool"]] | NotGiven = NOT_GIVEN,
-        origin: Optional[function_replace_params.Origin] | NotGiven = NOT_GIVEN,
-        prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
-        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        function_schema: Optional[function_replace_params.FunctionSchema] | Omit = omit,
+        function_type: Optional[Literal["llm", "scorer", "task", "tool"]] | Omit = omit,
+        origin: Optional[function_replace_params.Origin] | Omit = omit,
+        prompt_data: Optional[PromptData] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Function:
         """Create or replace function.
 
@@ -493,7 +498,7 @@ class AsyncFunctionsResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncFunctionsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
@@ -516,18 +521,18 @@ class AsyncFunctionsResource(AsyncAPIResource):
         name: str,
         project_id: str,
         slug: str,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        function_schema: Optional[function_create_params.FunctionSchema] | NotGiven = NOT_GIVEN,
-        function_type: Optional[Literal["llm", "scorer", "task", "tool"]] | NotGiven = NOT_GIVEN,
-        origin: Optional[function_create_params.Origin] | NotGiven = NOT_GIVEN,
-        prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
-        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        function_schema: Optional[function_create_params.FunctionSchema] | Omit = omit,
+        function_type: Optional[Literal["llm", "scorer", "task", "tool"]] | Omit = omit,
+        origin: Optional[function_create_params.Origin] | Omit = omit,
+        prompt_data: Optional[PromptData] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Function:
         """Create a new function.
 
@@ -590,7 +595,7 @@ class AsyncFunctionsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Function:
         """
         Get a function object by its id
@@ -620,17 +625,17 @@ class AsyncFunctionsResource(AsyncAPIResource):
         self,
         function_id: str,
         *,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        function_data: function_update_params.FunctionData | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
-        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        function_data: Optional[function_update_params.FunctionData] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        prompt_data: Optional[PromptData] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Function:
         """Partially update a function object.
 
@@ -680,22 +685,22 @@ class AsyncFunctionsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        function_name: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        project_id: str | NotGiven = NOT_GIVEN,
-        project_name: str | NotGiven = NOT_GIVEN,
-        slug: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
-        version: str | NotGiven = NOT_GIVEN,
+        ending_before: str | Omit = omit,
+        function_name: str | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        org_name: str | Omit = omit,
+        project_id: str | Omit = omit,
+        project_name: str | Omit = omit,
+        slug: str | Omit = omit,
+        starting_after: str | Omit = omit,
+        version: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[Function, AsyncListObjects[Function]]:
         """List out all functions.
 
@@ -779,7 +784,7 @@ class AsyncFunctionsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Function:
         """
         Delete a function object by its id
@@ -809,18 +814,20 @@ class AsyncFunctionsResource(AsyncAPIResource):
         self,
         function_id: str,
         *,
-        input: Optional[object] | NotGiven = NOT_GIVEN,
-        messages: Iterable[function_invoke_params.Message] | NotGiven = NOT_GIVEN,
-        mode: Optional[Literal["auto", "parallel"]] | NotGiven = NOT_GIVEN,
-        parent: function_invoke_params.Parent | NotGiven = NOT_GIVEN,
-        stream: Optional[bool] | NotGiven = NOT_GIVEN,
-        version: str | NotGiven = NOT_GIVEN,
+        expected: object | Omit = omit,
+        input: object | Omit = omit,
+        messages: Iterable[function_invoke_params.Message] | Omit = omit,
+        metadata: Optional[Dict[str, Optional[object]]] | Omit = omit,
+        mode: Optional[Literal["auto", "parallel"]] | Omit = omit,
+        parent: function_invoke_params.Parent | Omit = omit,
+        stream: Optional[bool] | Omit = omit,
+        version: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> object:
         """
         Invoke a function.
@@ -828,9 +835,13 @@ class AsyncFunctionsResource(AsyncAPIResource):
         Args:
           function_id: Function id
 
+          expected: The expected output of the function
+
           input: Argument to the function, which can be any JSON serializable value
 
           messages: If the function is an LLM, additional messages to pass along to it
+
+          metadata: Any relevant metadata
 
           mode: The mode format of the returned value (defaults to 'auto')
 
@@ -855,8 +866,10 @@ class AsyncFunctionsResource(AsyncAPIResource):
             f"/v1/function/{function_id}/invoke",
             body=await async_maybe_transform(
                 {
+                    "expected": expected,
                     "input": input,
                     "messages": messages,
+                    "metadata": metadata,
                     "mode": mode,
                     "parent": parent,
                     "stream": stream,
@@ -877,18 +890,18 @@ class AsyncFunctionsResource(AsyncAPIResource):
         name: str,
         project_id: str,
         slug: str,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        function_schema: Optional[function_replace_params.FunctionSchema] | NotGiven = NOT_GIVEN,
-        function_type: Optional[Literal["llm", "scorer", "task", "tool"]] | NotGiven = NOT_GIVEN,
-        origin: Optional[function_replace_params.Origin] | NotGiven = NOT_GIVEN,
-        prompt_data: Optional[PromptData] | NotGiven = NOT_GIVEN,
-        tags: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        function_schema: Optional[function_replace_params.FunctionSchema] | Omit = omit,
+        function_type: Optional[Literal["llm", "scorer", "task", "tool"]] | Omit = omit,
+        origin: Optional[function_replace_params.Origin] | Omit = omit,
+        prompt_data: Optional[PromptData] | Omit = omit,
+        tags: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Function:
         """Create or replace function.
 

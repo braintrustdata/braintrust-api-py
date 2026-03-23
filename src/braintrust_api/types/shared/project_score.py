@@ -2,22 +2,13 @@
 
 from typing import Dict, List, Union, Optional
 from datetime import datetime
-from typing_extensions import Literal, TypeAlias
 
 from ..._models import BaseModel
+from .project_score_type import ProjectScoreType
 from .project_score_config import ProjectScoreConfig
 from .project_score_category import ProjectScoreCategory
 
-__all__ = ["ProjectScore", "Categories", "CategoriesNullableVariant"]
-
-
-class CategoriesNullableVariant(BaseModel):
-    pass
-
-
-Categories: TypeAlias = Union[
-    List[ProjectScoreCategory], Dict[str, float], List[str], Optional[CategoriesNullableVariant]
-]
+__all__ = ["ProjectScore"]
 
 
 class ProjectScore(BaseModel):
@@ -30,12 +21,12 @@ class ProjectScore(BaseModel):
     project_id: str
     """Unique identifier for the project that the project score belongs under"""
 
-    score_type: Literal["slider", "categorical", "weighted", "minimum", "maximum", "online"]
+    score_type: ProjectScoreType
     """The type of the configured score"""
 
     user_id: str
 
-    categories: Optional[Categories] = None
+    categories: Union[List[ProjectScoreCategory], Dict[str, float], List[str], None] = None
     """For categorical-type project scores, the list of all categories"""
 
     config: Optional[ProjectScoreConfig] = None

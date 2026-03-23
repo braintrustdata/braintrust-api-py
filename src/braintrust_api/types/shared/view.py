@@ -7,6 +7,7 @@ from typing_extensions import Literal
 from ..._models import BaseModel
 from .view_data import ViewData
 from .view_options import ViewOptions
+from .acl_object_type import ACLObjectType
 
 __all__ = ["View"]
 
@@ -21,23 +22,23 @@ class View(BaseModel):
     object_id: str
     """The id of the object the view applies to"""
 
-    object_type: Literal[
-        "organization",
-        "project",
-        "experiment",
-        "dataset",
-        "prompt",
-        "prompt_session",
-        "group",
-        "role",
-        "org_member",
-        "project_log",
-        "org_project",
-    ]
+    object_type: ACLObjectType
     """The object type that the ACL applies to"""
 
     view_type: Optional[
-        Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+        Literal[
+            "projects",
+            "experiments",
+            "experiment",
+            "playgrounds",
+            "playground",
+            "datasets",
+            "dataset",
+            "prompts",
+            "tools",
+            "scorers",
+            "logs",
+        ]
     ] = None
     """Type of table that the view corresponds to."""
 

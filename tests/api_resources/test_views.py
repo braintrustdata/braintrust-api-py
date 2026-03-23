@@ -41,6 +41,9 @@ class TestViews:
                 "column_order": ["string"],
                 "column_sizing": {"foo": 0},
                 "column_visibility": {"foo": True},
+                "grouping": "grouping",
+                "layout": "layout",
+                "row_height": "rowHeight",
             },
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_data={
@@ -150,6 +153,9 @@ class TestViews:
                 "column_order": ["string"],
                 "column_sizing": {"foo": 0},
                 "column_visibility": {"foo": True},
+                "grouping": "grouping",
+                "layout": "layout",
+                "row_height": "rowHeight",
             },
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_data={
@@ -317,6 +323,9 @@ class TestViews:
                 "column_order": ["string"],
                 "column_sizing": {"foo": 0},
                 "column_visibility": {"foo": True},
+                "grouping": "grouping",
+                "layout": "layout",
+                "row_height": "rowHeight",
             },
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_data={
@@ -362,7 +371,9 @@ class TestViews:
 
 
 class TestAsyncViews:
-    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
     @parametrize
     async def test_method_create(self, async_client: AsyncBraintrust) -> None:
@@ -386,6 +397,9 @@ class TestAsyncViews:
                 "column_order": ["string"],
                 "column_sizing": {"foo": 0},
                 "column_visibility": {"foo": True},
+                "grouping": "grouping",
+                "layout": "layout",
+                "row_height": "rowHeight",
             },
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_data={
@@ -495,6 +509,9 @@ class TestAsyncViews:
                 "column_order": ["string"],
                 "column_sizing": {"foo": 0},
                 "column_visibility": {"foo": True},
+                "grouping": "grouping",
+                "layout": "layout",
+                "row_height": "rowHeight",
             },
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_data={
@@ -662,6 +679,9 @@ class TestAsyncViews:
                 "column_order": ["string"],
                 "column_sizing": {"foo": 0},
                 "column_visibility": {"foo": True},
+                "grouping": "grouping",
+                "layout": "layout",
+                "row_height": "rowHeight",
             },
             user_id="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             view_data={

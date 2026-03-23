@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Optional
+from typing import Dict, Union, Optional
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
+from ..._types import SequenceNotStr
 from ..._utils import PropertyInfo
 
 __all__ = [
@@ -18,7 +19,6 @@ __all__ = [
     "ParamsOpenAIModelParamsResponseFormatJsonSchema",
     "ParamsOpenAIModelParamsResponseFormatJsonSchemaJsonSchema",
     "ParamsOpenAIModelParamsResponseFormatText",
-    "ParamsOpenAIModelParamsResponseFormatNullableVariant",
     "ParamsOpenAIModelParamsToolChoice",
     "ParamsOpenAIModelParamsToolChoiceFunction",
     "ParamsOpenAIModelParamsToolChoiceFunctionFunction",
@@ -34,7 +34,7 @@ class ParamsOpenAIModelParamsFunctionCallFunction(TypedDict, total=False):
 
 
 ParamsOpenAIModelParamsFunctionCall: TypeAlias = Union[
-    Literal["auto"], Literal["none"], ParamsOpenAIModelParamsFunctionCallFunction
+    Literal["auto", "none"], ParamsOpenAIModelParamsFunctionCallFunction
 ]
 
 
@@ -47,7 +47,7 @@ class ParamsOpenAIModelParamsResponseFormatJsonSchemaJsonSchema(TypedDict, total
 
     description: str
 
-    schema: Dict[str, Optional[object]]
+    schema: Union[Dict[str, Optional[object]], str]
 
     strict: Optional[bool]
 
@@ -62,15 +62,10 @@ class ParamsOpenAIModelParamsResponseFormatText(TypedDict, total=False):
     type: Required[Literal["text"]]
 
 
-class ParamsOpenAIModelParamsResponseFormatNullableVariant(TypedDict, total=False):
-    pass
-
-
 ParamsOpenAIModelParamsResponseFormat: TypeAlias = Union[
     ParamsOpenAIModelParamsResponseFormatJsonObject,
     ParamsOpenAIModelParamsResponseFormatJsonSchema,
     ParamsOpenAIModelParamsResponseFormatText,
-    Optional[ParamsOpenAIModelParamsResponseFormatNullableVariant],
 ]
 
 
@@ -85,7 +80,7 @@ class ParamsOpenAIModelParamsToolChoiceFunction(TypedDict, total=False):
 
 
 ParamsOpenAIModelParamsToolChoice: TypeAlias = Union[
-    Literal["auto"], Literal["none"], Literal["required"], ParamsOpenAIModelParamsToolChoiceFunction
+    Literal["auto", "none", "required"], ParamsOpenAIModelParamsToolChoiceFunction
 ]
 
 
@@ -94,15 +89,20 @@ class ParamsOpenAIModelParams(TypedDict, total=False):
 
     function_call: ParamsOpenAIModelParamsFunctionCall
 
+    max_completion_tokens: float
+    """The successor to max_tokens"""
+
     max_tokens: float
 
     n: float
 
     presence_penalty: float
 
-    response_format: ParamsOpenAIModelParamsResponseFormat
+    reasoning_effort: Literal["low", "medium", "high"]
 
-    stop: List[str]
+    response_format: Optional[ParamsOpenAIModelParamsResponseFormat]
+
+    stop: SequenceNotStr[str]
 
     temperature: float
 
@@ -121,7 +121,7 @@ class ParamsAnthropicModelParams(TypedDict, total=False):
     max_tokens_to_sample: float
     """This is a legacy parameter that should not be used."""
 
-    stop_sequences: List[str]
+    stop_sequences: SequenceNotStr[str]
 
     top_k: float
 

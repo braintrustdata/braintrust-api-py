@@ -41,9 +41,11 @@ class TestPrompts:
                     "params": {
                         "frequency_penalty": 0,
                         "function_call": "auto",
+                        "max_completion_tokens": 0,
                         "max_tokens": 0,
                         "n": 0,
                         "presence_penalty": 0,
+                        "reasoning_effort": "low",
                         "response_format": {"type": "json_object"},
                         "stop": ["string"],
                         "temperature": 0,
@@ -163,9 +165,11 @@ class TestPrompts:
                     "params": {
                         "frequency_penalty": 0,
                         "function_call": "auto",
+                        "max_completion_tokens": 0,
                         "max_tokens": 0,
                         "n": 0,
                         "presence_penalty": 0,
+                        "reasoning_effort": "low",
                         "response_format": {"type": "json_object"},
                         "stop": ["string"],
                         "temperature": 0,
@@ -334,9 +338,11 @@ class TestPrompts:
                     "params": {
                         "frequency_penalty": 0,
                         "function_call": "auto",
+                        "max_completion_tokens": 0,
                         "max_tokens": 0,
                         "n": 0,
                         "presence_penalty": 0,
+                        "reasoning_effort": "low",
                         "response_format": {"type": "json_object"},
                         "stop": ["string"],
                         "temperature": 0,
@@ -401,7 +407,9 @@ class TestPrompts:
 
 
 class TestAsyncPrompts:
-    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
     @parametrize
     async def test_method_create(self, async_client: AsyncBraintrust) -> None:
@@ -426,9 +434,11 @@ class TestAsyncPrompts:
                     "params": {
                         "frequency_penalty": 0,
                         "function_call": "auto",
+                        "max_completion_tokens": 0,
                         "max_tokens": 0,
                         "n": 0,
                         "presence_penalty": 0,
+                        "reasoning_effort": "low",
                         "response_format": {"type": "json_object"},
                         "stop": ["string"],
                         "temperature": 0,
@@ -548,9 +558,11 @@ class TestAsyncPrompts:
                     "params": {
                         "frequency_penalty": 0,
                         "function_call": "auto",
+                        "max_completion_tokens": 0,
                         "max_tokens": 0,
                         "n": 0,
                         "presence_penalty": 0,
+                        "reasoning_effort": "low",
                         "response_format": {"type": "json_object"},
                         "stop": ["string"],
                         "temperature": 0,
@@ -719,9 +731,11 @@ class TestAsyncPrompts:
                     "params": {
                         "frequency_penalty": 0,
                         "function_call": "auto",
+                        "max_completion_tokens": 0,
                         "max_tokens": 0,
                         "n": 0,
                         "presence_penalty": 0,
+                        "reasoning_effort": "low",
                         "response_format": {"type": "json_object"},
                         "stop": ["string"],
                         "temperature": 0,

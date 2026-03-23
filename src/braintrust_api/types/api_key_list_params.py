@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Union, Optional
 from typing_extensions import TypedDict
+
+from .._types import SequenceNotStr
 
 __all__ = ["APIKeyListParams"]
 
@@ -20,7 +22,7 @@ class APIKeyListParams(TypedDict, total=False):
     pass one of `starting_after` and `ending_before`
     """
 
-    ids: Union[str, List[str]]
+    ids: Union[str, SequenceNotStr[str]]
     """Filter search results to a particular set of object IDs.
 
     To specify a list of IDs, include the query param multiple times

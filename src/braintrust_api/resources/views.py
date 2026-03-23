@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Union, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -16,11 +16,8 @@ from ..types import (
     view_replace_params,
     view_retrieve_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from .._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -32,6 +29,8 @@ from .._response import (
 from ..pagination import SyncListObjects, AsyncListObjects
 from .._base_client import AsyncPaginator, make_request_options
 from ..types.shared.view import View
+from ..types.shared.view_type import ViewType
+from ..types.shared.acl_object_type import ACLObjectType
 from ..types.shared_params.view_data import ViewData
 from ..types.shared_params.view_options import ViewOptions
 
@@ -42,7 +41,7 @@ class ViewsResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> ViewsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
@@ -63,32 +62,32 @@ class ViewsResource(SyncAPIResource):
         *,
         name: str,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
+        object_type: ACLObjectType,
         view_type: Optional[
-            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+            Literal[
+                "projects",
+                "experiments",
+                "experiment",
+                "playgrounds",
+                "playground",
+                "datasets",
+                "dataset",
+                "prompts",
+                "tools",
+                "scorers",
+                "logs",
+            ]
         ],
-        deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
-        user_id: Optional[str] | NotGiven = NOT_GIVEN,
-        view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
+        deleted_at: Union[str, datetime, None] | Omit = omit,
+        options: Optional[ViewOptions] | Omit = omit,
+        user_id: Optional[str] | Omit = omit,
+        view_data: Optional[ViewData] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> View:
         """Create a new view.
 
@@ -146,25 +145,13 @@ class ViewsResource(SyncAPIResource):
         view_id: str,
         *,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
+        object_type: ACLObjectType,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> View:
         """
         Get a view object by its id
@@ -209,33 +196,33 @@ class ViewsResource(SyncAPIResource):
         view_id: str,
         *,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
-        user_id: Optional[str] | NotGiven = NOT_GIVEN,
-        view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
+        object_type: ACLObjectType,
+        name: Optional[str] | Omit = omit,
+        options: Optional[ViewOptions] | Omit = omit,
+        user_id: Optional[str] | Omit = omit,
+        view_data: Optional[ViewData] | Omit = omit,
         view_type: Optional[
-            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+            Literal[
+                "projects",
+                "experiments",
+                "experiment",
+                "playgrounds",
+                "playground",
+                "datasets",
+                "dataset",
+                "prompts",
+                "tools",
+                "scorers",
+                "logs",
+            ]
         ]
-        | NotGiven = NOT_GIVEN,
+        | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> View:
         """Partially update a view object.
 
@@ -294,34 +281,19 @@ class ViewsResource(SyncAPIResource):
         self,
         *,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
-        view_name: str | NotGiven = NOT_GIVEN,
-        view_type: Optional[
-            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
-        ]
-        | NotGiven = NOT_GIVEN,
+        object_type: ACLObjectType,
+        ending_before: str | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        starting_after: str | Omit = omit,
+        view_name: str | Omit = omit,
+        view_type: Optional[ViewType] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncListObjects[View]:
         """List out all views.
 
@@ -392,25 +364,13 @@ class ViewsResource(SyncAPIResource):
         view_id: str,
         *,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
+        object_type: ACLObjectType,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> View:
         """
         Delete a view object by its id
@@ -452,32 +412,32 @@ class ViewsResource(SyncAPIResource):
         *,
         name: str,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
+        object_type: ACLObjectType,
         view_type: Optional[
-            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+            Literal[
+                "projects",
+                "experiments",
+                "experiment",
+                "playgrounds",
+                "playground",
+                "datasets",
+                "dataset",
+                "prompts",
+                "tools",
+                "scorers",
+                "logs",
+            ]
         ],
-        deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
-        user_id: Optional[str] | NotGiven = NOT_GIVEN,
-        view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
+        deleted_at: Union[str, datetime, None] | Omit = omit,
+        options: Optional[ViewOptions] | Omit = omit,
+        user_id: Optional[str] | Omit = omit,
+        view_data: Optional[ViewData] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> View:
         """Create or replace view.
 
@@ -536,7 +496,7 @@ class AsyncViewsResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncViewsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
@@ -557,32 +517,32 @@ class AsyncViewsResource(AsyncAPIResource):
         *,
         name: str,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
+        object_type: ACLObjectType,
         view_type: Optional[
-            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+            Literal[
+                "projects",
+                "experiments",
+                "experiment",
+                "playgrounds",
+                "playground",
+                "datasets",
+                "dataset",
+                "prompts",
+                "tools",
+                "scorers",
+                "logs",
+            ]
         ],
-        deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
-        user_id: Optional[str] | NotGiven = NOT_GIVEN,
-        view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
+        deleted_at: Union[str, datetime, None] | Omit = omit,
+        options: Optional[ViewOptions] | Omit = omit,
+        user_id: Optional[str] | Omit = omit,
+        view_data: Optional[ViewData] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> View:
         """Create a new view.
 
@@ -640,25 +600,13 @@ class AsyncViewsResource(AsyncAPIResource):
         view_id: str,
         *,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
+        object_type: ACLObjectType,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> View:
         """
         Get a view object by its id
@@ -703,33 +651,33 @@ class AsyncViewsResource(AsyncAPIResource):
         view_id: str,
         *,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
-        user_id: Optional[str] | NotGiven = NOT_GIVEN,
-        view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
+        object_type: ACLObjectType,
+        name: Optional[str] | Omit = omit,
+        options: Optional[ViewOptions] | Omit = omit,
+        user_id: Optional[str] | Omit = omit,
+        view_data: Optional[ViewData] | Omit = omit,
         view_type: Optional[
-            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+            Literal[
+                "projects",
+                "experiments",
+                "experiment",
+                "playgrounds",
+                "playground",
+                "datasets",
+                "dataset",
+                "prompts",
+                "tools",
+                "scorers",
+                "logs",
+            ]
         ]
-        | NotGiven = NOT_GIVEN,
+        | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> View:
         """Partially update a view object.
 
@@ -788,34 +736,19 @@ class AsyncViewsResource(AsyncAPIResource):
         self,
         *,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
-        view_name: str | NotGiven = NOT_GIVEN,
-        view_type: Optional[
-            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
-        ]
-        | NotGiven = NOT_GIVEN,
+        object_type: ACLObjectType,
+        ending_before: str | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        starting_after: str | Omit = omit,
+        view_name: str | Omit = omit,
+        view_type: Optional[ViewType] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[View, AsyncListObjects[View]]:
         """List out all views.
 
@@ -886,25 +819,13 @@ class AsyncViewsResource(AsyncAPIResource):
         view_id: str,
         *,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
+        object_type: ACLObjectType,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> View:
         """
         Delete a view object by its id
@@ -946,32 +867,32 @@ class AsyncViewsResource(AsyncAPIResource):
         *,
         name: str,
         object_id: str,
-        object_type: Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ],
+        object_type: ACLObjectType,
         view_type: Optional[
-            Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+            Literal[
+                "projects",
+                "experiments",
+                "experiment",
+                "playgrounds",
+                "playground",
+                "datasets",
+                "dataset",
+                "prompts",
+                "tools",
+                "scorers",
+                "logs",
+            ]
         ],
-        deleted_at: Union[str, datetime, None] | NotGiven = NOT_GIVEN,
-        options: Optional[ViewOptions] | NotGiven = NOT_GIVEN,
-        user_id: Optional[str] | NotGiven = NOT_GIVEN,
-        view_data: Optional[ViewData] | NotGiven = NOT_GIVEN,
+        deleted_at: Union[str, datetime, None] | Omit = omit,
+        options: Optional[ViewOptions] | Omit = omit,
+        user_id: Optional[str] | Omit = omit,
+        view_data: Optional[ViewData] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> View:
         """Create or replace view.
 

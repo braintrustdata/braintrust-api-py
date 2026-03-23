@@ -2,16 +2,13 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Iterable, Optional
+from typing import Union, Iterable, Optional
 
 import httpx
 
 from ..types import role_list_params, role_create_params, role_update_params, role_replace_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from .._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -31,7 +28,7 @@ class RolesResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> RolesResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
@@ -51,16 +48,16 @@ class RolesResource(SyncAPIResource):
         self,
         *,
         name: str,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        member_permissions: Optional[Iterable[role_create_params.MemberPermission]] | NotGiven = NOT_GIVEN,
-        member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        org_name: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        member_permissions: Optional[Iterable[role_create_params.MemberPermission]] | Omit = omit,
+        member_roles: Optional[SequenceNotStr[str]] | Omit = omit,
+        org_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Role:
         """Create a new role.
 
@@ -118,7 +115,7 @@ class RolesResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Role:
         """
         Get a role object by its id
@@ -148,18 +145,18 @@ class RolesResource(SyncAPIResource):
         self,
         role_id: str,
         *,
-        add_member_permissions: Optional[Iterable[role_update_params.AddMemberPermission]] | NotGiven = NOT_GIVEN,
-        add_member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        remove_member_permissions: Optional[Iterable[role_update_params.RemoveMemberPermission]] | NotGiven = NOT_GIVEN,
-        remove_member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        add_member_permissions: Optional[Iterable[role_update_params.AddMemberPermission]] | Omit = omit,
+        add_member_roles: Optional[SequenceNotStr[str]] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        remove_member_permissions: Optional[Iterable[role_update_params.RemoveMemberPermission]] | Omit = omit,
+        remove_member_roles: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Role:
         """Partially update a role object.
 
@@ -214,18 +211,18 @@ class RolesResource(SyncAPIResource):
     def list(
         self,
         *,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        role_name: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        ending_before: str | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        org_name: str | Omit = omit,
+        role_name: str | Omit = omit,
+        starting_after: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncListObjects[Role]:
         """List out all roles.
 
@@ -294,7 +291,7 @@ class RolesResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Role:
         """
         Delete a role object by its id
@@ -324,16 +321,16 @@ class RolesResource(SyncAPIResource):
         self,
         *,
         name: str,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        member_permissions: Optional[Iterable[role_replace_params.MemberPermission]] | NotGiven = NOT_GIVEN,
-        member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        org_name: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        member_permissions: Optional[Iterable[role_replace_params.MemberPermission]] | Omit = omit,
+        member_roles: Optional[SequenceNotStr[str]] | Omit = omit,
+        org_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Role:
         """Create or replace role.
 
@@ -388,7 +385,7 @@ class AsyncRolesResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncRolesResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
@@ -408,16 +405,16 @@ class AsyncRolesResource(AsyncAPIResource):
         self,
         *,
         name: str,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        member_permissions: Optional[Iterable[role_create_params.MemberPermission]] | NotGiven = NOT_GIVEN,
-        member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        org_name: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        member_permissions: Optional[Iterable[role_create_params.MemberPermission]] | Omit = omit,
+        member_roles: Optional[SequenceNotStr[str]] | Omit = omit,
+        org_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Role:
         """Create a new role.
 
@@ -475,7 +472,7 @@ class AsyncRolesResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Role:
         """
         Get a role object by its id
@@ -505,18 +502,18 @@ class AsyncRolesResource(AsyncAPIResource):
         self,
         role_id: str,
         *,
-        add_member_permissions: Optional[Iterable[role_update_params.AddMemberPermission]] | NotGiven = NOT_GIVEN,
-        add_member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        remove_member_permissions: Optional[Iterable[role_update_params.RemoveMemberPermission]] | NotGiven = NOT_GIVEN,
-        remove_member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
+        add_member_permissions: Optional[Iterable[role_update_params.AddMemberPermission]] | Omit = omit,
+        add_member_roles: Optional[SequenceNotStr[str]] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        remove_member_permissions: Optional[Iterable[role_update_params.RemoveMemberPermission]] | Omit = omit,
+        remove_member_roles: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Role:
         """Partially update a role object.
 
@@ -571,18 +568,18 @@ class AsyncRolesResource(AsyncAPIResource):
     def list(
         self,
         *,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        role_name: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        ending_before: str | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        org_name: str | Omit = omit,
+        role_name: str | Omit = omit,
+        starting_after: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[Role, AsyncListObjects[Role]]:
         """List out all roles.
 
@@ -651,7 +648,7 @@ class AsyncRolesResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Role:
         """
         Delete a role object by its id
@@ -681,16 +678,16 @@ class AsyncRolesResource(AsyncAPIResource):
         self,
         *,
         name: str,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        member_permissions: Optional[Iterable[role_replace_params.MemberPermission]] | NotGiven = NOT_GIVEN,
-        member_roles: Optional[List[str]] | NotGiven = NOT_GIVEN,
-        org_name: Optional[str] | NotGiven = NOT_GIVEN,
+        description: Optional[str] | Omit = omit,
+        member_permissions: Optional[Iterable[role_replace_params.MemberPermission]] | Omit = omit,
+        member_roles: Optional[SequenceNotStr[str]] | Omit = omit,
+        org_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Role:
         """Create or replace role.
 

@@ -2,11 +2,12 @@
 
 from typing import Optional
 from datetime import datetime
-from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
+from .permission import Permission
+from .acl_object_type import ACLObjectType
 
 __all__ = ["ACL"]
 
@@ -21,19 +22,7 @@ class ACL(BaseModel):
     object_id: str
     """The id of the object the ACL applies to"""
 
-    object_type: Literal[
-        "organization",
-        "project",
-        "experiment",
-        "dataset",
-        "prompt",
-        "prompt_session",
-        "group",
-        "role",
-        "org_member",
-        "project_log",
-        "org_project",
-    ]
+    object_type: ACLObjectType
     """The object type that the ACL applies to"""
 
     created: Optional[datetime] = None
@@ -45,29 +34,13 @@ class ACL(BaseModel):
     Exactly one of `user_id` and `group_id` will be provided
     """
 
-    permission: Optional[
-        Literal["create", "read", "update", "delete", "create_acls", "read_acls", "update_acls", "delete_acls"]
-    ] = None
+    permission: Optional[Permission] = None
     """Permission the ACL grants.
 
     Exactly one of `permission` and `role_id` will be provided
     """
 
-    restrict_object_type: Optional[
-        Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ]
-    ] = None
+    restrict_object_type: Optional[ACLObjectType] = None
     """
     When setting a permission directly, optionally restricts the permission grant to
     just the specified object type. Cannot be set alongside a `role_id`.

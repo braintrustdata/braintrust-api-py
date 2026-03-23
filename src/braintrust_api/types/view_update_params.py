@@ -5,6 +5,7 @@ from __future__ import annotations
 from typing import Optional
 from typing_extensions import Literal, Required, TypedDict
 
+from .shared.acl_object_type import ACLObjectType
 from .shared_params.view_data import ViewData
 from .shared_params.view_options import ViewOptions
 
@@ -15,21 +16,7 @@ class ViewUpdateParams(TypedDict, total=False):
     object_id: Required[str]
     """The id of the object the view applies to"""
 
-    object_type: Required[
-        Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ]
-    ]
+    object_type: Required[ACLObjectType]
     """The object type that the ACL applies to"""
 
     name: Optional[str]
@@ -45,6 +32,18 @@ class ViewUpdateParams(TypedDict, total=False):
     """The view definition"""
 
     view_type: Optional[
-        Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
+        Literal[
+            "projects",
+            "experiments",
+            "experiment",
+            "playgrounds",
+            "playground",
+            "datasets",
+            "dataset",
+            "prompts",
+            "tools",
+            "scorers",
+            "logs",
+        ]
     ]
     """Type of table that the view corresponds to."""

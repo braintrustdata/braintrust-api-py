@@ -1,28 +1,31 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
+from typing import TYPE_CHECKING, Dict, List, Optional
 from datetime import datetime
-from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
+from .object_reference import ObjectReference
 
-__all__ = ["DatasetEvent", "Origin"]
+__all__ = ["DatasetEvent", "Metadata"]
 
 
-class Origin(BaseModel):
-    id: str
-    """ID of the original event."""
+class Metadata(BaseModel):
+    model: Optional[str] = None
+    """The model used for this example"""
 
-    xact_id: str = FieldInfo(alias="_xact_id")
-    """Transaction ID of the original event."""
+    if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[str, Optional[object]] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
 
-    object_id: str
-    """ID of the object the event is originating from."""
-
-    object_type: Literal["experiment", "dataset", "prompt", "function", "prompt_session", "project_logs"]
-    """Type of the object the event is originating from."""
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(self, attr: str) -> Optional[object]: ...
+    else:
+        __pydantic_extra__: Dict[str, Optional[object]]
 
 
 class DatasetEvent(BaseModel):
@@ -75,7 +78,7 @@ class DatasetEvent(BaseModel):
     is_root: Optional[bool] = None
     """Whether this span is a root span"""
 
-    metadata: Optional[Dict[str, Optional[object]]] = None
+    metadata: Optional[Metadata] = None
     """
     A dictionary with additional data about the test example, model outputs, or just
     about anything else that's relevant, that you can use to help find and analyze
@@ -84,7 +87,7 @@ class DatasetEvent(BaseModel):
     can be any JSON-serializable type, but its keys must be strings
     """
 
-    origin: Optional[Origin] = None
+    origin: Optional[ObjectReference] = None
     """Indicates the event was copied from another object."""
 
     tags: Optional[List[str]] = None

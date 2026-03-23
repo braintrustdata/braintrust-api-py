@@ -2,14 +2,16 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Union, Optional
 from typing_extensions import TypedDict
+
+from .._types import SequenceNotStr
 
 __all__ = ["UserListParams"]
 
 
 class UserListParams(TypedDict, total=False):
-    email: Union[str, List[str]]
+    email: Union[str, SequenceNotStr[str]]
     """Email of the user to search for.
 
     You may pass the param multiple times to filter for more than one email
@@ -23,19 +25,19 @@ class UserListParams(TypedDict, total=False):
     pass one of `starting_after` and `ending_before`
     """
 
-    family_name: Union[str, List[str]]
+    family_name: Union[str, SequenceNotStr[str]]
     """Family name of the user to search for.
 
     You may pass the param multiple times to filter for more than one family name
     """
 
-    given_name: Union[str, List[str]]
+    given_name: Union[str, SequenceNotStr[str]]
     """Given name of the user to search for.
 
     You may pass the param multiple times to filter for more than one given name
     """
 
-    ids: Union[str, List[str]]
+    ids: Union[str, SequenceNotStr[str]]
     """Filter search results to a particular set of object IDs.
 
     To specify a list of IDs, include the query param multiple times

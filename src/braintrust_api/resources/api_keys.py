@@ -2,16 +2,13 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Union, Optional
 
 import httpx
 
 from ..types import api_key_list_params, api_key_create_params
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from .._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -32,7 +29,7 @@ class APIKeysResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> APIKeysResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
@@ -52,13 +49,13 @@ class APIKeysResource(SyncAPIResource):
         self,
         *,
         name: str,
-        org_name: Optional[str] | NotGiven = NOT_GIVEN,
+        org_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreateAPIKeyOutput:
         """Create a new api_key.
 
@@ -104,7 +101,7 @@ class APIKeysResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> APIKey:
         """
         Get an api_key object by its id
@@ -133,18 +130,18 @@ class APIKeysResource(SyncAPIResource):
     def list(
         self,
         *,
-        api_key_name: str | NotGiven = NOT_GIVEN,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        api_key_name: str | Omit = omit,
+        ending_before: str | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        org_name: str | Omit = omit,
+        starting_after: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncListObjects[APIKey]:
         """List out all api_keys.
 
@@ -213,7 +210,7 @@ class APIKeysResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> APIKey:
         """
         Delete an api_key object by its id
@@ -244,7 +241,7 @@ class AsyncAPIKeysResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncAPIKeysResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
@@ -264,13 +261,13 @@ class AsyncAPIKeysResource(AsyncAPIResource):
         self,
         *,
         name: str,
-        org_name: Optional[str] | NotGiven = NOT_GIVEN,
+        org_name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreateAPIKeyOutput:
         """Create a new api_key.
 
@@ -316,7 +313,7 @@ class AsyncAPIKeysResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> APIKey:
         """
         Get an api_key object by its id
@@ -345,18 +342,18 @@ class AsyncAPIKeysResource(AsyncAPIResource):
     def list(
         self,
         *,
-        api_key_name: str | NotGiven = NOT_GIVEN,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        api_key_name: str | Omit = omit,
+        ending_before: str | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        org_name: str | Omit = omit,
+        starting_after: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[APIKey, AsyncListObjects[APIKey]]:
         """List out all api_keys.
 
@@ -425,7 +422,7 @@ class AsyncAPIKeysResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> APIKey:
         """
         Delete an api_key object by its id

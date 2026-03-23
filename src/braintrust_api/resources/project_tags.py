@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Union, Optional
 
 import httpx
 
@@ -12,11 +12,8 @@ from ..types import (
     project_tag_update_params,
     project_tag_replace_params,
 )
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from .._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -36,7 +33,7 @@ class ProjectTagsResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> ProjectTagsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
@@ -57,14 +54,14 @@ class ProjectTagsResource(SyncAPIResource):
         *,
         name: str,
         project_id: str,
-        color: Optional[str] | NotGiven = NOT_GIVEN,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
+        color: Optional[str] | Omit = omit,
+        description: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProjectTag:
         """Create a new project_tag.
 
@@ -115,7 +112,7 @@ class ProjectTagsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProjectTag:
         """
         Get a project_tag object by its id
@@ -145,15 +142,15 @@ class ProjectTagsResource(SyncAPIResource):
         self,
         project_tag_id: str,
         *,
-        color: Optional[str] | NotGiven = NOT_GIVEN,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
+        color: Optional[str] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProjectTag:
         """Partially update a project_tag object.
 
@@ -199,20 +196,20 @@ class ProjectTagsResource(SyncAPIResource):
     def list(
         self,
         *,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        project_id: str | NotGiven = NOT_GIVEN,
-        project_name: str | NotGiven = NOT_GIVEN,
-        project_tag_name: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        ending_before: str | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        org_name: str | Omit = omit,
+        project_id: str | Omit = omit,
+        project_name: str | Omit = omit,
+        project_tag_name: str | Omit = omit,
+        starting_after: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncListObjects[ProjectTag]:
         """List out all project_tags.
 
@@ -287,7 +284,7 @@ class ProjectTagsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProjectTag:
         """
         Delete a project_tag object by its id
@@ -318,14 +315,14 @@ class ProjectTagsResource(SyncAPIResource):
         *,
         name: str,
         project_id: str,
-        color: Optional[str] | NotGiven = NOT_GIVEN,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
+        color: Optional[str] | Omit = omit,
+        description: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProjectTag:
         """Create or replace project_tag.
 
@@ -372,7 +369,7 @@ class AsyncProjectTagsResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncProjectTagsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
@@ -393,14 +390,14 @@ class AsyncProjectTagsResource(AsyncAPIResource):
         *,
         name: str,
         project_id: str,
-        color: Optional[str] | NotGiven = NOT_GIVEN,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
+        color: Optional[str] | Omit = omit,
+        description: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProjectTag:
         """Create a new project_tag.
 
@@ -451,7 +448,7 @@ class AsyncProjectTagsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProjectTag:
         """
         Get a project_tag object by its id
@@ -481,15 +478,15 @@ class AsyncProjectTagsResource(AsyncAPIResource):
         self,
         project_tag_id: str,
         *,
-        color: Optional[str] | NotGiven = NOT_GIVEN,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
+        color: Optional[str] | Omit = omit,
+        description: Optional[str] | Omit = omit,
+        name: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProjectTag:
         """Partially update a project_tag object.
 
@@ -535,20 +532,20 @@ class AsyncProjectTagsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        project_id: str | NotGiven = NOT_GIVEN,
-        project_name: str | NotGiven = NOT_GIVEN,
-        project_tag_name: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        ending_before: str | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        org_name: str | Omit = omit,
+        project_id: str | Omit = omit,
+        project_name: str | Omit = omit,
+        project_tag_name: str | Omit = omit,
+        starting_after: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[ProjectTag, AsyncListObjects[ProjectTag]]:
         """List out all project_tags.
 
@@ -623,7 +620,7 @@ class AsyncProjectTagsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProjectTag:
         """
         Delete a project_tag object by its id
@@ -654,14 +651,14 @@ class AsyncProjectTagsResource(AsyncAPIResource):
         *,
         name: str,
         project_id: str,
-        color: Optional[str] | NotGiven = NOT_GIVEN,
-        description: Optional[str] | NotGiven = NOT_GIVEN,
+        color: Optional[str] | Omit = omit,
+        description: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProjectTag:
         """Create or replace project_tag.
 

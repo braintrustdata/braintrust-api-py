@@ -2,14 +2,14 @@
 
 from typing import TYPE_CHECKING, Dict, List, Optional
 from datetime import datetime
-from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
 from .span_attributes import SpanAttributes
+from .object_reference import ObjectReference
 
-__all__ = ["ExperimentEvent", "Context", "Metrics", "Origin"]
+__all__ = ["ExperimentEvent", "Context", "Metadata", "Metrics"]
 
 
 class Context(BaseModel):
@@ -23,10 +23,33 @@ class Context(BaseModel):
     """Line of code where the experiment event was created"""
 
     if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[str, Optional[object]] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
         # Stub to indicate that arbitrary properties are accepted.
         # To access properties that are not valid identifiers you can use `getattr`, e.g.
         # `getattr(obj, '$type')`
         def __getattr__(self, attr: str) -> Optional[object]: ...
+    else:
+        __pydantic_extra__: Dict[str, Optional[object]]
+
+
+class Metadata(BaseModel):
+    model: Optional[str] = None
+    """The model used for this example"""
+
+    if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[str, Optional[object]] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(self, attr: str) -> Optional[object]: ...
+    else:
+        __pydantic_extra__: Dict[str, Optional[object]]
 
 
 class Metrics(BaseModel):
@@ -67,24 +90,16 @@ class Metrics(BaseModel):
     """The total number of tokens in the input and output of the experiment event."""
 
     if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[str, float] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
         # Stub to indicate that arbitrary properties are accepted.
         # To access properties that are not valid identifiers you can use `getattr`, e.g.
         # `getattr(obj, '$type')`
         def __getattr__(self, attr: str) -> float: ...
-
-
-class Origin(BaseModel):
-    id: str
-    """ID of the original event."""
-
-    xact_id: str = FieldInfo(alias="_xact_id")
-    """Transaction ID of the original event."""
-
-    object_id: str
-    """ID of the object the event is originating from."""
-
-    object_type: Literal["experiment", "dataset", "prompt", "function", "prompt_session", "project_logs"]
-    """Type of the object the event is originating from."""
+    else:
+        __pydantic_extra__: Dict[str, float]
 
 
 class ExperimentEvent(BaseModel):
@@ -130,12 +145,6 @@ class ExperimentEvent(BaseModel):
     experiment event
     """
 
-    dataset_record_id: Optional[str] = None
-    """
-    If the experiment is associated to a dataset, this is the event-level dataset id
-    this experiment event is tied to
-    """
-
     error: Optional[object] = None
     """The error that occurred, if any."""
 
@@ -162,7 +171,7 @@ class ExperimentEvent(BaseModel):
     is_root: Optional[bool] = None
     """Whether this span is a root span"""
 
-    metadata: Optional[Dict[str, Optional[object]]] = None
+    metadata: Optional[Metadata] = None
     """
     A dictionary with additional data about the test example, model outputs, or just
     about anything else that's relevant, that you can use to help find and analyze
@@ -178,7 +187,7 @@ class ExperimentEvent(BaseModel):
     which the experiment event was produced
     """
 
-    origin: Optional[Origin] = None
+    origin: Optional[ObjectReference] = None
     """Indicates the event was copied from another object."""
 
     output: Optional[object] = None

@@ -2,14 +2,16 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable, Optional
+from typing import Dict, Union, Iterable, Optional
 from datetime import datetime
 from typing_extensions import Annotated, TypeAlias, TypedDict
 
+from ..._types import SequenceNotStr
 from ..._utils import PropertyInfo
 from .span_attributes import SpanAttributes
+from .object_reference import ObjectReference
 
-__all__ = ["InsertExperimentEvent", "Context", "Metrics"]
+__all__ = ["InsertExperimentEvent", "Context", "Metadata", "Metrics"]
 
 
 class ContextTyped(TypedDict, total=False):
@@ -26,14 +28,22 @@ class ContextTyped(TypedDict, total=False):
 Context: TypeAlias = Union[ContextTyped, Dict[str, Optional[object]]]
 
 
+class MetadataTyped(TypedDict, total=False):
+    model: Optional[str]
+    """The model used for this example"""
+
+
+Metadata: TypeAlias = Union[MetadataTyped, Dict[str, Optional[object]]]
+
+
 class MetricsTyped(TypedDict, total=False):
-    caller_filename: Optional[object]
+    caller_filename: object
     """This metric is deprecated"""
 
-    caller_functionname: Optional[object]
+    caller_functionname: object
     """This metric is deprecated"""
 
-    caller_lineno: Optional[object]
+    caller_lineno: object
     """This metric is deprecated"""
 
     completion_tokens: Optional[int]
@@ -90,7 +100,7 @@ class InsertExperimentEvent(TypedDict, total=False):
     `{"id": "foo", "input": {"b": 11, "c": 20}}`
     """
 
-    _merge_paths: Optional[Iterable[List[str]]]
+    _merge_paths: Optional[Iterable[SequenceNotStr[str]]]
     """
     The `_merge_paths` field allows controlling the depth of the merge, when
     `_is_merge=true`. `_merge_paths` is a list of paths, where each path is a list
@@ -114,8 +124,12 @@ class InsertExperimentEvent(TypedDict, total=False):
     """
 
     _parent_id: Optional[str]
-    """Use the `_parent_id` field to create this row as a subspan of an existing row.
+    """DEPRECATED: The `_parent_id` field is deprecated and should not be used.
 
+    Support for `_parent_id` will be dropped in a future version of Braintrust. Log
+    `span_id`, `root_span_id`, and `span_parents` explicitly instead.
+
+    Use the `_parent_id` field to create this row as a subspan of an existing row.
     Tracking hierarchical relationships are important for tracing (see the
     [guide](https://www.braintrust.dev/docs/guides/tracing) for full details).
 
@@ -141,16 +155,10 @@ class InsertExperimentEvent(TypedDict, total=False):
     created: Annotated[Union[str, datetime, None], PropertyInfo(format="iso8601")]
     """The timestamp the experiment event was created"""
 
-    dataset_record_id: Optional[str]
-    """
-    If the experiment is associated to a dataset, this is the event-level dataset id
-    this experiment event is tied to
-    """
-
-    error: Optional[object]
+    error: object
     """The error that occurred, if any."""
 
-    expected: Optional[object]
+    expected: object
     """
     The ground truth value (an arbitrary, JSON serializable object) that you'd
     compare to `output` to determine if your `output` value is correct or not.
@@ -161,7 +169,7 @@ class InsertExperimentEvent(TypedDict, total=False):
     models
     """
 
-    input: Optional[object]
+    input: object
     """
     The arguments that uniquely define a test case (an arbitrary, JSON serializable
     object). Later on, Braintrust will use the `input` to know whether two test
@@ -170,7 +178,7 @@ class InsertExperimentEvent(TypedDict, total=False):
     experiment twice, the `input` should be identical
     """
 
-    metadata: Optional[Dict[str, Optional[object]]]
+    metadata: Optional[Metadata]
     """
     A dictionary with additional data about the test example, model outputs, or just
     about anything else that's relevant, that you can use to help find and analyze
@@ -186,7 +194,10 @@ class InsertExperimentEvent(TypedDict, total=False):
     which the experiment event was produced
     """
 
-    output: Optional[object]
+    origin: Optional[ObjectReference]
+    """Indicates the event was copied from another object."""
+
+    output: object
     """
     The output of your application, including post-processing (an arbitrary, JSON
     serializable object), that allows you to determine whether the result is correct
@@ -197,9 +208,9 @@ class InsertExperimentEvent(TypedDict, total=False):
 
     root_span_id: Optional[str]
     """
-    Use span_id, root_span_id, and span_parents as a more explicit alternative to
-    \\__parent_id. The span_id is a unique identifier describing the row's place in
-    the a trace, and the root_span_id is a unique identifier for the whole trace.
+    Use `span_id`, `root_span_id`, and `span_parents` instead of `_parent_id`, which
+    is now deprecated. The span_id is a unique identifier describing the row's place
+    in the a trace, and the root_span_id is a unique identifier for the whole trace.
     See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
     details.
 
@@ -231,9 +242,9 @@ class InsertExperimentEvent(TypedDict, total=False):
 
     span_id: Optional[str]
     """
-    Use span_id, root_span_id, and span_parents as a more explicit alternative to
-    \\__parent_id. The span_id is a unique identifier describing the row's place in
-    the a trace, and the root_span_id is a unique identifier for the whole trace.
+    Use `span_id`, `root_span_id`, and `span_parents` instead of `_parent_id`, which
+    is now deprecated. The span_id is a unique identifier describing the row's place
+    in the a trace, and the root_span_id is a unique identifier for the whole trace.
     See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
     details.
 
@@ -248,11 +259,11 @@ class InsertExperimentEvent(TypedDict, total=False):
     If the row is being merged into an existing row, this field will be ignored.
     """
 
-    span_parents: Optional[List[str]]
+    span_parents: Optional[SequenceNotStr[str]]
     """
-    Use span_id, root_span_id, and span_parents as a more explicit alternative to
-    \\__parent_id. The span_id is a unique identifier describing the row's place in
-    the a trace, and the root_span_id is a unique identifier for the whole trace.
+    Use `span_id`, `root_span_id`, and `span_parents` instead of `_parent_id`, which
+    is now deprecated. The span_id is a unique identifier describing the row's place
+    in the a trace, and the root_span_id is a unique identifier for the whole trace.
     See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
     details.
 
@@ -267,5 +278,5 @@ class InsertExperimentEvent(TypedDict, total=False):
     If the row is being merged into an existing row, this field will be ignored.
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[SequenceNotStr[str]]
     """A list of tags to log"""

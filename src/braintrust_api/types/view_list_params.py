@@ -2,8 +2,12 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing import Union, Optional
+from typing_extensions import Required, TypedDict
+
+from .._types import SequenceNotStr
+from .shared.view_type import ViewType
+from .shared.acl_object_type import ACLObjectType
 
 __all__ = ["ViewListParams"]
 
@@ -12,21 +16,7 @@ class ViewListParams(TypedDict, total=False):
     object_id: Required[str]
     """The id of the object the ACL applies to"""
 
-    object_type: Required[
-        Literal[
-            "organization",
-            "project",
-            "experiment",
-            "dataset",
-            "prompt",
-            "prompt_session",
-            "group",
-            "role",
-            "org_member",
-            "project_log",
-            "org_project",
-        ]
-    ]
+    object_type: Required[ACLObjectType]
     """The object type that the ACL applies to"""
 
     ending_before: str
@@ -37,7 +27,7 @@ class ViewListParams(TypedDict, total=False):
     pass one of `starting_after` and `ending_before`
     """
 
-    ids: Union[str, List[str]]
+    ids: Union[str, SequenceNotStr[str]]
     """Filter search results to a particular set of object IDs.
 
     To specify a list of IDs, include the query param multiple times
@@ -57,7 +47,5 @@ class ViewListParams(TypedDict, total=False):
     view_name: str
     """Name of the view to search for"""
 
-    view_type: Optional[
-        Literal["projects", "logs", "experiments", "datasets", "prompts", "playgrounds", "experiment", "dataset"]
-    ]
+    view_type: Optional[ViewType]
     """Type of table that the view corresponds to."""

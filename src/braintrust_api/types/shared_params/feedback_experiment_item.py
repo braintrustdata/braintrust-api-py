@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 from typing_extensions import Literal, Required, TypedDict
+
+from ..._types import SequenceNotStr
 
 __all__ = ["FeedbackExperimentItem"]
 
@@ -18,7 +20,7 @@ class FeedbackExperimentItem(TypedDict, total=False):
     comment: Optional[str]
     """An optional comment string to log about the experiment event"""
 
-    expected: Optional[object]
+    expected: object
     """
     The ground truth value (an arbitrary, JSON serializable object) that you'd
     compare to `output` to determine if your `output` value is correct or not
@@ -44,5 +46,5 @@ class FeedbackExperimentItem(TypedDict, total=False):
     Must be one of "external" (default), "app", or "api"
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[SequenceNotStr[str]]
     """A list of tags to log"""

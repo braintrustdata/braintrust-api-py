@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 from typing_extensions import Literal, Required, TypedDict
+
+from ..._types import SequenceNotStr
 
 __all__ = ["FeedbackDatasetItem"]
 
@@ -32,5 +34,5 @@ class FeedbackDatasetItem(TypedDict, total=False):
     Must be one of "external" (default), "app", or "api"
     """
 
-    tags: Optional[List[str]]
+    tags: Optional[SequenceNotStr[str]]
     """A list of tags to log"""

@@ -7,8 +7,9 @@ from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
 from .span_attributes import SpanAttributes
+from .object_reference import ObjectReference
 
-__all__ = ["InsertExperimentEvent", "Context", "Metrics"]
+__all__ = ["InsertExperimentEvent", "Context", "Metadata", "Metrics"]
 
 
 class Context(BaseModel):
@@ -22,10 +23,33 @@ class Context(BaseModel):
     """Line of code where the experiment event was created"""
 
     if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[str, Optional[object]] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
         # Stub to indicate that arbitrary properties are accepted.
         # To access properties that are not valid identifiers you can use `getattr`, e.g.
         # `getattr(obj, '$type')`
         def __getattr__(self, attr: str) -> Optional[object]: ...
+    else:
+        __pydantic_extra__: Dict[str, Optional[object]]
+
+
+class Metadata(BaseModel):
+    model: Optional[str] = None
+    """The model used for this example"""
+
+    if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[str, Optional[object]] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(self, attr: str) -> Optional[object]: ...
+    else:
+        __pydantic_extra__: Dict[str, Optional[object]]
 
 
 class Metrics(BaseModel):
@@ -66,10 +90,16 @@ class Metrics(BaseModel):
     """The total number of tokens in the input and output of the experiment event."""
 
     if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[str, float] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
         # Stub to indicate that arbitrary properties are accepted.
         # To access properties that are not valid identifiers you can use `getattr`, e.g.
         # `getattr(obj, '$type')`
         def __getattr__(self, attr: str) -> float: ...
+    else:
+        __pydantic_extra__: Dict[str, float]
 
 
 class InsertExperimentEvent(BaseModel):
@@ -119,8 +149,12 @@ class InsertExperimentEvent(BaseModel):
     """
 
     parent_id: Optional[str] = FieldInfo(alias="_parent_id", default=None)
-    """Use the `_parent_id` field to create this row as a subspan of an existing row.
+    """DEPRECATED: The `_parent_id` field is deprecated and should not be used.
 
+    Support for `_parent_id` will be dropped in a future version of Braintrust. Log
+    `span_id`, `root_span_id`, and `span_parents` explicitly instead.
+
+    Use the `_parent_id` field to create this row as a subspan of an existing row.
     Tracking hierarchical relationships are important for tracing (see the
     [guide](https://www.braintrust.dev/docs/guides/tracing) for full details).
 
@@ -146,12 +180,6 @@ class InsertExperimentEvent(BaseModel):
     created: Optional[datetime] = None
     """The timestamp the experiment event was created"""
 
-    dataset_record_id: Optional[str] = None
-    """
-    If the experiment is associated to a dataset, this is the event-level dataset id
-    this experiment event is tied to
-    """
-
     error: Optional[object] = None
     """The error that occurred, if any."""
 
@@ -175,7 +203,7 @@ class InsertExperimentEvent(BaseModel):
     experiment twice, the `input` should be identical
     """
 
-    metadata: Optional[Dict[str, Optional[object]]] = None
+    metadata: Optional[Metadata] = None
     """
     A dictionary with additional data about the test example, model outputs, or just
     about anything else that's relevant, that you can use to help find and analyze
@@ -191,6 +219,9 @@ class InsertExperimentEvent(BaseModel):
     which the experiment event was produced
     """
 
+    origin: Optional[ObjectReference] = None
+    """Indicates the event was copied from another object."""
+
     output: Optional[object] = None
     """
     The output of your application, including post-processing (an arbitrary, JSON
@@ -202,9 +233,9 @@ class InsertExperimentEvent(BaseModel):
 
     root_span_id: Optional[str] = None
     """
-    Use span_id, root_span_id, and span_parents as a more explicit alternative to
-    \\__parent_id. The span_id is a unique identifier describing the row's place in
-    the a trace, and the root_span_id is a unique identifier for the whole trace.
+    Use `span_id`, `root_span_id`, and `span_parents` instead of `_parent_id`, which
+    is now deprecated. The span_id is a unique identifier describing the row's place
+    in the a trace, and the root_span_id is a unique identifier for the whole trace.
     See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
     details.
 
@@ -236,9 +267,9 @@ class InsertExperimentEvent(BaseModel):
 
     span_id: Optional[str] = None
     """
-    Use span_id, root_span_id, and span_parents as a more explicit alternative to
-    \\__parent_id. The span_id is a unique identifier describing the row's place in
-    the a trace, and the root_span_id is a unique identifier for the whole trace.
+    Use `span_id`, `root_span_id`, and `span_parents` instead of `_parent_id`, which
+    is now deprecated. The span_id is a unique identifier describing the row's place
+    in the a trace, and the root_span_id is a unique identifier for the whole trace.
     See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
     details.
 
@@ -255,9 +286,9 @@ class InsertExperimentEvent(BaseModel):
 
     span_parents: Optional[List[str]] = None
     """
-    Use span_id, root_span_id, and span_parents as a more explicit alternative to
-    \\__parent_id. The span_id is a unique identifier describing the row's place in
-    the a trace, and the root_span_id is a unique identifier for the whole trace.
+    Use `span_id`, `root_span_id`, and `span_parents` instead of `_parent_id`, which
+    is now deprecated. The span_id is a unique identifier describing the row's place
+    in the a trace, and the root_span_id is a unique identifier for the whole trace.
     See the [guide](https://www.braintrust.dev/docs/guides/tracing) for full
     details.
 

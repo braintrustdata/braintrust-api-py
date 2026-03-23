@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 from typing import List, Union, Optional
-from typing_extensions import Literal, TypedDict
+from typing_extensions import TypedDict
+
+from .._types import SequenceNotStr
+from .shared.project_score_type import ProjectScoreType
 
 __all__ = ["ProjectScoreListParams"]
 
@@ -17,7 +20,7 @@ class ProjectScoreListParams(TypedDict, total=False):
     pass one of `starting_after` and `ending_before`
     """
 
-    ids: Union[str, List[str]]
+    ids: Union[str, SequenceNotStr[str]]
     """Filter search results to a particular set of object IDs.
 
     To specify a list of IDs, include the query param multiple times
@@ -38,10 +41,7 @@ class ProjectScoreListParams(TypedDict, total=False):
     project_score_name: str
     """Name of the project_score to search for"""
 
-    score_type: Union[
-        Literal["slider", "categorical", "weighted", "minimum", "maximum", "online"],
-        List[Literal["slider", "categorical", "weighted", "minimum", "maximum", "online"]],
-    ]
+    score_type: Union[ProjectScoreType, List[ProjectScoreType]]
     """The type of the configured score"""
 
     starting_after: str

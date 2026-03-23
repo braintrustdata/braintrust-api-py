@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union, Optional
+from typing import Union, Optional
 
 import httpx
 
@@ -15,11 +15,8 @@ from .members import (
     MembersResourceWithStreamingResponse,
     AsyncMembersResourceWithStreamingResponse,
 )
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from ..._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -43,7 +40,7 @@ class OrganizationsResource(SyncAPIResource):
     @cached_property
     def with_raw_response(self) -> OrganizationsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
@@ -68,7 +65,7 @@ class OrganizationsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Organization:
         """
         Get an organization object by its id
@@ -98,17 +95,17 @@ class OrganizationsResource(SyncAPIResource):
         self,
         organization_id: str,
         *,
-        api_url: Optional[str] | NotGiven = NOT_GIVEN,
-        is_universal_api: Optional[bool] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        proxy_url: Optional[str] | NotGiven = NOT_GIVEN,
-        realtime_url: Optional[str] | NotGiven = NOT_GIVEN,
+        api_url: Optional[str] | Omit = omit,
+        is_universal_api: Optional[bool] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        proxy_url: Optional[str] | Omit = omit,
+        realtime_url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Organization:
         """Partially update an organization object.
 
@@ -152,17 +149,17 @@ class OrganizationsResource(SyncAPIResource):
     def list(
         self,
         *,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        ending_before: str | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        org_name: str | Omit = omit,
+        starting_after: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncListObjects[Organization]:
         """List out all organizations.
 
@@ -228,7 +225,7 @@ class OrganizationsResource(SyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Organization:
         """
         Delete an organization object by its id
@@ -263,7 +260,7 @@ class AsyncOrganizationsResource(AsyncAPIResource):
     @cached_property
     def with_raw_response(self) -> AsyncOrganizationsResourceWithRawResponse:
         """
-        This property can be used as a prefix for any HTTP method call to return the
+        This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/braintrustdata/braintrust-api-py#accessing-raw-response-data-eg-headers
@@ -288,7 +285,7 @@ class AsyncOrganizationsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Organization:
         """
         Get an organization object by its id
@@ -318,17 +315,17 @@ class AsyncOrganizationsResource(AsyncAPIResource):
         self,
         organization_id: str,
         *,
-        api_url: Optional[str] | NotGiven = NOT_GIVEN,
-        is_universal_api: Optional[bool] | NotGiven = NOT_GIVEN,
-        name: Optional[str] | NotGiven = NOT_GIVEN,
-        proxy_url: Optional[str] | NotGiven = NOT_GIVEN,
-        realtime_url: Optional[str] | NotGiven = NOT_GIVEN,
+        api_url: Optional[str] | Omit = omit,
+        is_universal_api: Optional[bool] | Omit = omit,
+        name: Optional[str] | Omit = omit,
+        proxy_url: Optional[str] | Omit = omit,
+        realtime_url: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Organization:
         """Partially update an organization object.
 
@@ -372,17 +369,17 @@ class AsyncOrganizationsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        ending_before: str | NotGiven = NOT_GIVEN,
-        ids: Union[str, List[str]] | NotGiven = NOT_GIVEN,
-        limit: Optional[int] | NotGiven = NOT_GIVEN,
-        org_name: str | NotGiven = NOT_GIVEN,
-        starting_after: str | NotGiven = NOT_GIVEN,
+        ending_before: str | Omit = omit,
+        ids: Union[str, SequenceNotStr[str]] | Omit = omit,
+        limit: Optional[int] | Omit = omit,
+        org_name: str | Omit = omit,
+        starting_after: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[Organization, AsyncListObjects[Organization]]:
         """List out all organizations.
 
@@ -448,7 +445,7 @@ class AsyncOrganizationsResource(AsyncAPIResource):
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Organization:
         """
         Delete an organization object by its id
