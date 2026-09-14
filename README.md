@@ -1,3 +1,9 @@
+# Deprecation Notice
+
+This client is no longer maintained. Please use the Braintrust Python SDK api client instead.
+
+https://github.com/braintrustdata/braintrust-sdk-python/blob/main/py/src/braintrust/api/README.md
+
 # Braintrust Python API library
 
 [![PyPI version](https://img.shields.io/pypi/v/braintrust-api.svg)](https://pypi.org/project/braintrust-api/)
